@@ -53,23 +53,24 @@ export default function Articles() {
   const [params] = useSearchParams();
   const q = (params.get('q') ?? '').trim();
   const cat = params.get('category') ?? '';
+  const archive=params.get('archive')==='1';
   const words = normalized(q).split(/\s+/u).filter(Boolean);
   const filtered = all.filter(version => {
     const article = version.article;
     const text = normalized([article.title, article.deck, article.category, ...article.sections.flatMap(section => [section.heading, ...section.paragraphs]), ...operationText(version)].join(' '));
-    return (!cat || article.category === cat) && words.every(word => text.includes(word));
+    return (archive||version.interpretation.topic_key==='china-equity-index')&&(!cat || article.category === cat) && words.every(word => text.includes(word));
   }).sort((a, b) => b.as_of.localeCompare(a.as_of));
   return <main id="main" className="listing">
-    <h1>全部文章</h1>
+    <h1>{archive?'历史资料':'沪深300阅读'}</h1>{archive&&<p className="listing-deck">旧宏观文章按原日期保留，作为历史背景；不参与首页本期基金判断。</p>}
     <Form key={JSON.stringify([q, cat])} className="search-form" method="get">
-      <label htmlFor="search">找一篇文章</label>
+      {archive&&<input type="hidden" name="archive" value="1"/>}<label htmlFor="search">找一篇文章</label>
       <div><input id="search" name="q" type="search" defaultValue={q} placeholder="标题或正文关键词" aria-describedby="search-help" />
         <select name="category" defaultValue={cat} aria-label="文章分类"><option value="">所有分类</option>{[...new Set(all.map(version => version.article.category))].map(category => <option key={category}>{category}</option>)}</select>
         <button type="submit">查找</button></div>
       <p id="search-help" className="search-help">搜索标题、导读和正文；多个关键词用空格分开。</p>
     </Form>
     <p className="results-count" role="status">{filtered.length}篇文章{q && ` · “${q}”`}{cat && ` · ${cat}`}</p>
-    {(q || cat) && <Link className="text-link" to="/articles">清除筛选</Link>}
+    {(q || cat) && <Link className="text-link" to={archive?'/articles?archive=1':'/articles'}>清除筛选</Link>}
     {filtered.map((version, index) => <ArticleRow key={version.id} article={version} index={index} />)}
     {!filtered.length && <p className="empty-small">没有找到相关文章，试试更短的关键词或清除分类筛选。</p>}
   </main>;

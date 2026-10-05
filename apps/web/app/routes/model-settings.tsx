@@ -1,11 +1,12 @@
 import {Form,Link,useActionData,useLoaderData,useNavigation} from 'react-router';
 import type {ActionFunctionArgs} from 'react-router';
-import {owner} from './settings.tsx';
+import {owner} from './maintenance.tsx';
 import type {createResearchService} from '../../../../packages/backend/research-service.ts';
 type Preview=Awaited<ReturnType<ReturnType<typeof createResearchService>['preview']>>;
-export async function loader(){return owner<Preview>('research/preview');}
+export async function loader(){if(process.env.JINGWEI_EDITOR_MODE!=='1')throw new Response('维护入口未启用',{status:404});return owner<Preview>('research/preview');}
 export function meta(){return [{title:'模型与基金研究设置 · 经纬'},{name:'robots',content:'noindex'}];}
 export async function action({request}:ActionFunctionArgs){
+ if(process.env.JINGWEI_EDITOR_MODE!=='1')throw new Response('维护入口未启用',{status:404});
  if(request.headers.get('origin')!==new URL(request.url).origin)return {ok:false,message:'请从当前本机窗口保存。'};
  const form=await request.formData();
  if(form.get('intent')==='authorize'){const current=await owner<Preview>('research/preview');if(!current.session.has_key||!current.budget)return {ok:false,message:'已有本机保存尚未恢复，费用授权保持关闭。'};try{await owner('session',{authorize:true,limit_cny:current.budget.limit_cny});return {ok:true,message:'本轮费用已授权，累计账本保留。本次尚未开始生成。'};}catch{return {ok:false,message:'费用授权尚未生效，累计记录保留。'};}}

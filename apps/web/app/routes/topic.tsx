@@ -42,6 +42,6 @@ export default function Topic(){
    </>}
   </section>}
   <div className="topic-content"><section><div className="section-top"><h2>最新文章</h2></div>{latest&&<ArticleRow article={latest} heading="h3"/>}{earlier.length>0&&<><div className="section-top earlier-title"><h2>早期文章</h2></div>{earlier.map(v=><ArticleRow key={v.id} article={v} heading="h3"/>)}</>}</section>{background.length>0&&<aside className="topic-background"><h2>背景解释</h2>{background.map(v=><Link key={v.id} to={`/articles/${v.article.slug}`}><strong>{v.article.title}</strong><p>{v.article.deck}</p><span>{v.article.read_minutes}分钟阅读 <Arrow/></span></Link>)}</aside>}</div>
-  <Link className="text-link" to="/topics"><Arrow back/> 其他专题</Link>
+  <Link className="text-link" to="/topics"><Arrow back/> 沪深300专题</Link>
  </main>;
 }

@@ -1,5 +1,5 @@
-import {useEffect,useRef} from 'react';
-import {Link,useFetcher,useRouteLoaderData,useRevalidator} from 'react-router';
+import {useEffect,useState} from 'react';
+import {Link,useRouteLoaderData,useRevalidator} from 'react-router';
 import type {ResearchEvaluation} from '../../../../packages/contracts/research.ts';
 import type {SourceRef} from '../../../../packages/contracts/types.ts';
 import type {FinanceVersion} from '../../../../packages/contracts/types.ts';
@@ -8,22 +8,23 @@ import {MarketFigure} from './MarketFigure.tsx';
 import {date,sourceDates} from '../lib/format.ts';
 
 export type ResearchUpdate = {status:'idle'|'checking'|'partial'|'failed'|'updated'|'unchanged'|'model_waiting';last_checked_at:string|null;last_success_at:string|null;next_check_at:string|null;source_errors:string[];message:string};
+async function readingRequest(fields:Record<string,string>){const r=await fetch('/follow',{method:'POST',body:new URLSearchParams(fields),signal:AbortSignal.timeout(10000)});const result=await r.json()as{ok:boolean;message?:string};if(!r.ok||!result.ok)throw new Error(result.message??'暂时未能完成');return result;}
 export function FollowButton({topicKey}:{topicKey:string}){
  const root=useRouteLoaderData<{followed:string[]|null}>('root');
- const fetcher=useFetcher<{ok:boolean;message?:string}>();
+ const revalidator=useRevalidator(),[pending,setPending]=useState(false),[message,setMessage]=useState('');
  const followed=root?.followed?.includes(topicKey)??false;
- const pending=fetcher.state!=='idle';
+ async function toggle(event:React.FormEvent){event.preventDefault();setPending(true);setMessage('');try{await readingRequest({topic_key:topicKey,followed:String(!followed)});await revalidator.revalidate();}catch{setMessage('这次关注未保存，可继续阅读，恢复连接后重试。');}finally{setPending(false);}}
  if(root?.followed===null||topicKey!=='china-equity-index')return null;
- return <div className="follow-control"><fetcher.Form method="post" action="/follow"><input type="hidden" name="topic_key" value={topicKey}/><input type="hidden" name="followed" value={String(!followed)}/><button type="submit" aria-pressed={followed} disabled={pending}>{pending?'保存中…':followed?'已关注':'关注这个方向'}</button></fetcher.Form>{fetcher.data?.ok===false&&<small role="status">{fetcher.data.message}</small>}</div>;
+ return <div className="follow-control"><form method="post" action="/follow" onSubmit={toggle}><button type="submit" aria-pressed={followed} disabled={pending}>{pending?'保存中…':followed?'已关注':'关注这个方向'}</button></form>{message&&<small role="status">{message}</small>}</div>;
 }
 export function CheckResearchButton(){
- const fetcher=useFetcher<{ok:boolean;message?:string}>();const revalidator=useRevalidator();const seen=useRef<unknown>(null);
- useEffect(()=>{if(fetcher.state!=='idle'||!fetcher.data?.ok||seen.current===fetcher.data)return;seen.current=fetcher.data;const timer=setTimeout(()=>void revalidator.revalidate(),2000);return()=>clearTimeout(timer);},[fetcher.state,fetcher.data,revalidator.revalidate]);
- return <div className="follow-control research-check"><fetcher.Form method="post" action="/follow"><input type="hidden" name="intent" value="refresh"/><button type="submit" disabled={fetcher.state!=='idle'}>{fetcher.state!=='idle'?'正在核查…':'核查新资料'}</button></fetcher.Form>{fetcher.data&&<small role="status">{fetcher.data.message??(fetcher.data.ok?'已开始核查，可继续阅读。':'这次核查未能开始，请稍后再试。')}</small>}</div>;
+ const revalidator=useRevalidator(),[pending,setPending]=useState(false),[message,setMessage]=useState('');
+ async function check(event:React.FormEvent){event.preventDefault();setPending(true);try{const r=await readingRequest({intent:'refresh'});setMessage(r.message??'已开始核查，可继续阅读。');setTimeout(()=>{if(navigator.onLine)void revalidator.revalidate();},2000);}catch{setMessage('连接暂时不可用，本次核查未开始。已打开的内容继续保留。');}finally{setPending(false);}}
+ return <div className="follow-control research-check"><form method="post" action="/follow" onSubmit={check}><button type="submit" disabled={pending}>{pending?'正在核查…':'核查新资料'}</button></form>{message&&<small role="status">{message}</small>}</div>;
 }
 export function ResearchUpdateNote({update}:{update?:ResearchUpdate|null}){
  const revalidator=useRevalidator();
- useEffect(()=>{if(update?.status!=='checking'||revalidator.state!=='idle')return;const timer=setTimeout(()=>void revalidator.revalidate(),3000);return()=>clearTimeout(timer);},[update,revalidator.state,revalidator.revalidate]);
+ useEffect(()=>{if(update?.status!=='checking'||revalidator.state!=='idle')return;const timer=setTimeout(()=>{if(navigator.onLine)void revalidator.revalidate();},3000);return()=>clearTimeout(timer);},[update,revalidator.state,revalidator.revalidate]);
  if(!update||!update.last_checked_at&&update.status!=='checking')return null;
  const text=update.status==='checking'?'正在核查公开资料，已有研究仍可阅读。':update.status==='model_waiting'?'资料已核查，当前判断尚未重新研究。':update.status==='unchanged'?'已核查，研究依据没有实质变化。':update.status==='updated'?'本次核查已有新研究。':update.status==='partial'?'部分来源暂不可用，已取得的资料继续保留。':update.status==='failed'?'这次未取得可用的新资料，保留此前研究。':update.message;
  if(!text)return null;
@@ -46,7 +47,7 @@ export function ResearchBrief({version,home=false,update}:{version:FinanceVersio
   {version.article.operation_view?.market&&<div className="research-market"><MarketFigure market={version.article.operation_view.market}/></div>}
   <div className="research-positions">{position('新增资金',r.new_money)}{position('已有持仓',r.held)}</div>
   <section className="research-candidates"><h2>同一方向，工具怎样选</h2><p className="research-caption">两只承接相同指数，同时持有不增加方向分散。</p>{r.candidates.map(c=>{const fund=version.article.operation_view?.funds.find(f=>f.code===c.code);return <div key={c.code}><h3>{fund?.name??c.code}<small>{c.code}</small></h3><p>{c.summary}</p>{c.differences.length>0&&(home?<details className="research-sources"><summary>费用、跟踪与交易差异</summary><ul>{c.differences.map(d=><li key={d}>{d}</li>)}</ul></details>:<ul>{c.differences.map(d=><li key={d}>{d}</li>)}</ul>)}{refDetails(c.refs)}</div>;})}</section>
-  <details className="research-conditions" open={!home}><summary>卖出、失效与下次复核的条件</summary>{r.conditions.map(c=><div key={c.key}><h3>{c.label}<span>{c.status==='triggered'?'已触发':c.status==='not_triggered'?'未触发':'暂无法检查'}</span></h3><p>{c.explanation}</p>{refDetails(c.refs.map(ref=>ref.article_id))}</div>)}</details>
+  <details id="judgment-change-conditions" className="research-conditions" open={!home}><summary>卖出、失效与下次复核的条件</summary>{r.conditions.map(c=><div key={c.key}><h3>{c.label}<span>{c.status==='triggered'?'已触发':c.status==='not_triggered'?'未触发':'暂无法检查'}</span></h3><p>{c.explanation}</p>{refDetails(c.refs.map(ref=>ref.article_id))}</div>)}</details>
   <section className="research-change"><h2>这次研究有什么变化</h2><p>{version.changes.summary}</p>{r.impact_scope.length>0&&<p>影响：{r.impact_scope.map(scope=>scopeLabel[scope]).join('、')}。</p>}<p className="research-caption">研究日期 {date(r.evaluated_at)}。新资料到来后核对上述条件，有实质变化再修订判断。</p></section>
   {r.limitations.length>0&&<details className="research-limitations"><summary>哪些问题还不能回答</summary><ul>{r.limitations.map(item=><li key={item}>{item}</li>)}</ul><p>缺少的资料只影响对应结论，不自动代表应当买入、卖出或观察。</p></details>}
   {home&&<Link className="read-link" to={`/articles/${version.article.slug}`}>阅读完整研究与此前版本 →</Link>}

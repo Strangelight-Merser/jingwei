@@ -11,6 +11,6 @@ export async function action({request}:ActionFunctionArgs){
  try{
   const response=await fetch(`${process.env.JINGWEI_API_URL??'http://127.0.0.1:4411'}/reading/followed`,{method:'POST',headers:{'content-type':'application/json','x-jingwei-reader':'local'},body:JSON.stringify({topic_key,followed:followed==='true'}),signal:AbortSignal.timeout(5000)});
   if(!response.ok)return Response.json({ok:false,message:'关注未保存，请重试。'},{status:response.status});
-  return {ok:true,topic_key,followed:followed==='true'};
+  return Response.json({ok:true,topic_key,followed:followed==='true'});
  }catch{return Response.json({ok:false,message:'关注未保存，稍后再试。'},{status:503});}
 }

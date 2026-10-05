@@ -15,6 +15,7 @@ import { collectResearchEvidence } from '../.desktop-build/runtime/packages/back
 import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
 
 app.setName('经纬');
+process.env.JINGWEI_EDITOR_MODE='0';
 if(process.env.JINGWEI_DESKTOP_DATA_DIR)app.setPath('userData',path.resolve(process.env.JINGWEI_DESKTOP_DATA_DIR));
 const single=app.requestSingleInstanceLock();
 let window, api, web, origin, closing=false;
@@ -75,9 +76,9 @@ async function start(){
  window.webContents.setWindowOpenHandler(({url})=>{if(/^https?:\/\//.test(url))void shell.openExternal(url);return {action:'deny'};});
  window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith(origin+'/')){event.preventDefault();if(/^https?:\/\//.test(url))void shell.openExternal(url);}});
  const go=route=>window.loadURL(origin+route);
- const menu=[...(process.platform==='darwin'?[{label:'经纬',submenu:[{label:'关于经纬',click:()=>about()}, {type:'separator'}, {role:'hide'}, {role:'hideOthers'}, {role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'阅读',submenu:[{label:'首页',accelerator:'CmdOrCtrl+1',click:()=>go('/')},{label:'专题',accelerator:'CmdOrCtrl+2',click:()=>go('/topics')},{label:'搜索文章',accelerator:'CmdOrCtrl+F',click:()=>go('/articles')},{label:'我的收藏',accelerator:'CmdOrCtrl+3',click:()=>go('/saved')},{type:'separator'},{label:'模型与基金研究设置',click:()=>go('/settings/model')},{label:'内容更新与可选 AI 设置',click:()=>go('/settings')},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]}, {label:'编辑',submenu:[{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]}, {label:'视图',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]}, {label:'帮助',submenu:[{label:'关于经纬',click:()=>about()}]}];
+ const menu=[...(process.platform==='darwin'?[{label:'经纬',submenu:[{label:'关于经纬',click:()=>about()}, {type:'separator'}, {role:'hide'}, {role:'hideOthers'}, {role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'阅读',submenu:[{label:'首页',accelerator:'CmdOrCtrl+1',click:()=>go('/')},{label:'我的情况',accelerator:'CmdOrCtrl+2',click:()=>go('/situation')},{label:'两只C类费用比较',click:()=>go('/compare')},{label:'判断变化',click:()=>go('/changes')},{label:'我的收藏',accelerator:'CmdOrCtrl+3',click:()=>go('/saved')},{type:'separator'},{label:'偏好与连接',click:()=>go('/settings')},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]}, {label:'编辑',submenu:[{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]}, {label:'视图',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]}, {label:'帮助',submenu:[{label:'维护模式',type:'checkbox',checked:false,click:item=>{process.env.JINGWEI_EDITOR_MODE=item.checked?'1':'0';go(item.checked?'/maintenance':'/');}},{type:'separator'},{label:'关于经纬',click:()=>about()}]}];
  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
- await window.loadURL(origin+(process.argv.includes('--model-settings')?'/settings/model':'/'));window.show();
+ await window.loadURL(origin+'/');window.show();
  if(process.env.JINGWEI_DESKTOP_CHECK_DIR){await mkdir(process.env.JINGWEI_DESKTOP_CHECK_DIR,{recursive:true});await writeFile(path.join(process.env.JINGWEI_DESKTOP_CHECK_DIR,'runtime.json'),JSON.stringify({pid:process.pid,platform:process.platform,arch:process.arch,version:app.getVersion(),packaged:app.isPackaged,web:origin,api:`http://127.0.0.1:${apiPort}`,userData:userDir},null,2));}
 }
-function about(){return dialog.showMessageBox(window,{type:'info',title:'关于经纬',message:`经纬 ${app.getVersion()}`,detail:'财经阅读与有依据的研究。安装后即可阅读、搜索、收藏、比较基金与回看判断，无需密钥。资料保留原日期；联网采集与 AI 解读可在“内容更新”中选择。\n\n数据保存在当前系统用户目录，退出软件后更新停止。使用 AI 解读前须自行设置密钥与费用授权。\n\n包含 AIHOT 的 MIT 授权代码，声明随软件保留。'});}
+function about(){return dialog.showMessageBox(window,{type:'info',title:'关于经纬',message:`经纬 ${app.getVersion()}`,detail:'财经阅读与有依据的研究。安装后即可阅读、选择我的情况、比较费用与回看判断，无需密钥。资料保留原日期；免费核查可在阅读页发起。编辑与模型管理在默认关闭的维护模式中。\n\n数据保存在当前系统用户目录，退出软件后更新停止。使用 AI 解读前须自行设置密钥与费用授权。\n\n包含 AIHOT 的 MIT 授权代码，声明随软件保留。'});}

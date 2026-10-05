@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import { pathToFileURL } from 'node:url';
-import { homePublication, articlePublication, topicPublication, publishedVersions } from '../../../packages/backend/publication.ts';
+import { homePublication, articlePublication, topicPublication, publishedVersions, judgmentChangesPublication } from '../../../packages/backend/publication.ts';
 import { TOPICS } from '../../../industry/topics.ts';
 import { z } from 'zod';
 import { configureSession,sessionState,clearSession,setupWaitingReason,restoreSavedCredential,removeSavedCredential } from '../../../packages/backend/budget.ts';
@@ -54,7 +54,8 @@ app.post('/owner/draft',async(req,reply)=>{const parsed=z.object({version_id:z.s
 app.post('/owner/publish',async(req,reply)=>{const parsed=z.object({version_id:z.string().min(1).max(100),manual_review:z.boolean().optional(),review_note:z.string().min(20).max(2000).optional(),review_kind:z.enum(['supplement','revise']).optional(),held_action:z.enum(['加','持','减','观察']).optional(),unheld_action:z.enum(['加','持','减','观察']).optional(),held_text:z.string().min(12).max(1200).optional(),unheld_text:z.string().min(12).max(1200).optional(),fund_roles:z.record(z.enum(['007339','005658']),z.string().min(2).max(100)).optional()}).safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:'invalid_version'});try{return await publishDraft(parsed.data.version_id,parsed.data);}catch(e){const error=e instanceof Error?e.message:'';return reply.code(409).send({error:/^(operation_manual_review_required|operation_review_note_required|operation_change_requires_revision|draft_has_newer_evidence|composition_copy_review_required)$/.test(error)?error:'publication_failed'});}});
 app.get('/publication/home',async()=>({...await homePublication(),research_update:await research.status()}));
 app.get('/publication/articles',publishedVersions);
-app.get('/publication/topics',async()=>TOPICS);
+app.get('/publication/topics',async()=>TOPICS.filter(t=>t.key==='china-equity-index'));
+app.get('/publication/changes',judgmentChangesPublication);
 app.get<{Params:{slug:string};Querystring:{version?:string}}>('/publication/articles/:slug',async(req,reply)=>{const v=req.query.version!==undefined?(req.query.version.trim()?Number(req.query.version):NaN):undefined;const result=await articlePublication(req.params.slug,v);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'article_not_found'});});
 app.get<{Params:{key:string}}>('/publication/topics/:key',async(req,reply)=>{const result=await topicPublication(req.params.key);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'topic_not_found'});});
 if(mode==='active'){

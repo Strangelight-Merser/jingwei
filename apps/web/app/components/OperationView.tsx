@@ -5,7 +5,7 @@ import type {MarketAvailability,MarketCheck} from '../../../../packages/backend/
 import {MarketFigure} from './MarketFigure.tsx';
 import {SaveButton} from './SaveButton.tsx';
 import {Link,useNavigate,useLocation} from 'react-router';
-import {useRef,useState} from 'react';
+import {useRef,useState,useEffect} from 'react';
 import type {MouseEvent,RefObject} from 'react';
 
 export function OperationView({version,home=false,availability=null,marketCheck=null,current=true}:{version:FinanceVersion;current?:boolean;home?:boolean;availability?:MarketAvailability|null;marketCheck?:MarketCheck|null}){
@@ -14,6 +14,7 @@ export function OperationView({version,home=false,availability=null,marketCheck=
  const readingLocation=useLocation();
  const changeDetails=useRef<HTMLDetailsElement>(null);
  const fundDetails=useRef<HTMLDetailsElement>(null);
+ useEffect(()=>{if(readingLocation.hash!=='#judgment-change-conditions')return;if(changeDetails.current)changeDetails.current.open=true;requestAnimationFrame(()=>document.getElementById('judgment-change-conditions')?.scrollIntoView({block:'start'}));},[readingLocation.hash]);
  const v=version.article.operation_view;if(!v)return null;
  const rates=v.funds.map(f=>parseFloat(f.total)),maxRate=Math.max(...rates);
  const rows=[['本期定位','role'],['管理费 / 托管费（年）','management'],['C类概要销售服务年费率','service'],['C类概要综合运作年费率测算','total'],['C类申购费','subscription'],['C类赎回费','redemption'],['交易状态','trade_status'],[v.performance_period+'净值增长率','period_return'],['同期各自基准收益率','benchmark_return'],['收益率减各自基准','difference'],['报告期年化跟踪误差','tracking_error'],['业绩比较基准','benchmark'],['C类费率资料送出日期','document_date'],...(v.fee_regulation?[['C类销售服务费持有条件','fee_holding_terms'],['C类费用渠道范围','fee_channel_scope'],['C类具体费用生效日','fee_effective_from'],['本基金实施公告','fee_announcement']]:[])];
