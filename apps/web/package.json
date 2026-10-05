@@ -1,0 +1,6 @@
+{
+  "name": "@jingwei/web", "private": true, "type": "module",
+  "scripts": { "dev": "react-router dev --host 127.0.0.1 --port 4410", "build": "react-router build", "typegen": "react-router typegen", "start": "node server.ts" },
+  "dependencies": { "react": "19.3.0", "react-dom": "19.3.0", "react-router": "8.4.0", "@react-router/node": "8.4.0", "isbot": "5.2.2" },
+  "devDependencies": { "@react-router/dev": "8.4.0", "vite": "8.3.1" }
+}

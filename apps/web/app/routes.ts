@@ -1,0 +1,2 @@
+import { index, route, type RouteConfig } from '@react-router/dev/routes';
+export default [index('routes/home.tsx'), route('articles', 'routes/articles.tsx'), route('articles/:slug', 'routes/article.tsx'), route('topics', 'routes/topics.tsx'), route('topics/:key', 'routes/topic.tsx'), route('saved', 'routes/saved.tsx'), route('settings','routes/settings.tsx'), route('settings/model','routes/model-settings.tsx'), route('follow','routes/follow.ts')] satisfies RouteConfig;

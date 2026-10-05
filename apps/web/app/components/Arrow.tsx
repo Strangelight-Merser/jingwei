@@ -1,0 +1,1 @@
+export function Arrow({back=false}:{back?:boolean}){return <svg className="arrow-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true" style={back?{transform:'rotate(180deg)'}:undefined}><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>;}

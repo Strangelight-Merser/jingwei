@@ -1,0 +1,50 @@
+import {test,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {FIRST_OPERATION} from '../industry/first-operation.ts';
+const dir=process.env.JINGWEI_DATA_DIR!;
+const {saveState,readState}=await import('../packages/backend/storage.ts');
+const {applyFundSnapshots,getPendingFundReviewNotice}=await import('../packages/backend/fund-updates.ts');
+const {publishVersion}=await import('../packages/backend/compose.ts');
+after(async()=>{await rm(dir,{recursive:true,force:true});});
+const state={finance_versions:[structuredClone(FIRST_OPERATION)],materials:[],events:[],tasks:[],collection_runs:[],budget:null};
+const source={article_id:'fixture-official-fee',revision:2,source:'non-secret fixture official fees',url:'https://www.efunds.com.cn/fund/007339.shtml',published_at:'',checked_at:'2026-10-03',fragments:['non-secret fixture: sales service fee 0.30%.']};
+const result=applyFundSnapshots(state,[{code:'007339',checked_at:'2026-10-03',fields:{service:{value:'0.30%',source}}}]);
+const id=result.draft_id!;await saveState(state);
+const original=JSON.stringify(state.finance_versions[0]);
+test('来源变化草稿不能沿自动或未审定入口发布，原公开版不变',async()=>{
+ assert.equal(getPendingFundReviewNotice(await readState())?.changes[0].new_value,'0.30%');
+ await assert.rejects(publishVersion(id),/operation_manual_review_required/);
+ const s=await readState();assert.equal(JSON.stringify(s.finance_versions[0]),original);assert.equal(s.finance_versions[1].published_at,null);assert.equal(s.budget,null);
+});
+test('勾选审定但没有重新评估依据仍拒绝，动作改变必须标记修正',async()=>{
+ await assert.rejects(publishVersion(id,{manual_review:true}),/operation_review_note_required/);
+ await assert.rejects(publishVersion(id,{manual_review:true,review_kind:'supplement',held_action:'减',review_note:'这是非秘密测试说明：新事实改变原操作条件，必须作为修正处理。'}),/operation_change_requires_revision/);
+ assert.equal((await readState()).finance_versions[1].review?.status,'pending');
+});
+test('显式人工复核保存事实、依据和修正类型，保留前版与预算',async()=>{
+ const note='这是非秘密测试复核：费用变化已核实，原配置条件另行确认，调整操作适用条件。';
+ const out=await publishVersion(id,{manual_review:true,review_kind:'revise',held_action:'观察',held_text:'非秘密测试条件：原配置依据改变，暂时观察并重新核实。',review_note:note});
+ assert.equal(out.published,true);const s=await readState(),v=s.finance_versions[1];
+ assert.equal(v.review?.status,'approved');assert.equal(v.changes.kind,'revise');assert.equal(v.article.operation_view?.funds[0].service,'0.30%');assert.equal(v.article.operation_view?.held.action,'观察');assert.equal(v.article.operation_view?.reason,note);assert.ok(!v.article.sections.some(section=>section.heading.includes('待审定')));assert.equal(JSON.stringify(s.finance_versions[0]),original);assert.equal(v.previous_version_id,s.finance_versions[0].id);assert.equal(getPendingFundReviewNotice(s),null);assert.equal(s.budget,null);
+});
+test('市场事实复核刊发会替换旧事实主张，保留条件变化与原版',async()=>{
+ const {MARKET_OPERATION}=await import('../industry/market-operation.ts');
+ const {applyMarketSnapshot}=await import('../packages/backend/market-updates.ts');
+ const {readFile}=await import('node:fs/promises');
+ const snapshot=JSON.parse(await readFile(new URL('../references/market-research/market_collector_live.json',import.meta.url),'utf8'));
+ snapshot.hash='non-secret-test-market-crossing';snapshot.valuation.pe_ttm=snapshot.valuation.prior_year_end.pe_ttm;snapshot.checked_at='2026-10-03T00:00:00Z';
+ const pub=structuredClone(MARKET_OPERATION);pub.published_at='2026-10-02T15:52:22Z';
+ const fixture={finance_versions:[pub],materials:[],events:[],tasks:[],collection_runs:[],budget:null};
+ const draft=applyMarketSnapshot(fixture,snapshot);assert.equal(draft.status,'draft_created');await saveState(fixture);
+ await assert.rejects(publishVersion(draft.draft_id!),/operation_manual_review_required/);
+ const note='非秘密测试复核：滚动PE不再低于去年底，旧估值比较事实已改变；配置条件仍成立，动作保持并继续核实同口径盈利。';
+ await publishVersion(draft.draft_id!,{manual_review:true,review_kind:'supplement',review_note:note});
+ const current=(await readState()).finance_versions.at(-1)!;
+ assert.ok(current.interpretation.claim.startsWith(note));assert.ok(!current.interpretation.claim.includes('沪深3009月末估值倍数低于去年底'));
+ assert.ok(current.article.sections.some(section=>section.paragraphs.some(p=>p.includes('不再同时成立'))));
+ assert.equal(current.article.operation_view?.held.action,pub.article.operation_view?.held.action);assert.equal(current.review?.status,'approved');assert.equal(current.previous_version_id,pub.id);
+ assert.equal(JSON.stringify((await readState()).finance_versions[0]),JSON.stringify(pub));
+});

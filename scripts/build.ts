@@ -1,0 +1,22 @@
+import {execFile,spawn} from 'node:child_process';
+import {promisify} from 'node:util';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {createHash,randomUUID} from 'node:crypto';
+const run=promisify(execFile),root=resolve(import.meta.dirname,'..');
+const files=(await run('git',['ls-files','-z'],{cwd:root})).stdout.split('\0').filter(Boolean).sort();
+if(!files.length)throw new Error('Create the reviewed local source baseline before building.');
+const entries=await Promise.all(files.map(async file=>({path:file,sha256:createHash('sha256').update(await readFile(join(root,file))).digest('hex')})));
+const source_sha256=createHash('sha256').update(JSON.stringify(entries)).digest('hex');
+const pkg=JSON.parse(await readFile(join(root,'package.json'),'utf8'));
+const id=`${pkg.version}-${source_sha256.slice(0,12)}-${Date.now()}-${randomUUID().slice(0,8)}`;
+const relative='.builds/'+id,dir=join(root,'apps/web',relative);
+await mkdir(join(root,'apps/web/.builds'),{recursive:true});await mkdir(dir);
+const child=spawn('npm',['run','build','-w','@jingwei/web'],{cwd:root,stdio:'inherit',env:{...process.env,JINGWEI_WEB_BUILD_DIR:relative}});
+const code=await new Promise<number>((yes,no)=>{child.once('error',no);child.once('exit',c=>yes(c??1));});if(code)process.exit(code);
+let git_commit:string|null=null;try{git_commit=(await run('git',['rev-parse','HEAD'],{cwd:root})).stdout.trim();}catch{}
+const tracked_changes=await run('git',['diff','--name-only','HEAD'],{cwd:root}).then(r=>r.stdout.trim().split('\n').filter(Boolean),()=>[]);
+const manifest={version:pkg.version,build_id:id,built_at:new Date().toISOString(),source_sha256,git_commit,tracked_changes,files:entries};
+await writeFile(join(dir,'build-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+await writeFile(join(root,'apps/web/.builds/current.json'),JSON.stringify({build_id:id,build_dir:relative,version:pkg.version,source_sha256},null,2)+'\n');
+console.log(`经纬构建 ${id}\n源码 SHA256 ${source_sha256}`);

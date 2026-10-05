@@ -1,0 +1,24 @@
+/** Read-only preparation. This never configures credentials or calls a model. */
+import {readFile,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {evaluateResearchSnapshot,fundResearchPrompt,fundResearchOutputSchema} from '../packages/backend/fund-research.ts';
+import {modelMessages} from '../packages/backend/model.ts';
+import {estimateReservation,PRICE_POLICY} from '../packages/backend/budget.ts';
+import {sha256} from '../packages/backend/identity.ts';
+import {FUND_STORY_ID} from '../packages/backend/fund-updates.ts';
+import type {FinanceVersion} from '../packages/contracts/types.ts';
+import type {ResearchSnapshot} from '../packages/contracts/research.ts';
+import {z} from 'zod';
+const runtime=JSON.parse(await readFile('.local/current-research-runtime/runtime.json','utf8'));
+const state=JSON.parse(await readFile(runtime.userData+'/content/content.json','utf8')) as {research_state:{latest_snapshot:ResearchSnapshot};finance_versions:FinanceVersion[]};
+const snapshot=state.research_state.latest_snapshot,previous=state.finance_versions.filter(v=>v.story_id===FUND_STORY_ID&&v.published_at).sort((a,b)=>b.version-a.version)[0]??null;
+const evaluation=evaluateResearchSnapshot(snapshot,previous),messages=modelMessages(fundResearchPrompt({snapshot,evaluation,previous})),serialized=JSON.stringify(messages);
+const preview=await(await fetch(runtime.api+'/owner/research/preview')).json();
+assert.equal(sha256(serialized),preview.request_hash);assert.equal(estimateReservation(serialized)/1e6,preview.reservation_cny);
+const base='evidence/fund-research-integration-20261005/';
+const guarded_process_body={expected_hash:preview.evidence_hash,expected_previous_id:preview.previous_version_id,expected_request_hash:preview.request_hash};
+const generation_path={method:'POST',url:runtime.api+'/owner/research/process',headers:{'Content-Type':'application/json','x-jingwei-owner':'local'},next_version:Math.max(0,...state.finance_versions.filter(v=>v.story_id===FUND_STORY_ID).map(v=>v.version))+1,article_url:runtime.web+'/articles/'+(previous?.article.slug??'csi300-etf-and-share-classes'),topic_url:runtime.web+'/topics/china-equity-index',maintain:'不新增版本，记录本组证据判断维持',invalid_output:'保留已刊版本与本次模型输出记录；不自动重试'};
+await writeFile(base+'待发_冻结事实包.json',JSON.stringify({frozen_at:new Date().toISOString(),scope:'公开事实与既有研究；尚未生成新解释，未读取密钥，未调用模型。',runtime,snapshot,previous,evaluation,preview,guarded_process_body,generation_path},null,2));
+await writeFile(base+'待发_模型请求_无密钥.json',JSON.stringify({model:PRICE_POLICY.model,thinking:{type:'disabled'},messages,response_format:{type:'json_object'},temperature:0.2,max_tokens:PRICE_POLICY.max_output_tokens},null,2));
+await writeFile(base+'待发_输出Schema.json',JSON.stringify(z.toJSONSchema(fundResearchOutputSchema),null,2));
+console.log(JSON.stringify({frozen:true,evidence_hash:preview.evidence_hash,request_hash:preview.request_hash,input_bytes:preview.input_bytes,reservation_cny:preview.reservation_cny,has_key:preview.session.has_key,authorized:preview.session.authorized,guarded_process_body,generation_path},null,2));

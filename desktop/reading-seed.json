@@ -1,0 +1,4646 @@
+{
+  "data_version": 1,
+  "finance_versions": [
+    {
+      "id": "fv-lpr-may-1",
+      "story_id": "lpr-may-2025",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2025-05-20T09:00:00+08:00",
+      "generated_at": "2026-10-02T03:33:01.630Z",
+      "input_hash": "d2190ea7e0f89914e13482ea6b63b09c400b1716caa8238646116c0855b92ea1",
+      "input_refs": [
+        {
+          "article_id": "lpr-20250520",
+          "revision": 1,
+          "source": "中国人民银行 · 上海市委金融办转载",
+          "published_at": "2025-05-20T09:00:00+08:00",
+          "url": "https://jrj.sh.gov.cn/SCGK194/20250520/e608cbb9883548f0a02b0c90588d73ce.html",
+          "fragments": [
+            "2025年5月20日：1年期LPR为3.0%，5年期以上LPR为3.5%。"
+          ]
+        },
+        {
+          "article_id": "lpr-history-20250520",
+          "revision": 1,
+          "source": "中国银行 · LPR历史报价",
+          "published_at": "2025-05-20T09:00:00+08:00",
+          "url": "https://www.bankofchina.com/fimarkets/lilv/fd32/201310/t20131031_2591219.html",
+          "fragments": [
+            "2025-04-21：1年期3.10%，5年期以上3.60%；2025-05-20：1年期3.00%，5年期以上3.50%。"
+          ]
+        },
+        {
+          "article_id": "boc-repricing-20241031",
+          "revision": 1,
+          "source": "中国银行",
+          "published_at": "2024-10-31T00:00:00+08:00",
+          "url": "https://www.boc.cn/pbservice/bi2/202410/t20241031_25186010.html",
+          "fragments": [
+            "适用范围为该行发放的以LPR浮动利率定价的商业性个人住房贷款。",
+            "调整后的重定价周期可选择3个月、6个月或12个月；同一笔贷款存续期内客户仅可申请调整1次。"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "lpr-and-your-loan",
+        "title": "LPR下调10个基点，贷款成本何时降低？",
+        "deck": "2025年5月20日，1年期和5年期以上LPR各下调10个基点。浮动利率房贷何时调整，要看合同约定；企业实际借款成本，还取决于银行加点和其他费用。",
+        "category": "货币政策",
+        "read_minutes": 3,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "两个期限均下调10个基点",
+            "paragraphs": [
+              "5月20日，1年期贷款市场报价利率（LPR）降至3.00%，5年期以上降至3.50%。4月的报价分别为3.10%和3.60%，此次均下降0.10个百分点，即10个基点。",
+              "LPR是贷款定价的参考基准。实际贷款利率通常还包含合同约定的加点或减点，基准下降的影响要结合具体贷款判断。"
+            ],
+            "refs": [
+              "lpr-20250520",
+              "lpr-history-20250520"
+            ],
+            "chart": "rates"
+          },
+          {
+            "heading": "房贷利率按合同重定价",
+            "paragraphs": [
+              "采用LPR浮动利率定价的存量房贷，通常在合同约定的重定价日调整基准利率。调整时间、适用的LPR期限品种和加点约定，共同影响月供。",
+              "中国银行2024年10月31日公告规定，该行符合条件的客户可申请将重定价周期调整为3个月、6个月或12个月，须经审批。同一笔贷款存续期内，仅可申请调整一次。其他银行的办理规则及个人合同需分别核对。"
+            ],
+            "refs": [
+              "boc-repricing-20241031"
+            ],
+            "chart": "transmission"
+          },
+          {
+            "heading": "企业借款还受加点和费用影响",
+            "paragraphs": [
+              "银行加点不变、合同在重定价时采用新的LPR，基准降幅才可能传递到贷款利率。若风险溢价或其他费用上升，实际借款成本的降幅可能小于基准降幅。",
+              "LPR公告没有列出企业实际贷款利率、授信条件或融资需求。这次报价下调为贷款利率下降提供了条件，企业融资是否改善还需其他数据。"
+            ]
+          },
+          {
+            "heading": "贷款利率和融资需求需分别观察",
+            "paragraphs": [
+              "后续可关注新发放贷款利率，以及存量贷款的重定价进度。实际贷款利率下降，才能说明借款价格有所改善。",
+              "企业是否增加中长期融资，还受订单、预期和投资意愿影响。如果贷款利率下降而融资需求没有相应改善，需要进一步区分价格和需求方面的制约。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "rate-transmission",
+        "claim_key": "financing-cost-transmission",
+        "claim": "5月LPR下调10个基点，实际贷款成本的变化取决于加点、费用和合同重定价。",
+        "evidence_ids": [
+          "lpr-20250520",
+          "lpr-history-20250520",
+          "boc-repricing-20241031"
+        ],
+        "mechanism": [],
+        "conditions": [
+          "采用对应LPR品种定价",
+          "银行加点及其他费用未抵消降幅",
+          "合同进入重定价期"
+        ],
+        "alternatives": [],
+        "related_story_ids": [],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料进行编辑整理。",
+        "evidence_ids": [
+          "lpr-20250520",
+          "lpr-history-20250520",
+          "boc-repricing-20241031"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:33:01.630Z"
+    },
+    {
+      "id": "fv-lpr-june-1",
+      "story_id": "lpr-june-2025",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2025-06-20T09:00:00+08:00",
+      "generated_at": "2026-10-02T03:33:01.638Z",
+      "input_hash": "3beebc1050767d04cbfd61dadd3682a8199f48c40b98b734042a55aafe50216e",
+      "input_refs": [
+        {
+          "article_id": "lpr-20250620",
+          "revision": 1,
+          "source": "全国银行间同业拆借中心",
+          "published_at": "2025-06-20T09:00:00+08:00",
+          "url": "https://www.chinamoney.com.cn/chinese/rdgz/20250620/3136683.html",
+          "fragments": [
+            "2025年6月20日：1年期LPR为3.0%，5年期以上LPR为3.5%。"
+          ]
+        },
+        {
+          "article_id": "lpr-20250520",
+          "revision": 1,
+          "source": "中国人民银行 · 上海市委金融办转载",
+          "published_at": "2025-05-20T09:00:00+08:00",
+          "url": "https://jrj.sh.gov.cn/SCGK194/20250520/e608cbb9883548f0a02b0c90588d73ce.html",
+          "fragments": [
+            "2025年5月20日：1年期LPR为3.0%，5年期以上LPR为3.5%。"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "lpr-june-unchanged",
+        "title": "6月LPR维持不变",
+        "deck": "存量浮动利率贷款按合同重定价，新发放贷款的实际利率取决于银行报价。",
+        "category": "货币政策",
+        "read_minutes": 2,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "6月报价与5月持平",
+            "paragraphs": [
+              "6月20日公布的贷款市场报价利率（LPR）与5月持平。",
+              "5月两个期限各下调了10个基点，6月报价没有进一步下调。"
+            ],
+            "refs": [
+              "lpr-20250620",
+              "lpr-20250520"
+            ],
+            "chart": "lpr-comparison"
+          },
+          {
+            "heading": "实际贷款利率仍需观察",
+            "paragraphs": [
+              "存量浮动利率贷款是否采用5月下调后的LPR，要看合同的重定价时间和加点约定。新发放贷款的利率取决于银行实际报价，LPR维持不变并不意味着每笔贷款利率都没有变化。",
+              "判断融资是否改善，还需要同口径的新发放贷款利率、融资期限结构和借款需求数据。6月报价本身不足以说明实际融资成本已经下降或借款需求已经恢复，也不足以判断政策是否转向。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "rate-transmission",
+        "claim_key": "financing-cost-transmission",
+        "claim": "6月LPR与5月持平。实际融资成本和借款需求是否改善，还需贷款利率及融资数据。",
+        "evidence_ids": [
+          "lpr-20250620",
+          "lpr-20250520"
+        ],
+        "mechanism": [],
+        "conditions": [
+          "需要同口径新发放贷款利率",
+          "观察重定价进度与借款需求"
+        ],
+        "alternatives": [],
+        "related_story_ids": [
+          "lpr-may-2025"
+        ],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料进行编辑整理。",
+        "evidence_ids": [
+          "lpr-20250620",
+          "lpr-20250520"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:33:01.638Z"
+    },
+    {
+      "id": "fv-mortgage-1",
+      "story_id": "mortgage-mechanism",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2024-10-31T00:00:00+08:00",
+      "generated_at": "2026-10-02T03:33:01.638Z",
+      "input_hash": "7f8c68d293a3e8b48c6ef7b0a5ffab7162e44325c1c638ae3342047bf39fc08c",
+      "input_refs": [
+        {
+          "article_id": "boc-repricing-20241031",
+          "revision": 1,
+          "source": "中国银行",
+          "published_at": "2024-10-31T00:00:00+08:00",
+          "url": "https://www.boc.cn/pbservice/bi2/202410/t20241031_25186010.html",
+          "fragments": [
+            "适用范围为该行发放的以LPR浮动利率定价的商业性个人住房贷款。",
+            "调整后的重定价周期可选择3个月、6个月或12个月；同一笔贷款存续期内客户仅可申请调整1次。"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "what-is-repricing",
+        "title": "LPR下调后，为什么月供还没变？",
+        "deck": "浮动利率房贷通常按合同约定的日期重新定价。LPR下调后，利率何时调整、月供减少多少，取决于重定价周期、加点以及贷款本金和剩余期限。",
+        "category": "背景解释",
+        "read_minutes": 3,
+        "kind": "background",
+        "sections": [
+          {
+            "heading": "贷款利率由LPR和加点构成",
+            "paragraphs": [
+              "采用LPR浮动利率定价的贷款，合同利率通常由相应期限的LPR和加点构成。LPR来自公布的报价，加点则依据合同和适用规则确定。两项变化需分别核对。"
+            ]
+          },
+          {
+            "heading": "新基准在重定价日适用",
+            "paragraphs": [
+              "存量贷款通常在约定的重定价日采用新的定价基准。中国银行2024年10月31日公告规定，该行符合条件的客户可申请3个月、6个月或12个月的重定价周期，须经审批；同一笔贷款存续期内，仅可申请调整一次。",
+              "这一规定适用于该行相应贷款。其他银行的规则以及个人合同可能不同，实际办理条件应以贷款银行当前规定和合同为准。"
+            ],
+            "refs": [
+              "boc-repricing-20241031"
+            ],
+            "chart": "transmission"
+          },
+          {
+            "heading": "月供还取决于本金和剩余期限",
+            "paragraphs": [
+              "贷款本金、剩余期限、还款方式、利率加点和重定价时间，都会影响月供。仅用LPR的降幅，无法直接推算某笔贷款的月供变化。",
+              "比较月供前后变化时，需要固定本金、剩余期限和还款方式，再核对合同利率及其调整日期。LPR下调提供了降低利率的条件，具体调整时间仍由合同决定。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "rate-transmission",
+        "claim_key": "financing-cost-transmission",
+        "claim": "存量浮动利率房贷按合同重定价，LPR下调和月供调整可能存在时间差。",
+        "evidence_ids": [
+          "boc-repricing-20241031"
+        ],
+        "mechanism": [],
+        "conditions": [
+          "限定于适用的浮动利率合同"
+        ],
+        "alternatives": [],
+        "related_story_ids": [],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料进行编辑整理。",
+        "evidence_ids": [
+          "boc-repricing-20241031"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:33:01.638Z"
+    },
+    {
+      "id": "fv-gdp-2025-1",
+      "story_id": "gdp-2025-annual",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2026-01-19T10:00:00+08:00",
+      "generated_at": "2026-10-02T03:33:01.638Z",
+      "input_hash": "851f3771d06c44a3cb2eb653e9407e2f19071592f1692621d13fb12be9f6aad0",
+      "input_refs": [
+        {
+          "article_id": "nbs-2025-annual",
+          "revision": 1,
+          "source": "国家统计局",
+          "published_at": "2026-01-19T10:00:00+08:00",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202601/t20260119_1962330.html",
+          "fragments": [
+            "初步核算，2025年全年GDP按不变价格计算比上年增长5.0%；分季度同比增长5.4%、5.2%、4.8%、4.5%。",
+            "全年社会消费品零售总额比上年增长3.7%，12月份同比增长0.9%；全年服务零售额增长5.5%。",
+            "全年固定资产投资（不含农户）同比下降3.8%；扣除房地产开发投资下降0.5%。",
+            "GDP及其分类项目增长速度按不变价计算；其他指标除特殊说明外按现价计算。"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "growth-and-demand-2025",
+        "title": "2025年GDP增长5.0%，消费与投资表现如何？",
+        "deck": "2025年GDP按不变价格计算增长5.0%，社会消费品零售总额增长3.7%，固定资产投资（不含农户）下降3.8%。这些指标覆盖范围和价格口径不同，比较时需要分别说明。",
+        "category": "宏观经济",
+        "read_minutes": 4,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "季度同比增速逐步回落",
+            "paragraphs": [
+              "国家统计局2026年1月19日发布的初步核算显示，2025年全年GDP按不变价格计算增长5.0%。一至四季度同比增速分别为5.4%、5.2%、4.8%和4.5%。",
+              "季度同比增速逐步回落，反映的是各季度与上年同期的比较。环比衡量相邻季度的变化，需要另看环比数据；增速变化的原因也需结合其他指标分析。"
+            ],
+            "refs": [
+              "nbs-2025-annual"
+            ],
+            "chart": "gdp"
+          },
+          {
+            "heading": "消费增长，投资下降",
+            "paragraphs": [
+              "全年社会消费品零售总额增长3.7%，12月同比增长0.9%；全年服务零售额增长5.5%。两项零售指标覆盖范围不同，社会消费品零售总额也不能完整代表全部居民消费。",
+              "固定资产投资（不含农户）全年下降3.8%，扣除房地产开发投资后下降0.5%。剔除房地产后的降幅较小，但投资仍在下降，说明房地产之外也需继续观察。"
+            ],
+            "refs": [
+              "nbs-2025-annual"
+            ]
+          },
+          {
+            "heading": "实际增速与名义增速不能直接相减",
+            "paragraphs": [
+              "GDP的5.0%按不变价格计算，剔除了价格因素。社会消费品零售总额等指标在这份发布中一般按现价计算，包含价格变化。",
+              "将GDP增速与社会消费品零售总额增速直接相减，无法得到需求缺口：两者既有价格口径差异，也有统计覆盖范围差异。这些数据同样不足以单独量化某项政策的贡献，或判断具体资产的涨跌。"
+            ],
+            "refs": [
+              "nbs-2025-annual"
+            ]
+          },
+          {
+            "heading": "后续比较需保持口径一致",
+            "paragraphs": [
+              "观察消费时，需要区分商品与服务；观察投资时，需要区分房地产与非房地产。判断需求改善是否更广泛，也要结合各项数据的可比变化。",
+              "上述数据来自2026年1月19日的初步核算，后续如有官方修订，应以修订结果为准。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "domestic-demand",
+        "claim_key": "demand-recovery",
+        "claim": "2025年GDP实际增长5.0%，消费与投资表现存在差异；不同价格口径和覆盖范围的增速不能直接相减。",
+        "evidence_ids": [
+          "nbs-2025-annual"
+        ],
+        "mechanism": [],
+        "conditions": [
+          "需要保持统计口径一致",
+          "初步核算可能被后续修订"
+        ],
+        "alternatives": [],
+        "related_story_ids": [],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料进行编辑整理。",
+        "evidence_ids": [
+          "nbs-2025-annual"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:33:01.638Z"
+    },
+    {
+      "id": "fv-fed-202509-1",
+      "story_id": "fed-september-2025",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2025-09-17T14:00:00-04:00",
+      "generated_at": "2026-10-02T03:33:01.638Z",
+      "input_hash": "7f15ef8d1aff763d7fc3e8c51b78dd38e14181d03ba61c86cdb2fe5706af0233",
+      "input_refs": [
+        {
+          "article_id": "fomc-20250917",
+          "revision": 1,
+          "source": "Federal Reserve",
+          "published_at": "2025-09-17T14:00:00-04:00",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250917a.htm",
+          "fragments": [
+            "联邦基金利率目标区间下调0.25个百分点至4.00%—4.25%。",
+            "就业下行风险上升，通胀有所上行且仍偏高。（声明译述）",
+            "委员会继续缩减国债、机构债与机构住房抵押贷款支持证券持有量。（声明译述）"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "fed-september-2025",
+        "title": "美联储降息25个基点，就业下行风险受到关注",
+        "deck": "2025年9月17日，美联储将联邦基金利率目标区间降至4.00%—4.25%。声明指出就业下行风险上升，通胀仍偏高，委员会同时继续缩减证券持有量。",
+        "category": "海外观察",
+        "read_minutes": 2,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "就业风险上升，通胀仍偏高",
+            "paragraphs": [
+              "联邦公开市场委员会下调联邦基金利率目标区间0.25个百分点，至4.00%—4.25%。声明认为就业下行风险已上升，同时指出通胀有所上行且仍偏高。",
+              "就业风险在这次决策中的分量增加了，通胀仍对政策构成约束。此次降息并未确定后续降息的幅度和节奏。"
+            ],
+            "refs": [
+              "fomc-20250917"
+            ]
+          },
+          {
+            "heading": "降息与缩表同时存在",
+            "paragraphs": [
+              "委员会在下调政策利率的同时，继续缩减国债、机构债和机构住房抵押贷款支持证券持有量。",
+              "利率政策与资产负债表政策的方向在这一时点有所区别。理解整体政策状态，需要同时考虑降息和缩表，单凭降息不能概括为所有工具都在宽松。"
+            ],
+            "refs": [
+              "fomc-20250917"
+            ]
+          },
+          {
+            "heading": "后续调整取决于新数据",
+            "paragraphs": [
+              "委员会表示会评估新数据、经济前景的变化和风险平衡。就业、通胀及预期的后续变化，将影响进一步调整的依据。",
+              "跨市场影响还取决于市场事前预期、其他经济体的政策和风险偏好。这份声明不足以判断人民币汇率或具体资产的走势。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "global-rates",
+        "claim_key": "fed-balance-of-risks",
+        "claim": "2025年9月降息反映就业风险受到更多关注，通胀约束与缩表同时存在。",
+        "evidence_ids": [
+          "fomc-20250917"
+        ],
+        "mechanism": [],
+        "conditions": [
+          "后续路径取决于就业与通胀数据"
+        ],
+        "alternatives": [],
+        "related_story_ids": [],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料进行编辑整理。",
+        "evidence_ids": [
+          "fomc-20250917"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:33:01.638Z"
+    },
+    {
+      "id": "4be4a05a-0462-48c7-b7af-5b7269b7a803",
+      "story_id": "fed-september-2026",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2026-09-16T18:00:00.000Z",
+      "generated_at": "2026-10-02T03:43:11.125Z",
+      "input_hash": "fead708cd18689fb71d4fcdeb7519c8abf065bdebe5abf3a08868cc36b4652ff",
+      "input_refs": [
+        {
+          "article_id": "da3bcbb85f4595d6b859363d",
+          "revision": 1,
+          "source": "fed-monetary",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+          "published_at": "2026-09-16T18:00:00.000Z",
+          "fragments": [
+            "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+            "Economic activity is expanding at a solid pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little.",
+            "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability."
+          ],
+          "display_fragments": [
+            "2026年9月16日，委员会一致决定将联邦基金利率目标区间上调0.25个百分点，至3.75%—4.00%。（原文译述）",
+            "声明称通胀仍偏高，并强调使通胀更及时回到2%目标。（原文译述）",
+            "声明称经济稳健扩张，国内支出具韧性，失业率变化不大。（原文译述）"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "fed-september-2026",
+        "title": "美联储加息25个基点，声明强调通胀风险",
+        "deck": "2026年9月16日，美联储将联邦基金利率目标区间上调至3.75%—4.00%。声明称通胀仍偏高，强调使通胀更及时回到2%目标。",
+        "category": "海外观察",
+        "read_minutes": 3,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "目标区间上调至3.75%—4.00%",
+            "paragraphs": [
+              "美联储9月16日一致通过上调联邦基金利率目标区间25个基点，至3.75%—4.00%。声明称通胀仍偏高，政策行动旨在使通胀更及时回到2%目标。",
+              "本次加息后的区间仍低于2025年9月降息后的4.00%—4.25%。这只是两个时点的比较；仅凭这两份声明，无法还原中间每次调整或完整的利率走势。"
+            ],
+            "refs": [
+              "da3bcbb85f4595d6b859363d"
+            ]
+          },
+          {
+            "heading": "价格稳定受到更多关注",
+            "paragraphs": [
+              "2025年9月声明强调就业下行风险上升。2026年9月的新声明称经济稳健扩张、国内支出有韧性、失业率变化不大，并在加息决定中强调价格稳定。",
+              "就业与通胀两项目标仍然存在。对比这两份声明，可以看到当前风险关注的差异；一年前的就业风险描述不足以单独解释本次加息。"
+            ],
+            "refs": [
+              "da3bcbb85f4595d6b859363d"
+            ]
+          },
+          {
+            "heading": "声明没有预设后续利率走势",
+            "paragraphs": [
+              "未来利率调整仍需结合通胀和就业数据。这份声明没有预设调整路径，也不足以单独确定未来加息次数或具体资产走势。",
+              "政策利率上调对实际借款成本的影响，还取决于银行定价、市场预期和合同条件。"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "global-rates",
+        "claim_key": "fed-balance-of-risks",
+        "claim": "2026年9月美联储加息25个基点，声明强调价格稳定；后续利率调整仍取决于通胀和就业数据。",
+        "evidence_ids": [
+          "da3bcbb85f4595d6b859363d"
+        ],
+        "mechanism": [
+          "目标利率上调可能影响短期融资定价",
+          "借款成本仍受市场预期与合同条件约束"
+        ],
+        "conditions": [
+          "后续通胀与就业数据支持当前风险权衡",
+          "实际传导取决于市场预期、银行报价与合同"
+        ],
+        "alternatives": [],
+        "related_story_ids": [
+          "fed-september-2025"
+        ],
+        "previous_claim_version_ids": [
+          "fv-fed-202509-1"
+        ]
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "新政策事件承接2025年就业风险讨论，当前重点转向价格稳定；旧文保留历史时点。",
+        "evidence_ids": [
+          "da3bcbb85f4595d6b859363d"
+        ]
+      },
+      "origin": "editor",
+      "published_at": "2026-10-02T03:43:11.128Z"
+    },
+    {
+      "id": "00da9bdb-a8f2-4c8b-a9bd-cd46bd1ce015",
+      "story_id": "fed-september-2026",
+      "previous_version_id": "4be4a05a-0462-48c7-b7af-5b7269b7a803",
+      "version": 2,
+      "as_of": "2026-09-16T18:00:00.000Z",
+      "generated_at": "2026-10-02T09:50:31.461Z",
+      "input_hash": "c696dca5ff85f9dd6a750c62ef8daed713858508258311a144e752ed8d9efbbc",
+      "input_refs": [
+        {
+          "article_id": "da3bcbb85f4595d6b859363d",
+          "revision": 1,
+          "source": "fed-monetary",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+          "published_at": "2026-09-16T18:00:00.000Z",
+          "fragments": [
+            "The Federal Open Market Committee approved the following statement for release by a 12 – 0 vote:",
+            "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+            "Economic activity is expanding at a solid pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little.",
+            "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability."
+          ]
+        },
+        {
+          "article_id": "7400cab4847e7a3384d183c8",
+          "revision": 3,
+          "source": "美联储经济预测",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916b.htm",
+          "published_at": "2026-09-16T18:00:00.000Z",
+          "fragments": [
+            "Table original: https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm | Change in real GDP | Median1: 2026=2.3; 2027=2.4; 2028=2.2; 2029=2.1; Longer run=2.0 | Central Tendency2: 2026=2.2–2.4; 2027=2.2–2.6; 2028=2.1–2.3; 2029=2.0–2.2; Longer run=2.0–2.2 | Range3: 2026=2.1–2.6; 2027=2.0–2.9; 2028=1.8–2.6; 2029=1.8–2.4; Longer run=1.7–2.5",
+            "Table original: https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm | Unemployment rate | Median1: 2026=4.1; 2027=4.1; 2028=4.1; 2029=4.1; Longer run=4.2 | Central Tendency2: 2026=4.1–4.2; 2027=4.0–4.2; 2028=4.0–4.2; 2029=4.0–4.3; Longer run=4.0–4.3 | Range3: 2026=4.0–4.3; 2027=4.0–4.5; 2028=3.9–4.4; 2029=3.8–4.4; Longer run=3.8–4.4",
+            "Table original: https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm | PCE inflation | Median1: 2026=3.7; 2027=2.3; 2028=2.1; 2029=2.0; Longer run=2.0 | Central Tendency2: 2026=3.5–3.7; 2027=2.2–2.5; 2028=2.0–2.2; 2029=2.0; Longer run=2.0 | Range3: 2026=2.9–3.8; 2027=2.0–2.6; 2028=2.0–2.2; 2029=2.0; Longer run=2.0",
+            "Table original: https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm | Core PCE inflation4 | Median1: 2026=3.4; 2027=2.5; 2028=2.2; 2029=2.0; Longer run=not provided | Central Tendency2: 2026=3.3–3.4; 2027=2.3–2.6; 2028=2.0–2.2; 2029=2.0; Longer run=not provided | Range3: 2026=2.8–3.5; 2027=2.1–2.7; 2028=2.0–2.3; 2029=2.0–2.1; Longer run=not provided",
+            "Table original: https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm | Federal funds rate | Median1: 2026=4.1; 2027=4.1; 2028=3.9; 2029=3.6; Longer run=3.2 | Central Tendency2: 2026=4.1–4.4; 2027=3.6–4.4; 2028=3.1–4.1; 2029=3.1–3.6; Longer run=3.0–3.6 | Range3: 2026=3.9–4.4; 2027=3.1–4.4; 2028=3.1–4.1; 2029=2.9–3.9; Longer run=2.9–3.9",
+            "Note: Projections of change in real gross domestic product (GDP) and projections for both measures of inflation are percent changes from the fourth quarter of the previous year to the fourth quarter of the year indicated. PCE inflation and c ore PCE inflation are the percentage rates of change in, respectively, the price index for personal consumption expenditures (PCE) and the price index for PCE excluding food and energy. Projections for the unemployment rate are for the average civilian unemployment rate in the fourth quarter of the year indicated. Each participant's projections are based on his or her assessment of appropriate monetary policy. Longer-run projections represent each participant's assessment of the rate to which each variable would be expected to converge under appropriate monetary policy and in the absence of further shocks to the economy. The projections for the federal funds rate are the value of the midpoint of the projected appropriate target range for the federal funds rate or the projected appropriate target level for the federal funds rate at the end of the specified calendar year or over the longer run. The June projections were made in conjunction with the meeting of the Federal Open Market Committee on June 16–17, 2026. Eighteen participants submitted information in conjunction with the June 16–17, 2026, meeting; one of these 18 participants did not submit projections for 2028. Eighteen participants submitted information in conjunction with the September 15–16, 2026, meeting; one of these 18 participants did not submit projections for 2028 and 2029.",
+            "1. For each period, the median is the middle projection when the projections are arranged from lowest to highest. When the number of projections is even, the median is the average of the two middle projections. Return to table",
+            "2. The central tendency excludes the three highest and three lowest projections for each variable in each year. Return to table"
+          ]
+        }
+      ],
+      "article": {
+        "slug": "fed-september-2026",
+        "title": "美联储加息25个基点，年末利率预测中位数为4.1%",
+        "deck": "2026年9月16日，美联储将联邦基金利率目标区间上调至3.75%—4.00%。同日公布的年末利率预测中位数为4.1%，反映参与者对合适政策的判断，后续路径仍取决于数据。",
+        "category": "海外观察",
+        "read_minutes": 3,
+        "kind": "analysis",
+        "sections": [
+          {
+            "heading": "经济保持扩张，声明强调通胀风险",
+            "paragraphs": [
+              "美联储公开市场委员会以12票赞成、0票反对通过了9月16日的声明，将联邦基金利率目标区间上调0.25个百分点至3.75%—4.00%。委员会表示，此举是为支持充分就业和价格稳定的双重目标，同时继续维持银行体系准备金充裕的政策。",
+              "声明称，经济活动以稳健步伐扩张，国内支出保持韧性，生产率增长强劲，资本投资稳健；就业增长与劳动力规模保持同步，失业率变化不大。通胀仍然偏高，委员会认为本次调整有助于通胀更及时地回到2%的目标。"
+            ],
+            "refs": [
+              "da3bcbb85f4595d6b859363d"
+            ]
+          },
+          {
+            "heading": "年末利率预测与当前目标区间有何不同",
+            "paragraphs": [
+              "同日发布的经济预测显示，参与者对2026年底联邦基金利率的预测中位数为4.1%，2027年底也为4.1%。其中，2026年的全部预测范围为3.9%—4.4%。这些数字反映参与者各自认为合适的政策利率。",
+              "预测表中的联邦基金利率，是相应年份年底预计合适的目标区间中点，或目标利率水平；当前3.75%—4.00%则是本次会议已经决定的区间。预测中位数汇总个人判断，不能视为委员会对后续路径的承诺。",
+              "个人消费支出价格指数（PCE）的通胀预测中位数，2026年为3.7%，2027年为2.3%；剔除食品和能源后的核心PCE通胀，2026年为3.4%。这里的通胀率是相应年份第四季度相较上年第四季度的变化，并非已经公布的全年实际结果。",
+              "参与者的预测以各自对合适货币政策的判断为前提，也取决于其他经济条件。后续数据变化，可能带来新的预测和政策选择。"
+            ],
+            "refs": [
+              "7400cab4847e7a3384d183c8"
+            ]
+          },
+          {
+            "heading": "加息如何影响借款成本",
+            "paragraphs": [
+              "政策利率上调可能影响短期融资定价，但实际借款成本还取决于银行报价、市场预期和合同条件。仅凭本次声明与预测，无法确定所有借款人的利率会同步上升。",
+              "后续是否继续调整、调整幅度多大，仍需观察通胀和就业数据。数据偏离参与者预期时，利率预测也可能调整。现有材料尚不足以确定未来加息次数或具体资产走势。"
+            ],
+            "refs": [
+              "da3bcbb85f4595d6b859363d",
+              "7400cab4847e7a3384d183c8"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "global-rates",
+        "claim_key": "fed-balance-of-risks",
+        "claim": "2026年9月美联储加息25个基点，声明强调价格稳定；后续利率调整仍取决于通胀和就业数据。",
+        "evidence_ids": [
+          "da3bcbb85f4595d6b859363d",
+          "7400cab4847e7a3384d183c8"
+        ],
+        "mechanism": [
+          "目标利率上调可能影响短期融资定价",
+          "预测中位数反映参与者对合适政策利率的判断，随数据变化可能被修正",
+          "借款成本仍受市场预期与合同条件约束"
+        ],
+        "conditions": [
+          "后续通胀与就业数据支持当前风险权衡",
+          "实际传导取决于市场预期、银行报价与合同",
+          "预测是有条件的预期，不是实际统计结果或政策承诺"
+        ],
+        "alternatives": [],
+        "related_story_ids": [
+          "fed-september-2025"
+        ],
+        "previous_claim_version_ids": [
+          "4be4a05a-0462-48c7-b7af-5b7269b7a803"
+        ]
+      },
+      "changes": {
+        "kind": "supplement",
+        "summary": "补充9月经济预测，说明年末利率预测与当前目标区间的区别，以及预测所依赖的条件。",
+        "evidence_ids": [
+          "7400cab4847e7a3384d183c8"
+        ]
+      },
+      "origin": "model",
+      "published_at": "2026-10-02T09:53:06.825Z"
+    },
+    {
+      "id": "e6bc223e-8792-4f56-8868-55dee86759d2",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "3a799e84-810a-4650-869d-78143c8020e7",
+      "version": 7,
+      "as_of": "2026-10-03",
+      "generated_at": "2026-10-03T14:07:24.050Z",
+      "input_hash": "ce94f1c40072fdb0a3f3fe4f6312df8d728f663dfc1b666c3a87dbf7fe6348f7",
+      "input_refs": [
+        {
+          "article_id": "csi300-official-market-20260930",
+          "revision": 1,
+          "source": "中证指数 · 每日估值与行情",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+            "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+          ]
+        },
+        {
+          "article_id": "csi300-daily-202609",
+          "revision": 1,
+          "source": "中证指数 · 沪深300日行情",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260901&endDate=20260930",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "官方9月日行情返回21个交易日；最近20个实际交易日为9月2日至9月30日，图形采用收盘价。9月25日仅有估值延用行，没有交易价格，未画成交易日。",
+            "9月1日收盘4611.44到9月30日收盘4357.62，端点价格变化约−5.50%；不是完整9月收益，也不含股息再投资。"
+          ]
+        },
+        {
+          "article_id": "sse-halfyear-20260830",
+          "revision": 1,
+          "source": "上海证券交易所 · 沪市公司2026年半年报业绩综述",
+          "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260830_10830362.shtml",
+          "published_at": "2026-08-30",
+          "data_as_of": "2026-06-30",
+          "fragments": [
+            "同一句随后列同比17.6%，并给扣非同比17.2%；下句上证180净利润同比14.8%。",
+            "上市公司盈利修复已有报告期证据，扣非利润与现金流旁证使其不只是股价上涨的叙事。",
+            "不能将17.6%或14.8%乘到沪深300，不能由H1盈利改善证明9月价格便宜或Q3盈利延续。"
+          ]
+        },
+        {
+          "article_id": "nbs-profit-interpretation-20260928",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份工业企业利润数据解读",
+          "url": "https://www.stats.gov.cn/sj/sjjd/202609/t20260928_1965426.html",
+          "published_at": "2026-09-28",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "同文给营收同比6.6%、电子行业利润增量贡献率62.0%、利润率5.66%及同比提高0.44个百分点。",
+            "利润和利润率改善存在，但增量依赖电子行业；可以解释盈利恢复与其他内需环节偏弱并存。",
+            "不能等同沪深300盈利，不把8月同比回落直接判为环比衰退；62%贡献率不能当成电子行业占整个经济六成。"
+          ]
+        },
+        {
+          "article_id": "nbs-retail-20260915",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份社会消费品零售总额增长1.1%",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+          "published_at": "2026-09-15",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "该短句紧随8月社会消费品零售总额39824亿元；除汽车8月同比2.5%。统计表明确为名义增速。",
+            "商品与餐饮支出增长较弱，汽车拖累明显；不能只看总额便断言所有消费类别都收缩。",
+            "这是未扣价格的名义口径，不等于居民全部服务消费、不等于沪深300消费板块收入或银行盈利。"
+          ]
+        },
+        {
+          "article_id": "nbs-pmi-20260930",
+          "revision": 1,
+          "source": "国家统计局、中国物流与采购联合会 · 2026年9月中国采购经理指数运行情况",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260930_1965449.html",
+          "published_at": "2026-09-30",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "同段指出较上月下降0.1个百分点但仍高于临界点；生产指数51.7%，较上月升1.3个百分点。",
+            "生产恢复快于订单的边际变化；订单仍处扩张区间，不支持需求完全收缩，也未证明扩张持续加速。",
+            "50.5不是订单同比增长50.5%，一次重回扩张不能当作指数盈利或买入信号；生产减新订单的数值不能当作实体库存增长。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        },
+        {
+          "article_id": "csrc-fund-sales-fees-rule-20251231",
+          "revision": 1,
+          "source": "证监会 · 2025年第22号公告及正式附件",
+          "published_at": "2025-12-31",
+          "checked_at": "2026-10-02",
+          "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+          "fragments": [
+            "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+            "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+            "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类007339概要于2026年8月10日编制、8月11日送出：申购费0，销售服务年费率0.20%，持有不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，对目标ETF投资部分不重复计提；综合运作年化0.40%为概要测算，不能当实际全成本或多年持续收费保证。",
+            "本基金具体费改生效、存量衔接、渠道及超过一年停止计提安排仍未核实。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "C类005658概要于2026年5月28日编制、5月29日送出：申购费0，销售服务年费率0.30%，不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，计提基数扣除目标ETF投资部分；综合运作年化0.50%仅概要测算，实际渠道优惠与费用执行条件未核齐。",
+            "本基金具体费改生效、存量衔接及超过一年免收的落地安排仍未核实，资料送出日不等于收费生效日。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "sse-holiday-20260917",
+          "revision": 1,
+          "source": "上海证券交易所 · 中秋节、国庆节休市公告",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
+          "published_at": "2026-09-17",
+          "checked_at": "2026-10-02",
+          "fragments": [
+            "2026年10月1日至7日休市，10月8日起照常开市；9月25日至27日中秋节休市。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-a-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · A类产品资料概要",
+          "published_at": "2026-08-11",
+          "checked_at": "2026-10-03",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接A）基金产品资料概要更新.pdf",
+          "fragments": [
+            "2026年8月10日编制、8月11日送出；A类代码110020。普通申购金额不足100万元1.20%，100万至不足500万元0.80%，500万至不足1000万元0.20%，不少于1000万元每笔1000元；不据特定群体档位假定普通渠道优惠。",
+            "A类持有不足7天赎回1.50%，7—364天0.50%，365—729天0.25%，730天及以上0。A类不收销售服务费。",
+            "管理费0.15%、托管费0.05%；基金持有目标ETF的部分不重复计提这两项费用。概要的综合年化费用是测算，交易费用和税负按实际发生扣除。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-prospectus-20260529",
+          "revision": 1,
+          "source": "华夏基金 · 招募说明书费用条款",
+          "published_at": "2026-05-29",
+          "checked_at": "2026-10-03",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/a87a41e0ec074fa1bb88aed07257bdba.pdf",
+          "fragments": [
+            "A类000051前端申购：不足100万元1.20%，100万至不足500万元0.90%，500万至不足1000万元0.60%，不少于1000万元每笔1000元。销售机构可优惠，实际渠道折扣未核实。",
+            "A类持有不足7天赎回1.50%，7天至不足1年0.50%，满1年0；C类不收申购费，不足7天赎回1.50%，满7天0。A类不收销售服务费。",
+            "管理费、托管费对基金资产扣除目标ETF投资部分后计提。费用比较需结合份额、持有期和适用渠道，不能将概要综合费用当实际全成本保证。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-03T14:07:24.050Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：估值倍数回落，临时追加先观察",
+        "deck": "9月末PE、PB低于去年底，沪深300同样本盈利仍未核对。本期不凭单条利润利好临时追加，也不凭旧单项费差换基金；已有配置者按原条件维护，首次配置指导尚未完成。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 9,
+        "operation_view": {
+          "reviewed_on": "2026-10-03",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。"
+          },
+          "reason": "9月30日沪深300滚动PE13.15倍、PB1.36倍，均低于去年底，但未取得长期分位和同样本盈利。沪市半年报净利增长17.6%仅是上市公司旁证，不能写成沪深300盈利已改善。原配置条件仍成立时维持计划，临时追加继续观察；费用规则影响工具选择，不能改变市场方向。",
+          "counterargument": "沪市扣非利润也增长、9月订单仍在扩张区间，等待所有证据齐全可能错过结构性修复，既定计划不必等完美买点。反过来，倍数下降可能反映盈利前景变弱。缺少指数同样本盈利，既不能直接称便宜，也不能据此减仓。旧概要费率差异亦不能证明长期成本排序。",
+          "change_conditions": [
+            "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+            "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+            "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+            "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "110020",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.80%；500万—不足1000万元0.20%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7—364天0.50%；365—729天0.25%；730天及以上0",
+                "document_date": "2026-08-11",
+                "source_ref_id": "efund-csi300-a-summary-20260811"
+              }
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "000051",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.90%；500万—不足1000万元0.60%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7天—不足1年0.50%；满1年0",
+                "document_date": "2026-05-29",
+                "source_ref_id": "chinaamc-csi300-prospectus-20260529"
+              }
+            }
+          ],
+          "comparison_note": "C类概要分别送出于2026-08-11、2026-05-29；A类条款按表内原文日期记录，不代表收费生效日。若适用期间、渠道和规则一致，两C类名义销售服务年费率相差0.10个百分点；实际成本仍需核对。不能一律按“长期A、短期C”选择：易方达A在365—729天仍收0.25%赎回费，华夏A满1年为0；申购档位与渠道优惠也不同，不假定一折。管理/托管仅对扣除目标ETF后的资产计提，0.40%/0.50%为概要综合运作测算，不是实际全成本保证。换仓另有赎回、申购和间隔波动。同期收益使用各自基准，差额不是可比跟踪误差。",
+          "gaps": [
+            "两只基金费改实施公告、生效日、持有期起算、具体渠道及适用安排",
+            "沪深300同样本盈利与长期估值分位",
+            "华夏当日赎回状态和可比年化跟踪误差",
+            "实际渠道折扣与所选持有期间的总成本"
+          ],
+          "market": {
+            "as_of": "2026-09-30",
+            "close": 4357.62,
+            "pe_ttm": 13.15,
+            "pb": 1.36,
+            "dividend_yield": 2.74,
+            "previous_year_end": {
+              "pe_ttm": 14.31,
+              "pb": 1.45
+            },
+            "daily": [
+              {
+                "date": "2026-09-02",
+                "close": 4547.96
+              },
+              {
+                "date": "2026-09-03",
+                "close": 4552.58
+              },
+              {
+                "date": "2026-09-04",
+                "close": 4548.05
+              },
+              {
+                "date": "2026-09-07",
+                "close": 4575.02
+              },
+              {
+                "date": "2026-09-08",
+                "close": 4558.74
+              },
+              {
+                "date": "2026-09-09",
+                "close": 4572.6
+              },
+              {
+                "date": "2026-09-10",
+                "close": 4548.39
+              },
+              {
+                "date": "2026-09-11",
+                "close": 4510.16
+              },
+              {
+                "date": "2026-09-14",
+                "close": 4480.08
+              },
+              {
+                "date": "2026-09-15",
+                "close": 4450.04
+              },
+              {
+                "date": "2026-09-16",
+                "close": 4480.27
+              },
+              {
+                "date": "2026-09-17",
+                "close": 4460.16
+              },
+              {
+                "date": "2026-09-18",
+                "close": 4507.39
+              },
+              {
+                "date": "2026-09-21",
+                "close": 4539.57
+              },
+              {
+                "date": "2026-09-22",
+                "close": 4544.59
+              },
+              {
+                "date": "2026-09-23",
+                "close": 4517.28
+              },
+              {
+                "date": "2026-09-24",
+                "close": 4439.14
+              },
+              {
+                "date": "2026-09-28",
+                "close": 4340.76
+              },
+              {
+                "date": "2026-09-29",
+                "close": 4345.21
+              },
+              {
+                "date": "2026-09-30",
+                "close": 4357.62
+              }
+            ],
+            "source": {
+              "article_id": "csi300-official-market-20260930",
+              "revision": 1,
+              "source": "中证指数 · 每日估值与行情",
+              "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+              "published_at": "",
+              "checked_at": "2026-10-02",
+              "data_as_of": "2026-09-30",
+              "fragments": [
+                "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+                "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+              ]
+            }
+          },
+          "research_conditions": [
+            {
+              "key": "valuation_claim",
+              "label": "价格与估值",
+              "baseline": "9月30日滚动PE 13.15、PB 1.36，均低于去年底14.31、1.45。",
+              "watch": "中证官方同日期行情和估值；不使用基金净值填指数估值。",
+              "trigger": "任一倍数不再低于去年底对照，进入重新评估；日常涨跌不自动改观点。",
+              "automatic": true
+            },
+            {
+              "key": "index_earnings_bridge",
+              "label": "盈利能否覆盖指数",
+              "baseline": "上半年沪市净利同比+17.6%；这不是沪深300全样本盈利。",
+              "watch": "下一期官方样本盈利，核对样本、期间、归母/扣非及金融范围。",
+              "trigger": "同口径指数盈利确认改善或恶化，再与当期估值一起重评。当前聚合资料尚缺。",
+              "automatic": false
+            },
+            {
+              "key": "orders_and_breadth",
+              "label": "修复有没有扩散",
+              "baseline": "9月新订单50.5；1—8月电子行业贡献工业利润增量62%；8月零售+0.4%。",
+              "watch": "下一期PMI订单、分行业利润与零售，保留名义/同比和统计集合。",
+              "trigger": "订单降至50以下、盈利修复逆转或扩散到更多行业，重新检验解释。这些报告目前需编辑复核。",
+              "automatic": false
+            }
+          ],
+          "method_version": "editorial-evidence-and-conditions-20261003",
+          "fee_regulation": {
+            "article_id": "csrc-fund-sales-fees-rule-20251231",
+            "revision": 1,
+            "source": "证监会 · 2025年第22号公告及正式附件",
+            "published_at": "2025-12-31",
+            "checked_at": "2026-10-02",
+            "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+            "fragments": [
+              "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+              "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+              "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+            ]
+          },
+          "next_watch": "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。"
+        },
+        "sections": [
+          {
+            "heading": "沪市利润修复，是旁证而非指数盈利",
+            "paragraphs": [
+              "上交所8月30日发布的2026年半年报综述显示，沪市公司合计净利润同比增长17.6%，扣非后净利润增长17.2%；上证180公司净利润增长14.8%。这说明修复已经体现在上市公司报告期利润里，不能继续笼统说“只有预期，没有盈利”。",
+              "但沪市公司、上证180与沪深300不是同一个样本，报告期间也只有上半年。这里采用盈利旁证，尚未把沪深300成份公司的同口径盈利汇总出来；不能把17.6%写成指数EPS增长。"
+            ],
+            "refs": [
+              "sse-halfyear-20260830"
+            ]
+          },
+          {
+            "heading": "价格回落，估值倍数也低于去年底",
+            "paragraphs": [
+              "9月30日，沪深300收盘4357.62点。中证官网滚动市盈率13.15倍，低于去年底14.31倍；市净率1.36倍，低于去年底1.45倍。分别下降约8.11%和6.21%。这只能说明同一官网口径下，两个时点的估值倍数降低。",
+              "9月1日至9月30日的收盘端点价格下降约5.50%，不是含分红总回报，也不是从8月末算起的完整9月收益。近期回落提供了价格背景，不能从跌过一段便断定见底。",
+              "市盈率涉及价格与盈利两个量，单看比值不能分辨是价格变化、盈利变化还是样本因素。目前没有完整长期分布，不能称历史低位或给出估值分位。2.74%的官网股息率亦不当作未来基金收益。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609"
+            ]
+          },
+          {
+            "heading": "修复的覆盖面，仍是主要分歧",
+            "paragraphs": [
+              "国家统计局9月28日的解读显示，1—8月规模以上工业企业利润同比增长15.7%、营业收入增长6.6%，电子行业贡献利润增量62%。利润率也改善，但增量集中在部分行业；工业企业还包含未上市企业，不能等同综合股指盈利。",
+              "8月社会消费品零售总额名义同比增长0.4%，除汽车增长2.5%。9月制造业新订单指数50.5，比8月低0.1，仍高于50；生产指数51.7。订单扩张并未消失，但也没有继续加速，利润改善与内需恢复不齐可以同时成立。",
+              "一种有材料支持的解释是产业结构、成本改善与科技景气推动利润修复，而不是所有内需环节同步恢复。另一面是：盈利兑现可能先于需求全面转强，要求全面复苏才参与会错过已有修复。这两种解释都要继续接受下一期材料检验。"
+            ],
+            "refs": [
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          },
+          {
+            "heading": "先分清配置判断，再选择基金",
+            "paragraphs": [
+              "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。",
+              "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。",
+              "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。",
+              "007339与005658跟踪同一个方向，同时持有不增加方向分散。按各自日期概要，C类服务费0.20%与0.30%；在同一适用期间、渠道和规则下，名义差为0.10个百分点，尚不能据此给无条件优先。",
+              "A类也不能一概按长期零赎回费处理：易方达110020持有365—729天仍为0.25%，华夏000051满1年为0。普通申购档位与渠道优惠不同，现有比较不假定一折；具体条款见上方对照和原文。",
+              "0.40%与0.50%是概要综合运作测算；两家的管理、托管费均扣除目标ETF部分后计提，不能简单全年相加外推。换基金须同时看赎回、申购与资金间隔的风险。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529",
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026",
+              "efund-csi300-a-summary-20260811",
+              "chinaamc-csi300-prospectus-20260529"
+            ]
+          },
+          {
+            "heading": "费率新规，改变了长期比较的前提",
+            "paragraphs": [
+              "证监会新规自2026年1月1日施行，对不符规定的已发售基金给出12个月调整期。一般规定中，指数型基金销售服务费上限为0.2%/年；除规定豁免的基金外，持续持有期限超过一年不得继续收取销售服务费，管理人直销也有不同收费要求。这里的边界是“超过一年”，不是“满一年”。",
+              "两只ETF联接的产品概要列基金中基金，具体费改类别、渠道、生效与存量安排仍须基金公司材料确认。本次有限官网核查未取得对应实施公告，不能说尚未实施，也不能仅拿华夏旧0.30%直接判定违规。网页数字和一般法规分别记录。",
+              "个人指数型基金持有满7日的赎回费允许另行约定，不能把新规一般赎回费阶梯机械套给这两只。现有概要的满7日零费仍保留为对应日期记录，未来执行以具体生效安排和渠道为准。"
+            ],
+            "refs": [
+              "csrc-fund-sales-fees-rule-20251231",
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "下次资料来了，哪些条件要重评",
+            "paragraphs": [
+              "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+              "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+              "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+              "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。",
+              "10月1日至7日上交所休市，10月8日起开市；9月30日是当前最近交易日，不伪造假期净值或今日行情。核查失败时保留旧资料和原判断，标记待复核，不将数据失败当成市场观察信号。",
+              "本研究采用编辑证据与条件比较，没有加入20/60均线策略或自动择时。当前价格与估值、基金页面明确字段可免费核查；盈利与需求的同口径桥接仍需编辑工作。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609",
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930",
+              "sse-holiday-20260917"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "沪深3009月末估值倍数低于去年底，同样本盈利未证实。已有长期计划且原条件未变时维持；不因单条利润利好临时追加，不凭旧单项费差换基金。首次配置指导尚未完成。两C类及同基金A类按原日期条款比较，实际渠道、费改生效与存量衔接未核齐，不作无条件排序。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002",
+          "csrc-fund-sales-fees-rule-20251231",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "sse-holiday-20260917",
+          "efund-csi300-a-summary-20260811",
+          "chinaamc-csi300-prospectus-20260529"
+        ],
+        "mechanism": [
+          "上市公司收入与利润改善能支持股权价值，但广义样本不能直接代替沪深300盈利。",
+          "估值是价格与盈利的比值，倍数下降不能单独证明盈利改善或历史便宜。",
+          "利润增量集中、需求恢复不齐，限制了向综合指数的外推；既定配置与临时追加需分开评估。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "工具比较须核清份额、渠道、持续持有期与费用实施公告；费用变化不直接修改市场动作"
+        ],
+        "alternatives": [
+          {
+            "explanation": "产业结构和成本改善推动利润，内需尚未同步修复；盈利兑现也可能先于全面需求好转。",
+            "evidence_ids": [
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "3a799e84-810a-4650-869d-78143c8020e7"
+        ]
+      },
+      "changes": {
+        "kind": "revise",
+        "summary": "订正原文摘记：删除尚未核实适用于该指数接口的估值计算口径。9月30日数值、原有持仓条件和新增资金先观察的判断均未改变。",
+        "evidence_ids": [
+          "csi300-official-market-20260930"
+        ]
+      }
+    },
+    {
+      "id": "3a799e84-810a-4650-869d-78143c8020e7",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "629c467c-ad5b-409f-b715-c6d84bf51e68",
+      "version": 6,
+      "as_of": "2026-10-03",
+      "generated_at": "2026-10-03T03:29:54.781Z",
+      "input_hash": "d1547233502d8c98e31ceefa89f7780c093ac0dca49c191baaf60d163033c1bd",
+      "input_refs": [
+        {
+          "article_id": "csi300-official-market-20260930",
+          "revision": 1,
+          "source": "中证指数 · 每日估值与行情",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+            "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+          ]
+        },
+        {
+          "article_id": "csi300-daily-202609",
+          "revision": 1,
+          "source": "中证指数 · 沪深300日行情",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260901&endDate=20260930",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "官方9月日行情返回21个交易日；最近20个实际交易日为9月2日至9月30日，图形采用收盘价。9月25日仅有估值延用行，没有交易价格，未画成交易日。",
+            "9月1日收盘4611.44到9月30日收盘4357.62，端点价格变化约−5.50%；不是完整9月收益，也不含股息再投资。"
+          ]
+        },
+        {
+          "article_id": "sse-halfyear-20260830",
+          "revision": 1,
+          "source": "上海证券交易所 · 沪市公司2026年半年报业绩综述",
+          "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260830_10830362.shtml",
+          "published_at": "2026-08-30",
+          "data_as_of": "2026-06-30",
+          "fragments": [
+            "同一句随后列同比17.6%，并给扣非同比17.2%；下句上证180净利润同比14.8%。",
+            "上市公司盈利修复已有报告期证据，扣非利润与现金流旁证使其不只是股价上涨的叙事。",
+            "不能将17.6%或14.8%乘到沪深300，不能由H1盈利改善证明9月价格便宜或Q3盈利延续。"
+          ]
+        },
+        {
+          "article_id": "nbs-profit-interpretation-20260928",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份工业企业利润数据解读",
+          "url": "https://www.stats.gov.cn/sj/sjjd/202609/t20260928_1965426.html",
+          "published_at": "2026-09-28",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "同文给营收同比6.6%、电子行业利润增量贡献率62.0%、利润率5.66%及同比提高0.44个百分点。",
+            "利润和利润率改善存在，但增量依赖电子行业；可以解释盈利恢复与其他内需环节偏弱并存。",
+            "不能等同沪深300盈利，不把8月同比回落直接判为环比衰退；62%贡献率不能当成电子行业占整个经济六成。"
+          ]
+        },
+        {
+          "article_id": "nbs-retail-20260915",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份社会消费品零售总额增长1.1%",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+          "published_at": "2026-09-15",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "该短句紧随8月社会消费品零售总额39824亿元；除汽车8月同比2.5%。统计表明确为名义增速。",
+            "商品与餐饮支出增长较弱，汽车拖累明显；不能只看总额便断言所有消费类别都收缩。",
+            "这是未扣价格的名义口径，不等于居民全部服务消费、不等于沪深300消费板块收入或银行盈利。"
+          ]
+        },
+        {
+          "article_id": "nbs-pmi-20260930",
+          "revision": 1,
+          "source": "国家统计局、中国物流与采购联合会 · 2026年9月中国采购经理指数运行情况",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260930_1965449.html",
+          "published_at": "2026-09-30",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "同段指出较上月下降0.1个百分点但仍高于临界点；生产指数51.7%，较上月升1.3个百分点。",
+            "生产恢复快于订单的边际变化；订单仍处扩张区间，不支持需求完全收缩，也未证明扩张持续加速。",
+            "50.5不是订单同比增长50.5%，一次重回扩张不能当作指数盈利或买入信号；生产减新订单的数值不能当作实体库存增长。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        },
+        {
+          "article_id": "csrc-fund-sales-fees-rule-20251231",
+          "revision": 1,
+          "source": "证监会 · 2025年第22号公告及正式附件",
+          "published_at": "2025-12-31",
+          "checked_at": "2026-10-02",
+          "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+          "fragments": [
+            "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+            "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+            "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类007339概要于2026年8月10日编制、8月11日送出：申购费0，销售服务年费率0.20%，持有不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，对目标ETF投资部分不重复计提；综合运作年化0.40%为概要测算，不能当实际全成本或多年持续收费保证。",
+            "本基金具体费改生效、存量衔接、渠道及超过一年停止计提安排仍未核实。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "C类005658概要于2026年5月28日编制、5月29日送出：申购费0，销售服务年费率0.30%，不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，计提基数扣除目标ETF投资部分；综合运作年化0.50%仅概要测算，实际渠道优惠与费用执行条件未核齐。",
+            "本基金具体费改生效、存量衔接及超过一年免收的落地安排仍未核实，资料送出日不等于收费生效日。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "sse-holiday-20260917",
+          "revision": 1,
+          "source": "上海证券交易所 · 中秋节、国庆节休市公告",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
+          "published_at": "2026-09-17",
+          "checked_at": "2026-10-02",
+          "fragments": [
+            "2026年10月1日至7日休市，10月8日起照常开市；9月25日至27日中秋节休市。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-a-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · A类产品资料概要",
+          "published_at": "2026-08-11",
+          "checked_at": "2026-10-03",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接A）基金产品资料概要更新.pdf",
+          "fragments": [
+            "2026年8月10日编制、8月11日送出；A类代码110020。普通申购金额不足100万元1.20%，100万至不足500万元0.80%，500万至不足1000万元0.20%，不少于1000万元每笔1000元；不据特定群体档位假定普通渠道优惠。",
+            "A类持有不足7天赎回1.50%，7—364天0.50%，365—729天0.25%，730天及以上0。A类不收销售服务费。",
+            "管理费0.15%、托管费0.05%；基金持有目标ETF的部分不重复计提这两项费用。概要的综合年化费用是测算，交易费用和税负按实际发生扣除。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-prospectus-20260529",
+          "revision": 1,
+          "source": "华夏基金 · 招募说明书费用条款",
+          "published_at": "2026-05-29",
+          "checked_at": "2026-10-03",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/a87a41e0ec074fa1bb88aed07257bdba.pdf",
+          "fragments": [
+            "A类000051前端申购：不足100万元1.20%，100万至不足500万元0.90%，500万至不足1000万元0.60%，不少于1000万元每笔1000元。销售机构可优惠，实际渠道折扣未核实。",
+            "A类持有不足7天赎回1.50%，7天至不足1年0.50%，满1年0；C类不收申购费，不足7天赎回1.50%，满7天0。A类不收销售服务费。",
+            "管理费、托管费对基金资产扣除目标ETF投资部分后计提。费用比较需结合份额、持有期和适用渠道，不能将概要综合费用当实际全成本保证。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-03T03:29:54.781Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：估值倍数回落，临时追加先观察",
+        "deck": "9月末PE、PB低于去年底，沪深300同样本盈利仍未核对。本期不凭单条利润利好临时追加，也不凭旧单项费差换基金；已有配置者按原条件维护，首次配置指导尚未完成。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 9,
+        "operation_view": {
+          "reviewed_on": "2026-10-03",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。"
+          },
+          "reason": "9月30日沪深300滚动PE13.15倍、PB1.36倍，均低于去年底，但未取得长期分位和同样本盈利。沪市半年报净利增长17.6%仅是上市公司旁证，不能写成沪深300盈利已改善。原配置条件仍成立时维持计划，临时追加继续观察；费用规则影响工具选择，不能改变市场方向。",
+          "counterargument": "沪市扣非利润也增长、9月订单仍在扩张区间，等待所有证据齐全可能错过结构性修复，既定计划不必等完美买点。反过来，倍数下降可能反映盈利前景变弱。缺少指数同样本盈利，既不能直接称便宜，也不能据此减仓。旧概要费率差异亦不能证明长期成本排序。",
+          "change_conditions": [
+            "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+            "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+            "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+            "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "110020",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.80%；500万—不足1000万元0.20%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7—364天0.50%；365—729天0.25%；730天及以上0",
+                "document_date": "2026-08-11",
+                "source_ref_id": "efund-csi300-a-summary-20260811"
+              }
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "000051",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.90%；500万—不足1000万元0.60%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7天—不足1年0.50%；满1年0",
+                "document_date": "2026-05-29",
+                "source_ref_id": "chinaamc-csi300-prospectus-20260529"
+              }
+            }
+          ],
+          "comparison_note": "C类概要分别送出于2026-08-11、2026-05-29；A类条款按表内原文日期记录，不代表收费生效日。若适用期间、渠道和规则一致，两C类名义销售服务年费率相差0.10个百分点；实际成本仍需核对。不能一律按“长期A、短期C”选择：易方达A在365—729天仍收0.25%赎回费，华夏A满1年为0；申购档位与渠道优惠也不同，不假定一折。管理/托管仅对扣除目标ETF后的资产计提，0.40%/0.50%为概要综合运作测算，不是实际全成本保证。换仓另有赎回、申购和间隔波动。同期收益使用各自基准，差额不是可比跟踪误差。",
+          "gaps": [
+            "两只基金费改实施公告、生效日、持有期起算、具体渠道及适用安排",
+            "沪深300同样本盈利与长期估值分位",
+            "华夏当日赎回状态和可比年化跟踪误差",
+            "实际渠道折扣与所选持有期间的总成本"
+          ],
+          "market": {
+            "as_of": "2026-09-30",
+            "close": 4357.62,
+            "pe_ttm": 13.15,
+            "pb": 1.36,
+            "dividend_yield": 2.74,
+            "previous_year_end": {
+              "pe_ttm": 14.31,
+              "pb": 1.45
+            },
+            "daily": [
+              {
+                "date": "2026-09-02",
+                "close": 4547.96
+              },
+              {
+                "date": "2026-09-03",
+                "close": 4552.58
+              },
+              {
+                "date": "2026-09-04",
+                "close": 4548.05
+              },
+              {
+                "date": "2026-09-07",
+                "close": 4575.02
+              },
+              {
+                "date": "2026-09-08",
+                "close": 4558.74
+              },
+              {
+                "date": "2026-09-09",
+                "close": 4572.6
+              },
+              {
+                "date": "2026-09-10",
+                "close": 4548.39
+              },
+              {
+                "date": "2026-09-11",
+                "close": 4510.16
+              },
+              {
+                "date": "2026-09-14",
+                "close": 4480.08
+              },
+              {
+                "date": "2026-09-15",
+                "close": 4450.04
+              },
+              {
+                "date": "2026-09-16",
+                "close": 4480.27
+              },
+              {
+                "date": "2026-09-17",
+                "close": 4460.16
+              },
+              {
+                "date": "2026-09-18",
+                "close": 4507.39
+              },
+              {
+                "date": "2026-09-21",
+                "close": 4539.57
+              },
+              {
+                "date": "2026-09-22",
+                "close": 4544.59
+              },
+              {
+                "date": "2026-09-23",
+                "close": 4517.28
+              },
+              {
+                "date": "2026-09-24",
+                "close": 4439.14
+              },
+              {
+                "date": "2026-09-28",
+                "close": 4340.76
+              },
+              {
+                "date": "2026-09-29",
+                "close": 4345.21
+              },
+              {
+                "date": "2026-09-30",
+                "close": 4357.62
+              }
+            ],
+            "source": {
+              "article_id": "csi300-official-market-20260930",
+              "revision": 1,
+              "source": "中证指数 · 每日估值与行情",
+              "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+              "published_at": "",
+              "checked_at": "2026-10-02",
+              "data_as_of": "2026-09-30",
+              "fragments": [
+                "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+                "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+              ]
+            }
+          },
+          "research_conditions": [
+            {
+              "key": "valuation_claim",
+              "label": "价格与估值",
+              "baseline": "9月30日滚动PE 13.15、PB 1.36，均低于去年底14.31、1.45。",
+              "watch": "中证官方同日期行情和估值；不使用基金净值填指数估值。",
+              "trigger": "任一倍数不再低于去年底对照，进入重新评估；日常涨跌不自动改观点。",
+              "automatic": true
+            },
+            {
+              "key": "index_earnings_bridge",
+              "label": "盈利能否覆盖指数",
+              "baseline": "上半年沪市净利同比+17.6%；这不是沪深300全样本盈利。",
+              "watch": "下一期官方样本盈利，核对样本、期间、归母/扣非及金融范围。",
+              "trigger": "同口径指数盈利确认改善或恶化，再与当期估值一起重评。当前聚合资料尚缺。",
+              "automatic": false
+            },
+            {
+              "key": "orders_and_breadth",
+              "label": "修复有没有扩散",
+              "baseline": "9月新订单50.5；1—8月电子行业贡献工业利润增量62%；8月零售+0.4%。",
+              "watch": "下一期PMI订单、分行业利润与零售，保留名义/同比和统计集合。",
+              "trigger": "订单降至50以下、盈利修复逆转或扩散到更多行业，重新检验解释。这些报告目前需编辑复核。",
+              "automatic": false
+            }
+          ],
+          "method_version": "editorial-evidence-and-conditions-20261003",
+          "fee_regulation": {
+            "article_id": "csrc-fund-sales-fees-rule-20251231",
+            "revision": 1,
+            "source": "证监会 · 2025年第22号公告及正式附件",
+            "published_at": "2025-12-31",
+            "checked_at": "2026-10-02",
+            "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+            "fragments": [
+              "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+              "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+              "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+            ]
+          },
+          "next_watch": "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。"
+        },
+        "sections": [
+          {
+            "heading": "沪市利润修复，是旁证而非指数盈利",
+            "paragraphs": [
+              "上交所8月30日发布的2026年半年报综述显示，沪市公司合计净利润同比增长17.6%，扣非后净利润增长17.2%；上证180公司净利润增长14.8%。这说明修复已经体现在上市公司报告期利润里，不能继续笼统说“只有预期，没有盈利”。",
+              "但沪市公司、上证180与沪深300不是同一个样本，报告期间也只有上半年。这里采用盈利旁证，尚未把沪深300成份公司的同口径盈利汇总出来；不能把17.6%写成指数EPS增长。"
+            ],
+            "refs": [
+              "sse-halfyear-20260830"
+            ]
+          },
+          {
+            "heading": "价格回落，估值倍数也低于去年底",
+            "paragraphs": [
+              "9月30日，沪深300收盘4357.62点。中证官网滚动市盈率13.15倍，低于去年底14.31倍；市净率1.36倍，低于去年底1.45倍。分别下降约8.11%和6.21%。这只能说明同一官网口径下，两个时点的估值倍数降低。",
+              "9月1日至9月30日的收盘端点价格下降约5.50%，不是含分红总回报，也不是从8月末算起的完整9月收益。近期回落提供了价格背景，不能从跌过一段便断定见底。",
+              "市盈率涉及价格与盈利两个量，单看比值不能分辨是价格变化、盈利变化还是样本因素。目前没有完整长期分布，不能称历史低位或给出估值分位。2.74%的官网股息率亦不当作未来基金收益。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609"
+            ]
+          },
+          {
+            "heading": "修复的覆盖面，仍是主要分歧",
+            "paragraphs": [
+              "国家统计局9月28日的解读显示，1—8月规模以上工业企业利润同比增长15.7%、营业收入增长6.6%，电子行业贡献利润增量62%。利润率也改善，但增量集中在部分行业；工业企业还包含未上市企业，不能等同综合股指盈利。",
+              "8月社会消费品零售总额名义同比增长0.4%，除汽车增长2.5%。9月制造业新订单指数50.5，比8月低0.1，仍高于50；生产指数51.7。订单扩张并未消失，但也没有继续加速，利润改善与内需恢复不齐可以同时成立。",
+              "一种有材料支持的解释是产业结构、成本改善与科技景气推动利润修复，而不是所有内需环节同步恢复。另一面是：盈利兑现可能先于需求全面转强，要求全面复苏才参与会错过已有修复。这两种解释都要继续接受下一期材料检验。"
+            ],
+            "refs": [
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          },
+          {
+            "heading": "先分清配置判断，再选择基金",
+            "paragraphs": [
+              "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。",
+              "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。",
+              "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。",
+              "007339与005658跟踪同一个方向，同时持有不增加方向分散。按各自日期概要，C类服务费0.20%与0.30%；在同一适用期间、渠道和规则下，名义差为0.10个百分点，尚不能据此给无条件优先。",
+              "A类也不能一概按长期零赎回费处理：易方达110020持有365—729天仍为0.25%，华夏000051满1年为0。普通申购档位与渠道优惠不同，现有比较不假定一折；具体条款见上方对照和原文。",
+              "0.40%与0.50%是概要综合运作测算；两家的管理、托管费均扣除目标ETF部分后计提，不能简单全年相加外推。换基金须同时看赎回、申购与资金间隔的风险。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529",
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026",
+              "efund-csi300-a-summary-20260811",
+              "chinaamc-csi300-prospectus-20260529"
+            ]
+          },
+          {
+            "heading": "费率新规，改变了长期比较的前提",
+            "paragraphs": [
+              "证监会新规自2026年1月1日施行，对不符规定的已发售基金给出12个月调整期。一般规定中，指数型基金销售服务费上限为0.2%/年；除规定豁免的基金外，持续持有期限超过一年不得继续收取销售服务费，管理人直销也有不同收费要求。这里的边界是“超过一年”，不是“满一年”。",
+              "两只ETF联接的产品概要列基金中基金，具体费改类别、渠道、生效与存量安排仍须基金公司材料确认。本次有限官网核查未取得对应实施公告，不能说尚未实施，也不能仅拿华夏旧0.30%直接判定违规。网页数字和一般法规分别记录。",
+              "个人指数型基金持有满7日的赎回费允许另行约定，不能把新规一般赎回费阶梯机械套给这两只。现有概要的满7日零费仍保留为对应日期记录，未来执行以具体生效安排和渠道为准。"
+            ],
+            "refs": [
+              "csrc-fund-sales-fees-rule-20251231",
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "下次资料来了，哪些条件要重评",
+            "paragraphs": [
+              "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+              "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+              "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+              "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。",
+              "10月1日至7日上交所休市，10月8日起开市；9月30日是当前最近交易日，不伪造假期净值或今日行情。核查失败时保留旧资料和原判断，标记待复核，不将数据失败当成市场观察信号。",
+              "本研究采用编辑证据与条件比较，没有加入20/60均线策略或自动择时。当前价格与估值、基金页面明确字段可免费核查；盈利与需求的同口径桥接仍需编辑工作。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609",
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930",
+              "sse-holiday-20260917"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "沪深3009月末估值倍数低于去年底，同样本盈利未证实。已有长期计划且原条件未变时维持；不因单条利润利好临时追加，不凭旧单项费差换基金。首次配置指导尚未完成。两C类及同基金A类按原日期条款比较，实际渠道、费改生效与存量衔接未核齐，不作无条件排序。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002",
+          "csrc-fund-sales-fees-rule-20251231",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "sse-holiday-20260917",
+          "efund-csi300-a-summary-20260811",
+          "chinaamc-csi300-prospectus-20260529"
+        ],
+        "mechanism": [
+          "上市公司收入与利润改善能支持股权价值，但广义样本不能直接代替沪深300盈利。",
+          "估值是价格与盈利的比值，倍数下降不能单独证明盈利改善或历史便宜。",
+          "利润增量集中、需求恢复不齐，限制了向综合指数的外推；既定配置与临时追加需分开评估。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "工具比较须核清份额、渠道、持续持有期与费用实施公告；费用变化不直接修改市场动作"
+        ],
+        "alternatives": [
+          {
+            "explanation": "产业结构和成本改善推动利润，内需尚未同步修复；盈利兑现也可能先于全面需求好转。",
+            "evidence_ids": [
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "629c467c-ad5b-409f-b715-c6d84bf51e68"
+        ]
+      },
+      "changes": {
+        "kind": "revise",
+        "summary": "补清本期可参考动作、首次配置范围与后续材料，加入A类条款及目标ETF计提说明；删除未证实适用于该指数接口的PE口径陈述。市场持/观察及未排序状态不变。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-a-summary-20260811",
+          "chinaamc-csi300-prospectus-20260529"
+        ]
+      }
+    },
+    {
+      "id": "629c467c-ad5b-409f-b715-c6d84bf51e68",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "d5edc20a-fd2f-46e6-8e9a-ebdfe2e2b24c",
+      "version": 5,
+      "as_of": "2026-10-03",
+      "generated_at": "2026-10-03T03:24:09.065Z",
+      "input_hash": "d1547233502d8c98e31ceefa89f7780c093ac0dca49c191baaf60d163033c1bd",
+      "input_refs": [
+        {
+          "article_id": "csi300-official-market-20260930",
+          "revision": 1,
+          "source": "中证指数 · 每日估值与行情",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+            "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+          ]
+        },
+        {
+          "article_id": "csi300-daily-202609",
+          "revision": 1,
+          "source": "中证指数 · 沪深300日行情",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260901&endDate=20260930",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "官方9月日行情返回21个交易日；最近20个实际交易日为9月2日至9月30日，图形采用收盘价。9月25日仅有估值延用行，没有交易价格，未画成交易日。",
+            "9月1日收盘4611.44到9月30日收盘4357.62，端点价格变化约−5.50%；不是完整9月收益，也不含股息再投资。"
+          ]
+        },
+        {
+          "article_id": "sse-halfyear-20260830",
+          "revision": 1,
+          "source": "上海证券交易所 · 沪市公司2026年半年报业绩综述",
+          "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260830_10830362.shtml",
+          "published_at": "2026-08-30",
+          "data_as_of": "2026-06-30",
+          "fragments": [
+            "同一句随后列同比17.6%，并给扣非同比17.2%；下句上证180净利润同比14.8%。",
+            "上市公司盈利修复已有报告期证据，扣非利润与现金流旁证使其不只是股价上涨的叙事。",
+            "不能将17.6%或14.8%乘到沪深300，不能由H1盈利改善证明9月价格便宜或Q3盈利延续。"
+          ]
+        },
+        {
+          "article_id": "nbs-profit-interpretation-20260928",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份工业企业利润数据解读",
+          "url": "https://www.stats.gov.cn/sj/sjjd/202609/t20260928_1965426.html",
+          "published_at": "2026-09-28",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "同文给营收同比6.6%、电子行业利润增量贡献率62.0%、利润率5.66%及同比提高0.44个百分点。",
+            "利润和利润率改善存在，但增量依赖电子行业；可以解释盈利恢复与其他内需环节偏弱并存。",
+            "不能等同沪深300盈利，不把8月同比回落直接判为环比衰退；62%贡献率不能当成电子行业占整个经济六成。"
+          ]
+        },
+        {
+          "article_id": "nbs-retail-20260915",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份社会消费品零售总额增长1.1%",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+          "published_at": "2026-09-15",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "该短句紧随8月社会消费品零售总额39824亿元；除汽车8月同比2.5%。统计表明确为名义增速。",
+            "商品与餐饮支出增长较弱，汽车拖累明显；不能只看总额便断言所有消费类别都收缩。",
+            "这是未扣价格的名义口径，不等于居民全部服务消费、不等于沪深300消费板块收入或银行盈利。"
+          ]
+        },
+        {
+          "article_id": "nbs-pmi-20260930",
+          "revision": 1,
+          "source": "国家统计局、中国物流与采购联合会 · 2026年9月中国采购经理指数运行情况",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260930_1965449.html",
+          "published_at": "2026-09-30",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "同段指出较上月下降0.1个百分点但仍高于临界点；生产指数51.7%，较上月升1.3个百分点。",
+            "生产恢复快于订单的边际变化；订单仍处扩张区间，不支持需求完全收缩，也未证明扩张持续加速。",
+            "50.5不是订单同比增长50.5%，一次重回扩张不能当作指数盈利或买入信号；生产减新订单的数值不能当作实体库存增长。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        },
+        {
+          "article_id": "csrc-fund-sales-fees-rule-20251231",
+          "revision": 1,
+          "source": "证监会 · 2025年第22号公告及正式附件",
+          "published_at": "2025-12-31",
+          "checked_at": "2026-10-02",
+          "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+          "fragments": [
+            "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+            "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+            "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类007339概要于2026年8月10日编制、8月11日送出：申购费0，销售服务年费率0.20%，持有不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，对目标ETF投资部分不重复计提；综合运作年化0.40%为概要测算，不能当实际全成本或多年持续收费保证。",
+            "本基金具体费改生效、存量衔接、渠道及超过一年停止计提安排仍未核实。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "C类005658概要于2026年5月28日编制、5月29日送出：申购费0，销售服务年费率0.30%，不足7天赎回1.50%，满7天0。",
+            "管理费0.15%、托管费0.05%，计提基数扣除目标ETF投资部分；综合运作年化0.50%仅概要测算，实际渠道优惠与费用执行条件未核齐。",
+            "本基金具体费改生效、存量衔接及超过一年免收的落地安排仍未核实，资料送出日不等于收费生效日。"
+          ],
+          "checked_at": "2026-10-03"
+        },
+        {
+          "article_id": "sse-holiday-20260917",
+          "revision": 1,
+          "source": "上海证券交易所 · 中秋节、国庆节休市公告",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
+          "published_at": "2026-09-17",
+          "checked_at": "2026-10-02",
+          "fragments": [
+            "2026年10月1日至7日休市，10月8日起照常开市；9月25日至27日中秋节休市。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-a-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · A类产品资料概要",
+          "published_at": "2026-08-11",
+          "checked_at": "2026-10-03",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接A）基金产品资料概要更新.pdf",
+          "fragments": [
+            "2026年8月10日编制、8月11日送出；A类代码110020。普通申购金额不足100万元1.20%，100万至不足500万元0.80%，500万至不足1000万元0.20%，不少于1000万元每笔1000元；不据特定群体档位假定普通渠道优惠。",
+            "A类持有不足7天赎回1.50%，7—364天0.50%，365—729天0.25%，730天及以上0。A类不收销售服务费。",
+            "管理费0.15%、托管费0.05%；基金持有目标ETF的部分不重复计提这两项费用。概要的综合年化费用是测算，交易费用和税负按实际发生扣除。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-prospectus-20260529",
+          "revision": 1,
+          "source": "华夏基金 · 招募说明书费用条款",
+          "published_at": "2026-05-29",
+          "checked_at": "2026-10-03",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/a87a41e0ec074fa1bb88aed07257bdba.pdf",
+          "fragments": [
+            "A类000051前端申购：不足100万元1.20%，100万至不足500万元0.90%，500万至不足1000万元0.60%，不少于1000万元每笔1000元。销售机构可优惠，实际渠道折扣未核实。",
+            "A类持有不足7天赎回1.50%，7天至不足1年0.50%，满1年0；C类不收申购费，不足7天赎回1.50%，满7天0。A类不收销售服务费。",
+            "管理费、托管费对基金资产扣除目标ETF投资部分后计提。费用比较需结合份额、持有期和适用渠道，不能将概要综合费用当实际全成本保证。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-03T03:24:09.065Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：估值倍数回落，临时追加先观察",
+        "deck": "9月末PE、PB低于去年底，沪深300同样本盈利仍未核对。本期不凭单条利润利好临时追加，也不凭旧单项费差换基金；已有配置者按原条件维护，首次配置指导尚未完成。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 9,
+        "operation_view": {
+          "reviewed_on": "2026-10-03",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。"
+          },
+          "reason": "9月30日沪深300滚动PE13.15倍、PB1.36倍，均低于去年底，但未取得长期分位和同样本盈利。沪市半年报净利增长17.6%仅是上市公司旁证，不能写成沪深300盈利已改善。原配置条件仍成立时维持计划，临时追加继续观察；费用规则影响工具选择，不能改变市场方向。",
+          "counterargument": "沪市扣非利润也增长、9月订单仍在扩张区间，等待所有证据齐全可能错过结构性修复，既定计划不必等完美买点。反过来，倍数下降可能反映盈利前景变弱。缺少指数同样本盈利，既不能直接称便宜，也不能据此减仓。旧概要费率差异亦不能证明长期成本排序。",
+          "change_conditions": [
+            "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+            "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+            "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+            "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "110020",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.80%；500万—不足1000万元0.20%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7—364天0.50%；365—729天0.25%；730天及以上0",
+                "document_date": "2026-08-11",
+                "source_ref_id": "efund-csi300-a-summary-20260811"
+              }
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0（C类，按所列日期资料）",
+              "redemption": "不足7天1.50%；满7天0（不是推荐持有期限）",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              },
+              "a_class": {
+                "code": "000051",
+                "service": "0",
+                "subscription": "不足100万元1.20%；100万—不足500万元0.90%；500万—不足1000万元0.60%；不少于1000万元1000元/笔",
+                "redemption": "不足7天1.50%；7天—不足1年0.50%；满1年0",
+                "document_date": "2026-05-29",
+                "source_ref_id": "chinaamc-csi300-prospectus-20260529"
+              }
+            }
+          ],
+          "comparison_note": "C类概要分别送出于2026-08-11、2026-05-29；A类条款按表内原文日期记录，不代表收费生效日。若适用期间、渠道和规则一致，两C类名义销售服务年费率相差0.10个百分点；实际成本仍需核对。不能一律按“长期A、短期C”选择：易方达A在365—729天仍收0.25%赎回费，华夏A满1年为0；申购档位与渠道优惠也不同，不假定一折。管理/托管仅对扣除目标ETF后的资产计提，0.40%/0.50%为概要综合运作测算，不是实际全成本保证。换仓另有赎回、申购和间隔波动。同期收益使用各自基准，差额不是可比跟踪误差。",
+          "gaps": [
+            "两只基金费改实施公告、生效日、持有期起算、具体渠道及适用安排",
+            "沪深300同样本盈利与长期估值分位",
+            "华夏当日赎回状态和可比年化跟踪误差",
+            "实际渠道折扣与所选持有期间的总成本"
+          ],
+          "market": {
+            "as_of": "2026-09-30",
+            "close": 4357.62,
+            "pe_ttm": 13.15,
+            "pb": 1.36,
+            "dividend_yield": 2.74,
+            "previous_year_end": {
+              "pe_ttm": 14.31,
+              "pb": 1.45
+            },
+            "daily": [
+              {
+                "date": "2026-09-02",
+                "close": 4547.96
+              },
+              {
+                "date": "2026-09-03",
+                "close": 4552.58
+              },
+              {
+                "date": "2026-09-04",
+                "close": 4548.05
+              },
+              {
+                "date": "2026-09-07",
+                "close": 4575.02
+              },
+              {
+                "date": "2026-09-08",
+                "close": 4558.74
+              },
+              {
+                "date": "2026-09-09",
+                "close": 4572.6
+              },
+              {
+                "date": "2026-09-10",
+                "close": 4548.39
+              },
+              {
+                "date": "2026-09-11",
+                "close": 4510.16
+              },
+              {
+                "date": "2026-09-14",
+                "close": 4480.08
+              },
+              {
+                "date": "2026-09-15",
+                "close": 4450.04
+              },
+              {
+                "date": "2026-09-16",
+                "close": 4480.27
+              },
+              {
+                "date": "2026-09-17",
+                "close": 4460.16
+              },
+              {
+                "date": "2026-09-18",
+                "close": 4507.39
+              },
+              {
+                "date": "2026-09-21",
+                "close": 4539.57
+              },
+              {
+                "date": "2026-09-22",
+                "close": 4544.59
+              },
+              {
+                "date": "2026-09-23",
+                "close": 4517.28
+              },
+              {
+                "date": "2026-09-24",
+                "close": 4439.14
+              },
+              {
+                "date": "2026-09-28",
+                "close": 4340.76
+              },
+              {
+                "date": "2026-09-29",
+                "close": 4345.21
+              },
+              {
+                "date": "2026-09-30",
+                "close": 4357.62
+              }
+            ],
+            "source": {
+              "article_id": "csi300-official-market-20260930",
+              "revision": 1,
+              "source": "中证指数 · 每日估值与行情",
+              "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+              "published_at": "",
+              "checked_at": "2026-10-02",
+              "data_as_of": "2026-09-30",
+              "fragments": [
+                "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+                "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+              ]
+            }
+          },
+          "research_conditions": [
+            {
+              "key": "valuation_claim",
+              "label": "价格与估值",
+              "baseline": "9月30日滚动PE 13.15、PB 1.36，均低于去年底14.31、1.45。",
+              "watch": "中证官方同日期行情和估值；不使用基金净值填指数估值。",
+              "trigger": "任一倍数不再低于去年底对照，进入重新评估；日常涨跌不自动改观点。",
+              "automatic": true
+            },
+            {
+              "key": "index_earnings_bridge",
+              "label": "盈利能否覆盖指数",
+              "baseline": "上半年沪市净利同比+17.6%；这不是沪深300全样本盈利。",
+              "watch": "下一期官方样本盈利，核对样本、期间、归母/扣非及金融范围。",
+              "trigger": "同口径指数盈利确认改善或恶化，再与当期估值一起重评。当前聚合资料尚缺。",
+              "automatic": false
+            },
+            {
+              "key": "orders_and_breadth",
+              "label": "修复有没有扩散",
+              "baseline": "9月新订单50.5；1—8月电子行业贡献工业利润增量62%；8月零售+0.4%。",
+              "watch": "下一期PMI订单、分行业利润与零售，保留名义/同比和统计集合。",
+              "trigger": "订单降至50以下、盈利修复逆转或扩散到更多行业，重新检验解释。这些报告目前需编辑复核。",
+              "automatic": false
+            }
+          ],
+          "method_version": "editorial-evidence-and-conditions-20261003",
+          "fee_regulation": {
+            "article_id": "csrc-fund-sales-fees-rule-20251231",
+            "revision": 1,
+            "source": "证监会 · 2025年第22号公告及正式附件",
+            "published_at": "2025-12-31",
+            "checked_at": "2026-10-02",
+            "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+            "fragments": [
+              "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+              "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+              "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+            ]
+          },
+          "next_watch": "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。"
+        },
+        "sections": [
+          {
+            "heading": "沪市利润修复，是旁证而非指数盈利",
+            "paragraphs": [
+              "上交所8月30日发布的2026年半年报综述显示，沪市公司合计净利润同比增长17.6%，扣非后净利润增长17.2%；上证180公司净利润增长14.8%。这说明修复已经体现在上市公司报告期利润里，不能继续笼统说“只有预期，没有盈利”。",
+              "但沪市公司、上证180与沪深300不是同一个样本，报告期间也只有上半年。这里采用盈利旁证，尚未把沪深300成份公司的同口径盈利汇总出来；不能把17.6%写成指数EPS增长。"
+            ],
+            "refs": [
+              "sse-halfyear-20260830"
+            ]
+          },
+          {
+            "heading": "价格回落，估值倍数也低于去年底",
+            "paragraphs": [
+              "9月30日，沪深300收盘4357.62点。中证官网滚动市盈率13.15倍，低于去年底14.31倍；市净率1.36倍，低于去年底1.45倍。分别下降约8.11%和6.21%。这只能说明同一官网口径下，两个时点的估值倍数降低。",
+              "9月1日至9月30日的收盘端点价格下降约5.50%，不是含分红总回报，也不是从8月末算起的完整9月收益。近期回落提供了价格背景，不能从跌过一段便断定见底。",
+              "市盈率涉及价格与盈利两个量，单看比值不能分辨是价格变化、盈利变化还是样本因素。官网说明市盈率剔除亏损股票；目前没有完整长期分布，不能称历史低位或给出估值分位。2.74%的官网股息率亦不当作未来基金收益。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609"
+            ]
+          },
+          {
+            "heading": "修复的覆盖面，仍是主要分歧",
+            "paragraphs": [
+              "国家统计局9月28日的解读显示，1—8月规模以上工业企业利润同比增长15.7%、营业收入增长6.6%，电子行业贡献利润增量62%。利润率也改善，但增量集中在部分行业；工业企业还包含未上市企业，不能等同综合股指盈利。",
+              "8月社会消费品零售总额名义同比增长0.4%，除汽车增长2.5%。9月制造业新订单指数50.5，比8月低0.1，仍高于50；生产指数51.7。订单扩张并未消失，但也没有继续加速，利润改善与内需恢复不齐可以同时成立。",
+              "一种有材料支持的解释是产业结构、成本改善与科技景气推动利润修复，而不是所有内需环节同步恢复。另一面是：盈利兑现可能先于需求全面转强，要求全面复苏才参与会错过已有修复。这两种解释都要继续接受下一期材料检验。"
+            ],
+            "refs": [
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          },
+          {
+            "heading": "先分清配置判断，再选择基金",
+            "paragraphs": [
+              "已有长期沪深300配置计划，仓位、资金用途和原依据未变时，维持原计划。不凭一项旧费差换基金，换仓还要考虑赎回、申购费用和资金间隔中的波动。",
+              "不因单条利润利好临时开仓或追加。没有长期配置计划时，“持”不能作为首次买入指引；首次配置指导尚未完成。",
+              "接下来，看沪深300同样本盈利与对应日期的估值、需求改善是否扩散，以及基金渠道、持有起算和收费生效公告；这些材料分别影响追加依据和选基金比较。",
+              "007339与005658跟踪同一个方向，同时持有不增加方向分散。按各自日期概要，C类服务费0.20%与0.30%；在同一适用期间、渠道和规则下，名义差为0.10个百分点，尚不能据此给无条件优先。",
+              "A类也不能一概按长期零赎回费处理：易方达110020持有365—729天仍为0.25%，华夏000051满1年为0。普通申购档位与渠道优惠不同，现有比较不假定一折；具体条款见上方对照和原文。",
+              "0.40%与0.50%是概要综合运作测算；两家的管理、托管费均扣除目标ETF部分后计提，不能简单全年相加外推。换基金须同时看赎回、申购与资金间隔的风险。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529",
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026",
+              "efund-csi300-a-summary-20260811",
+              "chinaamc-csi300-prospectus-20260529"
+            ]
+          },
+          {
+            "heading": "费率新规，改变了长期比较的前提",
+            "paragraphs": [
+              "证监会新规自2026年1月1日施行，对不符规定的已发售基金给出12个月调整期。一般规定中，指数型基金销售服务费上限为0.2%/年；除规定豁免的基金外，持续持有期限超过一年不得继续收取销售服务费，管理人直销也有不同收费要求。这里的边界是“超过一年”，不是“满一年”。",
+              "两只ETF联接的产品概要列基金中基金，具体费改类别、渠道、生效与存量安排仍须基金公司材料确认。本次有限官网核查未取得对应实施公告，不能说尚未实施，也不能仅拿华夏旧0.30%直接判定违规。网页数字和一般法规分别记录。",
+              "个人指数型基金持有满7日的赎回费允许另行约定，不能把新规一般赎回费阶梯机械套给这两只。现有概要的满7日零费仍保留为对应日期记录，未来执行以具体生效安排和渠道为准。"
+            ],
+            "refs": [
+              "csrc-fund-sales-fees-rule-20251231",
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "下次资料来了，哪些条件要重评",
+            "paragraphs": [
+              "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+              "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+              "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+              "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。",
+              "10月1日至7日上交所休市，10月8日起开市；9月30日是当前最近交易日，不伪造假期净值或今日行情。核查失败时保留旧资料和原判断，标记待复核，不将数据失败当成市场观察信号。",
+              "本研究采用编辑证据与条件比较，没有加入20/60均线策略或自动择时。当前价格与估值、基金页面明确字段可免费核查；盈利与需求的同口径桥接仍需编辑工作。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609",
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930",
+              "sse-holiday-20260917"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "沪深3009月末估值倍数低于去年底，同样本盈利未证实。已有长期计划且原条件未变时维持；不因单条利润利好临时追加，不凭旧单项费差换基金。首次配置指导尚未完成。两C类及同基金A类按原日期条款比较，实际渠道、费改生效与存量衔接未核齐，不作无条件排序。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002",
+          "csrc-fund-sales-fees-rule-20251231",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "sse-holiday-20260917",
+          "efund-csi300-a-summary-20260811",
+          "chinaamc-csi300-prospectus-20260529"
+        ],
+        "mechanism": [
+          "上市公司收入与利润改善能支持股权价值，但广义样本不能直接代替沪深300盈利。",
+          "估值是价格与盈利的比值，倍数下降不能单独证明盈利改善或历史便宜。",
+          "利润增量集中、需求恢复不齐，限制了向综合指数的外推；既定配置与临时追加需分开评估。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "工具比较须核清份额、渠道、持续持有期与费用实施公告；费用变化不直接修改市场动作"
+        ],
+        "alternatives": [
+          {
+            "explanation": "产业结构和成本改善推动利润，内需尚未同步修复；盈利兑现也可能先于全面需求好转。",
+            "evidence_ids": [
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "d5edc20a-fd2f-46e6-8e9a-ebdfe2e2b24c"
+        ]
+      },
+      "changes": {
+        "kind": "supplement",
+        "summary": "补清本期可参考动作、首次配置范围与后续材料；补入同基金A类申购、赎回档位和目标ETF费用计提口径。市场持/观察及未排序状态不变。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-a-summary-20260811",
+          "chinaamc-csi300-prospectus-20260529"
+        ]
+      }
+    },
+    {
+      "id": "d5edc20a-fd2f-46e6-8e9a-ebdfe2e2b24c",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "5321264b-3a45-4da0-8e36-59f38cf0e56d",
+      "version": 4,
+      "as_of": "2026-10-02",
+      "generated_at": "2026-10-02T16:13:37.669Z",
+      "input_hash": "4d2b0958a4538dcb2b3a06da6238b3b840f41b065059fc124be21be01c8c1c91",
+      "input_refs": [
+        {
+          "article_id": "csi300-official-market-20260930",
+          "revision": 1,
+          "source": "中证指数 · 每日估值与行情",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+            "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+          ]
+        },
+        {
+          "article_id": "csi300-daily-202609",
+          "revision": 1,
+          "source": "中证指数 · 沪深300日行情",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260901&endDate=20260930",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "官方9月日行情返回21个交易日；最近20个实际交易日为9月2日至9月30日，图形采用收盘价。9月25日仅有估值延用行，没有交易价格，未画成交易日。",
+            "9月1日收盘4611.44到9月30日收盘4357.62，端点价格变化约−5.50%；不是完整9月收益，也不含股息再投资。"
+          ]
+        },
+        {
+          "article_id": "sse-halfyear-20260830",
+          "revision": 1,
+          "source": "上海证券交易所 · 沪市公司2026年半年报业绩综述",
+          "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260830_10830362.shtml",
+          "published_at": "2026-08-30",
+          "data_as_of": "2026-06-30",
+          "fragments": [
+            "同一句随后列同比17.6%，并给扣非同比17.2%；下句上证180净利润同比14.8%。",
+            "上市公司盈利修复已有报告期证据，扣非利润与现金流旁证使其不只是股价上涨的叙事。",
+            "不能将17.6%或14.8%乘到沪深300，不能由H1盈利改善证明9月价格便宜或Q3盈利延续。"
+          ]
+        },
+        {
+          "article_id": "nbs-profit-interpretation-20260928",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份工业企业利润数据解读",
+          "url": "https://www.stats.gov.cn/sj/sjjd/202609/t20260928_1965426.html",
+          "published_at": "2026-09-28",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "同文给营收同比6.6%、电子行业利润增量贡献率62.0%、利润率5.66%及同比提高0.44个百分点。",
+            "利润和利润率改善存在，但增量依赖电子行业；可以解释盈利恢复与其他内需环节偏弱并存。",
+            "不能等同沪深300盈利，不把8月同比回落直接判为环比衰退；62%贡献率不能当成电子行业占整个经济六成。"
+          ]
+        },
+        {
+          "article_id": "nbs-retail-20260915",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份社会消费品零售总额增长1.1%",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+          "published_at": "2026-09-15",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "该短句紧随8月社会消费品零售总额39824亿元；除汽车8月同比2.5%。统计表明确为名义增速。",
+            "商品与餐饮支出增长较弱，汽车拖累明显；不能只看总额便断言所有消费类别都收缩。",
+            "这是未扣价格的名义口径，不等于居民全部服务消费、不等于沪深300消费板块收入或银行盈利。"
+          ]
+        },
+        {
+          "article_id": "nbs-pmi-20260930",
+          "revision": 1,
+          "source": "国家统计局、中国物流与采购联合会 · 2026年9月中国采购经理指数运行情况",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260930_1965449.html",
+          "published_at": "2026-09-30",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "同段指出较上月下降0.1个百分点但仍高于临界点；生产指数51.7%，较上月升1.3个百分点。",
+            "生产恢复快于订单的边际变化；订单仍处扩张区间，不支持需求完全收缩，也未证明扩张持续加速。",
+            "50.5不是订单同比增长50.5%，一次重回扩张不能当作指数盈利或买入信号；生产减新订单的数值不能当作实体库存增长。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        },
+        {
+          "article_id": "csrc-fund-sales-fees-rule-20251231",
+          "revision": 1,
+          "source": "证监会 · 2025年第22号公告及正式附件",
+          "published_at": "2025-12-31",
+          "checked_at": "2026-10-02",
+          "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+          "fragments": [
+            "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+            "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+            "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "2026年8月11日送出概要仍列C类销售服务年费率0.20%，不足7日赎回1.50%、满7日0，综合年化测算0.40%。",
+            "概要未单列2026新规实施日、直销代销和超过一年停止计提安排，文件提醒可能滞后。"
+          ],
+          "checked_at": "2026-10-02"
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "2026年5月29日送出概要列C类销售服务合同年费率0.30%、不含优惠，赎回不足7日1.50%、满7日0，综合年化测算0.50%。",
+            "概要可能滞后；基金具体费改实施日、渠道和持有超过一年收费安排未核实。"
+          ],
+          "checked_at": "2026-10-02"
+        },
+        {
+          "article_id": "sse-holiday-20260917",
+          "revision": 1,
+          "source": "上海证券交易所 · 中秋节、国庆节休市公告",
+          "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260915_10832273.shtml",
+          "published_at": "2026-09-17",
+          "checked_at": "2026-10-02",
+          "fragments": [
+            "2026年10月1日至7日休市，10月8日起照常开市；9月25日至27日中秋节休市。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-02T16:13:37.669Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：估值倍数回落，临时追加先观察",
+        "deck": "9月末PE、PB低于去年底；沪市利润增长提供旁证，沪深300同样本盈利仍未核对。原配置条件成立时维持计划，临时新增先观察。两只联接基金的旧费率须结合2026费改、渠道和持有期重核。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 9,
+        "operation_view": {
+          "reviewed_on": "2026-10-02",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "已有长期沪深300配置计划、仓位在计划内且原依据仍成立，维持原计划，不提出临时追加。已有005658不只为微小费差换仓；近期需用钱、超仓或原依据改变时，重新评估。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "临时起意的新资金先观察。已决定长期配置沪深300的计划内资金，将007339、005658作为同方向工具比较；核清份额、渠道和持有期收费规则后执行原计划，不据旧年费确定长期优先级。"
+          },
+          "reason": "9月30日沪深300滚动PE13.15倍、PB1.36倍，均低于去年底，但未取得长期分位和同样本盈利。沪市半年报净利增长17.6%仅是上市公司旁证，不能写成沪深300盈利已改善。原配置条件仍成立时维持计划，临时追加继续观察；费用规则影响工具选择，不能改变市场方向。",
+          "counterargument": "沪市扣非利润也增长、9月订单仍在扩张区间，等待所有证据齐全可能错过结构性修复，既定计划不必等完美买点。反过来，倍数下降可能反映盈利前景变弱；PE还剔除亏损股票。缺少指数同样本盈利，既不能直接称便宜，也不能据此减仓。旧概要费率差异亦不能证明长期成本排序。",
+          "change_conditions": [
+            "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+            "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+            "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+            "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              }
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "同方向工具候选；实际收费条件待核",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29",
+              "fee_holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+              "fee_channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+              "fee_effective_from": "未核实",
+              "fee_announcement": "本次有限核查未取得对应实施公告，不代表尚未实施",
+              "field_checked_at": {
+                "trade_status": "2026-10-02"
+              },
+              "fee_context": {
+                "share_class": "C",
+                "investor_scope": "个人投资者；其他范围未核对",
+                "channel_scope": "概要合同费率未分渠道；直销、代销实际安排未核实",
+                "effective_from": null,
+                "holding_terms": "2026费改要求持续持有超过一年停止销售服务费；本基金具体实施与起算安排未核实",
+                "announcement": null,
+                "checked_at": "2026-10-02",
+                "verification": "implementation_unverified",
+                "unverified": [
+                  "具体费改生效日",
+                  "持续持有期起算与存量份额安排",
+                  "直销和代销收费",
+                  "ETF联接在本条新规中的具体适用安排"
+                ]
+              }
+            }
+          ],
+          "comparison_note": "收益来自2026上半年官方报告。各自基准不同，期间差额不是年化跟踪误差。费用数字分别是8月11日、5月29日概要中的合同年费率与综合运作测算，不能线性外推5年、10年或据此算换仓回本期。2026费改涉及持有超过一年停止销售服务费、渠道差异和存量调整窗口；两只具体实施日与适用安排尚未核实。保留概要快照，不承诺当前渠道或未来持续收费；目标ETF费用亦不得重复计提。",
+          "gaps": [
+            "两只基金费改实施公告、生效日、持有期起算、具体渠道及适用安排",
+            "沪深300同样本盈利与长期估值分位",
+            "华夏当日赎回状态和可比年化跟踪误差",
+            "A/C份额与渠道的期限内实际总成本"
+          ],
+          "market": {
+            "as_of": "2026-09-30",
+            "close": 4357.62,
+            "pe_ttm": 13.15,
+            "pb": 1.36,
+            "dividend_yield": 2.74,
+            "previous_year_end": {
+              "pe_ttm": 14.31,
+              "pb": 1.45
+            },
+            "daily": [
+              {
+                "date": "2026-09-02",
+                "close": 4547.96
+              },
+              {
+                "date": "2026-09-03",
+                "close": 4552.58
+              },
+              {
+                "date": "2026-09-04",
+                "close": 4548.05
+              },
+              {
+                "date": "2026-09-07",
+                "close": 4575.02
+              },
+              {
+                "date": "2026-09-08",
+                "close": 4558.74
+              },
+              {
+                "date": "2026-09-09",
+                "close": 4572.6
+              },
+              {
+                "date": "2026-09-10",
+                "close": 4548.39
+              },
+              {
+                "date": "2026-09-11",
+                "close": 4510.16
+              },
+              {
+                "date": "2026-09-14",
+                "close": 4480.08
+              },
+              {
+                "date": "2026-09-15",
+                "close": 4450.04
+              },
+              {
+                "date": "2026-09-16",
+                "close": 4480.27
+              },
+              {
+                "date": "2026-09-17",
+                "close": 4460.16
+              },
+              {
+                "date": "2026-09-18",
+                "close": 4507.39
+              },
+              {
+                "date": "2026-09-21",
+                "close": 4539.57
+              },
+              {
+                "date": "2026-09-22",
+                "close": 4544.59
+              },
+              {
+                "date": "2026-09-23",
+                "close": 4517.28
+              },
+              {
+                "date": "2026-09-24",
+                "close": 4439.14
+              },
+              {
+                "date": "2026-09-28",
+                "close": 4340.76
+              },
+              {
+                "date": "2026-09-29",
+                "close": 4345.21
+              },
+              {
+                "date": "2026-09-30",
+                "close": 4357.62
+              }
+            ],
+            "source": {
+              "article_id": "csi300-official-market-20260930",
+              "revision": 1,
+              "source": "中证指数 · 每日估值与行情",
+              "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+              "published_at": "",
+              "checked_at": "2026-10-02",
+              "data_as_of": "2026-09-30",
+              "fragments": [
+                "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+                "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+              ]
+            }
+          },
+          "research_conditions": [
+            {
+              "key": "valuation_claim",
+              "label": "价格与估值",
+              "baseline": "9月30日滚动PE 13.15、PB 1.36，均低于去年底14.31、1.45。",
+              "watch": "中证官方同日期行情和估值；不使用基金净值填指数估值。",
+              "trigger": "任一倍数不再低于去年底对照，进入重新评估；日常涨跌不自动改观点。",
+              "automatic": true
+            },
+            {
+              "key": "index_earnings_bridge",
+              "label": "盈利能否覆盖指数",
+              "baseline": "上半年沪市净利同比+17.6%；这不是沪深300全样本盈利。",
+              "watch": "下一期官方样本盈利，核对样本、期间、归母/扣非及金融范围。",
+              "trigger": "同口径指数盈利确认改善或恶化，再与当期估值一起重评。当前聚合资料尚缺。",
+              "automatic": false
+            },
+            {
+              "key": "orders_and_breadth",
+              "label": "修复有没有扩散",
+              "baseline": "9月新订单50.5；1—8月电子行业贡献工业利润增量62%；8月零售+0.4%。",
+              "watch": "下一期PMI订单、分行业利润与零售，保留名义/同比和统计集合。",
+              "trigger": "订单降至50以下、盈利修复逆转或扩散到更多行业，重新检验解释。这些报告目前需编辑复核。",
+              "automatic": false
+            }
+          ],
+          "method_version": "editorial-evidence-and-conditions-20261002",
+          "fee_regulation": {
+            "article_id": "csrc-fund-sales-fees-rule-20251231",
+            "revision": 1,
+            "source": "证监会 · 2025年第22号公告及正式附件",
+            "published_at": "2025-12-31",
+            "checked_at": "2026-10-02",
+            "url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+            "fragments": [
+              "新规自2026年1月1日施行；存量不符基金有12个月完成调整和系统、文件、销售协议改造。",
+              "第11条指数型基金销售服务费上限0.2%/年，非豁免基金持续持有超过一年停止收取。具体基金的渠道、生效与类别安排仍需实施公告。",
+              "第7条管理人直销其管理基金不收认申购费和销售服务费；第10条个人指数基金满7日可另行约定赎回费。"
+            ]
+          }
+        },
+        "sections": [
+          {
+            "heading": "沪市利润修复，是旁证而非指数盈利",
+            "paragraphs": [
+              "上交所8月30日发布的2026年半年报综述显示，沪市公司合计净利润同比增长17.6%，扣非后净利润增长17.2%；上证180公司净利润增长14.8%。这说明修复已经体现在上市公司报告期利润里，不能继续笼统说“只有预期，没有盈利”。",
+              "但沪市公司、上证180与沪深300不是同一个样本，报告期间也只有上半年。这里采用盈利旁证，尚未把沪深300成份公司的同口径盈利汇总出来；不能把17.6%写成指数EPS增长。"
+            ],
+            "refs": [
+              "sse-halfyear-20260830"
+            ]
+          },
+          {
+            "heading": "价格回落，估值倍数也低于去年底",
+            "paragraphs": [
+              "9月30日，沪深300收盘4357.62点。中证官网滚动市盈率13.15倍，低于去年底14.31倍；市净率1.36倍，低于去年底1.45倍。分别下降约8.11%和6.21%。这只能说明同一官网口径下，两个时点的估值倍数降低。",
+              "9月1日至9月30日的收盘端点价格下降约5.50%，不是含分红总回报，也不是从8月末算起的完整9月收益。近期回落提供了价格背景，不能从跌过一段便断定见底。",
+              "市盈率涉及价格与盈利两个量，单看比值不能分辨是价格变化、盈利变化还是样本因素。官网说明市盈率剔除亏损股票；目前没有完整长期分布，不能称历史低位或给出估值分位。2.74%的官网股息率亦不当作未来基金收益。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609"
+            ]
+          },
+          {
+            "heading": "修复的覆盖面，仍是主要分歧",
+            "paragraphs": [
+              "国家统计局9月28日的解读显示，1—8月规模以上工业企业利润同比增长15.7%、营业收入增长6.6%，电子行业贡献利润增量62%。利润率也改善，但增量集中在部分行业；工业企业还包含未上市企业，不能等同综合股指盈利。",
+              "8月社会消费品零售总额名义同比增长0.4%，除汽车增长2.5%。9月制造业新订单指数50.5，比8月低0.1，仍高于50；生产指数51.7。订单扩张并未消失，但也没有继续加速，利润改善与内需恢复不齐可以同时成立。",
+              "一种有材料支持的解释是产业结构、成本改善与科技景气推动利润修复，而不是所有内需环节同步恢复。另一面是：盈利兑现可能先于需求全面转强，要求全面复苏才参与会错过已有修复。这两种解释都要继续接受下一期材料检验。"
+            ],
+            "refs": [
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          },
+          {
+            "heading": "先分清配置判断，再选择基金",
+            "paragraphs": [
+              "已有长期沪深300配置计划、仓位在计划内且原依据仍成立，维持原计划，不提出临时追加。已有005658不只为微小费差换仓；近期需用钱、超仓或原依据改变时，重新评估。",
+              "临时起意的新资金先观察。已决定长期配置沪深300的计划内资金，将007339、005658作为同方向工具比较；核清份额、渠道和持有期收费规则后执行原计划，不据旧年费确定长期优先级。",
+              "两只都是沪深300方向的联接工具，不提供新的市场分散。当前材料尚未完成沪深300同样本盈利桥接，持与观察保持原配置边界；本次费用纠正只改变工具比较的适用条件。",
+              "两份已读概要分别列销售服务年费率0.20%、0.30%，综合运作年费率测算0.40%、0.50%。这些是对应文档日期的费用快照，不是同渠道、同持有期限下未来持续收取的承诺；不能算成每万元永久每年省10元，更不能据此推算15年费用回本。",
+              "已有005658，不因旧概要里微小费差直接换仓。新资金先核对预计期限、A/C份额及购买渠道，再比该期限内适用成本；费用差异不抵消指数风险，也不替代市场判断。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529",
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "费率新规，改变了长期比较的前提",
+            "paragraphs": [
+              "证监会新规自2026年1月1日施行，对不符规定的已发售基金给出12个月调整期。一般规定中，指数型基金销售服务费上限为0.2%/年；除规定豁免的基金外，持续持有期限超过一年不得继续收取销售服务费，管理人直销也有不同收费要求。这里的边界是“超过一年”，不是“满一年”。",
+              "两只ETF联接的产品概要列基金中基金，具体费改类别、渠道、生效与存量安排仍须基金公司材料确认。本次有限官网核查未取得对应实施公告，不能说尚未实施，也不能仅拿华夏旧0.30%直接判定违规。网页数字和一般法规分别记录。",
+              "个人指数型基金持有满7日的赎回费允许另行约定，不能把新规一般赎回费阶梯机械套给这两只。现有概要的满7日零费仍保留为对应日期记录，未来执行以具体生效安排和渠道为准。"
+            ],
+            "refs": [
+              "csrc-fund-sales-fees-rule-20251231",
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "下次资料来了，哪些条件要重评",
+            "paragraphs": [
+              "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+              "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+              "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+              "用途、原仓位范围或长期依据改变时，持有条件不成立。费率、持有期、渠道、生效日或实施公告变化时另行复核工具；不由费率变化自动修改市场动作。",
+              "10月1日至7日上交所休市，10月8日起开市；9月30日是当前最近交易日，不伪造假期净值或今日行情。核查失败时保留旧资料和原判断，标记待复核，不将数据失败当成市场观察信号。",
+              "本研究采用编辑证据与条件比较，没有加入20/60均线策略或自动择时。当前价格与估值、基金页面明确字段可免费核查；盈利与需求的同口径桥接仍需编辑工作。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609",
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930",
+              "sse-holiday-20260917"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "沪深3009月末PE、PB低于去年底，但未证实同样本盈利改善或历史低估。原长期配置条件成立时持，临时新增观察。007339与005658为同方向工具候选；费改生效、渠道和持有期未核清，不据旧年费给长期优先级，也不因小费差换仓。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002",
+          "csrc-fund-sales-fees-rule-20251231",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "sse-holiday-20260917"
+        ],
+        "mechanism": [
+          "上市公司收入与利润改善能支持股权价值，但广义样本不能直接代替沪深300盈利。",
+          "估值是价格与盈利的比值，倍数下降不能单独证明盈利改善或历史便宜。",
+          "利润增量集中、需求恢复不齐，限制了向综合指数的外推；既定配置与临时追加需分开评估。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "工具比较须核清份额、渠道、持续持有期与费用实施公告；费用变化不直接修改市场动作"
+        ],
+        "alternatives": [
+          {
+            "explanation": "产业结构和成本改善推动利润，内需尚未同步修复；盈利兑现也可能先于全面需求好转。",
+            "evidence_ids": [
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "5321264b-3a45-4da0-8e36-59f38cf0e56d"
+        ]
+      },
+      "changes": {
+        "kind": "revise",
+        "summary": "收窄盈利措辞，纠正旧年费长期推算与无条件工具排序；按2026费改补入渠道、持有期、生效日及公告待核项。持有/观察的市场动作保持原条件。",
+        "evidence_ids": [
+          "csrc-fund-sales-fees-rule-20251231",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "sse-holiday-20260917"
+        ]
+      }
+    },
+    {
+      "id": "5321264b-3a45-4da0-8e36-59f38cf0e56d",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "a4909cb4-0b83-4993-88d1-0532d370abbd",
+      "version": 3,
+      "as_of": "2026-10-02",
+      "generated_at": "2026-10-02T15:52:22.391Z",
+      "input_hash": "0adcbe3a3d1bef6a0ddbe01ade1718cce7cb8ff593eb5490be6457e8ad09618b",
+      "input_refs": [
+        {
+          "article_id": "csi300-official-market-20260930",
+          "revision": 1,
+          "source": "中证指数 · 每日估值与行情",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+            "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+          ]
+        },
+        {
+          "article_id": "csi300-daily-202609",
+          "revision": 1,
+          "source": "中证指数 · 沪深300日行情",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260901&endDate=20260930",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "官方9月日行情返回21个交易日；最近20个实际交易日为9月2日至9月30日，图形采用收盘价。9月25日仅有估值延用行，没有交易价格，未画成交易日。",
+            "9月1日收盘4611.44到9月30日收盘4357.62，端点价格变化约−5.50%；不是完整9月收益，也不含股息再投资。"
+          ]
+        },
+        {
+          "article_id": "sse-halfyear-20260830",
+          "revision": 1,
+          "source": "上海证券交易所 · 沪市公司2026年半年报业绩综述",
+          "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260830_10830362.shtml",
+          "published_at": "2026-08-30",
+          "data_as_of": "2026-06-30",
+          "fragments": [
+            "同一句随后列同比17.6%，并给扣非同比17.2%；下句上证180净利润同比14.8%。",
+            "上市公司盈利修复已有报告期证据，扣非利润与现金流旁证使其不只是股价上涨的叙事。",
+            "不能将17.6%或14.8%乘到沪深300，不能由H1盈利改善证明9月价格便宜或Q3盈利延续。"
+          ]
+        },
+        {
+          "article_id": "nbs-profit-interpretation-20260928",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份工业企业利润数据解读",
+          "url": "https://www.stats.gov.cn/sj/sjjd/202609/t20260928_1965426.html",
+          "published_at": "2026-09-28",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "同文给营收同比6.6%、电子行业利润增量贡献率62.0%、利润率5.66%及同比提高0.44个百分点。",
+            "利润和利润率改善存在，但增量依赖电子行业；可以解释盈利恢复与其他内需环节偏弱并存。",
+            "不能等同沪深300盈利，不把8月同比回落直接判为环比衰退；62%贡献率不能当成电子行业占整个经济六成。"
+          ]
+        },
+        {
+          "article_id": "nbs-retail-20260915",
+          "revision": 1,
+          "source": "国家统计局 · 2026年1—8月份社会消费品零售总额增长1.1%",
+          "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+          "published_at": "2026-09-15",
+          "data_as_of": "2026-08-31",
+          "fragments": [
+            "该短句紧随8月社会消费品零售总额39824亿元；除汽车8月同比2.5%。统计表明确为名义增速。",
+            "商品与餐饮支出增长较弱，汽车拖累明显；不能只看总额便断言所有消费类别都收缩。",
+            "这是未扣价格的名义口径，不等于居民全部服务消费、不等于沪深300消费板块收入或银行盈利。"
+          ]
+        },
+        {
+          "article_id": "nbs-pmi-20260930",
+          "revision": 1,
+          "source": "国家统计局、中国物流与采购联合会 · 2026年9月中国采购经理指数运行情况",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260930_1965449.html",
+          "published_at": "2026-09-30",
+          "data_as_of": "2026-09-30",
+          "fragments": [
+            "同段指出较上月下降0.1个百分点但仍高于临界点；生产指数51.7%，较上月升1.3个百分点。",
+            "生产恢复快于订单的边际变化；订单仍处扩张区间，不支持需求完全收缩，也未证明扩张持续加速。",
+            "50.5不是订单同比增长50.5%，一次重回扩张不能当作指数盈利或买入信号；生产减新订单的数值不能当作实体库存增长。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类申购费为0；持有不足7日赎回收1.50%，满7日为0。管理、托管、销售服务年费率分别为0.15%、0.05%、0.20%；概要测算综合运作年费率0.40%。",
+            "投资目标ETF部分不重复计提管理费和托管费。综合运作费率按现行固定费率和历史其他运作费用测算，实际成本可能变化。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "005658为C类；2018年2月2日起增加该份额类别。申购费0，持有不足7日赎回1.50%，满7日为0；销售服务年费率0.30%。",
+            "管理费和托管费分别0.15%、0.05%，按扣除目标ETF对应资产后的剩余部分计提。概要测算综合运作年费率0.50%，不含证券交易费用、税金等。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-02T15:52:22.391Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：盈利在修复，追加仍要看价格",
+        "deck": "上市公司利润修复已有依据，9月末估值倍数也低于去年底。两条线尚未证明沪深300全样本盈利同步改善，更不等于历史低估；有长期计划的仓位有条件维持，临时新增先观察。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 9,
+        "operation_view": {
+          "reviewed_on": "2026-10-02",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "已有长期沪深300配置计划、仓位在计划内且原依据仍成立，维持原计划，不提出临时追加。已有005658不只为微小费差换仓；近期需用钱、超仓或原依据改变时，重新评估。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "临时起意的新资金先观察。已决定长期配置沪深300、比较期限后选定C类的计划内资金，优先比较007339；长期持有还须比较A类和渠道费用。"
+          },
+          "reason": "沪市上半年净利同比增长17.6%、扣非增长17.2%，盈利修复已有上市公司证据；9月30日沪深300滚动PE13.15倍、PB1.36倍，均低于去年底。但沪市并非沪深300样本，工业利润增量又较集中，不能由两个估值快照推成历史低估。原长期配置条件仍成立时维持计划；临时追加尚需同口径盈利和价格的支持。",
+          "counterargument": "扣非盈利也改善、9月订单仍在扩张区间，等待内需全面好转可能错过结构性修复，已成立的长期计划不必等完美买点。反过来，低于去年底的倍数可能反映盈利前景变弱；市盈率还剔除亏损股票。没有指数全样本盈利桥接，13.15倍不能直接证明便宜，也不能推出必须减仓。",
+          "change_conditions": [
+            "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+            "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+            "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+            "用途、原配置仓位范围或长期依据改变时，持有条件不成立；费用、业务状态和跟踪质量变化再重排工具。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "已选定C类的计划内新增优先候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11"
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "原配置条件满足时维持的既有候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29"
+            }
+          ],
+          "comparison_note": "净值增长率来自2026年1月1日至6月30日的官方定期业绩，不由单位净值相除计算。两只业绩基准不同，基准差额不是年化跟踪误差，不能直接横向排名。综合费率为各自概要的测算口径，实际可能不同；目标ETF部分不重复计提管理、托管费，交易费用和税费另依实际发生。C类每天计提销售服务费，长期持有还应比较A类及渠道申购折扣，本篇没有证明C类最适合所有期限。",
+          "gaps": [
+            "沪深300同样本盈利与估值分母的桥接、长期估值分位",
+            "华夏当日赎回状态与同口径年化跟踪误差",
+            "A类及各渠道费用",
+            "盈利与需求报告的自动结构化复核"
+          ],
+          "market": {
+            "as_of": "2026-09-30",
+            "close": 4357.62,
+            "pe_ttm": 13.15,
+            "pb": 1.36,
+            "dividend_yield": 2.74,
+            "previous_year_end": {
+              "pe_ttm": 14.31,
+              "pb": 1.45
+            },
+            "daily": [
+              {
+                "date": "2026-09-02",
+                "close": 4547.96
+              },
+              {
+                "date": "2026-09-03",
+                "close": 4552.58
+              },
+              {
+                "date": "2026-09-04",
+                "close": 4548.05
+              },
+              {
+                "date": "2026-09-07",
+                "close": 4575.02
+              },
+              {
+                "date": "2026-09-08",
+                "close": 4558.74
+              },
+              {
+                "date": "2026-09-09",
+                "close": 4572.6
+              },
+              {
+                "date": "2026-09-10",
+                "close": 4548.39
+              },
+              {
+                "date": "2026-09-11",
+                "close": 4510.16
+              },
+              {
+                "date": "2026-09-14",
+                "close": 4480.08
+              },
+              {
+                "date": "2026-09-15",
+                "close": 4450.04
+              },
+              {
+                "date": "2026-09-16",
+                "close": 4480.27
+              },
+              {
+                "date": "2026-09-17",
+                "close": 4460.16
+              },
+              {
+                "date": "2026-09-18",
+                "close": 4507.39
+              },
+              {
+                "date": "2026-09-21",
+                "close": 4539.57
+              },
+              {
+                "date": "2026-09-22",
+                "close": 4544.59
+              },
+              {
+                "date": "2026-09-23",
+                "close": 4517.28
+              },
+              {
+                "date": "2026-09-24",
+                "close": 4439.14
+              },
+              {
+                "date": "2026-09-28",
+                "close": 4340.76
+              },
+              {
+                "date": "2026-09-29",
+                "close": 4345.21
+              },
+              {
+                "date": "2026-09-30",
+                "close": 4357.62
+              }
+            ],
+            "source": {
+              "article_id": "csi300-official-market-20260930",
+              "revision": 1,
+              "source": "中证指数 · 每日估值与行情",
+              "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+              "published_at": "",
+              "checked_at": "2026-10-02",
+              "data_as_of": "2026-09-30",
+              "fragments": [
+                "2026年9月30日沪深300收盘4357.62；中证官网滚动市盈率13.15倍、市净率1.36倍，去年底对照分别14.31、1.45倍。官网股息率2.74%，本次未独立核实分红窗口。",
+                "官网接口peg字段对应滚动市盈率，不是市盈率增长率PEG。市盈率计算剔除亏损股票；净资产采用最新一期财报。倍数下降只比较两个快照，不证明历史低估或指数盈利改善。"
+              ]
+            }
+          },
+          "research_conditions": [
+            {
+              "key": "valuation_claim",
+              "label": "价格与估值",
+              "baseline": "9月30日滚动PE 13.15、PB 1.36，均低于去年底14.31、1.45。",
+              "watch": "中证官方同日期行情和估值；不使用基金净值填指数估值。",
+              "trigger": "任一倍数不再低于去年底对照，进入重新评估；日常涨跌不自动改观点。",
+              "automatic": true
+            },
+            {
+              "key": "index_earnings_bridge",
+              "label": "盈利能否覆盖指数",
+              "baseline": "上半年沪市净利同比+17.6%；这不是沪深300全样本盈利。",
+              "watch": "下一期官方样本盈利，核对样本、期间、归母/扣非及金融范围。",
+              "trigger": "同口径指数盈利确认改善或恶化，再与当期估值一起重评。当前聚合资料尚缺。",
+              "automatic": false
+            },
+            {
+              "key": "orders_and_breadth",
+              "label": "修复有没有扩散",
+              "baseline": "9月新订单50.5；1—8月电子行业贡献工业利润增量62%；8月零售+0.4%。",
+              "watch": "下一期PMI订单、分行业利润与零售，保留名义/同比和统计集合。",
+              "trigger": "订单降至50以下、盈利修复逆转或扩散到更多行业，重新检验解释。这些报告目前需编辑复核。",
+              "automatic": false
+            }
+          ]
+        },
+        "sections": [
+          {
+            "heading": "盈利修复，有上市公司材料支持",
+            "paragraphs": [
+              "上交所8月30日发布的2026年半年报综述显示，沪市公司合计净利润同比增长17.6%，扣非后净利润增长17.2%；上证180公司净利润增长14.8%。这说明修复已经体现在上市公司报告期利润里，不能继续笼统说“只有预期，没有盈利”。",
+              "但沪市公司、上证180与沪深300不是同一个样本，报告期间也只有上半年。这里采用盈利旁证，尚未把沪深300成份公司的同口径盈利汇总出来；不能把17.6%写成指数EPS增长。"
+            ],
+            "refs": [
+              "sse-halfyear-20260830"
+            ]
+          },
+          {
+            "heading": "价格回落，估值倍数也低于去年底",
+            "paragraphs": [
+              "9月30日，沪深300收盘4357.62点。中证官网滚动市盈率13.15倍，低于去年底14.31倍；市净率1.36倍，低于去年底1.45倍。分别下降约8.11%和6.21%。这只能说明同一官网口径下，两个时点的估值倍数降低。",
+              "9月1日至9月30日的收盘端点价格下降约5.50%，不是含分红总回报，也不是从8月末算起的完整9月收益。近期回落提供了价格背景，不能从跌过一段便断定见底。",
+              "市盈率涉及价格与盈利两个量，单看比值不能分辨是价格变化、盈利变化还是样本因素。官网说明市盈率剔除亏损股票；目前没有完整长期分布，不能称历史低位或给出估值分位。2.74%的官网股息率亦不当作未来基金收益。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609"
+            ]
+          },
+          {
+            "heading": "修复的覆盖面，仍是主要分歧",
+            "paragraphs": [
+              "国家统计局9月28日的解读显示，1—8月规模以上工业企业利润同比增长15.7%、营业收入增长6.6%，电子行业贡献利润增量62%。利润率也改善，但增量集中在部分行业；工业企业还包含未上市企业，不能等同综合股指盈利。",
+              "8月社会消费品零售总额名义同比增长0.4%，除汽车增长2.5%。9月制造业新订单指数50.5，比8月低0.1，仍高于50；生产指数51.7。订单扩张并未消失，但也没有继续加速，利润改善与内需恢复不齐可以同时成立。",
+              "一种有材料支持的解释是产业结构、成本改善与科技景气推动利润修复，而不是所有内需环节同步恢复。另一面是：盈利兑现可能先于需求全面转强，要求全面复苏才参与会错过已有修复。这两种解释都要继续接受下一期材料检验。"
+            ],
+            "refs": [
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          },
+          {
+            "heading": "先分清配置判断，再选择基金",
+            "paragraphs": [
+              "已有长期沪深300配置计划、仓位在计划内且原依据仍成立，维持原计划，不提出临时追加。已有005658不只为微小费差换仓；近期需用钱、超仓或原依据改变时，重新评估。",
+              "临时起意的新资金先观察。已决定长期配置沪深300、比较期限后选定C类的计划内资金，优先比较007339；长期持有还须比较A类和渠道费用。",
+              "当前材料支持盈利修复的方向性背景，也支持估值倍数较去年底下降；尚不足以独立提出临时加仓价位。原计划资金与临时起意资金的区别来自已有配置依据，不来自是否使用这个产品。",
+              "在已决定沪深300方向、比较期限后选择C类的范围里，007339测算综合运作年费率0.40%，005658为0.50%；每万元年费差约10元。它支持新资金的工具优先级，不抵消指数涨跌，也不证明C类比A类更适合长期持有。",
+              "两只上半年各自基准不同，+0.97与+0.18个百分点是收益减自身基准的差额，不能当作年化跟踪误差排名。已有005658不只因微小费差换仓，但原配置依据失效时也不能以换仓成本为理由继续持有。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529",
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "下次资料来了，哪些条件要重评",
+            "paragraphs": [
+              "中证官方滚动PE或PB不再低于去年底对照时，原估值比较事实改变，生成重新评估草稿；这是事实边界，不是卖出阈值。",
+              "下一期同口径沪深300样本盈利能够核对时，与同日期估值一起判断。沪市17.6%与工业15.7%不能代替指数盈利增速。",
+              "PMI订单降至50以下、盈利修复逆转，或利润和内需改善扩散到更多行业时，重新检验论点；50是调查临界点，不是交易信号。",
+              "用途、原配置仓位范围或长期依据改变时，持有条件不成立；费用、业务状态和跟踪质量变化再重排工具。",
+              "本次是2026年10月2日编辑核查后的材料补充，不是系统历史运行或模型实时生成。中证价格与估值已接入免费采集；盈利和需求报告的结构化条件目前仍需编辑核对。只有影响事实、机制或成立条件的实质变化才产生新版本，原版保留。"
+            ],
+            "refs": [
+              "csi300-official-market-20260930",
+              "csi300-daily-202609",
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "上市公司盈利修复已有依据，沪深3009月末估值倍数低于去年底，但未证明全样本盈利同步改善或历史低估。原长期配置条件仍成立时维持计划；临时新增先观察，计划内已选C类资金优先比较007339。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930",
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002"
+        ],
+        "mechanism": [
+          "上市公司收入与利润改善能支持股权价值，但广义样本不能直接代替沪深300盈利。",
+          "估值是价格与盈利的比值，倍数下降不能单独证明盈利改善或历史便宜。",
+          "利润增量集中、需求恢复不齐，限制了向综合指数的外推；既定配置与临时追加需分开评估。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "007339费用优势成立，且业务状态与跟踪质量不存在抵消该优势的实质变化"
+        ],
+        "alternatives": [
+          {
+            "explanation": "产业结构和成本改善推动利润，内需尚未同步修复；盈利兑现也可能先于全面需求好转。",
+            "evidence_ids": [
+              "sse-halfyear-20260830",
+              "nbs-profit-interpretation-20260928",
+              "nbs-retail-20260915",
+              "nbs-pmi-20260930"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "a4909cb4-0b83-4993-88d1-0532d370abbd"
+        ]
+      },
+      "changes": {
+        "kind": "supplement",
+        "summary": "补入中证9月末价格与估值、上市公司半年报及最新需求材料：盈利修复已有旁证，估值倍数低于去年底；保留原配置条件与临时新增观察，新增公开条件复核。",
+        "evidence_ids": [
+          "csi300-official-market-20260930",
+          "csi300-daily-202609",
+          "sse-halfyear-20260830",
+          "nbs-profit-interpretation-20260928",
+          "nbs-retail-20260915",
+          "nbs-pmi-20260930"
+        ]
+      }
+    },
+    {
+      "id": "a4909cb4-0b83-4993-88d1-0532d370abbd",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": "fv-csi300-operation-20261002-1",
+      "version": 2,
+      "as_of": "2026-10-02",
+      "generated_at": "2026-10-02T15:20:09.427Z",
+      "input_hash": "fec5f686da9056cb06af2da1989d2efc4d1b1755c3fce4feae70313ab6cd3d8c",
+      "input_refs": [
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类申购费为0；持有不足7日赎回收1.50%，满7日为0。管理、托管、销售服务年费率分别为0.15%、0.05%、0.20%；概要测算综合运作年费率0.40%。",
+            "投资目标ETF部分不重复计提管理费和托管费。综合运作费率按现行固定费率和历史其他运作费用测算，实际成本可能变化。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "005658为C类；2018年2月2日起增加该份额类别。申购费0，持有不足7日赎回1.50%，满7日为0；销售服务年费率0.30%。",
+            "管理费和托管费分别0.15%、0.05%，按扣除目标ETF对应资产后的剩余部分计提。概要测算综合运作年费率0.50%，不含证券交易费用、税金等。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-02T15:20:09.427Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：持有有条件，新资金先比较成本",
+        "deck": "已有长期配置计划、仓位仍在计划范围且原依据未实质改变，才维持原计划。费用研究支持的是工具选择：已决定配置沪深300并选择C类的新资金，优先比较007339；它不证明当前指数便宜。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 7,
+        "operation_view": {
+          "reviewed_on": "2026-10-02",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "仅当已有长期沪深300配置计划、当前仓位仍在原计划范围、原长期依据未实质改变时，维持原计划；本篇不提出临时追加。已有005658也不只为每万元约10元/年的费差换仓。近期开销、超出原权益计划或原依据改变时，这条持有结论不适用。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "临时起意的首次开仓先观察。已独立决定配置沪深300、且比较持有期限后选择C类的计划内新资金，优先比较007339，再按原计划执行；两只不必同时买。很长期持有仍应比较A类和渠道费用，本篇未证明C类最优。"
+          },
+          "reason": "持有条件来自原配置计划仍成立，不能由缺少估值资料推出。已核对的产品概要显示007339销售服务年费率较低，综合运作费率测算低0.10个百分点，支持同方向C类候选的成本优先级。半年上涨不能证明10月出现新的加仓时点，本篇也未完成当期价格是否合理的判断。",
+          "counterargument": "维持原计划仍可能遇到市场下跌，较低费率也不保证更好的跟踪；原配置依据改变时，节省换仓成本不能成为继续持有的理由。华夏上半年相对自身基准差额较小，但两只基准不同，不能直接评出谁更优。等待可能错过上涨，条件仍成立的原计划资金也无需为等待“完美买点”而一概暂停。",
+          "change_conditions": [
+            "近期开销需要这笔资金、仓位超出原权益配置计划，或原长期配置依据实质改变时，持有条件不成立，先重新评估用途和配置，不能套用本期“持”。",
+            "费率或申赎业务状态改变，或新的同期间报告显示成本优势被持续的跟踪问题抵消，重新排列候选；单个期间的基准差额不够。",
+            "临时新增需另有可核对的当期估值、盈利与风险依据，并说明价格变化与盈利变化的关系，才研究从观察改为加；资料补齐本身不自动产生买入结论。",
+            "下一份三季报是报告期运作复核节点；发现原配置依据受损则重新审视，未发现实质变化也不伪造观点更新。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "已选定C类的计划内新增优先候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11"
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "原配置条件满足时维持的既有候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29"
+            }
+          ],
+          "comparison_note": "净值增长率来自2026年1月1日至6月30日的官方定期业绩，不由单位净值相除计算。两只业绩基准不同，基准差额不是年化跟踪误差，不能直接横向排名。综合费率为各自概要的测算口径，实际可能不同；目标ETF部分不重复计提管理、托管费，交易费用和税费另依实际发生。C类每天计提销售服务费，长期持有还应比较A类及渠道申购折扣，本篇没有证明C类最适合所有期限。",
+          "gaps": [
+            "华夏当日赎回开放状态",
+            "华夏同期间年化跟踪误差，易方达值未单列C类",
+            "10月当期估值分位和盈利变化",
+            "A类与各购买渠道实际费用及转换条件"
+          ]
+        },
+        "sections": [
+          {
+            "heading": "先确认“持有”适用的条件",
+            "paragraphs": [
+              "本期“持”的前提是已有独立的长期沪深300配置计划，当前仓位仍在原计划范围，且原长期配置依据未实质改变。在这些条件仍成立时，维持原计划；本篇没有新增一个临时加仓理由。",
+              "如果近期开销需要这笔资金、权益仓位已经超出原计划，或原长期依据发生实质变化，持有条件便不成立，应重新评估。这不是对所有已有持仓的无条件持有建议，也没有判断当前指数价格合理。",
+              "我们核对的是两只联接C的产品成本与报告期运作。缺少当期估值资料只说明本篇没有完成择时判断，不能据此推出“应该持有”。同样，换仓成本较高也不能挽救一个已经失效的配置理由。"
+            ]
+          },
+          {
+            "heading": "已决定配置之后，再比较工具",
+            "paragraphs": [
+              "沪深300方向是否值得突然加仓，与已经决定配置后选哪只联接基金，是两个问题。当前资料对后一问题的回答更清楚：007339的销售服务年费率低0.10个百分点，其他条件相近且已选定C类时，计划内新资金先比较它。这个优先级不等于“今天沪深300便宜”，也不表示007339是全市场最优产品。",
+              "两只C类申购费均为0，持有不足7日赎回费均为1.50%，满7日均为0。满7日是赎回费用条件，不是推荐的投资期限。C类每天计提销售服务费，预计很长期持有仍应比较A类及渠道申购折扣；本篇尚未核对这些选择。",
+              "对原配置条件仍成立的005658持仓，微小年费优势未必值得换仓。持有不足7日的1.50%赎回费，单论费率量级约相当于15年的0.10个百分点年费差；这个算术示例假设本金不变，不是实际回本预测。即使满7日免赎回费，赎回到账、重新买入之间仍可能错过市场变动。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "同期间表现，比净值高低有意义",
+            "paragraphs": [
+              "2026上半年，易方达C净值增长8.17%，华夏C增长7.91%，这是官方报告口径的同期间收益。它支持两只产品均实现了对该市场方向的参与，不能证明较高的历史收益将持续。",
+              "两只基金的基准并不完全相同。易方达基准的5%部分为税后活期存款利率，华夏则另加年化1%的收益项。因此+0.97和+0.18个百分点只能描述各自相对自身基准的期间差额，不能直接比成“跟踪误差谁更好”。",
+              "易方达报告期年化跟踪误差0.37%是基金整体数据，华夏中报未披露同口径年化值，不能据此宣布易方达跟踪质量更好。基金单位净值受成立时间、历史涨跌和分红等影响。华夏的单位净值较低，不表示同样沪深300风险可以买得更便宜。"
+            ],
+            "refs": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "行业分化，限制了临时加仓的依据",
+            "paragraphs": [
+              "两家中期报告都描述了科技相关行业较强、部分内需行业相对落后的市场结构。华夏还指出国内供强需弱问题。这些材料支持“行情修复存在分化”的解释，不能把广义经济增长或单一政策标题直接翻译为全市场盈利同步改善。",
+              "另一种有材料支持的解释是：科技景气与预期上修推动结构性上涨，而非内需全面恢复。它解释了为什么指数上涨仍可与消费相关行业偏弱并存。",
+              "目前没有完成10月当期估值与盈利的同口径核对，因此本篇不提出临时加仓价位或涨幅目标，也不从资料不足推导持有结论。只有原配置条件仍成立的长期计划，才继续按原节奏执行；这些旧报告不构成再加一笔临时单的依据。"
+            ],
+            "refs": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "下一次复核，先检查什么",
+            "paragraphs": [
+              "先核查费率和业务公告，再读同期间三季报的实际运作表现，判断跟踪偏离是否持续、能否由申赎与分红等因素解释。工具优先级发生实质变化才修正这一版。",
+              "择时判断还需要可核对的当期指数估值与盈利资料。这条研究起于2026年10月2日的公开材料整理，本次编辑修正明确了持有与候选优先级的适用条件，没有新增市场证据。后续若维持、补充或修正，将保留各版及其理由。"
+            ],
+            "refs": [
+              "efund-csi300-trade-20261002",
+              "chinaamc-csi300-trade-20261002"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "仅当已有长期沪深300配置计划、仓位仍在原计划范围、原长期依据未实质改变时，维持原计划；不新增临时加仓判断。已独立决定沪深300方向并选定C类的计划内新资金优先比较007339，不仅为0.10个百分点年费差替换已有005658。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002"
+        ],
+        "mechanism": [
+          "持有结论依赖原配置计划仍成立；当期估值资料缺失不能证明应该持有。",
+          "费率影响持有成本，但不证明指数价格合理，也不保证未来跟踪更好。",
+          "同方向的两只联接基金不提供新的市场分散；持有成本和跟踪质量影响工具选择。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划，当前仓位仍在原计划范围，原长期配置依据未实质改变",
+          "近期开销不依赖这笔资金；用途、权益计划或原依据改变时重新评估",
+          "新资金已决定沪深300配置方向，并结合预计期限、A类和渠道费用独立选择C类",
+          "007339费用优势成立，且业务状态与跟踪质量不存在抵消该优势的实质变化"
+        ],
+        "alternatives": [
+          {
+            "explanation": "结构性科技行情可以使指数上涨，而内需相关行业仍偏弱。",
+            "evidence_ids": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": [
+          "fv-csi300-operation-20261002-1"
+        ]
+      },
+      "changes": {
+        "kind": "revise",
+        "summary": "明确持有仅适用于原长期配置计划、仓位范围和原依据仍成立；费用研究只支持既定方向的工具选择，不从缺少估值资料推出持有。此次为编辑修正，没有新增市场证据。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002"
+        ]
+      }
+    },
+    {
+      "id": "fv-csi300-operation-20261002-1",
+      "story_id": "csi300-fund-selection-20261002",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2026-10-02",
+      "generated_at": "2026-10-02T14:54:13.801Z",
+      "input_hash": "fec5f686da9056cb06af2da1989d2efc4d1b1755c3fce4feae70313ab6cd3d8c",
+      "input_refs": [
+        {
+          "article_id": "efund-csi300-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · C类产品资料概要",
+          "published_at": "2026-08-11",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+          "fragments": [
+            "C类申购费为0；持有不足7日赎回收1.50%，满7日为0。管理、托管、销售服务年费率分别为0.15%、0.05%、0.20%；概要测算综合运作年费率0.40%。",
+            "投资目标ETF部分不重复计提管理费和托管费。综合运作费率按现行固定费率和历史其他运作费用测算，实际成本可能变化。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-summary-20260529",
+          "revision": 1,
+          "source": "华夏基金 · C类产品资料概要",
+          "published_at": "2026-05-29",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+          "fragments": [
+            "005658为C类；2018年2月2日起增加该份额类别。申购费0，持有不足7日赎回1.50%，满7日为0；销售服务年费率0.30%。",
+            "管理费和托管费分别0.15%、0.05%，按扣除目标ETF对应资产后的剩余部分计提。概要测算综合运作年费率0.50%，不含证券交易费用、税金等。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-midyear-2026",
+          "revision": 1,
+          "source": "易方达基金 · 2026中期报告与官网业绩表",
+          "published_at": "2026-08-31",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告.pdf",
+          "fragments": [
+            "报告第8页：007339在2026上半年净值增长率8.17%，同期其业绩基准7.20%；第14页：基金整体报告期年化跟踪误差0.37%，未单列C类。",
+            "沪深300报告期涨7.55%；科技相关行业贡献较多，部分金融和消费行业表现相对落后。上半年的市场修复存在行业分化，不能直接外推下半年收益。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-midyear-2026",
+          "revision": 1,
+          "source": "华夏基金 · 2026中期报告",
+          "published_at": "2026-08-31",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+          "fragments": [
+            "第8页：005658在2026上半年净值增长率7.91%，其同期基准7.73%，期间差额为+0.18个百分点。收益率差额不是年化跟踪误差。",
+            "第17至18页：报告指出上半年科技领涨、消费内需行业相对落后；国内供强需弱问题仍突出。日常费用、指数调整、申赎、成份股分红等会造成基准偏离。"
+          ]
+        },
+        {
+          "article_id": "efund-csi300-trade-20261002",
+          "revision": 1,
+          "source": "易方达基金 · 官网交易状态",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.efunds.com.cn/fund/007339.shtml",
+          "fragments": [
+            "2026年10月2日只读核查官网交易状态数据：个人非直销、网上直销、直销中心的申购与赎回标记均为开放，未返回额度限制说明。",
+            "这是产品业务状态，不能据此承诺节假日即时确认或到账。具体受理与确认日期以购买渠道和开放日为准。"
+          ]
+        },
+        {
+          "article_id": "chinaamc-csi300-trade-20261002",
+          "revision": 1,
+          "source": "华夏基金 · 官网基金页面",
+          "published_at": "",
+          "checked_at": "2026-10-02",
+          "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+          "fragments": [
+            "2026年10月2日核查基金页面显示开放申购，费率页面仍列管理0.15%、托管0.05%、销售服务0.30%。",
+            "页面未单列当日赎回开放状态；不能由存在赎回费表推断当前开放赎回。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-02T14:54:13.801Z",
+      "article": {
+        "slug": "csi300-hold-and-fund-choice",
+        "title": "沪深300：先持有，新增资金先看成本",
+        "deck": "两只联接C都在跟踪同一市场。眼下更明确的结论是选工具：计划内新增资金优先比较易方达007339，已有持仓不为每年0.10个百分点的费差急着换仓。",
+        "category": "基金操作参考",
+        "kind": "analysis",
+        "read_minutes": 6,
+        "operation_view": {
+          "reviewed_on": "2026-10-02",
+          "performance_period": "2026上半年",
+          "held": {
+            "action": "持",
+            "text": "原有长期配置继续持有，本期不追加临时加仓单。已经持有华夏005658，也不只为每万元约10元/年的费差赎回换仓；满7日免赎回费不等于换仓没有代价。"
+          },
+          "unheld": {
+            "action": "观察",
+            "text": "临时起意的首次开仓先观察。本就有沪深300配置计划、且已决定使用C类的新资金，候选优先007339，按原计划分批；两只基金不必同时买。"
+          },
+          "reason": "易方达C的现行销售服务费较低，最新概要的综合运作费率测算也低0.10个百分点。同期间两只C均获正收益，但行业分化明显；费率优势足以支持工具优先级，半年上涨不足以证明10月出现新的加仓时点。",
+          "counterargument": "等待可能错过上涨，且较低费率不保证更好的跟踪。华夏上半年相对自身基准偏离更小；不过两只基准不同，不能用这一个差额直接评出谁更优。已有配置计划的资金因此无需为等待“完美买点”而一概暂停。",
+          "change_conditions": [
+            "下一份同期间报告若显示易方达持续发生更大跟踪偏离，或费率、业务状态改变，重新排列候选。",
+            "只有取得可核对的当期指数估值和盈利资料、并说明价格变化与盈利变化的关系，才研究把临时新增判断从观察改为加；单次上涨或降息标题不够。",
+            "当新的报告证明内需与盈利持续恶化、长期配置依据受损，重新审视持有；10月下旬披露的三季报将是下一次资料复核节点。"
+          ],
+          "funds": [
+            {
+              "code": "007339",
+              "name": "易方达沪深300ETF联接C",
+              "role": "计划内新增优先候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.20%",
+              "total": "0.40%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+              "period_return": "8.17%",
+              "benchmark_return": "7.20%",
+              "difference": "+0.97个百分点",
+              "tracking_error": "0.37%（基金整体，未单列C类）",
+              "benchmark": "沪深300收益率×95%＋税后活期存款利率×5%",
+              "document_date": "2026-08-11"
+            },
+            {
+              "code": "005658",
+              "name": "华夏沪深300ETF联接C",
+              "role": "已有持仓继续持有候选",
+              "management": "0.15%",
+              "custody": "0.05%",
+              "service": "0.30%",
+              "total": "0.50%",
+              "subscription": "0",
+              "redemption": "不足7日1.50%；满7日0",
+              "trade_status": "官网显示开放申购；当日赎回状态待核实",
+              "period_return": "7.91%",
+              "benchmark_return": "7.73%",
+              "difference": "+0.18个百分点",
+              "tracking_error": "中期报告未披露",
+              "benchmark": "沪深300收益率×95%＋1%年收益（按期间折算）",
+              "document_date": "2026-05-29"
+            }
+          ],
+          "comparison_note": "净值增长率来自2026年1月1日至6月30日的官方定期业绩，不由单位净值相除计算。两只业绩基准不同，基准差额不是年化跟踪误差，不能直接横向排名。综合费率为各自概要的测算口径，实际可能不同；目标ETF部分不重复计提管理、托管费，交易费用和税费另依实际发生。C类每天计提销售服务费，长期持有还应比较A类及渠道申购折扣，本篇没有证明C类最适合所有期限。",
+          "gaps": [
+            "华夏当日赎回开放状态",
+            "华夏同期间年化跟踪误差，易方达值未单列C类",
+            "10月当期估值分位和盈利变化",
+            "A类与各购买渠道实际费用及转换条件"
+          ]
+        },
+        "sections": [
+          {
+            "heading": "这次判断，分别解决两个问题",
+            "paragraphs": [
+              "沪深300方向是否值得突然加仓，与已经决定配置后选哪只联接基金，是两个问题。当前资料对后一问题的回答更清楚：007339的销售服务年费率低0.10个百分点，其他条件相近时，新资金先比较它。这个优先级不等于“今天沪深300便宜”。",
+              "对已有005658持仓，微小年费优势未必值得换仓。持有不足7日的1.50%赎回费，单论费率量级约相当于15年的0.10个百分点年费差；这个算术示例假设本金不变，不是实际回本预测。即使满7日免赎回费，赎回到账、重新买入之间仍可能错过市场变动。"
+            ],
+            "refs": [
+              "efund-csi300-summary-20260811",
+              "chinaamc-csi300-summary-20260529"
+            ]
+          },
+          {
+            "heading": "同期间表现，比净值高低有意义",
+            "paragraphs": [
+              "2026上半年，易方达C净值增长8.17%，华夏C增长7.91%，这是官方报告口径的同期间收益。它支持两只产品均实现了对该市场方向的参与，不能证明较高的历史收益将持续。",
+              "两只基金的基准并不完全相同。易方达基准的5%部分为税后活期存款利率，华夏则另加年化1%的收益项。因此+0.97和+0.18个百分点只能描述各自相对自身基准的期间差额，不能直接比成“跟踪误差谁更好”。",
+              "易方达报告期年化跟踪误差0.37%是基金整体数据，华夏中报未披露同口径年化值，不能据此宣布易方达跟踪质量更好。基金单位净值受成立时间、历史涨跌和分红等影响。华夏的单位净值较低，不表示同样沪深300风险可以买得更便宜。"
+            ],
+            "refs": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "行业分化，限制了临时加仓的依据",
+            "paragraphs": [
+              "两家中期报告都描述了科技相关行业较强、部分内需行业相对落后的市场结构。华夏还指出国内供强需弱问题。这些材料支持“行情修复存在分化”的解释，不能把广义经济增长或单一政策标题直接翻译为全市场盈利同步改善。",
+              "另一种有材料支持的解释是：科技景气与预期上修推动结构性上涨，而非内需全面恢复。它解释了为什么指数上涨仍可与消费相关行业偏弱并存。",
+              "目前没有完成10月当期估值与盈利的同口径核对，所以不提出临时加仓价位或涨幅目标。已计划的长期分批配置可继续按原节奏执行；本期不因这些旧报告再加一笔临时单。"
+            ],
+            "refs": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          },
+          {
+            "heading": "下一次复核，先检查什么",
+            "paragraphs": [
+              "先核查费率和业务公告，再读同期间三季报的实际运作表现，判断跟踪偏离是否持续、能否由申赎与分红等因素解释。工具优先级发生实质变化才修正这一版。",
+              "择时判断还需要可核对的当期指数估值与盈利资料。本篇为2026年10月2日依据公开材料编写的首版观点，没有此前运行记录；后续观点若维持、补充或修正，将保留这一版。"
+            ],
+            "refs": [
+              "efund-csi300-trade-20261002",
+              "chinaamc-csi300-trade-20261002"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-operation-and-fund-choice",
+        "claim": "已有沪深300持仓维持；不新增临时加仓单。已决定C类配置的计划内新资金优先比较007339，不为微小费差直接替换已有005658。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002"
+        ],
+        "mechanism": [
+          "费率影响长期持有成本，但市场波动通常远大于年费差。",
+          "同方向的两只联接基金不提供新的市场分散；持有成本和跟踪质量影响工具选择。"
+        ],
+        "conditions": [
+          "已有独立长期沪深300配置计划",
+          "费用、跟踪与业务状态无实质变化",
+          "买入C类前结合预计期限比较A类"
+        ],
+        "alternatives": [
+          {
+            "explanation": "结构性科技行情可以使指数上涨，而内需相关行业仍偏弱。",
+            "evidence_ids": [
+              "efund-csi300-midyear-2026",
+              "chinaamc-csi300-midyear-2026"
+            ]
+          }
+        ],
+        "related_story_ids": [],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "首次整理两只实际候选的费用、报告期表现与持有/新资金操作参考。",
+        "evidence_ids": [
+          "efund-csi300-summary-20260811",
+          "chinaamc-csi300-summary-20260529",
+          "efund-csi300-midyear-2026",
+          "chinaamc-csi300-midyear-2026",
+          "efund-csi300-trade-20261002",
+          "chinaamc-csi300-trade-20261002"
+        ]
+      }
+    },
+    {
+      "id": "6a402680-a7bd-4398-98be-45e3ce71014f",
+      "story_id": "csi300-reading-guide",
+      "previous_version_id": null,
+      "version": 1,
+      "as_of": "2026-08-31",
+      "generated_at": "2026-10-03T14:51:17.135Z",
+      "input_hash": "c2311b5821b1e21d0a33fb23127ff480358c484c27b9cd06948046c995f6655e",
+      "input_refs": [
+        {
+          "article_id": "csi300-guide-index-factsheet-20260831",
+          "revision": 1,
+          "source": "中证指数 · 沪深300指数单张",
+          "published_at": "",
+          "data_as_of": "2026-08-31",
+          "checked_at": "2026-10-03",
+          "url": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300factsheet.pdf",
+          "fragments": [
+            "该单张标注2026年8月31日。沪深300从沪深市场选取300只规模较大、流动性较好的代表性证券，用于反映这些上市公司证券的整体表现。本篇只引用指数定义，不引用单张的估值、权重或收益数字。"
+          ]
+        },
+        {
+          "article_id": "csi300-guide-efund-c-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · 沪深300ETF联接C产品资料概要",
+          "published_at": "2026-08-11",
+          "checked_at": "2026-10-03",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接C）基金产品资料概要更新20260810205302.pdf",
+          "fragments": [
+            "概要2026年8月10日编制、8月11日送出，C类代码007339。标的指数为沪深300，主要通过投资目标ETF跟踪业绩比较基准。",
+            "所列日期的C类条款不收申购费，持有期间计提销售服务费，赎回费用与持有期限有关；概要同时说明资料可能滞后，需要结合临时公告阅读。"
+          ]
+        },
+        {
+          "article_id": "csi300-guide-efund-a-summary-20260811",
+          "revision": 1,
+          "source": "易方达基金 · 沪深300ETF联接A产品资料概要",
+          "published_at": "2026-08-11",
+          "checked_at": "2026-10-03",
+          "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接A）基金产品资料概要更新.pdf",
+          "fragments": [
+            "概要2026年8月10日编制、8月11日送出，A类代码110020。A、C属于同一联接基金的份额类别。A类列有申购费和按持有期限区分的赎回费；运作费用表未列销售服务费。这里不把普通费率等同于特定渠道的实付费用。"
+          ]
+        },
+        {
+          "article_id": "csi300-guide-chinaamc-prospectus-20260529",
+          "revision": 1,
+          "source": "华夏基金 · 沪深300ETF联接招募说明书",
+          "published_at": "2026-05-29",
+          "checked_at": "2026-10-03",
+          "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/a87a41e0ec074fa1bb88aed07257bdba.pdf",
+          "fragments": [
+            "招募说明书2026年5月29日公告。释义说明联接基金主要投资于跟踪同一标的指数的目标ETF；本基金通过投资华夏沪深300ETF跟踪沪深300。",
+            "A类与C类分别适用收费条款：A类列有申购费用、不收销售服务费；C类不收申购费、从基金资产中计提销售服务费，赎回费用按持有期限区分。费用条款不代表新资金的优先选择，也不承诺当前渠道费用。"
+          ]
+        },
+        {
+          "article_id": "csi300-guide-sec-pe-definition",
+          "revision": 1,
+          "source": "美国证监会 · Investor.gov市盈率解释",
+          "published_at": "",
+          "checked_at": "2026-10-03",
+          "url": "https://www.investor.gov/introduction-investing/investing-basics/glossary/price-earnings-pe-ratio",
+          "fragments": [
+            "概念译述：市盈率将价格与每股盈利比较，页面的过去12个月盈利口径对应滚动市盈率。页面未标注本次所用内容的发布日期。本篇用它解释概念，不据此推断中证指数的具体汇总或亏损样本处理方法。"
+          ]
+        },
+        {
+          "article_id": "csi300-guide-cfa-valuation-multiples-2026",
+          "revision": 1,
+          "source": "CFA协会 · 2026课程估值倍数说明",
+          "published_at": "",
+          "checked_at": "2026-10-03",
+          "url": "https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/market-based-valuation-price-enterprise-value-multiples",
+          "fragments": [
+            "概念译述：PE将价格与盈利比较，PB将价格与账面价值比较；账面价值以普通股股东权益为基础。倍数比较需要考虑盈利、账面价值与可比基准，不能从单个倍数直接推出未来收益。网页标明2026课程，未标注发布日期。"
+          ]
+        }
+      ],
+      "origin": "editor",
+      "published_at": "2026-10-03T14:51:17.135Z",
+      "article": {
+        "slug": "csi300-etf-and-share-classes",
+        "title": "沪深300、ETF联接、A/C：先分清买的是什么",
+        "deck": "指数、联接基金和A/C份额讲的是不同层次。先看市场方向，再看基金怎样跟踪它、费用在哪里产生，最后再读具体的研究判断。",
+        "category": "背景解释",
+        "kind": "background",
+        "read_minutes": 3,
+        "sections": [
+          {
+            "heading": "沪深300，观察一组证券的整体表现",
+            "paragraphs": [
+              "沪深300是一个指数。它从上海和深圳市场选取300只规模较大、流动性较好的代表性证券，把它们的表现汇成一个数。看它，可以观察这组证券的整体变化；它不等于某一家公司的股价，也不能代表每一家企业。指数本身不是你账户里的基金，名字里有“沪深300”的基金，才是实际投资工具。"
+            ],
+            "refs": [
+              "csi300-guide-index-factsheet-20260831"
+            ]
+          },
+          {
+            "heading": "ETF联接，通过目标ETF跟随指数",
+            "paragraphs": [
+              "沪深300ETF以跟踪沪深300为目标。ETF联接基金则主要通过持有对应的目标ETF来跟随这一指数。你申购的是联接基金份额，不是直接买入那300只证券，也不是直接买入目标ETF份额。联接基金还需要管理现金和承担运作费用，所以基金的涨跌与指数之间可能有差异；跟踪同一个指数，也不意味着每只基金每天涨跌完全一样。"
+            ],
+            "refs": [
+              "csi300-guide-chinaamc-prospectus-20260529",
+              "csi300-guide-efund-c-summary-20260811"
+            ]
+          },
+          {
+            "heading": "买两只基金，未必多分散一个方向",
+            "paragraphs": [
+              "易方达007339和华夏005658都承接沪深300方向。名字、管理人和费用不同，但同时持有它们，没有新增一个不同的指数方向，仍会一起受到这组证券变化的影响。这是根据两份文件里的跟踪目标作出的比较。选择哪种工具，主要核对费用、跟踪表现和申赎条件；不能把工具差异当成市场已经更值得买的理由。"
+            ],
+            "refs": [
+              "csi300-guide-efund-c-summary-20260811",
+              "csi300-guide-chinaamc-prospectus-20260529"
+            ]
+          },
+          {
+            "heading": "A和C，区别先看收费方式",
+            "paragraphs": [
+              "A、C是同一只基金的不同份额类别，不是新的市场方向。以这里引用的产品资料为例，A类列有申购费，不收销售服务费；C类申购费为零，但列有销售服务费，卖出时还可能有赎回费。因此，买入那一笔费用为零，不等于持有全过程免费。比较时要把买入、持有和卖出的费用一起看，并核对所选份额、渠道及适用期间的实际规则。本专题保留原文日期；费改生效、存量衔接和渠道优惠仍须核清，不能仅按“长期选A、短期选C”决定。"
+            ],
+            "refs": [
+              "csi300-guide-efund-a-summary-20260811",
+              "csi300-guide-efund-c-summary-20260811",
+              "csi300-guide-chinaamc-prospectus-20260529"
+            ]
+          },
+          {
+            "heading": "PE和PB是倍数，不是收益率",
+            "paragraphs": [
+              "PE是市盈率，看价格相对于盈利；滚动PE参考最近12个月的盈利。PB是市净率，看价格相对于账面净资产。这两个数帮助讨论估值，不表示买入后的收益率，也不承诺几年能回本。倍数会随价格、盈利或净资产变化；比另一个时点低，还不足以说明处在历史低位。读本专题的估值图时，先看资料日期，再把倍数与盈利依据放在一起读，不把图上的一个数字当成买入信号。"
+            ],
+            "refs": [
+              "csi300-guide-sec-pe-definition",
+              "csi300-guide-cfa-valuation-multiples-2026"
+            ]
+          },
+          {
+            "heading": "分清这些，再读持仓和新资金的判断",
+            "paragraphs": [
+              "读到“按原计划维护”，先留意它对已有持仓写了哪些适用条件；读到“先观察”，再看临时首次买入或追加为什么需要等待、哪些材料会改变判断。基金费用表回答工具怎么比较，不能单独回答市场该不该买。这篇背景文先帮助你看懂买的是什么，没有给出首次配置的金额、买入时机或持有安排；也不能替代这些尚未完成的决定。"
+            ],
+            "refs": [
+              "csi300-guide-chinaamc-prospectus-20260529"
+            ]
+          }
+        ]
+      },
+      "interpretation": {
+        "topic_key": "china-equity-index",
+        "claim_key": "csi300-index-and-fund-basics",
+        "claim": "沪深300是指数方向，ETF联接是跟踪该方向的基金工具，A/C是同基金的收费份额类别；同方向工具不增加新的指数方向，估值倍数不等于收益率。本篇不提供首次配置方案或候选基金排序。",
+        "evidence_ids": [
+          "csi300-guide-index-factsheet-20260831",
+          "csi300-guide-efund-c-summary-20260811",
+          "csi300-guide-efund-a-summary-20260811",
+          "csi300-guide-chinaamc-prospectus-20260529",
+          "csi300-guide-sec-pe-definition",
+          "csi300-guide-cfa-valuation-multiples-2026"
+        ],
+        "mechanism": [
+          "联接基金主要通过目标ETF跟踪同一指数",
+          "同基金不同份额的收费方式影响持有成本，不能改变其市场方向"
+        ],
+        "conditions": [
+          "费用按原文日期记录，实际执行须核对渠道、适用期间与实施公告",
+          "估值概念解释不推断中证具体汇总口径，也不替代盈利依据"
+        ],
+        "alternatives": [],
+        "related_story_ids": [
+          "csi300-fund-selection-20261002"
+        ],
+        "previous_claim_version_ids": []
+      },
+      "changes": {
+        "kind": "initial",
+        "summary": "依据公开资料编辑指数、联接基金、收费份额与估值概念背景。",
+        "evidence_ids": [
+          "csi300-guide-index-factsheet-20260831",
+          "csi300-guide-efund-c-summary-20260811",
+          "csi300-guide-efund-a-summary-20260811",
+          "csi300-guide-chinaamc-prospectus-20260529",
+          "csi300-guide-sec-pe-definition",
+          "csi300-guide-cfa-valuation-multiples-2026"
+        ]
+      }
+    }
+  ],
+  "materials": [],
+  "events": [],
+  "tasks": [],
+  "collection_runs": [],
+  "budget": null,
+  "fund_observations": [],
+  "market_observations": [
+    {
+      "index_code": "000300",
+      "index_name": "沪深300",
+      "as_of": "2026-09-30",
+      "close": 4357.62,
+      "valuation": {
+        "as_of": "2026-09-30",
+        "pe_static": 14.34,
+        "pe_ttm": 13.15,
+        "pb": 1.36,
+        "dividend_yield_pct": 2.74,
+        "prior_year_end": {
+          "pe_static": 15.19,
+          "pe_ttm": 14.31,
+          "pb": 1.45
+        }
+      },
+      "daily": [
+        {
+          "date": "2026-09-02",
+          "open": 4581.51,
+          "high": 4583.27,
+          "low": 4534.39,
+          "close": 4547.96,
+          "price_change": -63.48,
+          "price_change_pct": -1.38,
+          "pe_ttm": 13.65
+        },
+        {
+          "date": "2026-09-03",
+          "open": 4570.91,
+          "high": 4585.99,
+          "low": 4536.92,
+          "close": 4552.58,
+          "price_change": 4.62,
+          "price_change_pct": 0.1,
+          "pe_ttm": 13.65
+        },
+        {
+          "date": "2026-09-04",
+          "open": 4575.32,
+          "high": 4602.2,
+          "low": 4530.76,
+          "close": 4548.05,
+          "price_change": -4.53,
+          "price_change_pct": -0.1,
+          "pe_ttm": 13.64
+        },
+        {
+          "date": "2026-09-07",
+          "open": 4567.89,
+          "high": 4580.7,
+          "low": 4545.41,
+          "close": 4575.02,
+          "price_change": 26.97,
+          "price_change_pct": 0.59,
+          "pe_ttm": 13.64
+        },
+        {
+          "date": "2026-09-08",
+          "open": 4575.99,
+          "high": 4587.73,
+          "low": 4546.31,
+          "close": 4558.74,
+          "price_change": -16.29,
+          "price_change_pct": -0.36,
+          "pe_ttm": 13.6
+        },
+        {
+          "date": "2026-09-09",
+          "open": 4578.51,
+          "high": 4581.9,
+          "low": 4548.36,
+          "close": 4572.6,
+          "price_change": 13.86,
+          "price_change_pct": 0.3,
+          "pe_ttm": 13.66
+        },
+        {
+          "date": "2026-09-10",
+          "open": 4550.19,
+          "high": 4569.83,
+          "low": 4533.66,
+          "close": 4548.39,
+          "price_change": -24.21,
+          "price_change_pct": -0.53,
+          "pe_ttm": 13.62
+        },
+        {
+          "date": "2026-09-11",
+          "open": 4514.3,
+          "high": 4520.17,
+          "low": 4461.57,
+          "close": 4510.16,
+          "price_change": -38.23,
+          "price_change_pct": -0.84,
+          "pe_ttm": 13.52
+        },
+        {
+          "date": "2026-09-14",
+          "open": 4474.95,
+          "high": 4504.49,
+          "low": 4473.27,
+          "close": 4480.08,
+          "price_change": -30.07,
+          "price_change_pct": -0.67,
+          "pe_ttm": 13.45
+        },
+        {
+          "date": "2026-09-15",
+          "open": 4473.81,
+          "high": 4496.96,
+          "low": 4444.63,
+          "close": 4450.04,
+          "price_change": -30.04,
+          "price_change_pct": -0.67,
+          "pe_ttm": 13.36
+        },
+        {
+          "date": "2026-09-16",
+          "open": 4449.88,
+          "high": 4483.36,
+          "low": 4417.6,
+          "close": 4480.27,
+          "price_change": 30.23,
+          "price_change_pct": 0.68,
+          "pe_ttm": 13.4
+        },
+        {
+          "date": "2026-09-17",
+          "open": 4463.62,
+          "high": 4495.83,
+          "low": 4453.92,
+          "close": 4460.16,
+          "price_change": -20.11,
+          "price_change_pct": -0.45,
+          "pe_ttm": 13.34
+        },
+        {
+          "date": "2026-09-18",
+          "open": 4492.32,
+          "high": 4523.09,
+          "low": 4480.59,
+          "close": 4507.39,
+          "price_change": 47.24,
+          "price_change_pct": 1.06,
+          "pe_ttm": 13.42
+        },
+        {
+          "date": "2026-09-21",
+          "open": 4524.34,
+          "high": 4540.55,
+          "low": 4512.15,
+          "close": 4539.57,
+          "price_change": 32.17,
+          "price_change_pct": 0.71,
+          "pe_ttm": 13.51
+        },
+        {
+          "date": "2026-09-22",
+          "open": 4569.87,
+          "high": 4583.38,
+          "low": 4537.04,
+          "close": 4544.59,
+          "price_change": 5.02,
+          "price_change_pct": 0.11,
+          "pe_ttm": 13.53
+        },
+        {
+          "date": "2026-09-23",
+          "open": 4547.61,
+          "high": 4547.69,
+          "low": 4513.45,
+          "close": 4517.28,
+          "price_change": -27.31,
+          "price_change_pct": -0.6,
+          "pe_ttm": 13.45
+        },
+        {
+          "date": "2026-09-24",
+          "open": 4499.86,
+          "high": 4500.2,
+          "low": 4439.14,
+          "close": 4439.14,
+          "price_change": -78.13,
+          "price_change_pct": -1.73,
+          "pe_ttm": 13.29
+        },
+        {
+          "date": "2026-09-28",
+          "open": 4423.82,
+          "high": 4423.82,
+          "low": 4323.57,
+          "close": 4340.76,
+          "price_change": -98.39,
+          "price_change_pct": -2.22,
+          "pe_ttm": 13.09
+        },
+        {
+          "date": "2026-09-29",
+          "open": 4335.81,
+          "high": 4359.3,
+          "low": 4324.53,
+          "close": 4345.21,
+          "price_change": 4.45,
+          "price_change_pct": 0.1,
+          "pe_ttm": 13.09
+        },
+        {
+          "date": "2026-09-30",
+          "open": 4356.8,
+          "high": 4368.61,
+          "low": 4341.88,
+          "close": 4357.62,
+          "price_change": 12.41,
+          "price_change_pct": 0.29,
+          "pe_ttm": 13.15
+        }
+      ],
+      "checked_at": "2026-10-03T18:34:39.661Z",
+      "sources": [
+        {
+          "kind": "valuation",
+          "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "as_of": "2026-09-30"
+        },
+        {
+          "kind": "daily",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260803&endDate=20261002",
+          "as_of": "2026-09-30"
+        },
+        {
+          "kind": "daily_valuation",
+          "url": "https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300&startDate=20260803&endDate=20261002",
+          "as_of": "2026-09-30"
+        }
+      ],
+      "warnings": [
+        "market_nontrading_valuation_rows_excluded"
+      ],
+      "hash": "8791d1008f24022f2fb740f6c038670f29656a0102d78db6753fd6962ece5517"
+    }
+  ]
+}

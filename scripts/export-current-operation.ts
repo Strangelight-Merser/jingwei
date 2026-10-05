@@ -1,0 +1,14 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const state=JSON.parse(await readFile(new URL('../.data/content.json',import.meta.url),'utf8'));
+const v=state.finance_versions.filter((x:any)=>x.story_id==='csi300-fund-selection-20261002'&&x.published_at).sort((a:any,b:any)=>b.version-a.version)[0],a=v.article,o=a.operation_view;
+const lines=[`# ${a.title}`,'',`真实编辑刊发：${v.published_at}；编辑复核：${o.reviewed_on}；指数数据截至：${o.market.as_of}。第${v.version}版，保留此前版本。`,'',a.deck,'','## 本期操作参考','',`**原有持仓：${o.held.action}。** ${o.held.text}`,'',`**临时新增（首次买入或追加）：${o.unheld.action}。** ${o.unheld.text}`,'','**判断理由：** '+o.reason,'','**最强反方：** '+o.counterargument,''];
+if(o.next_watch)lines.push('**接下来关注：** '+o.next_watch,'');
+for(const s of a.sections){lines.push('## '+s.heading,'');for(const p of s.paragraphs)lines.push(p,'');}
+lines.push('## 两只同方向工具的费用资料快照','','|核对项|007339 易方达C|005658 华夏C|','|---|---|---|');
+for(const [label,key] of [['定位','role'],['管理年费率','management'],['托管年费率','custody'],['概要销售服务年费率','service'],['概要综合运作年费率测算','total'],['申购费','subscription'],['赎回条件','redemption'],['交易状态','trade_status'],['2026上半年净值增长率','period_return'],['同期各自基准','benchmark_return'],['各自期间差额','difference'],['年化跟踪误差','tracking_error'],['业绩基准','benchmark'],['概要送出日期','document_date'],['销售服务持有条件','fee_holding_terms'],['渠道范围','fee_channel_scope'],['具体生效日','fee_effective_from'],['实施公告','fee_announcement']])lines.push('|'+label+'|'+o.funds.map((f:any)=>String(f[key]??'未核实')).join('|')+'|');
+if(o.funds.some((f:any)=>f.a_class)){for(const [label,key] of [['同基金A类','code'],['A类销售服务费','service'],['A类普通申购','subscription'],['A类赎回','redemption'],['A类资料日期','document_date']])lines.push('|'+label+'|'+o.funds.map((f:any)=>String(f.a_class?.[key]??'未核实')).join('|')+'|');}
+lines.push('',o.comparison_note,'','## 可追踪条件','');for(const c of o.research_conditions)lines.push('### '+c.label,'',c.baseline,'',c.watch,'',c.trigger,'',c.automatic?'官方免费采集已接入，事实条件变化先形成待审草稿。':'下一期材料需编辑核对；自动结构化复核尚未接入。','');
+lines.push('## 官方依据与日期','');for(const r of v.input_refs){lines.push('### '+r.source,'',[r.published_at?'发布于 '+r.published_at:'',r.checked_at?'核查于 '+r.checked_at:'',r.data_as_of?'数据截至 '+r.data_as_of:''].filter(Boolean).join('；'),'',`[原文](${r.url})`,'');for(const p of r.fragments)lines.push(p,'');}
+lines.push('## 本次修正与边界','',v.changes.summary,'',`研究方法版本：${o.method_version}；前版id：${v.previous_version_id}。`,'','待核：'+o.gaps.join('；')+'。','','[本机当前文章](http://127.0.0.1:4410/articles/csi300-hold-and-fund-choice) · [此前第四版](http://127.0.0.1:4410/articles/csi300-hold-and-fund-choice?version=4)');
+const label=({4:'四',5:'五',6:'六'} as Record<number,string>)[v.version]??String(v.version);
+await writeFile(new URL('../evidence/沪深300_第'+label+'版正文与依据.md',import.meta.url),lines.join('\n')+'\n');console.log(JSON.stringify({exported:true,version:v.version,title:a.title}));

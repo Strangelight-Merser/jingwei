@@ -1,0 +1,2925 @@
+{
+  "direction_key": "csi300",
+  "captured_at": "2026-10-05T18:02:01.770Z",
+  "refs": [
+    {
+      "article_id": "fund-005658-custody",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "基金托管费 0.05%"
+      ]
+    },
+    {
+      "article_id": "fund-005658-management",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "基金管理费 0.15%"
+      ]
+    },
+    {
+      "article_id": "fund-005658-redemption",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "基金赎回费率 条件 费率 持有期限 < 7日 1.50% 持有期限 ≥ 7日 0.00%"
+      ]
+    },
+    {
+      "article_id": "fund-005658-service",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "销售服务费 0.30%"
+      ]
+    },
+    {
+      "article_id": "fund-005658-subscription",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "申购费率 收费方式 条件 费率 前端 0.00%"
+      ]
+    },
+    {
+      "article_id": "fund-005658-trade_status",
+      "revision": 1,
+      "source": "华夏基金 · 官方产品字段",
+      "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "交易状态 开放申购"
+      ]
+    },
+    {
+      "article_id": "fund-007339-benchmark",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "业绩比较基准: 沪深300指数收益率X95%+活期存款利率(税后)X5%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-custody",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "托管费 0.05%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-management",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "管理费 0.15%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-redemption",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "申购费率 本基金不收取申购费 赎回费率 持有时间（天） 赎回费率 0-6 1.50% 7及以上 0.00%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-service",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "销售服务费 0.20%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-subscription",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://www.efunds.com.cn/fund/007339.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "申购费率 本基金不收取申购费 赎回费率 持有时间（天） 赎回费率 0-6 1.50% 7及以上 0.00%"
+      ]
+    },
+    {
+      "article_id": "fund-007339-trade_status",
+      "revision": 1,
+      "source": "易方达基金 · 官方产品字段",
+      "url": "https://api.efunds.com.cn/xcowch/front/fund/tradestatus/007339?date=2026-10-05",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fragments": [
+        "{\"status\":1,\"message\":\"\",\"data\":{\"individual\":[{\"agencyName\":\"非直销机构\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"网上直销\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"直销中心\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"}],\"organization\":[{\"agencyName\":\"非直销机构\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"网上直销\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"直销中心\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"}]}}"
+      ]
+    },
+    {
+      "article_id": "fund-body-005658-13332caa7896603c",
+      "revision": 1,
+      "source": "华夏基金 · C类产品资料概要正文",
+      "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+      "published_at": "2026-05-29",
+      "checked_at": "2026-10-05T16:18:03.718259+00:00",
+      "fragments": [
+        "PDF第1页：华夏沪深 300 交易型开放式指数证券投资基金联接基金（华夏沪深 300ETF 联接 C ）基金产品资料概要更新 编制日期： 2026 年 5 月 28 日 送出日期： 2026 年 5 月 29 日 本概要提供本基金的重要信息，是招募说明书的一部分。 作出投资决定前，请阅读完整的招募说明书等销售文件。 一、产品概况 基金简称 华夏沪深 300ETF 联接 基金代码 000051 下属基金简称 华夏沪深 300ETF 联接 C 下属基金代码 005658 中 国 工 商 银 行 股 份 有 限 基金管理人 华夏基金管理有限公司 基金托管人 公司 基金合同生效日 2009-07-10 基金类型 基金中基金 交易币种 人民币 运作方式 普通开放式 开放频率 每个开放日 开始担任本基金 2017-04-17 基金经理的日期 基金经理 赵宗庭 证券从业日期 2008-06-27 注：本基金自 2018",
+        "PDF第1、2页：业绩比较基准：沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+        "PDF第3页：注：①本基金自 2018 年 2 月 2 日起增加 C 类基金份额类别。 ②基金的过往业绩不代表未来表现。 三、投资本基金涉及的费用 ( 一 ) 基金销售相关费用 以下费用在认购 / 申购 / 赎回基金过程中收取： 份额（ S ）或金额（ M ） 费用类型 收费方式 / 费率 备注 / 持有期限（ N ） N < 7 天 1.50% - 赎回费 N >= 7 天 0.00% - 注：投资者选择申购 C 类基金份额的，申购费用为 0 ，从基金资产中计提销售服务费。 ( 二 ) 基金运作相关费用 以下费用将从基金资产中扣除： 费用类别 收费方式 / 年费率或金额 收费方 按前一日基金资产净值扣除基金资产 管理费 中目标 ETF 份额所对应资产净值后剩 基金管理人、销售机构 余部分的年费率计提。 0.15% 按前一日基金资产净值扣除基金资产 托管费 中目标 ETF 份额所对应资产净值后剩 基金托管人 余部分的年费率计提。 0.05% 销售服务费 固定费率 0.30% 销售机构 审计费用 年费用金额（元） 75,000.00 会计师事务所 信息披露费 年费用金额（元） 120,000.00 规定披露报刊 基金合同生效后与本基金相关的律师 费、基金份额持有人大会费用等可以 其他费用 相关服务机构 在基金财产中列支的其他费用按照国 家有关规定和《基金合同》约定在基",
+        "PDF第4页：金财产中列支。费用类别详见本基金 基金合同及招募说明书或其更新。 注：①本基金交易证券、基金等产生的费用和税负，按实际发生额从基金资产扣除。 ②管理费、托管费为最新合同费率。 ③审计费用、信息披露费用为由基金整体承担的年费用金额，非单个份额类别费用。上 表年费用金额为产品资料概要更新编制日所在年度的当年度初始预估年费用金额，非实 际产生费用金额，实际由基金资产承担的审计费和信息披露费可能与预估值存在差异， 最终实际金额以基金定期报告披露为准。 ④销售服务费为最新合同费率，不含费率优惠。 ( 三 ) 基金运作综合费用测算 若投资者认购 / 申购本基金份额，在持有期间，投资者需支出的运作费率如下表： 基金运作综合费率（年化） 0.50% 注：①基金运作综合费率 = 固定管理费率 + 托管费率 + 销售服务费率（若有） + 其他运作费 用合计占基金每日平均资产净值的比例（年化），以百分比形式列示，保留到小数点后 2 位。基金运作综合费用包含由基金资产承担的费用，如管理费、托管费、销售服务费（若 有）、审计费用、信息披露费、银行间账户维护费、银行汇划费等费用，不包括基金交 易产生的证券交易费用、税金及附加、信用减值损失（若有）等。审计费用、信息披露 费、银行间账户维护费、银行汇划费等其他运作费用，根据最近一次基金年报披露的其 他费用金额，除以基金每日平均资产净值计算年费率。基金每日平均资产净值 = 基金每日 资产净值合计 / 当年天数（保留两位小数，按当年自然天数计算，当年成立的基金，按当 年实际运作天数计算）。 ②基金管理费率、托管费率、销售服务费率（若有）为基金现行费率，其他运作费用以 最近一次基金年报披露的相关数据为基准测算。 ③其他运作费用合计占基金每日平均资产净值的比例（年化）系根据历史数据测算，计 算结果受基金日均规模影响，实际年化费率与测算数据可能存在差异，敬请投资者留意。 四、风险揭示与重要提示 ( 一 ) 风险揭示 本基金不提供任何保证。投资者可能损失投资本金。 投资有风险，投资者购买基金时应认真阅读本基金的《招募说明书》等销售文件。 本基金投资于证券市场，基金净值会因为证券市场波动等因素产生波动，投资者根据所"
+      ],
+      "data_as_of": "2026-05-29"
+    },
+    {
+      "article_id": "fund-body-005658-9eb012bc19c94249",
+      "revision": 1,
+      "source": "华夏基金 · 中期报告正文",
+      "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+      "published_at": "2026-08-31",
+      "checked_at": "2026-10-05T17:29:12.962161+00:00",
+      "fragments": [
+        "PDF第5页：§2 基金简介 2.1 基金基本情况 基金名称 华夏沪深 300 交易型开放式指数证券投资基金联接基金 基金简称 华夏沪深 300ETF 联接 基金主代码 000051 交易代码 000051 基金运作方式 契约型开放式 基金合同生效日 2009 年 7 月 10 日 基金管理人 华夏基金管理有限公司 基金托管人 中国工商银行股份有限公司 报告期末基金份额总额 7,936,274,365.43 份 基金合同存续期 不定期 华夏沪深 300ETF 华夏沪深 300ETF 华夏沪深 300ETF 下属分级基金的基金简称 联接 A 联接 C 联接 Y 下属分级基金的交易代码 000051 005658 022983 1,181,216,909.70 报告期末下属分级基金的份额总额 6,699,124,678.14 份 55,932,777.59 份 份 2.1.1 目标基金基本情况 基金名称 华夏沪深 300 交易型开放式指数证券投资基金 基金主代码 510330 基金运作方式 交易型开放式 基金合同生效日 2012 年 12 月 25 日",
+        "PDF第5、6页：业绩比较基准：沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+        "PDF第2页：本报告期自2026年1月1日起至6月30日止",
+        "PDF第8页：C类份额，过去六个月：份额净值增长率7.91%；份额净值增长率标准差1.07%；业绩比较基准收益率7.73%。原表片段：华夏沪深300ETF联接C：份额净值增业绩比较基份额净值增业绩比较基阶段长率标准差准收益率标①－③②－④长率①准收益率③②准差④过去三个月12.01%1.19%11.57%1.19%0.44%0.00%过去六个月7.91%1.07%7.73；过去六个月7.91%1.07%7.73%",
+        "PDF第17、18页：4.4.2报告期内基金的业绩表现截至2026年6月30日，华夏沪深300ETF联接A份额净值为1.8807元，本报告期份额净值增长率为8.07%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.34%；华夏沪深300ETF联接C份额净值为1.8328元，本报告期份额净值增长率为7.91%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.18%；华夏沪深300ETF联接Y份额净值为1.8807元，本报告期份额净值增长率为8.07%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.34%。与业绩比较基准产生偏离的主要原因为日常运作费用、指数结构调整、申购赎回、成份股分红等产生的差异。"
+      ],
+      "data_as_of": "2026-06-30"
+    },
+    {
+      "article_id": "fund-body-007339-1ccc14207f667122",
+      "revision": 1,
+      "source": "易方达基金 · C类产品资料概要正文",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+      "published_at": "2026-08-11",
+      "checked_at": "2026-10-05T16:18:03.718129+00:00",
+      "fragments": [
+        "PDF第1页：易方达沪深 300 交易型开放式指数发起式证券投资基 金联接基金（易方达沪深 300ETF 联接 C ）基金产品资 料概要更新 编制日期： 2026 年 8 月 10 日 送出日期： 2026 年 8 月 11 日 本概要提供本基金的重要信息，是招募说明书的一部分。 作出投资决定前，请阅读完整的招募说明书等销售文件。 一、 产品概况 易方达沪深 300ETF 联 基金简称 基金代码 110020 接 易方达沪深 300ETF 联 下属基金简称 下属基金代码 007339 接 C 易方达基金管理有限公 中国建设银行股份有限 基金管理人 基金托管人 司 公司 基金合同生效日 2009 - 08 - 26 基金类型 基金中基金 交易币种 人民币 运作方式 普通开放式 开放频率 每个开放日 开始担任本基金 2016 - 04 - 16 基金经理的日期 余海燕 证券从业日期 2005 - 06 - 01 基金经理 开始担",
+        "PDF第1、2页：业绩比较基准：沪深300指数收益率×95%+活期存款利率(税后)×5%",
+        "PDF第3页：图 注： 本基金份额增设当年期间的相关数据按实际存续期计算。 基金的过往业绩不代表未来表 现。 三、 投资本基金涉及的费用 （一） 基金销售相关费用 以下费用在认购 / 申购 / 赎回基金过程中收取： 份额（ S ）或金额（ M ） 收费方式 费用类型 备注 / 持有期限（ N ） / 费率 0 天 < N ≤ 6 天 1.50% 赎回费 N ≥ 7 天 0.00% 注：本基金 C 类基金份额在投资者申购时不收取申购费用，在持有期间收取销售服务费。 （二） 基金运作相关费用 以下 费用将从基金资产中扣除： 费用类别 收费方式 / 年费率或金额 收取 方 管理费 年费率 0.15% 基金管理人、销售机构 托管费 年费率 0.05% 基金托管人 销售服务费 年费率 0.20% 销售机构 审计费用 年费用金额 30,000.00 元 会计师事务所 信息披露费 年费用金额 120,000.00 元 规定披露报刊 详见招募说明书的基金费用与税收 其他费用 章节。 注： 1. 由于本基金管理人和基金托管人同时为目标 ETF 的基金管理人与基金托管人，为避免 重复收费，本基金管理人、基金托管人不对基金财产中投资于目标 ETF 的部分计提管理费、 托管费。 2. 上表中年费用金额为基金整体承担费用，非单个份额类别费用，且年费用金额为预估值， 最终实际金额以基金定期报告披露为准。 3. 本基金交易证券、基金等产生的费用和税负，按实际发生额从基金资产扣除。 （三） 基金运作综合费用测算 若投资者认购 / 申购本基金份额，在持有期间，投资者需支 出的运作费率如下表： 基金运作综合费率（年化）",
+        "PDF第4页：0.40% 注： 基金运作综合费率 = 固定管理费率 + 托管费率 + 销售服务费率 + 其他运作费用合计占基金 每日平均资产净值的比例（年化）。基金管理费率、托管费率、销售服务费率为基金现行费 率，其他运作费用以最近一次基金年报披露的相关数据为基准测算。 四、 风险揭示与重要提示 （一）风险揭示 本基金不提供任何保证。投资者可能损失投资本金。 投资有风险，投资者购买基金时应认真阅读本基金的《招募说明书》等销售文件。 投资本基金可能遇到的风险包括：证券市场整体环境引发的系统性风险、流动性风险、 本基金法律文件中涉及基金风险特征的表述与销售机构对基金的风险评级可能不一致的风 险、基金管理人在基金管理实施过程中产生的基金管理风险、本基金的特有风险等等。本基 金的投资范围包括存托凭证，可能给本基金带来额外风险。本基金为指数基金，投资者投资 于本基金面临跟踪误差控制未达约定目标、 指数编制机构停止服务、 成份股停牌等潜在风险。 （二）重要提示 中国证监会对本基金募集的核准， 并不表明其对本基金的价值和收益作出实质性判断或 保证，也不表明投资于本 基金没有风险。基金管理人依照恪尽职守、诚实信用、谨慎勤勉的 原则管理和运用基金财产，但不保证基金一定盈利，也不保证最低收益。基金投资者自依基 金合同取得基金份额，即成为基金份额持有人和基金合同的当事人。 各方当事人因《基金合 同》而产生的或与《基金合同》有关的一切争议应尽量通过协商、调解途径解决，如经友好 协商未能解决的最终将通过仲裁方式处理，详见《基金合同》 。 基金产品资料概要信息发生重大变更的， 基金管理人将在三个工作日内更新， 其他信息 发生变更的，基金管理人每年更新一次。因此，本文件内容相比基金的实际情况可能存在一 定的滞后，如需及时、准确获取基金的相关信息，敬请同时关注基金管理人发布的相关临时 公告等。 五、 其他资料查询方式 以下资料详见基金管理人网站 [www.efunds.com.cn][ 客服电话 :4008818088] 1 、基金合同、托管协议、招募说明书 2 、定期报告，包括基金季度报告、中期报告和年度报告 3 、基金份额净值 4 、基金销售机构及联系方式 5 、其他重要资料"
+      ],
+      "data_as_of": "2026-08-11"
+    },
+    {
+      "article_id": "fund-body-007339-b7a2cf27ed9361af",
+      "revision": 1,
+      "source": "易方达基金 · 中期报告正文",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E4%B8%AD%E6%9C%9F%E6%8A%A5%E5%91%8A.pdf",
+      "published_at": "2026-08-31",
+      "checked_at": "2026-10-05T16:18:03.717785+00:00",
+      "fragments": [
+        "PDF第5页：§ 2 基金简介 2.1 基金基本情况 基金名称 易方达沪深 300 交易型开放式指数发起式证券投资基金 联接基金 基金简称 易方达沪深 300ETF 联接 基金主代码 110020 基金运作方式 契约型开放式 基金合同生效日 2009 年 8 月 26 日 基金管理人 易方达基金管理有限公司 基金托管人 中国建设银行股份有限公司 报告期末基金份额总额 11,083,755,912.69 份 基金合同存续期 不定期 易方达沪深 易方达沪深 易方达沪深 下属分级基金的基金简称 300ETF 联接 A 300ETF 联接 C 300ETF 联接 Y 下属分级基金的交易代码 110020 007339 022928 7,017,164,631.32 3,936,274,019.72 130,317,261.65 报告期末下属分级基金的份额总额 份 份 份 注： 1. 自 2019 年 4 月 25 日起 , 本基金增设 C 类份额类别， 份额首次确认日为 2019 年 4 月 26 日。 2. 自 2024 年 12 月 13 日起， 本基金",
+        "PDF第5、6页：业绩比较基准：沪深300指数收益率×95%+活期存款利率(税后)×5%",
+        "PDF第2页：本报告期自2026年1月1日起至6月30日止",
+        "PDF第8页：C类份额，过去六个月：份额净值增长率8.17%；份额净值增长率标准差1.07%；业绩比较基准收益率7.20%。原表片段：易方达沪深300ETF联接C份额净值增业绩比较基份额净值增业绩比较基阶段长率标准差准收益率标①－③②－④长率①准收益率③②准差④过去三个月12.14%1.19%11.30%1.19%0.84%0.00%过去六个月8.17%1.07%7.20；过去六个月8.17%1.07%7.20%",
+        "PDF第13、14页：4.4.2报告期内基金的业绩表现截至报告期末，本基金A类基金份额净值为2.0132元，本报告期份额净值增长率为8.28%，同期业绩比较基准收益率为7.20%；C类基金份额净值为1.9845元，本报告期份额净值增长率为8.17%，同期业绩比较基准收益率为7.20%；Y类基金份额净值为2.0132元，本报告期份额净值增长率为8.28%，同期业绩比较基准收益率为7.20%。年化跟踪误差0.37%，在合同约定的目标控制范围之内。"
+      ],
+      "data_as_of": "2026-06-30"
+    },
+    {
+      "article_id": "fund-nav-005658-f2044f97e37ebefe",
+      "revision": 1,
+      "source": "华夏基金 · 官方净值",
+      "url": "https://www.chinaamc.com/fund/005658/index.shtml",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "data_as_of": "2026-09-30",
+      "fragments": [
+        "官网净值字段，005658；单位净值为nav，累计净值为accumulated_nav，二者不是现金分红再投资收益指数。",
+        "[{\"date\":\"2026-02-25\",\"nav\":1.7369,\"accumulated_nav\":1.7369},{\"date\":\"2026-02-26\",\"nav\":1.7337,\"accumulated_nav\":1.7337},{\"date\":\"2026-02-27\",\"nav\":1.7282,\"accumulated_nav\":1.7282},{\"date\":\"2026-03-02\",\"nav\":1.7344,\"accumulated_nav\":1.7344},{\"date\":\"2026-03-03\",\"nav\":1.7091,\"accumulated_nav\":1.7091},{\"date\":\"2026-03-04\",\"nav\":1.6905,\"accumulated_nav\":1.6905},{\"date\":\"2026-03-05\",\"nav\":1.7058,\"accumulated_nav\":1.7058},{\"date\":\"2026-03-06\",\"nav\":1.7103,\"accumulated_nav\":1.7103},{\"date\":\"2026-03-09\",\"nav\":1.6946,\"accumulated_nav\":1.6946},{\"date\":\"2026-03-10\",\"nav\":1.7152,\"accumulated_nav\":1.7152},{\"date\":\"2026-03-11\",\"nav\":1.7254,\"accumulated_nav\":1.7254},{\"date\":\"2026-03-12\",\"nav\":1.7194,\"accumulated_nav\":1.7194},{\"date\":\"2026-03-13\",\"nav\":1.7131,\"accumulated_nav\":1.7131},{\"date\":\"2026-03-16\",\"nav\":1.7139,\"accumulated_nav\":1.7139},{\"date\":\"2026-03-17\",\"nav\":1.7021,\"accumulated_nav\":1.7021},{\"date\":\"2026-03-18\",\"nav\":1.7092,\"accumulated_nav\":1.7092},{\"date\":\"2026-03-19\",\"nav\":1.683,\"accumulated_nav\":1.683},{\"date\":\"2026-03-20\",\"nav\":1.6775,\"accumulated_nav\":1.6775},{\"date\":\"2026-03-23\",\"nav\":1.6252,\"accumulated_nav\":1.6252},{\"date\":\"2026-03-24\",\"nav\":1.6449,\"accumulated_nav\":1.6449},{\"date\":\"2026-03-25\",\"nav\":1.6668,\"accumulated_nav\":1.6668},{\"date\":\"2026-03-26\",\"nav\":1.6459,\"accumulated_nav\":1.6459},{\"date\":\"2026-03-27\",\"nav\":1.6546,\"accumulated_nav\":1.6546},{\"date\":\"2026-03-30\",\"nav\":1.6509,\"accumulated_nav\":1.6509},{\"date\":\"2026-03-31\",\"nav\":1.6363,\"accumulated_nav\":1.6363},{\"date\":\"2026-04-01\",\"nav\":1.6628,\"accumulated_nav\":1.6628},{\"date\":\"2026-04-02\",\"nav\":1.6462,\"accumulated_nav\":1.6462},{\"date\":\"2026-04-03\",\"nav\":1.633,\"accumulated_nav\":1.633},{\"date\":\"2026-04-07\",\"nav\":1.6329,\"accumulated_nav\":1.6329},{\"date\":\"2026-04-08\",\"nav\":1.6871,\"accumulated_nav\":1.6871},{\"date\":\"2026-04-09\",\"nav\":1.6767,\"accumulated_nav\":1.6767},{\"date\":\"2026-04-10\",\"nav\":1.7013,\"accumulated_nav\":1.7013},{\"date\":\"2026-04-13\",\"nav\":1.7045,\"accumulated_nav\":1.7045},{\"date\":\"2026-04-14\",\"nav\":1.7237,\"accumulated_nav\":1.7237},{\"date\":\"2026-04-15\",\"nav\":1.7184,\"accumulated_nav\":1.7184},{\"date\":\"2026-04-16\",\"nav\":1.7362,\"accumulated_nav\":1.7362},{\"date\":\"2026-04-17\",\"nav\":1.7335,\"accumulated_nav\":1.7335},{\"date\":\"2026-04-20\",\"nav\":1.7435,\"accumulated_nav\":1.7435},{\"date\":\"2026-04-21\",\"nav\":1.7475,\"accumulated_nav\":1.7475},{\"date\":\"2026-04-22\",\"nav\":1.7597,\"accumulated_nav\":1.7597},{\"date\":\"2026-04-23\",\"nav\":1.755,\"accumulated_nav\":1.755},{\"date\":\"2026-04-24\",\"nav\":1.7495,\"accumulated_nav\":1.7495},{\"date\":\"2026-04-27\",\"nav\":1.7497,\"accumulated_nav\":1.7497},{\"date\":\"2026-04-28\",\"nav\":1.7454,\"accumulated_nav\":1.7454},{\"date\":\"2026-04-29\",\"nav\":1.7636,\"accumulated_nav\":1.7636},{\"date\":\"2026-04-30\",\"nav\":1.7627,\"accumulated_nav\":1.7627},{\"date\":\"2026-05-06\",\"nav\":1.7872,\"accumulated_nav\":1.7872},{\"date\":\"2026-05-07\",\"nav\":1.7953,\"accumulated_nav\":1.7953},{\"date\":\"2026-05-08\",\"nav\":1.7853,\"accumulated_nav\":1.7853},{\"date\":\"2026-05-11\",\"nav\":1.8133,\"accumulated_nav\":1.8133},{\"date\":\"2026-05-12\",\"nav\":1.8119,\"accumulated_nav\":1.8119},{\"date\":\"2026-05-13\",\"nav\":1.8301,\"accumulated_nav\":1.8301},{\"date\":\"2026-05-14\",\"nav\":1.8011,\"accumulated_nav\":1.8011},{\"date\":\"2026-05-15\",\"nav\":1.7819,\"accumulated_nav\":1.7819},{\"date\":\"2026-05-18\",\"nav\":1.7729,\"accumulated_nav\":1.7729},{\"date\":\"2026-05-19\",\"nav\":1.7798,\"accumulated_nav\":1.7798},{\"date\":\"2026-05-20\",\"nav\":1.7794,\"accumulated_nav\":1.7794},{\"date\":\"2026-05-21\",\"nav\":1.7559,\"accumulated_nav\":1.7559},{\"date\":\"2026-05-22\",\"nav\":1.7774,\"accumulated_nav\":1.7774},{\"date\":\"2026-05-25\",\"nav\":1.8041,\"accumulated_nav\":1.8041},{\"date\":\"2026-05-26\",\"nav\":1.8132,\"accumulated_nav\":1.8132},{\"date\":\"2026-05-27\",\"nav\":1.8,\"accumulated_nav\":1.8},{\"date\":\"2026-05-28\",\"nav\":1.8023,\"accumulated_nav\":1.8023},{\"date\":\"2026-05-29\",\"nav\":1.7948,\"accumulated_nav\":1.7948},{\"date\":\"2026-06-01\",\"nav\":1.778,\"accumulated_nav\":1.778},{\"date\":\"2026-06-02\",\"nav\":1.8026,\"accumulated_nav\":1.8026},{\"date\":\"2026-06-03\",\"nav\":1.8112,\"accumulated_nav\":1.8112},{\"date\":\"2026-06-04\",\"nav\":1.7995,\"accumulated_nav\":1.7995},{\"date\":\"2026-06-05\",\"nav\":1.7694,\"accumulated_nav\":1.7694},{\"date\":\"2026-06-08\",\"nav\":1.7334,\"accumulated_nav\":1.7334},{\"date\":\"2026-06-09\",\"nav\":1.7641,\"accumulated_nav\":1.7641},{\"date\":\"2026-06-10\",\"nav\":1.7473,\"accumulated_nav\":1.7473},{\"date\":\"2026-06-11\",\"nav\":1.7387,\"accumulated_nav\":1.7387},{\"date\":\"2026-06-12\",\"nav\":1.7569,\"accumulated_nav\":1.7569},{\"date\":\"2026-06-15\",\"nav\":1.7969,\"accumulated_nav\":1.7969},{\"date\":\"2026-06-16\",\"nav\":1.7944,\"accumulated_nav\":1.7944},{\"date\":\"2026-06-17\",\"nav\":1.811,\"accumulated_nav\":1.811},{\"date\":\"2026-06-18\",\"nav\":1.8149,\"accumulated_nav\":1.8149},{\"date\":\"2026-06-22\",\"nav\":1.8561,\"accumulated_nav\":1.8561},{\"date\":\"2026-06-23\",\"nav\":1.807,\"accumulated_nav\":1.807},{\"date\":\"2026-06-24\",\"nav\":1.8154,\"accumulated_nav\":1.8154},{\"date\":\"2026-06-25\",\"nav\":1.8423,\"accumulated_nav\":1.8423},{\"date\":\"2026-06-26\",\"nav\":1.7917,\"accumulated_nav\":1.7917},{\"date\":\"2026-06-29\",\"nav\":1.8138,\"accumulated_nav\":1.8138},{\"date\":\"2026-06-30\",\"nav\":1.8328,\"accumulated_nav\":1.8328},{\"date\":\"2026-07-01\",\"nav\":1.8256,\"accumulated_nav\":1.8256},{\"date\":\"2026-07-02\",\"nav\":1.774,\"accumulated_nav\":1.774},{\"date\":\"2026-07-03\",\"nav\":1.7847,\"accumulated_nav\":1.7847},{\"date\":\"2026-07-06\",\"nav\":1.7845,\"accumulated_nav\":1.7845},{\"date\":\"2026-07-07\",\"nav\":1.7673,\"accumulated_nav\":1.7673},{\"date\":\"2026-07-08\",\"nav\":1.7546,\"accumulated_nav\":1.7546},{\"date\":\"2026-07-09\",\"nav\":1.7976,\"accumulated_nav\":1.7976},{\"date\":\"2026-07-10\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-07-13\",\"nav\":1.7369,\"accumulated_nav\":1.7369},{\"date\":\"2026-07-14\",\"nav\":1.7721,\"accumulated_nav\":1.7721},{\"date\":\"2026-07-15\",\"nav\":1.7688,\"accumulated_nav\":1.7688},{\"date\":\"2026-07-16\",\"nav\":1.7392,\"accumulated_nav\":1.7392},{\"date\":\"2026-07-17\",\"nav\":1.6811,\"accumulated_nav\":1.6811},{\"date\":\"2026-07-20\",\"nav\":1.7051,\"accumulated_nav\":1.7051},{\"date\":\"2026-07-21\",\"nav\":1.7548,\"accumulated_nav\":1.7548},{\"date\":\"2026-07-22\",\"nav\":1.7473,\"accumulated_nav\":1.7473},{\"date\":\"2026-07-23\",\"nav\":1.751,\"accumulated_nav\":1.751},{\"date\":\"2026-07-24\",\"nav\":1.7236,\"accumulated_nav\":1.7236},{\"date\":\"2026-07-27\",\"nav\":1.7443,\"accumulated_nav\":1.7443},{\"date\":\"2026-07-28\",\"nav\":1.6977,\"accumulated_nav\":1.6977},{\"date\":\"2026-07-29\",\"nav\":1.7088,\"accumulated_nav\":1.7088},{\"date\":\"2026-07-30\",\"nav\":1.6914,\"accumulated_nav\":1.6914},{\"date\":\"2026-07-31\",\"nav\":1.7055,\"accumulated_nav\":1.7055},{\"date\":\"2026-08-03\",\"nav\":1.6898,\"accumulated_nav\":1.6898},{\"date\":\"2026-08-04\",\"nav\":1.71,\"accumulated_nav\":1.71},{\"date\":\"2026-08-05\",\"nav\":1.7301,\"accumulated_nav\":1.7301},{\"date\":\"2026-08-06\",\"nav\":1.7275,\"accumulated_nav\":1.7275},{\"date\":\"2026-08-07\",\"nav\":1.743,\"accumulated_nav\":1.743},{\"date\":\"2026-08-10\",\"nav\":1.7457,\"accumulated_nav\":1.7457},{\"date\":\"2026-08-11\",\"nav\":1.7326,\"accumulated_nav\":1.7326},{\"date\":\"2026-08-12\",\"nav\":1.7422,\"accumulated_nav\":1.7422},{\"date\":\"2026-08-13\",\"nav\":1.7328,\"accumulated_nav\":1.7328},{\"date\":\"2026-08-14\",\"nav\":1.7332,\"accumulated_nav\":1.7332},{\"date\":\"2026-08-17\",\"nav\":1.7599,\"accumulated_nav\":1.7599},{\"date\":\"2026-08-18\",\"nav\":1.7542,\"accumulated_nav\":1.7542},{\"date\":\"2026-08-19\",\"nav\":1.7066,\"accumulated_nav\":1.7066},{\"date\":\"2026-08-20\",\"nav\":1.708,\"accumulated_nav\":1.708},{\"date\":\"2026-08-21\",\"nav\":1.7181,\"accumulated_nav\":1.7181},{\"date\":\"2026-08-24\",\"nav\":1.6981,\"accumulated_nav\":1.6981},{\"date\":\"2026-08-25\",\"nav\":1.6946,\"accumulated_nav\":1.6946},{\"date\":\"2026-08-26\",\"nav\":1.7084,\"accumulated_nav\":1.7084},{\"date\":\"2026-08-27\",\"nav\":1.7229,\"accumulated_nav\":1.7229},{\"date\":\"2026-08-28\",\"nav\":1.7158,\"accumulated_nav\":1.7158},{\"date\":\"2026-08-31\",\"nav\":1.7212,\"accumulated_nav\":1.7212},{\"date\":\"2026-09-01\",\"nav\":1.7165,\"accumulated_nav\":1.7165},{\"date\":\"2026-09-02\",\"nav\":1.6939,\"accumulated_nav\":1.6939},{\"date\":\"2026-09-03\",\"nav\":1.6957,\"accumulated_nav\":1.6957},{\"date\":\"2026-09-04\",\"nav\":1.6941,\"accumulated_nav\":1.6941},{\"date\":\"2026-09-07\",\"nav\":1.7036,\"accumulated_nav\":1.7036},{\"date\":\"2026-09-08\",\"nav\":1.6977,\"accumulated_nav\":1.6977},{\"date\":\"2026-09-09\",\"nav\":1.7027,\"accumulated_nav\":1.7027},{\"date\":\"2026-09-10\",\"nav\":1.6949,\"accumulated_nav\":1.6949},{\"date\":\"2026-09-11\",\"nav\":1.6815,\"accumulated_nav\":1.6815},{\"date\":\"2026-09-14\",\"nav\":1.6708,\"accumulated_nav\":1.6708},{\"date\":\"2026-09-15\",\"nav\":1.6605,\"accumulated_nav\":1.6605},{\"date\":\"2026-09-16\",\"nav\":1.6716,\"accumulated_nav\":1.6716},{\"date\":\"2026-09-17\",\"nav\":1.6646,\"accumulated_nav\":1.6646},{\"date\":\"2026-09-18\",\"nav\":1.6817,\"accumulated_nav\":1.6817},{\"date\":\"2026-09-21\",\"nav\":1.6932,\"accumulated_nav\":1.6932},{\"date\":\"2026-09-22\",\"nav\":1.6953,\"accumulated_nav\":1.6953},{\"date\":\"2026-09-23\",\"nav\":1.6857,\"accumulated_nav\":1.6857},{\"date\":\"2026-09-24\",\"nav\":1.6583,\"accumulated_nav\":1.6583},{\"date\":\"2026-09-28\",\"nav\":1.6233,\"accumulated_nav\":1.6233},{\"date\":\"2026-09-29\",\"nav\":1.6251,\"accumulated_nav\":1.6251},{\"date\":\"2026-09-30\",\"nav\":1.6297,\"accumulated_nav\":1.6297}]",
+        "净值历史查询原址：https://www.chinaamc.com/fund/005658/zoust_all.js；历史响应截至2026-09-29。产品页原址：https://www.chinaamc.com/fund/005658/index.shtml；页面净值截至2026-09-30。重合日期净值一致后合并，仅收录原文已有日期。"
+      ],
+      "display_fragments": [
+        "这些是已核实的官方净值记录；单位净值变化不等于含分红再投资收益。",
+        "2026-09-28：单位净值1.6233，累计净值1.6233。",
+        "2026-09-29：单位净值1.6251，累计净值1.6251。",
+        "2026-09-30：单位净值1.6297，累计净值1.6297。"
+      ]
+    },
+    {
+      "article_id": "fund-nav-007339-63494188f5af2790",
+      "revision": 1,
+      "source": "易方达基金 · 官方净值",
+      "url": "https://api.efunds.com.cn/xcowch/front/fund/nav",
+      "published_at": "",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "data_as_of": "2026-09-30",
+      "fragments": [
+        "官网净值字段，007339；单位净值为nav，累计净值为accumulated_nav，二者不是现金分红再投资收益指数。",
+        "[{\"date\":\"2026-02-25\",\"nav\":1.8779,\"accumulated_nav\":1.8779},{\"date\":\"2026-02-26\",\"nav\":1.8744,\"accumulated_nav\":1.8744},{\"date\":\"2026-02-27\",\"nav\":1.8684,\"accumulated_nav\":1.8684},{\"date\":\"2026-03-02\",\"nav\":1.875,\"accumulated_nav\":1.875},{\"date\":\"2026-03-03\",\"nav\":1.8476,\"accumulated_nav\":1.8476},{\"date\":\"2026-03-04\",\"nav\":1.8274,\"accumulated_nav\":1.8274},{\"date\":\"2026-03-05\",\"nav\":1.8438,\"accumulated_nav\":1.8438},{\"date\":\"2026-03-06\",\"nav\":1.8488,\"accumulated_nav\":1.8488},{\"date\":\"2026-03-09\",\"nav\":1.8318,\"accumulated_nav\":1.8318},{\"date\":\"2026-03-10\",\"nav\":1.8543,\"accumulated_nav\":1.8543},{\"date\":\"2026-03-11\",\"nav\":1.8654,\"accumulated_nav\":1.8654},{\"date\":\"2026-03-12\",\"nav\":1.8589,\"accumulated_nav\":1.8589},{\"date\":\"2026-03-13\",\"nav\":1.8521,\"accumulated_nav\":1.8521},{\"date\":\"2026-03-16\",\"nav\":1.853,\"accumulated_nav\":1.853},{\"date\":\"2026-03-17\",\"nav\":1.8404,\"accumulated_nav\":1.8404},{\"date\":\"2026-03-18\",\"nav\":1.848,\"accumulated_nav\":1.848},{\"date\":\"2026-03-19\",\"nav\":1.8198,\"accumulated_nav\":1.8198},{\"date\":\"2026-03-20\",\"nav\":1.8139,\"accumulated_nav\":1.8139},{\"date\":\"2026-03-23\",\"nav\":1.757,\"accumulated_nav\":1.757},{\"date\":\"2026-03-24\",\"nav\":1.7784,\"accumulated_nav\":1.7784},{\"date\":\"2026-03-25\",\"nav\":1.8023,\"accumulated_nav\":1.8023},{\"date\":\"2026-03-26\",\"nav\":1.7796,\"accumulated_nav\":1.7796},{\"date\":\"2026-03-27\",\"nav\":1.7893,\"accumulated_nav\":1.7893},{\"date\":\"2026-03-30\",\"nav\":1.7851,\"accumulated_nav\":1.7851},{\"date\":\"2026-03-31\",\"nav\":1.7696,\"accumulated_nav\":1.7696},{\"date\":\"2026-04-01\",\"nav\":1.7982,\"accumulated_nav\":1.7982},{\"date\":\"2026-04-02\",\"nav\":1.7802,\"accumulated_nav\":1.7802},{\"date\":\"2026-04-03\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-04-07\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-04-08\",\"nav\":1.8246,\"accumulated_nav\":1.8246},{\"date\":\"2026-04-09\",\"nav\":1.8134,\"accumulated_nav\":1.8134},{\"date\":\"2026-04-10\",\"nav\":1.8401,\"accumulated_nav\":1.8401},{\"date\":\"2026-04-13\",\"nav\":1.8436,\"accumulated_nav\":1.8436},{\"date\":\"2026-04-14\",\"nav\":1.8644,\"accumulated_nav\":1.8644},{\"date\":\"2026-04-15\",\"nav\":1.8587,\"accumulated_nav\":1.8587},{\"date\":\"2026-04-16\",\"nav\":1.8782,\"accumulated_nav\":1.8782},{\"date\":\"2026-04-17\",\"nav\":1.8752,\"accumulated_nav\":1.8752},{\"date\":\"2026-04-20\",\"nav\":1.886,\"accumulated_nav\":1.886},{\"date\":\"2026-04-21\",\"nav\":1.8902,\"accumulated_nav\":1.8902},{\"date\":\"2026-04-22\",\"nav\":1.9034,\"accumulated_nav\":1.9034},{\"date\":\"2026-04-23\",\"nav\":1.8983,\"accumulated_nav\":1.8983},{\"date\":\"2026-04-24\",\"nav\":1.8924,\"accumulated_nav\":1.8924},{\"date\":\"2026-04-27\",\"nav\":1.8929,\"accumulated_nav\":1.8929},{\"date\":\"2026-04-28\",\"nav\":1.888,\"accumulated_nav\":1.888},{\"date\":\"2026-04-29\",\"nav\":1.9085,\"accumulated_nav\":1.9085},{\"date\":\"2026-04-30\",\"nav\":1.9075,\"accumulated_nav\":1.9075},{\"date\":\"2026-05-06\",\"nav\":1.9341,\"accumulated_nav\":1.9341},{\"date\":\"2026-05-07\",\"nav\":1.9429,\"accumulated_nav\":1.9429},{\"date\":\"2026-05-08\",\"nav\":1.9322,\"accumulated_nav\":1.9322},{\"date\":\"2026-05-11\",\"nav\":1.9624,\"accumulated_nav\":1.9624},{\"date\":\"2026-05-12\",\"nav\":1.961,\"accumulated_nav\":1.961},{\"date\":\"2026-05-13\",\"nav\":1.9807,\"accumulated_nav\":1.9807},{\"date\":\"2026-05-14\",\"nav\":1.9494,\"accumulated_nav\":1.9494},{\"date\":\"2026-05-15\",\"nav\":1.9285,\"accumulated_nav\":1.9285},{\"date\":\"2026-05-18\",\"nav\":1.9187,\"accumulated_nav\":1.9187},{\"date\":\"2026-05-19\",\"nav\":1.9261,\"accumulated_nav\":1.9261},{\"date\":\"2026-05-20\",\"nav\":1.9256,\"accumulated_nav\":1.9256},{\"date\":\"2026-05-21\",\"nav\":1.9005,\"accumulated_nav\":1.9005},{\"date\":\"2026-05-22\",\"nav\":1.9236,\"accumulated_nav\":1.9236},{\"date\":\"2026-05-25\",\"nav\":1.9523,\"accumulated_nav\":1.9523},{\"date\":\"2026-05-26\",\"nav\":1.9621,\"accumulated_nav\":1.9621},{\"date\":\"2026-05-27\",\"nav\":1.9479,\"accumulated_nav\":1.9479},{\"date\":\"2026-05-28\",\"nav\":1.9504,\"accumulated_nav\":1.9504},{\"date\":\"2026-05-29\",\"nav\":1.9424,\"accumulated_nav\":1.9424},{\"date\":\"2026-06-01\",\"nav\":1.9244,\"accumulated_nav\":1.9244},{\"date\":\"2026-06-02\",\"nav\":1.951,\"accumulated_nav\":1.951},{\"date\":\"2026-06-03\",\"nav\":1.9602,\"accumulated_nav\":1.9602},{\"date\":\"2026-06-04\",\"nav\":1.9476,\"accumulated_nav\":1.9476},{\"date\":\"2026-06-05\",\"nav\":1.9152,\"accumulated_nav\":1.9152},{\"date\":\"2026-06-08\",\"nav\":1.8763,\"accumulated_nav\":1.8763},{\"date\":\"2026-06-09\",\"nav\":1.9095,\"accumulated_nav\":1.9095},{\"date\":\"2026-06-10\",\"nav\":1.8916,\"accumulated_nav\":1.8916},{\"date\":\"2026-06-11\",\"nav\":1.8821,\"accumulated_nav\":1.8821},{\"date\":\"2026-06-12\",\"nav\":1.9028,\"accumulated_nav\":1.9028},{\"date\":\"2026-06-15\",\"nav\":1.946,\"accumulated_nav\":1.946},{\"date\":\"2026-06-16\",\"nav\":1.9434,\"accumulated_nav\":1.9434},{\"date\":\"2026-06-17\",\"nav\":1.961,\"accumulated_nav\":1.961},{\"date\":\"2026-06-18\",\"nav\":1.9657,\"accumulated_nav\":1.9657},{\"date\":\"2026-06-22\",\"nav\":2.0104,\"accumulated_nav\":2.0104},{\"date\":\"2026-06-23\",\"nav\":1.9573,\"accumulated_nav\":1.9573},{\"date\":\"2026-06-24\",\"nav\":1.9665,\"accumulated_nav\":1.9665},{\"date\":\"2026-06-25\",\"nav\":1.9956,\"accumulated_nav\":1.9956},{\"date\":\"2026-06-26\",\"nav\":1.9408,\"accumulated_nav\":1.9408},{\"date\":\"2026-06-29\",\"nav\":1.964,\"accumulated_nav\":1.964},{\"date\":\"2026-06-30\",\"nav\":1.9845,\"accumulated_nav\":1.9845},{\"date\":\"2026-07-01\",\"nav\":1.9766,\"accumulated_nav\":1.9766},{\"date\":\"2026-07-02\",\"nav\":1.9219,\"accumulated_nav\":1.9219},{\"date\":\"2026-07-03\",\"nav\":1.9337,\"accumulated_nav\":1.9337},{\"date\":\"2026-07-06\",\"nav\":1.9332,\"accumulated_nav\":1.9332},{\"date\":\"2026-07-07\",\"nav\":1.9148,\"accumulated_nav\":1.9148},{\"date\":\"2026-07-08\",\"nav\":1.9016,\"accumulated_nav\":1.9016},{\"date\":\"2026-07-09\",\"nav\":1.947,\"accumulated_nav\":1.947},{\"date\":\"2026-07-10\",\"nav\":1.9137,\"accumulated_nav\":1.9137},{\"date\":\"2026-07-13\",\"nav\":1.8823,\"accumulated_nav\":1.8823},{\"date\":\"2026-07-14\",\"nav\":1.9202,\"accumulated_nav\":1.9202},{\"date\":\"2026-07-15\",\"nav\":1.9172,\"accumulated_nav\":1.9172},{\"date\":\"2026-07-16\",\"nav\":1.8854,\"accumulated_nav\":1.8854},{\"date\":\"2026-07-17\",\"nav\":1.8239,\"accumulated_nav\":1.8239},{\"date\":\"2026-07-20\",\"nav\":1.849,\"accumulated_nav\":1.849},{\"date\":\"2026-07-21\",\"nav\":1.9024,\"accumulated_nav\":1.9024},{\"date\":\"2026-07-22\",\"nav\":1.8946,\"accumulated_nav\":1.8946},{\"date\":\"2026-07-23\",\"nav\":1.8988,\"accumulated_nav\":1.8988},{\"date\":\"2026-07-24\",\"nav\":1.8692,\"accumulated_nav\":1.8692},{\"date\":\"2026-07-27\",\"nav\":1.8908,\"accumulated_nav\":1.8908},{\"date\":\"2026-07-28\",\"nav\":1.8404,\"accumulated_nav\":1.8404},{\"date\":\"2026-07-29\",\"nav\":1.8526,\"accumulated_nav\":1.8526},{\"date\":\"2026-07-30\",\"nav\":1.8337,\"accumulated_nav\":1.8337},{\"date\":\"2026-07-31\",\"nav\":1.8489,\"accumulated_nav\":1.8489},{\"date\":\"2026-08-03\",\"nav\":1.8319,\"accumulated_nav\":1.8319},{\"date\":\"2026-08-04\",\"nav\":1.8539,\"accumulated_nav\":1.8539},{\"date\":\"2026-08-05\",\"nav\":1.8756,\"accumulated_nav\":1.8756},{\"date\":\"2026-08-06\",\"nav\":1.8731,\"accumulated_nav\":1.8731},{\"date\":\"2026-08-07\",\"nav\":1.8897,\"accumulated_nav\":1.8897},{\"date\":\"2026-08-10\",\"nav\":1.8915,\"accumulated_nav\":1.8915},{\"date\":\"2026-08-11\",\"nav\":1.8776,\"accumulated_nav\":1.8776},{\"date\":\"2026-08-12\",\"nav\":1.8878,\"accumulated_nav\":1.8878},{\"date\":\"2026-08-13\",\"nav\":1.8781,\"accumulated_nav\":1.8781},{\"date\":\"2026-08-14\",\"nav\":1.8787,\"accumulated_nav\":1.8787},{\"date\":\"2026-08-17\",\"nav\":1.9075,\"accumulated_nav\":1.9075},{\"date\":\"2026-08-18\",\"nav\":1.9015,\"accumulated_nav\":1.9015},{\"date\":\"2026-08-19\",\"nav\":1.8499,\"accumulated_nav\":1.8499},{\"date\":\"2026-08-20\",\"nav\":1.8515,\"accumulated_nav\":1.8515},{\"date\":\"2026-08-21\",\"nav\":1.8623,\"accumulated_nav\":1.8623},{\"date\":\"2026-08-24\",\"nav\":1.8409,\"accumulated_nav\":1.8409},{\"date\":\"2026-08-25\",\"nav\":1.8369,\"accumulated_nav\":1.8369},{\"date\":\"2026-08-26\",\"nav\":1.8519,\"accumulated_nav\":1.8519},{\"date\":\"2026-08-27\",\"nav\":1.8676,\"accumulated_nav\":1.8676},{\"date\":\"2026-08-28\",\"nav\":1.8599,\"accumulated_nav\":1.8599},{\"date\":\"2026-08-31\",\"nav\":1.8659,\"accumulated_nav\":1.8659},{\"date\":\"2026-09-01\",\"nav\":1.8609,\"accumulated_nav\":1.8609},{\"date\":\"2026-09-02\",\"nav\":1.8365,\"accumulated_nav\":1.8365},{\"date\":\"2026-09-03\",\"nav\":1.8384,\"accumulated_nav\":1.8384},{\"date\":\"2026-09-04\",\"nav\":1.8368,\"accumulated_nav\":1.8368},{\"date\":\"2026-09-07\",\"nav\":1.8471,\"accumulated_nav\":1.8471},{\"date\":\"2026-09-08\",\"nav\":1.8409,\"accumulated_nav\":1.8409},{\"date\":\"2026-09-09\",\"nav\":1.8463,\"accumulated_nav\":1.8463},{\"date\":\"2026-09-10\",\"nav\":1.8379,\"accumulated_nav\":1.8379},{\"date\":\"2026-09-11\",\"nav\":1.8235,\"accumulated_nav\":1.8235},{\"date\":\"2026-09-14\",\"nav\":1.812,\"accumulated_nav\":1.812},{\"date\":\"2026-09-15\",\"nav\":1.8008,\"accumulated_nav\":1.8008},{\"date\":\"2026-09-16\",\"nav\":1.8128,\"accumulated_nav\":1.8128},{\"date\":\"2026-09-17\",\"nav\":1.8052,\"accumulated_nav\":1.8052},{\"date\":\"2026-09-18\",\"nav\":1.8236,\"accumulated_nav\":1.8236},{\"date\":\"2026-09-21\",\"nav\":1.8361,\"accumulated_nav\":1.8361},{\"date\":\"2026-09-22\",\"nav\":1.8384,\"accumulated_nav\":1.8384},{\"date\":\"2026-09-23\",\"nav\":1.8279,\"accumulated_nav\":1.8279},{\"date\":\"2026-09-24\",\"nav\":1.7985,\"accumulated_nav\":1.7985},{\"date\":\"2026-09-28\",\"nav\":1.7608,\"accumulated_nav\":1.7608},{\"date\":\"2026-09-29\",\"nav\":1.7627,\"accumulated_nav\":1.7627},{\"date\":\"2026-09-30\",\"nav\":1.7678,\"accumulated_nav\":1.7678}]",
+        "净值历史查询原址：https://api.efunds.com.cn/xcowch/front/fund/nav；历史响应截至2026-09-30。产品页原址：https://www.efunds.com.cn/fund/007339.shtml；页面净值截至2026-09-30。重合日期净值一致后合并，仅收录原文已有日期。"
+      ],
+      "display_fragments": [
+        "这些是已核实的官方净值记录；单位净值变化不等于含分红再投资收益。",
+        "2026-09-28：单位净值1.7608，累计净值1.7608。",
+        "2026-09-29：单位净值1.7627，累计净值1.7627。",
+        "2026-09-30：单位净值1.7678，累计净值1.7678。"
+      ]
+    },
+    {
+      "article_id": "market-csi300-2026-09-30-8791d1008f24",
+      "revision": 1,
+      "source": "中证指数 · 沪深300官方行情与估值",
+      "url": "https://www.csindex.com.cn/mobile-web/#/dataService/indexDashboard",
+      "published_at": "",
+      "checked_at": "2026-10-05T16:58:21.815Z",
+      "data_as_of": "2026-09-30",
+      "fragments": [
+        "数据截至2026-09-30：沪深300价格指数收盘4357.62点；滚动市盈率13.15倍，市净率1.36倍，股息率2.74%。",
+        "官网去年底对照：滚动市盈率14.31倍，市净率1.45倍。股息率不等于未来基金回报。",
+        "valuation原始查询：https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+        "daily原始查询：https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260807&endDate=20261006",
+        "daily_valuation原始查询：https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300&startDate=20260807&endDate=20261006"
+      ]
+    },
+    {
+      "article_id": "market-csi500-2026-09-30-c188d1b6855c",
+      "revision": 1,
+      "source": "中证指数 · 中证500官方行情与估值",
+      "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+      "published_at": "",
+      "checked_at": "2026-10-05T16:20:05.436892+00:00",
+      "data_as_of": "2026-09-30",
+      "fragments": [
+        "数据截至2026-09-30：中证500（000905）价格指数收盘7435.16点；滚动市盈率25.09倍，市净率2.17倍，股息率1.4%。这份资料只覆盖价格与估值；不含基金条款、盈利预测或长期历史分位。",
+        "valuation原始查询：https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+        "daily原始查询：https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000905&startDate=20260807&endDate=20261006",
+        "daily_valuation原始查询：https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000905&startDate=20260807&endDate=20261006"
+      ]
+    }
+  ],
+  "funds": [
+    {
+      "code": "005658",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fields": {
+        "management": {
+          "value": "0.15%",
+          "source": {
+            "article_id": "fund-005658-management",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "基金管理费 0.15%"
+            ]
+          }
+        },
+        "custody": {
+          "value": "0.05%",
+          "source": {
+            "article_id": "fund-005658-custody",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "基金托管费 0.05%"
+            ]
+          }
+        },
+        "service": {
+          "value": "0.30%",
+          "source": {
+            "article_id": "fund-005658-service",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "销售服务费 0.30%"
+            ]
+          }
+        },
+        "subscription": {
+          "value": "0",
+          "source": {
+            "article_id": "fund-005658-subscription",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "申购费率 收费方式 条件 费率 前端 0.00%"
+            ]
+          }
+        },
+        "redemption": {
+          "value": "不足7日1.50%；满7日0",
+          "source": {
+            "article_id": "fund-005658-redemption",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "基金赎回费率 条件 费率 持有期限 < 7日 1.50% 持有期限 ≥ 7日 0.00%"
+            ]
+          }
+        },
+        "trade_status": {
+          "value": "官网显示开放申购；当日赎回状态待核实",
+          "source": {
+            "article_id": "fund-005658-trade_status",
+            "revision": 1,
+            "source": "华夏基金 · 官方产品字段",
+            "url": "https://www.chinaamc.com/fund/005658/jijinfeilv.shtml?source=click",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "交易状态 开放申购"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "code": "007339",
+      "checked_at": "2026-10-05T15:26:26.472Z",
+      "fields": {
+        "management": {
+          "value": "0.15%",
+          "source": {
+            "article_id": "fund-007339-management",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "管理费 0.15%"
+            ]
+          }
+        },
+        "custody": {
+          "value": "0.05%",
+          "source": {
+            "article_id": "fund-007339-custody",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "托管费 0.05%"
+            ]
+          }
+        },
+        "service": {
+          "value": "0.20%",
+          "source": {
+            "article_id": "fund-007339-service",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "销售服务费 0.20%"
+            ]
+          }
+        },
+        "redemption": {
+          "value": "不足7日1.50%；满7日0",
+          "source": {
+            "article_id": "fund-007339-redemption",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "申购费率 本基金不收取申购费 赎回费率 持有时间（天） 赎回费率 0-6 1.50% 7及以上 0.00%"
+            ]
+          }
+        },
+        "subscription": {
+          "value": "0",
+          "source": {
+            "article_id": "fund-007339-subscription",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "申购费率 本基金不收取申购费 赎回费率 持有时间（天） 赎回费率 0-6 1.50% 7及以上 0.00%"
+            ]
+          }
+        },
+        "benchmark": {
+          "value": "沪深300指数收益率X95%+活期存款利率(税后)X5%",
+          "source": {
+            "article_id": "fund-007339-benchmark",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://www.efunds.com.cn/fund/007339.shtml",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "业绩比较基准: 沪深300指数收益率X95%+活期存款利率(税后)X5%"
+            ]
+          }
+        },
+        "trade_status": {
+          "value": "官网数据：申购、赎回开放；确认日以渠道开放日为准",
+          "source": {
+            "article_id": "fund-007339-trade_status",
+            "revision": 1,
+            "source": "易方达基金 · 官方产品字段",
+            "url": "https://api.efunds.com.cn/xcowch/front/fund/tradestatus/007339?date=2026-10-05",
+            "published_at": "",
+            "checked_at": "2026-10-05T15:26:26.472Z",
+            "fragments": [
+              "{\"status\":1,\"message\":\"\",\"data\":{\"individual\":[{\"agencyName\":\"非直销机构\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"网上直销\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"直销中心\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"}],\"organization\":[{\"agencyName\":\"非直销机构\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":true,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"网上直销\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"},{\"agencyName\":\"直销中心\",\"subscription\":true,\"subscriptionOpenRemark\":\"\",\"subscriptionSuspendRemark\":\"\",\"redemption\":true,\"redemptionOpenRemark\":\"\",\"redemptionSuspendRemark\":\"\",\"transferIn\":true,\"transferInOpenRemark\":\"\",\"transferInSuspendRemark\":\"\",\"transferOut\":true,\"transferOutOpenRemark\":\"\",\"transferOutSuspendRemark\":\"\",\"sip\":false,\"sipOpenRemark\":\"\",\"sipSuspendRemark\":\"\",\"limit\":\"\",\"quotaType\":\"\",\"quotaRemark\":\"\"}]}}"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "market": {
+    "index_code": "000300",
+    "index_name": "沪深300",
+    "as_of": "2026-09-30",
+    "close": 4357.62,
+    "valuation": {
+      "as_of": "2026-09-30",
+      "pe_static": 14.34,
+      "pe_ttm": 13.15,
+      "pb": 1.36,
+      "dividend_yield_pct": 2.74,
+      "prior_year_end": {
+        "pe_static": 15.19,
+        "pe_ttm": 14.31,
+        "pb": 1.45
+      }
+    },
+    "daily": [
+      {
+        "date": "2026-09-02",
+        "open": 4581.51,
+        "high": 4583.27,
+        "low": 4534.39,
+        "close": 4547.96,
+        "price_change": -63.48,
+        "price_change_pct": -1.38,
+        "pe_ttm": 13.65
+      },
+      {
+        "date": "2026-09-03",
+        "open": 4570.91,
+        "high": 4585.99,
+        "low": 4536.92,
+        "close": 4552.58,
+        "price_change": 4.62,
+        "price_change_pct": 0.1,
+        "pe_ttm": 13.65
+      },
+      {
+        "date": "2026-09-04",
+        "open": 4575.32,
+        "high": 4602.2,
+        "low": 4530.76,
+        "close": 4548.05,
+        "price_change": -4.53,
+        "price_change_pct": -0.1,
+        "pe_ttm": 13.64
+      },
+      {
+        "date": "2026-09-07",
+        "open": 4567.89,
+        "high": 4580.7,
+        "low": 4545.41,
+        "close": 4575.02,
+        "price_change": 26.97,
+        "price_change_pct": 0.59,
+        "pe_ttm": 13.64
+      },
+      {
+        "date": "2026-09-08",
+        "open": 4575.99,
+        "high": 4587.73,
+        "low": 4546.31,
+        "close": 4558.74,
+        "price_change": -16.29,
+        "price_change_pct": -0.36,
+        "pe_ttm": 13.6
+      },
+      {
+        "date": "2026-09-09",
+        "open": 4578.51,
+        "high": 4581.9,
+        "low": 4548.36,
+        "close": 4572.6,
+        "price_change": 13.86,
+        "price_change_pct": 0.3,
+        "pe_ttm": 13.66
+      },
+      {
+        "date": "2026-09-10",
+        "open": 4550.19,
+        "high": 4569.83,
+        "low": 4533.66,
+        "close": 4548.39,
+        "price_change": -24.21,
+        "price_change_pct": -0.53,
+        "pe_ttm": 13.62
+      },
+      {
+        "date": "2026-09-11",
+        "open": 4514.3,
+        "high": 4520.17,
+        "low": 4461.57,
+        "close": 4510.16,
+        "price_change": -38.23,
+        "price_change_pct": -0.84,
+        "pe_ttm": 13.52
+      },
+      {
+        "date": "2026-09-14",
+        "open": 4474.95,
+        "high": 4504.49,
+        "low": 4473.27,
+        "close": 4480.08,
+        "price_change": -30.07,
+        "price_change_pct": -0.67,
+        "pe_ttm": 13.45
+      },
+      {
+        "date": "2026-09-15",
+        "open": 4473.81,
+        "high": 4496.96,
+        "low": 4444.63,
+        "close": 4450.04,
+        "price_change": -30.04,
+        "price_change_pct": -0.67,
+        "pe_ttm": 13.36
+      },
+      {
+        "date": "2026-09-16",
+        "open": 4449.88,
+        "high": 4483.36,
+        "low": 4417.6,
+        "close": 4480.27,
+        "price_change": 30.23,
+        "price_change_pct": 0.68,
+        "pe_ttm": 13.4
+      },
+      {
+        "date": "2026-09-17",
+        "open": 4463.62,
+        "high": 4495.83,
+        "low": 4453.92,
+        "close": 4460.16,
+        "price_change": -20.11,
+        "price_change_pct": -0.45,
+        "pe_ttm": 13.34
+      },
+      {
+        "date": "2026-09-18",
+        "open": 4492.32,
+        "high": 4523.09,
+        "low": 4480.59,
+        "close": 4507.39,
+        "price_change": 47.24,
+        "price_change_pct": 1.06,
+        "pe_ttm": 13.42
+      },
+      {
+        "date": "2026-09-21",
+        "open": 4524.34,
+        "high": 4540.55,
+        "low": 4512.15,
+        "close": 4539.57,
+        "price_change": 32.17,
+        "price_change_pct": 0.71,
+        "pe_ttm": 13.51
+      },
+      {
+        "date": "2026-09-22",
+        "open": 4569.87,
+        "high": 4583.38,
+        "low": 4537.04,
+        "close": 4544.59,
+        "price_change": 5.02,
+        "price_change_pct": 0.11,
+        "pe_ttm": 13.53
+      },
+      {
+        "date": "2026-09-23",
+        "open": 4547.61,
+        "high": 4547.69,
+        "low": 4513.45,
+        "close": 4517.28,
+        "price_change": -27.31,
+        "price_change_pct": -0.6,
+        "pe_ttm": 13.45
+      },
+      {
+        "date": "2026-09-24",
+        "open": 4499.86,
+        "high": 4500.2,
+        "low": 4439.14,
+        "close": 4439.14,
+        "price_change": -78.13,
+        "price_change_pct": -1.73,
+        "pe_ttm": 13.29
+      },
+      {
+        "date": "2026-09-28",
+        "open": 4423.82,
+        "high": 4423.82,
+        "low": 4323.57,
+        "close": 4340.76,
+        "price_change": -98.39,
+        "price_change_pct": -2.22,
+        "pe_ttm": 13.09
+      },
+      {
+        "date": "2026-09-29",
+        "open": 4335.81,
+        "high": 4359.3,
+        "low": 4324.53,
+        "close": 4345.21,
+        "price_change": 4.45,
+        "price_change_pct": 0.1,
+        "pe_ttm": 13.09
+      },
+      {
+        "date": "2026-09-30",
+        "open": 4356.8,
+        "high": 4368.61,
+        "low": 4341.88,
+        "close": 4357.62,
+        "price_change": 12.41,
+        "price_change_pct": 0.29,
+        "pe_ttm": 13.15
+      }
+    ],
+    "checked_at": "2026-10-05T16:58:21.815Z",
+    "sources": [
+      {
+        "kind": "valuation",
+        "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+        "as_of": "2026-09-30"
+      },
+      {
+        "kind": "daily",
+        "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20260807&endDate=20261006",
+        "as_of": "2026-09-30"
+      },
+      {
+        "kind": "daily_valuation",
+        "url": "https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300&startDate=20260807&endDate=20261006",
+        "as_of": "2026-09-30"
+      }
+    ],
+    "warnings": [
+      "market_nontrading_valuation_rows_excluded"
+    ],
+    "hash": "8791d1008f24022f2fb740f6c038670f29656a0102d78db6753fd6962ece5517"
+  },
+  "errors": [
+    "007339:product:fetch failed",
+    "005658:product:fetch failed",
+    "007339:nav_history:fetch failed",
+    "005658:nav_history:fetch failed",
+    "005658:documents:fetch failed",
+    "007339:fetch failed",
+    "007339:fund_trade_unverified:fetch failed",
+    "005658:fetch failed"
+  ],
+  "evidence_hash": "b56eff763aab53b1a07dc57f830f567f77c08c3baafc4c3124e7c77afb0e8ebb",
+  "fund_series": [
+    {
+      "code": "005658",
+      "nav": [
+        {
+          "date": "2026-02-25",
+          "nav": 1.7369,
+          "accumulated_nav": 1.7369
+        },
+        {
+          "date": "2026-02-26",
+          "nav": 1.7337,
+          "accumulated_nav": 1.7337
+        },
+        {
+          "date": "2026-02-27",
+          "nav": 1.7282,
+          "accumulated_nav": 1.7282
+        },
+        {
+          "date": "2026-03-02",
+          "nav": 1.7344,
+          "accumulated_nav": 1.7344
+        },
+        {
+          "date": "2026-03-03",
+          "nav": 1.7091,
+          "accumulated_nav": 1.7091
+        },
+        {
+          "date": "2026-03-04",
+          "nav": 1.6905,
+          "accumulated_nav": 1.6905
+        },
+        {
+          "date": "2026-03-05",
+          "nav": 1.7058,
+          "accumulated_nav": 1.7058
+        },
+        {
+          "date": "2026-03-06",
+          "nav": 1.7103,
+          "accumulated_nav": 1.7103
+        },
+        {
+          "date": "2026-03-09",
+          "nav": 1.6946,
+          "accumulated_nav": 1.6946
+        },
+        {
+          "date": "2026-03-10",
+          "nav": 1.7152,
+          "accumulated_nav": 1.7152
+        },
+        {
+          "date": "2026-03-11",
+          "nav": 1.7254,
+          "accumulated_nav": 1.7254
+        },
+        {
+          "date": "2026-03-12",
+          "nav": 1.7194,
+          "accumulated_nav": 1.7194
+        },
+        {
+          "date": "2026-03-13",
+          "nav": 1.7131,
+          "accumulated_nav": 1.7131
+        },
+        {
+          "date": "2026-03-16",
+          "nav": 1.7139,
+          "accumulated_nav": 1.7139
+        },
+        {
+          "date": "2026-03-17",
+          "nav": 1.7021,
+          "accumulated_nav": 1.7021
+        },
+        {
+          "date": "2026-03-18",
+          "nav": 1.7092,
+          "accumulated_nav": 1.7092
+        },
+        {
+          "date": "2026-03-19",
+          "nav": 1.683,
+          "accumulated_nav": 1.683
+        },
+        {
+          "date": "2026-03-20",
+          "nav": 1.6775,
+          "accumulated_nav": 1.6775
+        },
+        {
+          "date": "2026-03-23",
+          "nav": 1.6252,
+          "accumulated_nav": 1.6252
+        },
+        {
+          "date": "2026-03-24",
+          "nav": 1.6449,
+          "accumulated_nav": 1.6449
+        },
+        {
+          "date": "2026-03-25",
+          "nav": 1.6668,
+          "accumulated_nav": 1.6668
+        },
+        {
+          "date": "2026-03-26",
+          "nav": 1.6459,
+          "accumulated_nav": 1.6459
+        },
+        {
+          "date": "2026-03-27",
+          "nav": 1.6546,
+          "accumulated_nav": 1.6546
+        },
+        {
+          "date": "2026-03-30",
+          "nav": 1.6509,
+          "accumulated_nav": 1.6509
+        },
+        {
+          "date": "2026-03-31",
+          "nav": 1.6363,
+          "accumulated_nav": 1.6363
+        },
+        {
+          "date": "2026-04-01",
+          "nav": 1.6628,
+          "accumulated_nav": 1.6628
+        },
+        {
+          "date": "2026-04-02",
+          "nav": 1.6462,
+          "accumulated_nav": 1.6462
+        },
+        {
+          "date": "2026-04-03",
+          "nav": 1.633,
+          "accumulated_nav": 1.633
+        },
+        {
+          "date": "2026-04-07",
+          "nav": 1.6329,
+          "accumulated_nav": 1.6329
+        },
+        {
+          "date": "2026-04-08",
+          "nav": 1.6871,
+          "accumulated_nav": 1.6871
+        },
+        {
+          "date": "2026-04-09",
+          "nav": 1.6767,
+          "accumulated_nav": 1.6767
+        },
+        {
+          "date": "2026-04-10",
+          "nav": 1.7013,
+          "accumulated_nav": 1.7013
+        },
+        {
+          "date": "2026-04-13",
+          "nav": 1.7045,
+          "accumulated_nav": 1.7045
+        },
+        {
+          "date": "2026-04-14",
+          "nav": 1.7237,
+          "accumulated_nav": 1.7237
+        },
+        {
+          "date": "2026-04-15",
+          "nav": 1.7184,
+          "accumulated_nav": 1.7184
+        },
+        {
+          "date": "2026-04-16",
+          "nav": 1.7362,
+          "accumulated_nav": 1.7362
+        },
+        {
+          "date": "2026-04-17",
+          "nav": 1.7335,
+          "accumulated_nav": 1.7335
+        },
+        {
+          "date": "2026-04-20",
+          "nav": 1.7435,
+          "accumulated_nav": 1.7435
+        },
+        {
+          "date": "2026-04-21",
+          "nav": 1.7475,
+          "accumulated_nav": 1.7475
+        },
+        {
+          "date": "2026-04-22",
+          "nav": 1.7597,
+          "accumulated_nav": 1.7597
+        },
+        {
+          "date": "2026-04-23",
+          "nav": 1.755,
+          "accumulated_nav": 1.755
+        },
+        {
+          "date": "2026-04-24",
+          "nav": 1.7495,
+          "accumulated_nav": 1.7495
+        },
+        {
+          "date": "2026-04-27",
+          "nav": 1.7497,
+          "accumulated_nav": 1.7497
+        },
+        {
+          "date": "2026-04-28",
+          "nav": 1.7454,
+          "accumulated_nav": 1.7454
+        },
+        {
+          "date": "2026-04-29",
+          "nav": 1.7636,
+          "accumulated_nav": 1.7636
+        },
+        {
+          "date": "2026-04-30",
+          "nav": 1.7627,
+          "accumulated_nav": 1.7627
+        },
+        {
+          "date": "2026-05-06",
+          "nav": 1.7872,
+          "accumulated_nav": 1.7872
+        },
+        {
+          "date": "2026-05-07",
+          "nav": 1.7953,
+          "accumulated_nav": 1.7953
+        },
+        {
+          "date": "2026-05-08",
+          "nav": 1.7853,
+          "accumulated_nav": 1.7853
+        },
+        {
+          "date": "2026-05-11",
+          "nav": 1.8133,
+          "accumulated_nav": 1.8133
+        },
+        {
+          "date": "2026-05-12",
+          "nav": 1.8119,
+          "accumulated_nav": 1.8119
+        },
+        {
+          "date": "2026-05-13",
+          "nav": 1.8301,
+          "accumulated_nav": 1.8301
+        },
+        {
+          "date": "2026-05-14",
+          "nav": 1.8011,
+          "accumulated_nav": 1.8011
+        },
+        {
+          "date": "2026-05-15",
+          "nav": 1.7819,
+          "accumulated_nav": 1.7819
+        },
+        {
+          "date": "2026-05-18",
+          "nav": 1.7729,
+          "accumulated_nav": 1.7729
+        },
+        {
+          "date": "2026-05-19",
+          "nav": 1.7798,
+          "accumulated_nav": 1.7798
+        },
+        {
+          "date": "2026-05-20",
+          "nav": 1.7794,
+          "accumulated_nav": 1.7794
+        },
+        {
+          "date": "2026-05-21",
+          "nav": 1.7559,
+          "accumulated_nav": 1.7559
+        },
+        {
+          "date": "2026-05-22",
+          "nav": 1.7774,
+          "accumulated_nav": 1.7774
+        },
+        {
+          "date": "2026-05-25",
+          "nav": 1.8041,
+          "accumulated_nav": 1.8041
+        },
+        {
+          "date": "2026-05-26",
+          "nav": 1.8132,
+          "accumulated_nav": 1.8132
+        },
+        {
+          "date": "2026-05-27",
+          "nav": 1.8,
+          "accumulated_nav": 1.8
+        },
+        {
+          "date": "2026-05-28",
+          "nav": 1.8023,
+          "accumulated_nav": 1.8023
+        },
+        {
+          "date": "2026-05-29",
+          "nav": 1.7948,
+          "accumulated_nav": 1.7948
+        },
+        {
+          "date": "2026-06-01",
+          "nav": 1.778,
+          "accumulated_nav": 1.778
+        },
+        {
+          "date": "2026-06-02",
+          "nav": 1.8026,
+          "accumulated_nav": 1.8026
+        },
+        {
+          "date": "2026-06-03",
+          "nav": 1.8112,
+          "accumulated_nav": 1.8112
+        },
+        {
+          "date": "2026-06-04",
+          "nav": 1.7995,
+          "accumulated_nav": 1.7995
+        },
+        {
+          "date": "2026-06-05",
+          "nav": 1.7694,
+          "accumulated_nav": 1.7694
+        },
+        {
+          "date": "2026-06-08",
+          "nav": 1.7334,
+          "accumulated_nav": 1.7334
+        },
+        {
+          "date": "2026-06-09",
+          "nav": 1.7641,
+          "accumulated_nav": 1.7641
+        },
+        {
+          "date": "2026-06-10",
+          "nav": 1.7473,
+          "accumulated_nav": 1.7473
+        },
+        {
+          "date": "2026-06-11",
+          "nav": 1.7387,
+          "accumulated_nav": 1.7387
+        },
+        {
+          "date": "2026-06-12",
+          "nav": 1.7569,
+          "accumulated_nav": 1.7569
+        },
+        {
+          "date": "2026-06-15",
+          "nav": 1.7969,
+          "accumulated_nav": 1.7969
+        },
+        {
+          "date": "2026-06-16",
+          "nav": 1.7944,
+          "accumulated_nav": 1.7944
+        },
+        {
+          "date": "2026-06-17",
+          "nav": 1.811,
+          "accumulated_nav": 1.811
+        },
+        {
+          "date": "2026-06-18",
+          "nav": 1.8149,
+          "accumulated_nav": 1.8149
+        },
+        {
+          "date": "2026-06-22",
+          "nav": 1.8561,
+          "accumulated_nav": 1.8561
+        },
+        {
+          "date": "2026-06-23",
+          "nav": 1.807,
+          "accumulated_nav": 1.807
+        },
+        {
+          "date": "2026-06-24",
+          "nav": 1.8154,
+          "accumulated_nav": 1.8154
+        },
+        {
+          "date": "2026-06-25",
+          "nav": 1.8423,
+          "accumulated_nav": 1.8423
+        },
+        {
+          "date": "2026-06-26",
+          "nav": 1.7917,
+          "accumulated_nav": 1.7917
+        },
+        {
+          "date": "2026-06-29",
+          "nav": 1.8138,
+          "accumulated_nav": 1.8138
+        },
+        {
+          "date": "2026-06-30",
+          "nav": 1.8328,
+          "accumulated_nav": 1.8328
+        },
+        {
+          "date": "2026-07-01",
+          "nav": 1.8256,
+          "accumulated_nav": 1.8256
+        },
+        {
+          "date": "2026-07-02",
+          "nav": 1.774,
+          "accumulated_nav": 1.774
+        },
+        {
+          "date": "2026-07-03",
+          "nav": 1.7847,
+          "accumulated_nav": 1.7847
+        },
+        {
+          "date": "2026-07-06",
+          "nav": 1.7845,
+          "accumulated_nav": 1.7845
+        },
+        {
+          "date": "2026-07-07",
+          "nav": 1.7673,
+          "accumulated_nav": 1.7673
+        },
+        {
+          "date": "2026-07-08",
+          "nav": 1.7546,
+          "accumulated_nav": 1.7546
+        },
+        {
+          "date": "2026-07-09",
+          "nav": 1.7976,
+          "accumulated_nav": 1.7976
+        },
+        {
+          "date": "2026-07-10",
+          "nav": 1.766,
+          "accumulated_nav": 1.766
+        },
+        {
+          "date": "2026-07-13",
+          "nav": 1.7369,
+          "accumulated_nav": 1.7369
+        },
+        {
+          "date": "2026-07-14",
+          "nav": 1.7721,
+          "accumulated_nav": 1.7721
+        },
+        {
+          "date": "2026-07-15",
+          "nav": 1.7688,
+          "accumulated_nav": 1.7688
+        },
+        {
+          "date": "2026-07-16",
+          "nav": 1.7392,
+          "accumulated_nav": 1.7392
+        },
+        {
+          "date": "2026-07-17",
+          "nav": 1.6811,
+          "accumulated_nav": 1.6811
+        },
+        {
+          "date": "2026-07-20",
+          "nav": 1.7051,
+          "accumulated_nav": 1.7051
+        },
+        {
+          "date": "2026-07-21",
+          "nav": 1.7548,
+          "accumulated_nav": 1.7548
+        },
+        {
+          "date": "2026-07-22",
+          "nav": 1.7473,
+          "accumulated_nav": 1.7473
+        },
+        {
+          "date": "2026-07-23",
+          "nav": 1.751,
+          "accumulated_nav": 1.751
+        },
+        {
+          "date": "2026-07-24",
+          "nav": 1.7236,
+          "accumulated_nav": 1.7236
+        },
+        {
+          "date": "2026-07-27",
+          "nav": 1.7443,
+          "accumulated_nav": 1.7443
+        },
+        {
+          "date": "2026-07-28",
+          "nav": 1.6977,
+          "accumulated_nav": 1.6977
+        },
+        {
+          "date": "2026-07-29",
+          "nav": 1.7088,
+          "accumulated_nav": 1.7088
+        },
+        {
+          "date": "2026-07-30",
+          "nav": 1.6914,
+          "accumulated_nav": 1.6914
+        },
+        {
+          "date": "2026-07-31",
+          "nav": 1.7055,
+          "accumulated_nav": 1.7055
+        },
+        {
+          "date": "2026-08-03",
+          "nav": 1.6898,
+          "accumulated_nav": 1.6898
+        },
+        {
+          "date": "2026-08-04",
+          "nav": 1.71,
+          "accumulated_nav": 1.71
+        },
+        {
+          "date": "2026-08-05",
+          "nav": 1.7301,
+          "accumulated_nav": 1.7301
+        },
+        {
+          "date": "2026-08-06",
+          "nav": 1.7275,
+          "accumulated_nav": 1.7275
+        },
+        {
+          "date": "2026-08-07",
+          "nav": 1.743,
+          "accumulated_nav": 1.743
+        },
+        {
+          "date": "2026-08-10",
+          "nav": 1.7457,
+          "accumulated_nav": 1.7457
+        },
+        {
+          "date": "2026-08-11",
+          "nav": 1.7326,
+          "accumulated_nav": 1.7326
+        },
+        {
+          "date": "2026-08-12",
+          "nav": 1.7422,
+          "accumulated_nav": 1.7422
+        },
+        {
+          "date": "2026-08-13",
+          "nav": 1.7328,
+          "accumulated_nav": 1.7328
+        },
+        {
+          "date": "2026-08-14",
+          "nav": 1.7332,
+          "accumulated_nav": 1.7332
+        },
+        {
+          "date": "2026-08-17",
+          "nav": 1.7599,
+          "accumulated_nav": 1.7599
+        },
+        {
+          "date": "2026-08-18",
+          "nav": 1.7542,
+          "accumulated_nav": 1.7542
+        },
+        {
+          "date": "2026-08-19",
+          "nav": 1.7066,
+          "accumulated_nav": 1.7066
+        },
+        {
+          "date": "2026-08-20",
+          "nav": 1.708,
+          "accumulated_nav": 1.708
+        },
+        {
+          "date": "2026-08-21",
+          "nav": 1.7181,
+          "accumulated_nav": 1.7181
+        },
+        {
+          "date": "2026-08-24",
+          "nav": 1.6981,
+          "accumulated_nav": 1.6981
+        },
+        {
+          "date": "2026-08-25",
+          "nav": 1.6946,
+          "accumulated_nav": 1.6946
+        },
+        {
+          "date": "2026-08-26",
+          "nav": 1.7084,
+          "accumulated_nav": 1.7084
+        },
+        {
+          "date": "2026-08-27",
+          "nav": 1.7229,
+          "accumulated_nav": 1.7229
+        },
+        {
+          "date": "2026-08-28",
+          "nav": 1.7158,
+          "accumulated_nav": 1.7158
+        },
+        {
+          "date": "2026-08-31",
+          "nav": 1.7212,
+          "accumulated_nav": 1.7212
+        },
+        {
+          "date": "2026-09-01",
+          "nav": 1.7165,
+          "accumulated_nav": 1.7165
+        },
+        {
+          "date": "2026-09-02",
+          "nav": 1.6939,
+          "accumulated_nav": 1.6939
+        },
+        {
+          "date": "2026-09-03",
+          "nav": 1.6957,
+          "accumulated_nav": 1.6957
+        },
+        {
+          "date": "2026-09-04",
+          "nav": 1.6941,
+          "accumulated_nav": 1.6941
+        },
+        {
+          "date": "2026-09-07",
+          "nav": 1.7036,
+          "accumulated_nav": 1.7036
+        },
+        {
+          "date": "2026-09-08",
+          "nav": 1.6977,
+          "accumulated_nav": 1.6977
+        },
+        {
+          "date": "2026-09-09",
+          "nav": 1.7027,
+          "accumulated_nav": 1.7027
+        },
+        {
+          "date": "2026-09-10",
+          "nav": 1.6949,
+          "accumulated_nav": 1.6949
+        },
+        {
+          "date": "2026-09-11",
+          "nav": 1.6815,
+          "accumulated_nav": 1.6815
+        },
+        {
+          "date": "2026-09-14",
+          "nav": 1.6708,
+          "accumulated_nav": 1.6708
+        },
+        {
+          "date": "2026-09-15",
+          "nav": 1.6605,
+          "accumulated_nav": 1.6605
+        },
+        {
+          "date": "2026-09-16",
+          "nav": 1.6716,
+          "accumulated_nav": 1.6716
+        },
+        {
+          "date": "2026-09-17",
+          "nav": 1.6646,
+          "accumulated_nav": 1.6646
+        },
+        {
+          "date": "2026-09-18",
+          "nav": 1.6817,
+          "accumulated_nav": 1.6817
+        },
+        {
+          "date": "2026-09-21",
+          "nav": 1.6932,
+          "accumulated_nav": 1.6932
+        },
+        {
+          "date": "2026-09-22",
+          "nav": 1.6953,
+          "accumulated_nav": 1.6953
+        },
+        {
+          "date": "2026-09-23",
+          "nav": 1.6857,
+          "accumulated_nav": 1.6857
+        },
+        {
+          "date": "2026-09-24",
+          "nav": 1.6583,
+          "accumulated_nav": 1.6583
+        },
+        {
+          "date": "2026-09-28",
+          "nav": 1.6233,
+          "accumulated_nav": 1.6233
+        },
+        {
+          "date": "2026-09-29",
+          "nav": 1.6251,
+          "accumulated_nav": 1.6251
+        },
+        {
+          "date": "2026-09-30",
+          "nav": 1.6297,
+          "accumulated_nav": 1.6297
+        }
+      ],
+      "ref": {
+        "article_id": "fund-nav-005658-f2044f97e37ebefe",
+        "revision": 1,
+        "source": "华夏基金 · 官方净值",
+        "url": "https://www.chinaamc.com/fund/005658/index.shtml",
+        "published_at": "",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "data_as_of": "2026-09-30",
+        "fragments": [
+          "官网净值字段，005658；单位净值为nav，累计净值为accumulated_nav，二者不是现金分红再投资收益指数。",
+          "[{\"date\":\"2026-02-25\",\"nav\":1.7369,\"accumulated_nav\":1.7369},{\"date\":\"2026-02-26\",\"nav\":1.7337,\"accumulated_nav\":1.7337},{\"date\":\"2026-02-27\",\"nav\":1.7282,\"accumulated_nav\":1.7282},{\"date\":\"2026-03-02\",\"nav\":1.7344,\"accumulated_nav\":1.7344},{\"date\":\"2026-03-03\",\"nav\":1.7091,\"accumulated_nav\":1.7091},{\"date\":\"2026-03-04\",\"nav\":1.6905,\"accumulated_nav\":1.6905},{\"date\":\"2026-03-05\",\"nav\":1.7058,\"accumulated_nav\":1.7058},{\"date\":\"2026-03-06\",\"nav\":1.7103,\"accumulated_nav\":1.7103},{\"date\":\"2026-03-09\",\"nav\":1.6946,\"accumulated_nav\":1.6946},{\"date\":\"2026-03-10\",\"nav\":1.7152,\"accumulated_nav\":1.7152},{\"date\":\"2026-03-11\",\"nav\":1.7254,\"accumulated_nav\":1.7254},{\"date\":\"2026-03-12\",\"nav\":1.7194,\"accumulated_nav\":1.7194},{\"date\":\"2026-03-13\",\"nav\":1.7131,\"accumulated_nav\":1.7131},{\"date\":\"2026-03-16\",\"nav\":1.7139,\"accumulated_nav\":1.7139},{\"date\":\"2026-03-17\",\"nav\":1.7021,\"accumulated_nav\":1.7021},{\"date\":\"2026-03-18\",\"nav\":1.7092,\"accumulated_nav\":1.7092},{\"date\":\"2026-03-19\",\"nav\":1.683,\"accumulated_nav\":1.683},{\"date\":\"2026-03-20\",\"nav\":1.6775,\"accumulated_nav\":1.6775},{\"date\":\"2026-03-23\",\"nav\":1.6252,\"accumulated_nav\":1.6252},{\"date\":\"2026-03-24\",\"nav\":1.6449,\"accumulated_nav\":1.6449},{\"date\":\"2026-03-25\",\"nav\":1.6668,\"accumulated_nav\":1.6668},{\"date\":\"2026-03-26\",\"nav\":1.6459,\"accumulated_nav\":1.6459},{\"date\":\"2026-03-27\",\"nav\":1.6546,\"accumulated_nav\":1.6546},{\"date\":\"2026-03-30\",\"nav\":1.6509,\"accumulated_nav\":1.6509},{\"date\":\"2026-03-31\",\"nav\":1.6363,\"accumulated_nav\":1.6363},{\"date\":\"2026-04-01\",\"nav\":1.6628,\"accumulated_nav\":1.6628},{\"date\":\"2026-04-02\",\"nav\":1.6462,\"accumulated_nav\":1.6462},{\"date\":\"2026-04-03\",\"nav\":1.633,\"accumulated_nav\":1.633},{\"date\":\"2026-04-07\",\"nav\":1.6329,\"accumulated_nav\":1.6329},{\"date\":\"2026-04-08\",\"nav\":1.6871,\"accumulated_nav\":1.6871},{\"date\":\"2026-04-09\",\"nav\":1.6767,\"accumulated_nav\":1.6767},{\"date\":\"2026-04-10\",\"nav\":1.7013,\"accumulated_nav\":1.7013},{\"date\":\"2026-04-13\",\"nav\":1.7045,\"accumulated_nav\":1.7045},{\"date\":\"2026-04-14\",\"nav\":1.7237,\"accumulated_nav\":1.7237},{\"date\":\"2026-04-15\",\"nav\":1.7184,\"accumulated_nav\":1.7184},{\"date\":\"2026-04-16\",\"nav\":1.7362,\"accumulated_nav\":1.7362},{\"date\":\"2026-04-17\",\"nav\":1.7335,\"accumulated_nav\":1.7335},{\"date\":\"2026-04-20\",\"nav\":1.7435,\"accumulated_nav\":1.7435},{\"date\":\"2026-04-21\",\"nav\":1.7475,\"accumulated_nav\":1.7475},{\"date\":\"2026-04-22\",\"nav\":1.7597,\"accumulated_nav\":1.7597},{\"date\":\"2026-04-23\",\"nav\":1.755,\"accumulated_nav\":1.755},{\"date\":\"2026-04-24\",\"nav\":1.7495,\"accumulated_nav\":1.7495},{\"date\":\"2026-04-27\",\"nav\":1.7497,\"accumulated_nav\":1.7497},{\"date\":\"2026-04-28\",\"nav\":1.7454,\"accumulated_nav\":1.7454},{\"date\":\"2026-04-29\",\"nav\":1.7636,\"accumulated_nav\":1.7636},{\"date\":\"2026-04-30\",\"nav\":1.7627,\"accumulated_nav\":1.7627},{\"date\":\"2026-05-06\",\"nav\":1.7872,\"accumulated_nav\":1.7872},{\"date\":\"2026-05-07\",\"nav\":1.7953,\"accumulated_nav\":1.7953},{\"date\":\"2026-05-08\",\"nav\":1.7853,\"accumulated_nav\":1.7853},{\"date\":\"2026-05-11\",\"nav\":1.8133,\"accumulated_nav\":1.8133},{\"date\":\"2026-05-12\",\"nav\":1.8119,\"accumulated_nav\":1.8119},{\"date\":\"2026-05-13\",\"nav\":1.8301,\"accumulated_nav\":1.8301},{\"date\":\"2026-05-14\",\"nav\":1.8011,\"accumulated_nav\":1.8011},{\"date\":\"2026-05-15\",\"nav\":1.7819,\"accumulated_nav\":1.7819},{\"date\":\"2026-05-18\",\"nav\":1.7729,\"accumulated_nav\":1.7729},{\"date\":\"2026-05-19\",\"nav\":1.7798,\"accumulated_nav\":1.7798},{\"date\":\"2026-05-20\",\"nav\":1.7794,\"accumulated_nav\":1.7794},{\"date\":\"2026-05-21\",\"nav\":1.7559,\"accumulated_nav\":1.7559},{\"date\":\"2026-05-22\",\"nav\":1.7774,\"accumulated_nav\":1.7774},{\"date\":\"2026-05-25\",\"nav\":1.8041,\"accumulated_nav\":1.8041},{\"date\":\"2026-05-26\",\"nav\":1.8132,\"accumulated_nav\":1.8132},{\"date\":\"2026-05-27\",\"nav\":1.8,\"accumulated_nav\":1.8},{\"date\":\"2026-05-28\",\"nav\":1.8023,\"accumulated_nav\":1.8023},{\"date\":\"2026-05-29\",\"nav\":1.7948,\"accumulated_nav\":1.7948},{\"date\":\"2026-06-01\",\"nav\":1.778,\"accumulated_nav\":1.778},{\"date\":\"2026-06-02\",\"nav\":1.8026,\"accumulated_nav\":1.8026},{\"date\":\"2026-06-03\",\"nav\":1.8112,\"accumulated_nav\":1.8112},{\"date\":\"2026-06-04\",\"nav\":1.7995,\"accumulated_nav\":1.7995},{\"date\":\"2026-06-05\",\"nav\":1.7694,\"accumulated_nav\":1.7694},{\"date\":\"2026-06-08\",\"nav\":1.7334,\"accumulated_nav\":1.7334},{\"date\":\"2026-06-09\",\"nav\":1.7641,\"accumulated_nav\":1.7641},{\"date\":\"2026-06-10\",\"nav\":1.7473,\"accumulated_nav\":1.7473},{\"date\":\"2026-06-11\",\"nav\":1.7387,\"accumulated_nav\":1.7387},{\"date\":\"2026-06-12\",\"nav\":1.7569,\"accumulated_nav\":1.7569},{\"date\":\"2026-06-15\",\"nav\":1.7969,\"accumulated_nav\":1.7969},{\"date\":\"2026-06-16\",\"nav\":1.7944,\"accumulated_nav\":1.7944},{\"date\":\"2026-06-17\",\"nav\":1.811,\"accumulated_nav\":1.811},{\"date\":\"2026-06-18\",\"nav\":1.8149,\"accumulated_nav\":1.8149},{\"date\":\"2026-06-22\",\"nav\":1.8561,\"accumulated_nav\":1.8561},{\"date\":\"2026-06-23\",\"nav\":1.807,\"accumulated_nav\":1.807},{\"date\":\"2026-06-24\",\"nav\":1.8154,\"accumulated_nav\":1.8154},{\"date\":\"2026-06-25\",\"nav\":1.8423,\"accumulated_nav\":1.8423},{\"date\":\"2026-06-26\",\"nav\":1.7917,\"accumulated_nav\":1.7917},{\"date\":\"2026-06-29\",\"nav\":1.8138,\"accumulated_nav\":1.8138},{\"date\":\"2026-06-30\",\"nav\":1.8328,\"accumulated_nav\":1.8328},{\"date\":\"2026-07-01\",\"nav\":1.8256,\"accumulated_nav\":1.8256},{\"date\":\"2026-07-02\",\"nav\":1.774,\"accumulated_nav\":1.774},{\"date\":\"2026-07-03\",\"nav\":1.7847,\"accumulated_nav\":1.7847},{\"date\":\"2026-07-06\",\"nav\":1.7845,\"accumulated_nav\":1.7845},{\"date\":\"2026-07-07\",\"nav\":1.7673,\"accumulated_nav\":1.7673},{\"date\":\"2026-07-08\",\"nav\":1.7546,\"accumulated_nav\":1.7546},{\"date\":\"2026-07-09\",\"nav\":1.7976,\"accumulated_nav\":1.7976},{\"date\":\"2026-07-10\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-07-13\",\"nav\":1.7369,\"accumulated_nav\":1.7369},{\"date\":\"2026-07-14\",\"nav\":1.7721,\"accumulated_nav\":1.7721},{\"date\":\"2026-07-15\",\"nav\":1.7688,\"accumulated_nav\":1.7688},{\"date\":\"2026-07-16\",\"nav\":1.7392,\"accumulated_nav\":1.7392},{\"date\":\"2026-07-17\",\"nav\":1.6811,\"accumulated_nav\":1.6811},{\"date\":\"2026-07-20\",\"nav\":1.7051,\"accumulated_nav\":1.7051},{\"date\":\"2026-07-21\",\"nav\":1.7548,\"accumulated_nav\":1.7548},{\"date\":\"2026-07-22\",\"nav\":1.7473,\"accumulated_nav\":1.7473},{\"date\":\"2026-07-23\",\"nav\":1.751,\"accumulated_nav\":1.751},{\"date\":\"2026-07-24\",\"nav\":1.7236,\"accumulated_nav\":1.7236},{\"date\":\"2026-07-27\",\"nav\":1.7443,\"accumulated_nav\":1.7443},{\"date\":\"2026-07-28\",\"nav\":1.6977,\"accumulated_nav\":1.6977},{\"date\":\"2026-07-29\",\"nav\":1.7088,\"accumulated_nav\":1.7088},{\"date\":\"2026-07-30\",\"nav\":1.6914,\"accumulated_nav\":1.6914},{\"date\":\"2026-07-31\",\"nav\":1.7055,\"accumulated_nav\":1.7055},{\"date\":\"2026-08-03\",\"nav\":1.6898,\"accumulated_nav\":1.6898},{\"date\":\"2026-08-04\",\"nav\":1.71,\"accumulated_nav\":1.71},{\"date\":\"2026-08-05\",\"nav\":1.7301,\"accumulated_nav\":1.7301},{\"date\":\"2026-08-06\",\"nav\":1.7275,\"accumulated_nav\":1.7275},{\"date\":\"2026-08-07\",\"nav\":1.743,\"accumulated_nav\":1.743},{\"date\":\"2026-08-10\",\"nav\":1.7457,\"accumulated_nav\":1.7457},{\"date\":\"2026-08-11\",\"nav\":1.7326,\"accumulated_nav\":1.7326},{\"date\":\"2026-08-12\",\"nav\":1.7422,\"accumulated_nav\":1.7422},{\"date\":\"2026-08-13\",\"nav\":1.7328,\"accumulated_nav\":1.7328},{\"date\":\"2026-08-14\",\"nav\":1.7332,\"accumulated_nav\":1.7332},{\"date\":\"2026-08-17\",\"nav\":1.7599,\"accumulated_nav\":1.7599},{\"date\":\"2026-08-18\",\"nav\":1.7542,\"accumulated_nav\":1.7542},{\"date\":\"2026-08-19\",\"nav\":1.7066,\"accumulated_nav\":1.7066},{\"date\":\"2026-08-20\",\"nav\":1.708,\"accumulated_nav\":1.708},{\"date\":\"2026-08-21\",\"nav\":1.7181,\"accumulated_nav\":1.7181},{\"date\":\"2026-08-24\",\"nav\":1.6981,\"accumulated_nav\":1.6981},{\"date\":\"2026-08-25\",\"nav\":1.6946,\"accumulated_nav\":1.6946},{\"date\":\"2026-08-26\",\"nav\":1.7084,\"accumulated_nav\":1.7084},{\"date\":\"2026-08-27\",\"nav\":1.7229,\"accumulated_nav\":1.7229},{\"date\":\"2026-08-28\",\"nav\":1.7158,\"accumulated_nav\":1.7158},{\"date\":\"2026-08-31\",\"nav\":1.7212,\"accumulated_nav\":1.7212},{\"date\":\"2026-09-01\",\"nav\":1.7165,\"accumulated_nav\":1.7165},{\"date\":\"2026-09-02\",\"nav\":1.6939,\"accumulated_nav\":1.6939},{\"date\":\"2026-09-03\",\"nav\":1.6957,\"accumulated_nav\":1.6957},{\"date\":\"2026-09-04\",\"nav\":1.6941,\"accumulated_nav\":1.6941},{\"date\":\"2026-09-07\",\"nav\":1.7036,\"accumulated_nav\":1.7036},{\"date\":\"2026-09-08\",\"nav\":1.6977,\"accumulated_nav\":1.6977},{\"date\":\"2026-09-09\",\"nav\":1.7027,\"accumulated_nav\":1.7027},{\"date\":\"2026-09-10\",\"nav\":1.6949,\"accumulated_nav\":1.6949},{\"date\":\"2026-09-11\",\"nav\":1.6815,\"accumulated_nav\":1.6815},{\"date\":\"2026-09-14\",\"nav\":1.6708,\"accumulated_nav\":1.6708},{\"date\":\"2026-09-15\",\"nav\":1.6605,\"accumulated_nav\":1.6605},{\"date\":\"2026-09-16\",\"nav\":1.6716,\"accumulated_nav\":1.6716},{\"date\":\"2026-09-17\",\"nav\":1.6646,\"accumulated_nav\":1.6646},{\"date\":\"2026-09-18\",\"nav\":1.6817,\"accumulated_nav\":1.6817},{\"date\":\"2026-09-21\",\"nav\":1.6932,\"accumulated_nav\":1.6932},{\"date\":\"2026-09-22\",\"nav\":1.6953,\"accumulated_nav\":1.6953},{\"date\":\"2026-09-23\",\"nav\":1.6857,\"accumulated_nav\":1.6857},{\"date\":\"2026-09-24\",\"nav\":1.6583,\"accumulated_nav\":1.6583},{\"date\":\"2026-09-28\",\"nav\":1.6233,\"accumulated_nav\":1.6233},{\"date\":\"2026-09-29\",\"nav\":1.6251,\"accumulated_nav\":1.6251},{\"date\":\"2026-09-30\",\"nav\":1.6297,\"accumulated_nav\":1.6297}]",
+          "净值历史查询原址：https://www.chinaamc.com/fund/005658/zoust_all.js；历史响应截至2026-09-29。产品页原址：https://www.chinaamc.com/fund/005658/index.shtml；页面净值截至2026-09-30。重合日期净值一致后合并，仅收录原文已有日期。"
+        ],
+        "display_fragments": [
+          "这些是已核实的官方净值记录；单位净值变化不等于含分红再投资收益。",
+          "2026-09-28：单位净值1.6233，累计净值1.6233。",
+          "2026-09-29：单位净值1.6251，累计净值1.6251。",
+          "2026-09-30：单位净值1.6297，累计净值1.6297。"
+        ]
+      }
+    },
+    {
+      "code": "007339",
+      "nav": [
+        {
+          "date": "2026-02-25",
+          "nav": 1.8779,
+          "accumulated_nav": 1.8779
+        },
+        {
+          "date": "2026-02-26",
+          "nav": 1.8744,
+          "accumulated_nav": 1.8744
+        },
+        {
+          "date": "2026-02-27",
+          "nav": 1.8684,
+          "accumulated_nav": 1.8684
+        },
+        {
+          "date": "2026-03-02",
+          "nav": 1.875,
+          "accumulated_nav": 1.875
+        },
+        {
+          "date": "2026-03-03",
+          "nav": 1.8476,
+          "accumulated_nav": 1.8476
+        },
+        {
+          "date": "2026-03-04",
+          "nav": 1.8274,
+          "accumulated_nav": 1.8274
+        },
+        {
+          "date": "2026-03-05",
+          "nav": 1.8438,
+          "accumulated_nav": 1.8438
+        },
+        {
+          "date": "2026-03-06",
+          "nav": 1.8488,
+          "accumulated_nav": 1.8488
+        },
+        {
+          "date": "2026-03-09",
+          "nav": 1.8318,
+          "accumulated_nav": 1.8318
+        },
+        {
+          "date": "2026-03-10",
+          "nav": 1.8543,
+          "accumulated_nav": 1.8543
+        },
+        {
+          "date": "2026-03-11",
+          "nav": 1.8654,
+          "accumulated_nav": 1.8654
+        },
+        {
+          "date": "2026-03-12",
+          "nav": 1.8589,
+          "accumulated_nav": 1.8589
+        },
+        {
+          "date": "2026-03-13",
+          "nav": 1.8521,
+          "accumulated_nav": 1.8521
+        },
+        {
+          "date": "2026-03-16",
+          "nav": 1.853,
+          "accumulated_nav": 1.853
+        },
+        {
+          "date": "2026-03-17",
+          "nav": 1.8404,
+          "accumulated_nav": 1.8404
+        },
+        {
+          "date": "2026-03-18",
+          "nav": 1.848,
+          "accumulated_nav": 1.848
+        },
+        {
+          "date": "2026-03-19",
+          "nav": 1.8198,
+          "accumulated_nav": 1.8198
+        },
+        {
+          "date": "2026-03-20",
+          "nav": 1.8139,
+          "accumulated_nav": 1.8139
+        },
+        {
+          "date": "2026-03-23",
+          "nav": 1.757,
+          "accumulated_nav": 1.757
+        },
+        {
+          "date": "2026-03-24",
+          "nav": 1.7784,
+          "accumulated_nav": 1.7784
+        },
+        {
+          "date": "2026-03-25",
+          "nav": 1.8023,
+          "accumulated_nav": 1.8023
+        },
+        {
+          "date": "2026-03-26",
+          "nav": 1.7796,
+          "accumulated_nav": 1.7796
+        },
+        {
+          "date": "2026-03-27",
+          "nav": 1.7893,
+          "accumulated_nav": 1.7893
+        },
+        {
+          "date": "2026-03-30",
+          "nav": 1.7851,
+          "accumulated_nav": 1.7851
+        },
+        {
+          "date": "2026-03-31",
+          "nav": 1.7696,
+          "accumulated_nav": 1.7696
+        },
+        {
+          "date": "2026-04-01",
+          "nav": 1.7982,
+          "accumulated_nav": 1.7982
+        },
+        {
+          "date": "2026-04-02",
+          "nav": 1.7802,
+          "accumulated_nav": 1.7802
+        },
+        {
+          "date": "2026-04-03",
+          "nav": 1.766,
+          "accumulated_nav": 1.766
+        },
+        {
+          "date": "2026-04-07",
+          "nav": 1.766,
+          "accumulated_nav": 1.766
+        },
+        {
+          "date": "2026-04-08",
+          "nav": 1.8246,
+          "accumulated_nav": 1.8246
+        },
+        {
+          "date": "2026-04-09",
+          "nav": 1.8134,
+          "accumulated_nav": 1.8134
+        },
+        {
+          "date": "2026-04-10",
+          "nav": 1.8401,
+          "accumulated_nav": 1.8401
+        },
+        {
+          "date": "2026-04-13",
+          "nav": 1.8436,
+          "accumulated_nav": 1.8436
+        },
+        {
+          "date": "2026-04-14",
+          "nav": 1.8644,
+          "accumulated_nav": 1.8644
+        },
+        {
+          "date": "2026-04-15",
+          "nav": 1.8587,
+          "accumulated_nav": 1.8587
+        },
+        {
+          "date": "2026-04-16",
+          "nav": 1.8782,
+          "accumulated_nav": 1.8782
+        },
+        {
+          "date": "2026-04-17",
+          "nav": 1.8752,
+          "accumulated_nav": 1.8752
+        },
+        {
+          "date": "2026-04-20",
+          "nav": 1.886,
+          "accumulated_nav": 1.886
+        },
+        {
+          "date": "2026-04-21",
+          "nav": 1.8902,
+          "accumulated_nav": 1.8902
+        },
+        {
+          "date": "2026-04-22",
+          "nav": 1.9034,
+          "accumulated_nav": 1.9034
+        },
+        {
+          "date": "2026-04-23",
+          "nav": 1.8983,
+          "accumulated_nav": 1.8983
+        },
+        {
+          "date": "2026-04-24",
+          "nav": 1.8924,
+          "accumulated_nav": 1.8924
+        },
+        {
+          "date": "2026-04-27",
+          "nav": 1.8929,
+          "accumulated_nav": 1.8929
+        },
+        {
+          "date": "2026-04-28",
+          "nav": 1.888,
+          "accumulated_nav": 1.888
+        },
+        {
+          "date": "2026-04-29",
+          "nav": 1.9085,
+          "accumulated_nav": 1.9085
+        },
+        {
+          "date": "2026-04-30",
+          "nav": 1.9075,
+          "accumulated_nav": 1.9075
+        },
+        {
+          "date": "2026-05-06",
+          "nav": 1.9341,
+          "accumulated_nav": 1.9341
+        },
+        {
+          "date": "2026-05-07",
+          "nav": 1.9429,
+          "accumulated_nav": 1.9429
+        },
+        {
+          "date": "2026-05-08",
+          "nav": 1.9322,
+          "accumulated_nav": 1.9322
+        },
+        {
+          "date": "2026-05-11",
+          "nav": 1.9624,
+          "accumulated_nav": 1.9624
+        },
+        {
+          "date": "2026-05-12",
+          "nav": 1.961,
+          "accumulated_nav": 1.961
+        },
+        {
+          "date": "2026-05-13",
+          "nav": 1.9807,
+          "accumulated_nav": 1.9807
+        },
+        {
+          "date": "2026-05-14",
+          "nav": 1.9494,
+          "accumulated_nav": 1.9494
+        },
+        {
+          "date": "2026-05-15",
+          "nav": 1.9285,
+          "accumulated_nav": 1.9285
+        },
+        {
+          "date": "2026-05-18",
+          "nav": 1.9187,
+          "accumulated_nav": 1.9187
+        },
+        {
+          "date": "2026-05-19",
+          "nav": 1.9261,
+          "accumulated_nav": 1.9261
+        },
+        {
+          "date": "2026-05-20",
+          "nav": 1.9256,
+          "accumulated_nav": 1.9256
+        },
+        {
+          "date": "2026-05-21",
+          "nav": 1.9005,
+          "accumulated_nav": 1.9005
+        },
+        {
+          "date": "2026-05-22",
+          "nav": 1.9236,
+          "accumulated_nav": 1.9236
+        },
+        {
+          "date": "2026-05-25",
+          "nav": 1.9523,
+          "accumulated_nav": 1.9523
+        },
+        {
+          "date": "2026-05-26",
+          "nav": 1.9621,
+          "accumulated_nav": 1.9621
+        },
+        {
+          "date": "2026-05-27",
+          "nav": 1.9479,
+          "accumulated_nav": 1.9479
+        },
+        {
+          "date": "2026-05-28",
+          "nav": 1.9504,
+          "accumulated_nav": 1.9504
+        },
+        {
+          "date": "2026-05-29",
+          "nav": 1.9424,
+          "accumulated_nav": 1.9424
+        },
+        {
+          "date": "2026-06-01",
+          "nav": 1.9244,
+          "accumulated_nav": 1.9244
+        },
+        {
+          "date": "2026-06-02",
+          "nav": 1.951,
+          "accumulated_nav": 1.951
+        },
+        {
+          "date": "2026-06-03",
+          "nav": 1.9602,
+          "accumulated_nav": 1.9602
+        },
+        {
+          "date": "2026-06-04",
+          "nav": 1.9476,
+          "accumulated_nav": 1.9476
+        },
+        {
+          "date": "2026-06-05",
+          "nav": 1.9152,
+          "accumulated_nav": 1.9152
+        },
+        {
+          "date": "2026-06-08",
+          "nav": 1.8763,
+          "accumulated_nav": 1.8763
+        },
+        {
+          "date": "2026-06-09",
+          "nav": 1.9095,
+          "accumulated_nav": 1.9095
+        },
+        {
+          "date": "2026-06-10",
+          "nav": 1.8916,
+          "accumulated_nav": 1.8916
+        },
+        {
+          "date": "2026-06-11",
+          "nav": 1.8821,
+          "accumulated_nav": 1.8821
+        },
+        {
+          "date": "2026-06-12",
+          "nav": 1.9028,
+          "accumulated_nav": 1.9028
+        },
+        {
+          "date": "2026-06-15",
+          "nav": 1.946,
+          "accumulated_nav": 1.946
+        },
+        {
+          "date": "2026-06-16",
+          "nav": 1.9434,
+          "accumulated_nav": 1.9434
+        },
+        {
+          "date": "2026-06-17",
+          "nav": 1.961,
+          "accumulated_nav": 1.961
+        },
+        {
+          "date": "2026-06-18",
+          "nav": 1.9657,
+          "accumulated_nav": 1.9657
+        },
+        {
+          "date": "2026-06-22",
+          "nav": 2.0104,
+          "accumulated_nav": 2.0104
+        },
+        {
+          "date": "2026-06-23",
+          "nav": 1.9573,
+          "accumulated_nav": 1.9573
+        },
+        {
+          "date": "2026-06-24",
+          "nav": 1.9665,
+          "accumulated_nav": 1.9665
+        },
+        {
+          "date": "2026-06-25",
+          "nav": 1.9956,
+          "accumulated_nav": 1.9956
+        },
+        {
+          "date": "2026-06-26",
+          "nav": 1.9408,
+          "accumulated_nav": 1.9408
+        },
+        {
+          "date": "2026-06-29",
+          "nav": 1.964,
+          "accumulated_nav": 1.964
+        },
+        {
+          "date": "2026-06-30",
+          "nav": 1.9845,
+          "accumulated_nav": 1.9845
+        },
+        {
+          "date": "2026-07-01",
+          "nav": 1.9766,
+          "accumulated_nav": 1.9766
+        },
+        {
+          "date": "2026-07-02",
+          "nav": 1.9219,
+          "accumulated_nav": 1.9219
+        },
+        {
+          "date": "2026-07-03",
+          "nav": 1.9337,
+          "accumulated_nav": 1.9337
+        },
+        {
+          "date": "2026-07-06",
+          "nav": 1.9332,
+          "accumulated_nav": 1.9332
+        },
+        {
+          "date": "2026-07-07",
+          "nav": 1.9148,
+          "accumulated_nav": 1.9148
+        },
+        {
+          "date": "2026-07-08",
+          "nav": 1.9016,
+          "accumulated_nav": 1.9016
+        },
+        {
+          "date": "2026-07-09",
+          "nav": 1.947,
+          "accumulated_nav": 1.947
+        },
+        {
+          "date": "2026-07-10",
+          "nav": 1.9137,
+          "accumulated_nav": 1.9137
+        },
+        {
+          "date": "2026-07-13",
+          "nav": 1.8823,
+          "accumulated_nav": 1.8823
+        },
+        {
+          "date": "2026-07-14",
+          "nav": 1.9202,
+          "accumulated_nav": 1.9202
+        },
+        {
+          "date": "2026-07-15",
+          "nav": 1.9172,
+          "accumulated_nav": 1.9172
+        },
+        {
+          "date": "2026-07-16",
+          "nav": 1.8854,
+          "accumulated_nav": 1.8854
+        },
+        {
+          "date": "2026-07-17",
+          "nav": 1.8239,
+          "accumulated_nav": 1.8239
+        },
+        {
+          "date": "2026-07-20",
+          "nav": 1.849,
+          "accumulated_nav": 1.849
+        },
+        {
+          "date": "2026-07-21",
+          "nav": 1.9024,
+          "accumulated_nav": 1.9024
+        },
+        {
+          "date": "2026-07-22",
+          "nav": 1.8946,
+          "accumulated_nav": 1.8946
+        },
+        {
+          "date": "2026-07-23",
+          "nav": 1.8988,
+          "accumulated_nav": 1.8988
+        },
+        {
+          "date": "2026-07-24",
+          "nav": 1.8692,
+          "accumulated_nav": 1.8692
+        },
+        {
+          "date": "2026-07-27",
+          "nav": 1.8908,
+          "accumulated_nav": 1.8908
+        },
+        {
+          "date": "2026-07-28",
+          "nav": 1.8404,
+          "accumulated_nav": 1.8404
+        },
+        {
+          "date": "2026-07-29",
+          "nav": 1.8526,
+          "accumulated_nav": 1.8526
+        },
+        {
+          "date": "2026-07-30",
+          "nav": 1.8337,
+          "accumulated_nav": 1.8337
+        },
+        {
+          "date": "2026-07-31",
+          "nav": 1.8489,
+          "accumulated_nav": 1.8489
+        },
+        {
+          "date": "2026-08-03",
+          "nav": 1.8319,
+          "accumulated_nav": 1.8319
+        },
+        {
+          "date": "2026-08-04",
+          "nav": 1.8539,
+          "accumulated_nav": 1.8539
+        },
+        {
+          "date": "2026-08-05",
+          "nav": 1.8756,
+          "accumulated_nav": 1.8756
+        },
+        {
+          "date": "2026-08-06",
+          "nav": 1.8731,
+          "accumulated_nav": 1.8731
+        },
+        {
+          "date": "2026-08-07",
+          "nav": 1.8897,
+          "accumulated_nav": 1.8897
+        },
+        {
+          "date": "2026-08-10",
+          "nav": 1.8915,
+          "accumulated_nav": 1.8915
+        },
+        {
+          "date": "2026-08-11",
+          "nav": 1.8776,
+          "accumulated_nav": 1.8776
+        },
+        {
+          "date": "2026-08-12",
+          "nav": 1.8878,
+          "accumulated_nav": 1.8878
+        },
+        {
+          "date": "2026-08-13",
+          "nav": 1.8781,
+          "accumulated_nav": 1.8781
+        },
+        {
+          "date": "2026-08-14",
+          "nav": 1.8787,
+          "accumulated_nav": 1.8787
+        },
+        {
+          "date": "2026-08-17",
+          "nav": 1.9075,
+          "accumulated_nav": 1.9075
+        },
+        {
+          "date": "2026-08-18",
+          "nav": 1.9015,
+          "accumulated_nav": 1.9015
+        },
+        {
+          "date": "2026-08-19",
+          "nav": 1.8499,
+          "accumulated_nav": 1.8499
+        },
+        {
+          "date": "2026-08-20",
+          "nav": 1.8515,
+          "accumulated_nav": 1.8515
+        },
+        {
+          "date": "2026-08-21",
+          "nav": 1.8623,
+          "accumulated_nav": 1.8623
+        },
+        {
+          "date": "2026-08-24",
+          "nav": 1.8409,
+          "accumulated_nav": 1.8409
+        },
+        {
+          "date": "2026-08-25",
+          "nav": 1.8369,
+          "accumulated_nav": 1.8369
+        },
+        {
+          "date": "2026-08-26",
+          "nav": 1.8519,
+          "accumulated_nav": 1.8519
+        },
+        {
+          "date": "2026-08-27",
+          "nav": 1.8676,
+          "accumulated_nav": 1.8676
+        },
+        {
+          "date": "2026-08-28",
+          "nav": 1.8599,
+          "accumulated_nav": 1.8599
+        },
+        {
+          "date": "2026-08-31",
+          "nav": 1.8659,
+          "accumulated_nav": 1.8659
+        },
+        {
+          "date": "2026-09-01",
+          "nav": 1.8609,
+          "accumulated_nav": 1.8609
+        },
+        {
+          "date": "2026-09-02",
+          "nav": 1.8365,
+          "accumulated_nav": 1.8365
+        },
+        {
+          "date": "2026-09-03",
+          "nav": 1.8384,
+          "accumulated_nav": 1.8384
+        },
+        {
+          "date": "2026-09-04",
+          "nav": 1.8368,
+          "accumulated_nav": 1.8368
+        },
+        {
+          "date": "2026-09-07",
+          "nav": 1.8471,
+          "accumulated_nav": 1.8471
+        },
+        {
+          "date": "2026-09-08",
+          "nav": 1.8409,
+          "accumulated_nav": 1.8409
+        },
+        {
+          "date": "2026-09-09",
+          "nav": 1.8463,
+          "accumulated_nav": 1.8463
+        },
+        {
+          "date": "2026-09-10",
+          "nav": 1.8379,
+          "accumulated_nav": 1.8379
+        },
+        {
+          "date": "2026-09-11",
+          "nav": 1.8235,
+          "accumulated_nav": 1.8235
+        },
+        {
+          "date": "2026-09-14",
+          "nav": 1.812,
+          "accumulated_nav": 1.812
+        },
+        {
+          "date": "2026-09-15",
+          "nav": 1.8008,
+          "accumulated_nav": 1.8008
+        },
+        {
+          "date": "2026-09-16",
+          "nav": 1.8128,
+          "accumulated_nav": 1.8128
+        },
+        {
+          "date": "2026-09-17",
+          "nav": 1.8052,
+          "accumulated_nav": 1.8052
+        },
+        {
+          "date": "2026-09-18",
+          "nav": 1.8236,
+          "accumulated_nav": 1.8236
+        },
+        {
+          "date": "2026-09-21",
+          "nav": 1.8361,
+          "accumulated_nav": 1.8361
+        },
+        {
+          "date": "2026-09-22",
+          "nav": 1.8384,
+          "accumulated_nav": 1.8384
+        },
+        {
+          "date": "2026-09-23",
+          "nav": 1.8279,
+          "accumulated_nav": 1.8279
+        },
+        {
+          "date": "2026-09-24",
+          "nav": 1.7985,
+          "accumulated_nav": 1.7985
+        },
+        {
+          "date": "2026-09-28",
+          "nav": 1.7608,
+          "accumulated_nav": 1.7608
+        },
+        {
+          "date": "2026-09-29",
+          "nav": 1.7627,
+          "accumulated_nav": 1.7627
+        },
+        {
+          "date": "2026-09-30",
+          "nav": 1.7678,
+          "accumulated_nav": 1.7678
+        }
+      ],
+      "ref": {
+        "article_id": "fund-nav-007339-63494188f5af2790",
+        "revision": 1,
+        "source": "易方达基金 · 官方净值",
+        "url": "https://api.efunds.com.cn/xcowch/front/fund/nav",
+        "published_at": "",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "data_as_of": "2026-09-30",
+        "fragments": [
+          "官网净值字段，007339；单位净值为nav，累计净值为accumulated_nav，二者不是现金分红再投资收益指数。",
+          "[{\"date\":\"2026-02-25\",\"nav\":1.8779,\"accumulated_nav\":1.8779},{\"date\":\"2026-02-26\",\"nav\":1.8744,\"accumulated_nav\":1.8744},{\"date\":\"2026-02-27\",\"nav\":1.8684,\"accumulated_nav\":1.8684},{\"date\":\"2026-03-02\",\"nav\":1.875,\"accumulated_nav\":1.875},{\"date\":\"2026-03-03\",\"nav\":1.8476,\"accumulated_nav\":1.8476},{\"date\":\"2026-03-04\",\"nav\":1.8274,\"accumulated_nav\":1.8274},{\"date\":\"2026-03-05\",\"nav\":1.8438,\"accumulated_nav\":1.8438},{\"date\":\"2026-03-06\",\"nav\":1.8488,\"accumulated_nav\":1.8488},{\"date\":\"2026-03-09\",\"nav\":1.8318,\"accumulated_nav\":1.8318},{\"date\":\"2026-03-10\",\"nav\":1.8543,\"accumulated_nav\":1.8543},{\"date\":\"2026-03-11\",\"nav\":1.8654,\"accumulated_nav\":1.8654},{\"date\":\"2026-03-12\",\"nav\":1.8589,\"accumulated_nav\":1.8589},{\"date\":\"2026-03-13\",\"nav\":1.8521,\"accumulated_nav\":1.8521},{\"date\":\"2026-03-16\",\"nav\":1.853,\"accumulated_nav\":1.853},{\"date\":\"2026-03-17\",\"nav\":1.8404,\"accumulated_nav\":1.8404},{\"date\":\"2026-03-18\",\"nav\":1.848,\"accumulated_nav\":1.848},{\"date\":\"2026-03-19\",\"nav\":1.8198,\"accumulated_nav\":1.8198},{\"date\":\"2026-03-20\",\"nav\":1.8139,\"accumulated_nav\":1.8139},{\"date\":\"2026-03-23\",\"nav\":1.757,\"accumulated_nav\":1.757},{\"date\":\"2026-03-24\",\"nav\":1.7784,\"accumulated_nav\":1.7784},{\"date\":\"2026-03-25\",\"nav\":1.8023,\"accumulated_nav\":1.8023},{\"date\":\"2026-03-26\",\"nav\":1.7796,\"accumulated_nav\":1.7796},{\"date\":\"2026-03-27\",\"nav\":1.7893,\"accumulated_nav\":1.7893},{\"date\":\"2026-03-30\",\"nav\":1.7851,\"accumulated_nav\":1.7851},{\"date\":\"2026-03-31\",\"nav\":1.7696,\"accumulated_nav\":1.7696},{\"date\":\"2026-04-01\",\"nav\":1.7982,\"accumulated_nav\":1.7982},{\"date\":\"2026-04-02\",\"nav\":1.7802,\"accumulated_nav\":1.7802},{\"date\":\"2026-04-03\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-04-07\",\"nav\":1.766,\"accumulated_nav\":1.766},{\"date\":\"2026-04-08\",\"nav\":1.8246,\"accumulated_nav\":1.8246},{\"date\":\"2026-04-09\",\"nav\":1.8134,\"accumulated_nav\":1.8134},{\"date\":\"2026-04-10\",\"nav\":1.8401,\"accumulated_nav\":1.8401},{\"date\":\"2026-04-13\",\"nav\":1.8436,\"accumulated_nav\":1.8436},{\"date\":\"2026-04-14\",\"nav\":1.8644,\"accumulated_nav\":1.8644},{\"date\":\"2026-04-15\",\"nav\":1.8587,\"accumulated_nav\":1.8587},{\"date\":\"2026-04-16\",\"nav\":1.8782,\"accumulated_nav\":1.8782},{\"date\":\"2026-04-17\",\"nav\":1.8752,\"accumulated_nav\":1.8752},{\"date\":\"2026-04-20\",\"nav\":1.886,\"accumulated_nav\":1.886},{\"date\":\"2026-04-21\",\"nav\":1.8902,\"accumulated_nav\":1.8902},{\"date\":\"2026-04-22\",\"nav\":1.9034,\"accumulated_nav\":1.9034},{\"date\":\"2026-04-23\",\"nav\":1.8983,\"accumulated_nav\":1.8983},{\"date\":\"2026-04-24\",\"nav\":1.8924,\"accumulated_nav\":1.8924},{\"date\":\"2026-04-27\",\"nav\":1.8929,\"accumulated_nav\":1.8929},{\"date\":\"2026-04-28\",\"nav\":1.888,\"accumulated_nav\":1.888},{\"date\":\"2026-04-29\",\"nav\":1.9085,\"accumulated_nav\":1.9085},{\"date\":\"2026-04-30\",\"nav\":1.9075,\"accumulated_nav\":1.9075},{\"date\":\"2026-05-06\",\"nav\":1.9341,\"accumulated_nav\":1.9341},{\"date\":\"2026-05-07\",\"nav\":1.9429,\"accumulated_nav\":1.9429},{\"date\":\"2026-05-08\",\"nav\":1.9322,\"accumulated_nav\":1.9322},{\"date\":\"2026-05-11\",\"nav\":1.9624,\"accumulated_nav\":1.9624},{\"date\":\"2026-05-12\",\"nav\":1.961,\"accumulated_nav\":1.961},{\"date\":\"2026-05-13\",\"nav\":1.9807,\"accumulated_nav\":1.9807},{\"date\":\"2026-05-14\",\"nav\":1.9494,\"accumulated_nav\":1.9494},{\"date\":\"2026-05-15\",\"nav\":1.9285,\"accumulated_nav\":1.9285},{\"date\":\"2026-05-18\",\"nav\":1.9187,\"accumulated_nav\":1.9187},{\"date\":\"2026-05-19\",\"nav\":1.9261,\"accumulated_nav\":1.9261},{\"date\":\"2026-05-20\",\"nav\":1.9256,\"accumulated_nav\":1.9256},{\"date\":\"2026-05-21\",\"nav\":1.9005,\"accumulated_nav\":1.9005},{\"date\":\"2026-05-22\",\"nav\":1.9236,\"accumulated_nav\":1.9236},{\"date\":\"2026-05-25\",\"nav\":1.9523,\"accumulated_nav\":1.9523},{\"date\":\"2026-05-26\",\"nav\":1.9621,\"accumulated_nav\":1.9621},{\"date\":\"2026-05-27\",\"nav\":1.9479,\"accumulated_nav\":1.9479},{\"date\":\"2026-05-28\",\"nav\":1.9504,\"accumulated_nav\":1.9504},{\"date\":\"2026-05-29\",\"nav\":1.9424,\"accumulated_nav\":1.9424},{\"date\":\"2026-06-01\",\"nav\":1.9244,\"accumulated_nav\":1.9244},{\"date\":\"2026-06-02\",\"nav\":1.951,\"accumulated_nav\":1.951},{\"date\":\"2026-06-03\",\"nav\":1.9602,\"accumulated_nav\":1.9602},{\"date\":\"2026-06-04\",\"nav\":1.9476,\"accumulated_nav\":1.9476},{\"date\":\"2026-06-05\",\"nav\":1.9152,\"accumulated_nav\":1.9152},{\"date\":\"2026-06-08\",\"nav\":1.8763,\"accumulated_nav\":1.8763},{\"date\":\"2026-06-09\",\"nav\":1.9095,\"accumulated_nav\":1.9095},{\"date\":\"2026-06-10\",\"nav\":1.8916,\"accumulated_nav\":1.8916},{\"date\":\"2026-06-11\",\"nav\":1.8821,\"accumulated_nav\":1.8821},{\"date\":\"2026-06-12\",\"nav\":1.9028,\"accumulated_nav\":1.9028},{\"date\":\"2026-06-15\",\"nav\":1.946,\"accumulated_nav\":1.946},{\"date\":\"2026-06-16\",\"nav\":1.9434,\"accumulated_nav\":1.9434},{\"date\":\"2026-06-17\",\"nav\":1.961,\"accumulated_nav\":1.961},{\"date\":\"2026-06-18\",\"nav\":1.9657,\"accumulated_nav\":1.9657},{\"date\":\"2026-06-22\",\"nav\":2.0104,\"accumulated_nav\":2.0104},{\"date\":\"2026-06-23\",\"nav\":1.9573,\"accumulated_nav\":1.9573},{\"date\":\"2026-06-24\",\"nav\":1.9665,\"accumulated_nav\":1.9665},{\"date\":\"2026-06-25\",\"nav\":1.9956,\"accumulated_nav\":1.9956},{\"date\":\"2026-06-26\",\"nav\":1.9408,\"accumulated_nav\":1.9408},{\"date\":\"2026-06-29\",\"nav\":1.964,\"accumulated_nav\":1.964},{\"date\":\"2026-06-30\",\"nav\":1.9845,\"accumulated_nav\":1.9845},{\"date\":\"2026-07-01\",\"nav\":1.9766,\"accumulated_nav\":1.9766},{\"date\":\"2026-07-02\",\"nav\":1.9219,\"accumulated_nav\":1.9219},{\"date\":\"2026-07-03\",\"nav\":1.9337,\"accumulated_nav\":1.9337},{\"date\":\"2026-07-06\",\"nav\":1.9332,\"accumulated_nav\":1.9332},{\"date\":\"2026-07-07\",\"nav\":1.9148,\"accumulated_nav\":1.9148},{\"date\":\"2026-07-08\",\"nav\":1.9016,\"accumulated_nav\":1.9016},{\"date\":\"2026-07-09\",\"nav\":1.947,\"accumulated_nav\":1.947},{\"date\":\"2026-07-10\",\"nav\":1.9137,\"accumulated_nav\":1.9137},{\"date\":\"2026-07-13\",\"nav\":1.8823,\"accumulated_nav\":1.8823},{\"date\":\"2026-07-14\",\"nav\":1.9202,\"accumulated_nav\":1.9202},{\"date\":\"2026-07-15\",\"nav\":1.9172,\"accumulated_nav\":1.9172},{\"date\":\"2026-07-16\",\"nav\":1.8854,\"accumulated_nav\":1.8854},{\"date\":\"2026-07-17\",\"nav\":1.8239,\"accumulated_nav\":1.8239},{\"date\":\"2026-07-20\",\"nav\":1.849,\"accumulated_nav\":1.849},{\"date\":\"2026-07-21\",\"nav\":1.9024,\"accumulated_nav\":1.9024},{\"date\":\"2026-07-22\",\"nav\":1.8946,\"accumulated_nav\":1.8946},{\"date\":\"2026-07-23\",\"nav\":1.8988,\"accumulated_nav\":1.8988},{\"date\":\"2026-07-24\",\"nav\":1.8692,\"accumulated_nav\":1.8692},{\"date\":\"2026-07-27\",\"nav\":1.8908,\"accumulated_nav\":1.8908},{\"date\":\"2026-07-28\",\"nav\":1.8404,\"accumulated_nav\":1.8404},{\"date\":\"2026-07-29\",\"nav\":1.8526,\"accumulated_nav\":1.8526},{\"date\":\"2026-07-30\",\"nav\":1.8337,\"accumulated_nav\":1.8337},{\"date\":\"2026-07-31\",\"nav\":1.8489,\"accumulated_nav\":1.8489},{\"date\":\"2026-08-03\",\"nav\":1.8319,\"accumulated_nav\":1.8319},{\"date\":\"2026-08-04\",\"nav\":1.8539,\"accumulated_nav\":1.8539},{\"date\":\"2026-08-05\",\"nav\":1.8756,\"accumulated_nav\":1.8756},{\"date\":\"2026-08-06\",\"nav\":1.8731,\"accumulated_nav\":1.8731},{\"date\":\"2026-08-07\",\"nav\":1.8897,\"accumulated_nav\":1.8897},{\"date\":\"2026-08-10\",\"nav\":1.8915,\"accumulated_nav\":1.8915},{\"date\":\"2026-08-11\",\"nav\":1.8776,\"accumulated_nav\":1.8776},{\"date\":\"2026-08-12\",\"nav\":1.8878,\"accumulated_nav\":1.8878},{\"date\":\"2026-08-13\",\"nav\":1.8781,\"accumulated_nav\":1.8781},{\"date\":\"2026-08-14\",\"nav\":1.8787,\"accumulated_nav\":1.8787},{\"date\":\"2026-08-17\",\"nav\":1.9075,\"accumulated_nav\":1.9075},{\"date\":\"2026-08-18\",\"nav\":1.9015,\"accumulated_nav\":1.9015},{\"date\":\"2026-08-19\",\"nav\":1.8499,\"accumulated_nav\":1.8499},{\"date\":\"2026-08-20\",\"nav\":1.8515,\"accumulated_nav\":1.8515},{\"date\":\"2026-08-21\",\"nav\":1.8623,\"accumulated_nav\":1.8623},{\"date\":\"2026-08-24\",\"nav\":1.8409,\"accumulated_nav\":1.8409},{\"date\":\"2026-08-25\",\"nav\":1.8369,\"accumulated_nav\":1.8369},{\"date\":\"2026-08-26\",\"nav\":1.8519,\"accumulated_nav\":1.8519},{\"date\":\"2026-08-27\",\"nav\":1.8676,\"accumulated_nav\":1.8676},{\"date\":\"2026-08-28\",\"nav\":1.8599,\"accumulated_nav\":1.8599},{\"date\":\"2026-08-31\",\"nav\":1.8659,\"accumulated_nav\":1.8659},{\"date\":\"2026-09-01\",\"nav\":1.8609,\"accumulated_nav\":1.8609},{\"date\":\"2026-09-02\",\"nav\":1.8365,\"accumulated_nav\":1.8365},{\"date\":\"2026-09-03\",\"nav\":1.8384,\"accumulated_nav\":1.8384},{\"date\":\"2026-09-04\",\"nav\":1.8368,\"accumulated_nav\":1.8368},{\"date\":\"2026-09-07\",\"nav\":1.8471,\"accumulated_nav\":1.8471},{\"date\":\"2026-09-08\",\"nav\":1.8409,\"accumulated_nav\":1.8409},{\"date\":\"2026-09-09\",\"nav\":1.8463,\"accumulated_nav\":1.8463},{\"date\":\"2026-09-10\",\"nav\":1.8379,\"accumulated_nav\":1.8379},{\"date\":\"2026-09-11\",\"nav\":1.8235,\"accumulated_nav\":1.8235},{\"date\":\"2026-09-14\",\"nav\":1.812,\"accumulated_nav\":1.812},{\"date\":\"2026-09-15\",\"nav\":1.8008,\"accumulated_nav\":1.8008},{\"date\":\"2026-09-16\",\"nav\":1.8128,\"accumulated_nav\":1.8128},{\"date\":\"2026-09-17\",\"nav\":1.8052,\"accumulated_nav\":1.8052},{\"date\":\"2026-09-18\",\"nav\":1.8236,\"accumulated_nav\":1.8236},{\"date\":\"2026-09-21\",\"nav\":1.8361,\"accumulated_nav\":1.8361},{\"date\":\"2026-09-22\",\"nav\":1.8384,\"accumulated_nav\":1.8384},{\"date\":\"2026-09-23\",\"nav\":1.8279,\"accumulated_nav\":1.8279},{\"date\":\"2026-09-24\",\"nav\":1.7985,\"accumulated_nav\":1.7985},{\"date\":\"2026-09-28\",\"nav\":1.7608,\"accumulated_nav\":1.7608},{\"date\":\"2026-09-29\",\"nav\":1.7627,\"accumulated_nav\":1.7627},{\"date\":\"2026-09-30\",\"nav\":1.7678,\"accumulated_nav\":1.7678}]",
+          "净值历史查询原址：https://api.efunds.com.cn/xcowch/front/fund/nav；历史响应截至2026-09-30。产品页原址：https://www.efunds.com.cn/fund/007339.shtml；页面净值截至2026-09-30。重合日期净值一致后合并，仅收录原文已有日期。"
+        ],
+        "display_fragments": [
+          "这些是已核实的官方净值记录；单位净值变化不等于含分红再投资收益。",
+          "2026-09-28：单位净值1.7608，累计净值1.7608。",
+          "2026-09-29：单位净值1.7627，累计净值1.7627。",
+          "2026-09-30：单位净值1.7678，累计净值1.7678。"
+        ]
+      }
+    }
+  ],
+  "documents": [
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2026年第2季度报告",
+      "url": "https://www.chinaamc.com/c/2026-07-21/994795.shtml",
+      "published_at": "2026-07-21",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-a8d2051592823bfa",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2026-07-21",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2026年第2季度报告；原网页链接：https://www.chinaamc.com/c/2026-07-21/994795.shtml；目录公布日期：2026-07-21。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2026年第1季度报告",
+      "url": "https://www.chinaamc.com/c/2026-04-22/934123.shtml",
+      "published_at": "2026-04-22",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-aebdf72a48599773",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2026-04-22",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2026年第1季度报告；原网页链接：https://www.chinaamc.com/c/2026-04-22/934123.shtml；目录公布日期：2026-04-22。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年年度报告",
+      "url": "https://www.chinaamc.com/c/2026-03-31/929986.shtml",
+      "published_at": "2026-03-31",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-9430b48fe08f0ec7",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2026-03-31",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年年度报告；原网页链接：https://www.chinaamc.com/c/2026-03-31/929986.shtml；目录公布日期：2026-03-31。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第4季度报告",
+      "url": "https://www.chinaamc.com/c/2026-01-22/922418.shtml",
+      "published_at": "2026-01-22",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-3c1ed18f84ec758c",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2026-01-22",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第4季度报告；原网页链接：https://www.chinaamc.com/c/2026-01-22/922418.shtml；目录公布日期：2026-01-22。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第3季度报告",
+      "url": "https://www.chinaamc.com/c/2025-10-28/10000467371.shtml",
+      "published_at": "2025-10-28",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-a724b9b0f39c5ca9",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-10-28",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第3季度报告；原网页链接：https://www.chinaamc.com/c/2025-10-28/10000467371.shtml；目录公布日期：2025-10-28。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年中期报告",
+      "url": "https://www.chinaamc.com/c/2025-08-30/10000462932.shtml",
+      "published_at": "2025-08-30",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-c23c54ace8de0565",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-08-30",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年中期报告；原网页链接：https://www.chinaamc.com/c/2025-08-30/10000462932.shtml；目录公布日期：2025-08-30。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第2季度报告",
+      "url": "https://www.chinaamc.com/c/2025-07-21/10000458228.shtml",
+      "published_at": "2025-07-21",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-d1186082cd862534",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-07-21",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第2季度报告；原网页链接：https://www.chinaamc.com/c/2025-07-21/10000458228.shtml；目录公布日期：2025-07-21。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "000051_005658_华夏沪深300交易型开放式指数证券投资基金联接基金（华夏沪深300ETF联接C）基金产品资料概要更新(2025-05-30)",
+      "url": "https://www.chinaamc.com/c/2025-05-30/10000451984.shtml",
+      "published_at": "2025-05-30",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-99f61500e5cf044e",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-05-30",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "000051_005658_华夏沪深300交易型开放式指数证券投资基金联接基金（华夏沪深300ETF联接C）基金产品资料概要更新(2025-05-30)；原网页链接：https://www.chinaamc.com/c/2025-05-30/10000451984.shtml；目录公布日期：2025-05-30。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第1季度报告",
+      "url": "https://www.chinaamc.com/c/2025-04-22/10000446513.shtml",
+      "published_at": "2025-04-22",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-81e9c2df75619f76",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-04-22",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2025年第1季度报告；原网页链接：https://www.chinaamc.com/c/2025-04-22/10000446513.shtml；目录公布日期：2025-04-22。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2024年年度报告",
+      "url": "https://www.chinaamc.com/c/2025-03-31/10000442558.shtml",
+      "published_at": "2025-03-31",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-005658-cb2788001a9aa5e3",
+        "revision": 1,
+        "source": "华夏基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.chinaamc.com/product/publishGgList.do?fundcode=005658",
+        "published_at": "2025-03-31",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "华夏沪深300交易型开放式指数证券投资基金联接基金2024年年度报告；原网页链接：https://www.chinaamc.com/c/2025-03-31/10000442558.shtml；目录公布日期：2025-03-31。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "007339",
+      "title": "网上交易优惠费率",
+      "url": "https://www.efunds.com.cn/c/659/659629.shtml",
+      "published_at": "",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-007339-7ae1c0f7012b470b",
+        "revision": 1,
+        "source": "易方达基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.efunds.com.cn/fund/007339.shtml",
+        "published_at": "",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "网上交易优惠费率；原网页链接：https://www.efunds.com.cn/c/659/659629.shtml。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "007339",
+      "title": "易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年第2季度报告",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260721/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E7%AC%AC2%E5%AD%A3%E5%BA%A6%E6%8A%A5%E5%91%8A.pdf",
+      "published_at": "2026-07-21",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-007339-ee42d6b2137ca79a",
+        "revision": 1,
+        "source": "易方达基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.efunds.com.cn/fund/007339.shtml",
+        "published_at": "2026-07-21",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年第2季度报告；原网页链接：https://cdn.efunds.com.cn/owch/data/bulletin/20260721/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E7%AC%AC2%E5%AD%A3%E5%BA%A6%E6%8A%A5%E5%91%8A.pdf；目录公布日期：2026-07-21。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "007339",
+      "title": "易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接C）基金产品资料概要更新",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260519/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B0.pdf",
+      "published_at": "2026-05-19",
+      "status": "discovered",
+      "ref": {
+        "article_id": "fund-document-007339-038d79be42d472e9",
+        "revision": 1,
+        "source": "易方达基金 · 官方披露目录（尚未读取正文）",
+        "url": "https://www.efunds.com.cn/fund/007339.shtml",
+        "published_at": "2026-05-19",
+        "checked_at": "2026-10-05T15:26:26.472Z",
+        "fragments": [
+          "易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接C）基金产品资料概要更新；原网页链接：https://cdn.efunds.com.cn/owch/data/bulletin/20260519/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B0.pdf；目录公布日期：2026-05-19。此证据仅证明官网列出该文件，不证明报告中的指标。"
+        ]
+      }
+    },
+    {
+      "code": "007339",
+      "title": "易方达沪深300交易型开放式指数发起式证券投资基金联接基金2026年中期报告",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E4%B8%AD%E6%9C%9F%E6%8A%A5%E5%91%8A.pdf",
+      "published_at": "2026-08-31",
+      "status": "read",
+      "ref": {
+        "article_id": "fund-body-007339-b7a2cf27ed9361af",
+        "revision": 1,
+        "source": "易方达基金 · 中期报告正文",
+        "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E4%B8%AD%E6%9C%9F%E6%8A%A5%E5%91%8A.pdf",
+        "published_at": "2026-08-31",
+        "checked_at": "2026-10-05T16:18:03.717785+00:00",
+        "fragments": [
+          "PDF第5页：§ 2 基金简介 2.1 基金基本情况 基金名称 易方达沪深 300 交易型开放式指数发起式证券投资基金 联接基金 基金简称 易方达沪深 300ETF 联接 基金主代码 110020 基金运作方式 契约型开放式 基金合同生效日 2009 年 8 月 26 日 基金管理人 易方达基金管理有限公司 基金托管人 中国建设银行股份有限公司 报告期末基金份额总额 11,083,755,912.69 份 基金合同存续期 不定期 易方达沪深 易方达沪深 易方达沪深 下属分级基金的基金简称 300ETF 联接 A 300ETF 联接 C 300ETF 联接 Y 下属分级基金的交易代码 110020 007339 022928 7,017,164,631.32 3,936,274,019.72 130,317,261.65 报告期末下属分级基金的份额总额 份 份 份 注： 1. 自 2019 年 4 月 25 日起 , 本基金增设 C 类份额类别， 份额首次确认日为 2019 年 4 月 26 日。 2. 自 2024 年 12 月 13 日起， 本基金",
+          "PDF第5、6页：业绩比较基准：沪深300指数收益率×95%+活期存款利率(税后)×5%",
+          "PDF第2页：本报告期自2026年1月1日起至6月30日止",
+          "PDF第8页：C类份额，过去六个月：份额净值增长率8.17%；份额净值增长率标准差1.07%；业绩比较基准收益率7.20%。原表片段：易方达沪深300ETF联接C份额净值增业绩比较基份额净值增业绩比较基阶段长率标准差准收益率标①－③②－④长率①准收益率③②准差④过去三个月12.14%1.19%11.30%1.19%0.84%0.00%过去六个月8.17%1.07%7.20；过去六个月8.17%1.07%7.20%",
+          "PDF第13、14页：4.4.2报告期内基金的业绩表现截至报告期末，本基金A类基金份额净值为2.0132元，本报告期份额净值增长率为8.28%，同期业绩比较基准收益率为7.20%；C类基金份额净值为1.9845元，本报告期份额净值增长率为8.17%，同期业绩比较基准收益率为7.20%；Y类基金份额净值为2.0132元，本报告期份额净值增长率为8.28%，同期业绩比较基准收益率为7.20%。年化跟踪误差0.37%，在合同约定的目标控制范围之内。"
+        ],
+        "data_as_of": "2026-06-30"
+      },
+      "body": {
+        "kind": "interim",
+        "read_scope": "full_text",
+        "pdf_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260831/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%912026%E5%B9%B4%E4%B8%AD%E6%9C%9F%E6%8A%A5%E5%91%8A.pdf",
+        "pdf_sha256": "b7a2cf27ed9361afd7c1496fa08e8520ef07eb43760e50bb8df51094b5e83d4b",
+        "text_sha256": "eaa49ea7523fda72e7604df9ae41a555376ff244729bc66b883ebb2fdcf0783f",
+        "page_count": 67,
+        "fragment_pages": [
+          [
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            2
+          ],
+          [
+            8
+          ],
+          [
+            13,
+            14
+          ]
+        ],
+        "share_class": "C",
+        "facts": {
+          "benchmark": {
+            "value": "沪深300指数收益率×95%+活期存款利率(税后)×5%",
+            "fragment_index": 1
+          },
+          "period_return_pct": {
+            "value": 8.17,
+            "fragment_index": 3
+          },
+          "benchmark_return_pct": {
+            "value": 7.2,
+            "fragment_index": 3
+          },
+          "annual_tracking_error_pct": {
+            "value": 0.37,
+            "scope": "fund",
+            "fragment_index": 4
+          }
+        },
+        "period": {
+          "start": "2026-01-01",
+          "end": "2026-06-30"
+        }
+      }
+    },
+    {
+      "code": "007339",
+      "title": "易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接C）基金产品资料概要更新",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+      "published_at": "2026-08-11",
+      "status": "read",
+      "ref": {
+        "article_id": "fund-body-007339-1ccc14207f667122",
+        "revision": 1,
+        "source": "易方达基金 · C类产品资料概要正文",
+        "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+        "published_at": "2026-08-11",
+        "checked_at": "2026-10-05T16:18:03.718129+00:00",
+        "fragments": [
+          "PDF第1页：易方达沪深 300 交易型开放式指数发起式证券投资基 金联接基金（易方达沪深 300ETF 联接 C ）基金产品资 料概要更新 编制日期： 2026 年 8 月 10 日 送出日期： 2026 年 8 月 11 日 本概要提供本基金的重要信息，是招募说明书的一部分。 作出投资决定前，请阅读完整的招募说明书等销售文件。 一、 产品概况 易方达沪深 300ETF 联 基金简称 基金代码 110020 接 易方达沪深 300ETF 联 下属基金简称 下属基金代码 007339 接 C 易方达基金管理有限公 中国建设银行股份有限 基金管理人 基金托管人 司 公司 基金合同生效日 2009 - 08 - 26 基金类型 基金中基金 交易币种 人民币 运作方式 普通开放式 开放频率 每个开放日 开始担任本基金 2016 - 04 - 16 基金经理的日期 余海燕 证券从业日期 2005 - 06 - 01 基金经理 开始担",
+          "PDF第1、2页：业绩比较基准：沪深300指数收益率×95%+活期存款利率(税后)×5%",
+          "PDF第3页：图 注： 本基金份额增设当年期间的相关数据按实际存续期计算。 基金的过往业绩不代表未来表 现。 三、 投资本基金涉及的费用 （一） 基金销售相关费用 以下费用在认购 / 申购 / 赎回基金过程中收取： 份额（ S ）或金额（ M ） 收费方式 费用类型 备注 / 持有期限（ N ） / 费率 0 天 < N ≤ 6 天 1.50% 赎回费 N ≥ 7 天 0.00% 注：本基金 C 类基金份额在投资者申购时不收取申购费用，在持有期间收取销售服务费。 （二） 基金运作相关费用 以下 费用将从基金资产中扣除： 费用类别 收费方式 / 年费率或金额 收取 方 管理费 年费率 0.15% 基金管理人、销售机构 托管费 年费率 0.05% 基金托管人 销售服务费 年费率 0.20% 销售机构 审计费用 年费用金额 30,000.00 元 会计师事务所 信息披露费 年费用金额 120,000.00 元 规定披露报刊 详见招募说明书的基金费用与税收 其他费用 章节。 注： 1. 由于本基金管理人和基金托管人同时为目标 ETF 的基金管理人与基金托管人，为避免 重复收费，本基金管理人、基金托管人不对基金财产中投资于目标 ETF 的部分计提管理费、 托管费。 2. 上表中年费用金额为基金整体承担费用，非单个份额类别费用，且年费用金额为预估值， 最终实际金额以基金定期报告披露为准。 3. 本基金交易证券、基金等产生的费用和税负，按实际发生额从基金资产扣除。 （三） 基金运作综合费用测算 若投资者认购 / 申购本基金份额，在持有期间，投资者需支 出的运作费率如下表： 基金运作综合费率（年化）",
+          "PDF第4页：0.40% 注： 基金运作综合费率 = 固定管理费率 + 托管费率 + 销售服务费率 + 其他运作费用合计占基金 每日平均资产净值的比例（年化）。基金管理费率、托管费率、销售服务费率为基金现行费 率，其他运作费用以最近一次基金年报披露的相关数据为基准测算。 四、 风险揭示与重要提示 （一）风险揭示 本基金不提供任何保证。投资者可能损失投资本金。 投资有风险，投资者购买基金时应认真阅读本基金的《招募说明书》等销售文件。 投资本基金可能遇到的风险包括：证券市场整体环境引发的系统性风险、流动性风险、 本基金法律文件中涉及基金风险特征的表述与销售机构对基金的风险评级可能不一致的风 险、基金管理人在基金管理实施过程中产生的基金管理风险、本基金的特有风险等等。本基 金的投资范围包括存托凭证，可能给本基金带来额外风险。本基金为指数基金，投资者投资 于本基金面临跟踪误差控制未达约定目标、 指数编制机构停止服务、 成份股停牌等潜在风险。 （二）重要提示 中国证监会对本基金募集的核准， 并不表明其对本基金的价值和收益作出实质性判断或 保证，也不表明投资于本 基金没有风险。基金管理人依照恪尽职守、诚实信用、谨慎勤勉的 原则管理和运用基金财产，但不保证基金一定盈利，也不保证最低收益。基金投资者自依基 金合同取得基金份额，即成为基金份额持有人和基金合同的当事人。 各方当事人因《基金合 同》而产生的或与《基金合同》有关的一切争议应尽量通过协商、调解途径解决，如经友好 协商未能解决的最终将通过仲裁方式处理，详见《基金合同》 。 基金产品资料概要信息发生重大变更的， 基金管理人将在三个工作日内更新， 其他信息 发生变更的，基金管理人每年更新一次。因此，本文件内容相比基金的实际情况可能存在一 定的滞后，如需及时、准确获取基金的相关信息，敬请同时关注基金管理人发布的相关临时 公告等。 五、 其他资料查询方式 以下资料详见基金管理人网站 [www.efunds.com.cn][ 客服电话 :4008818088] 1 、基金合同、托管协议、招募说明书 2 、定期报告，包括基金季度报告、中期报告和年度报告 3 、基金份额净值 4 、基金销售机构及联系方式 5 、其他重要资料"
+        ],
+        "data_as_of": "2026-08-11"
+      },
+      "body": {
+        "kind": "summary",
+        "read_scope": "full_text",
+        "pdf_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300%E4%BA%A4%E6%98%93%E5%9E%8B%E5%BC%80%E6%94%BE%E5%BC%8F%E6%8C%87%E6%95%B0%E5%8F%91%E8%B5%B7%E5%BC%8F%E8%AF%81%E5%88%B8%E6%8A%95%E8%B5%84%E5%9F%BA%E9%87%91%E8%81%94%E6%8E%A5%E5%9F%BA%E9%87%91%EF%BC%88%E6%98%93%E6%96%B9%E8%BE%BE%E6%B2%AA%E6%B7%B1300ETF%E8%81%94%E6%8E%A5C%EF%BC%89%E5%9F%BA%E9%87%91%E4%BA%A7%E5%93%81%E8%B5%84%E6%96%99%E6%A6%82%E8%A6%81%E6%9B%B4%E6%96%B020260810205302.pdf",
+        "pdf_sha256": "1ccc14207f66712239f3cf0d59cd544897362f46507dbfa1d927a98f5bdc5694",
+        "text_sha256": "712948908ca878e5b0d135747fd78ea7727fab1d78918072b09e6b7425856ee6",
+        "page_count": 4,
+        "fragment_pages": [
+          [
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "share_class": "C",
+        "facts": {
+          "benchmark": {
+            "value": "沪深300指数收益率×95%+活期存款利率(税后)×5%",
+            "fragment_index": 1
+          },
+          "management_pct": {
+            "value": 0.15,
+            "fragment_index": 2
+          },
+          "custody_pct": {
+            "value": 0.05,
+            "fragment_index": 2
+          },
+          "service_pct": {
+            "value": 0.2,
+            "fragment_index": 2
+          },
+          "redemption_terms": {
+            "value": "0天<N≤6天1.50%赎回费N≥7天0.00%",
+            "fragment_index": 2
+          },
+          "fee_exclusion": {
+            "value": "管理费和托管费计提排除投资于目标ETF的部分。",
+            "fragment_index": 2
+          },
+          "published_operating_rate_pct": {
+            "value": 0.4,
+            "fragment_index": 3
+          }
+        }
+      }
+    },
+    {
+      "code": "005658",
+      "title": "华夏沪深300交易型开放式指数证券投资基金联接基金2026年中期报告",
+      "url": "https://www.chinaamc.com/c/2026-08-31/1001410.shtml",
+      "published_at": "2026-08-31",
+      "status": "read",
+      "ref": {
+        "article_id": "fund-body-005658-9eb012bc19c94249",
+        "revision": 1,
+        "source": "华夏基金 · 中期报告正文",
+        "url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+        "published_at": "2026-08-31",
+        "checked_at": "2026-10-05T17:29:12.962161+00:00",
+        "fragments": [
+          "PDF第5页：§2 基金简介 2.1 基金基本情况 基金名称 华夏沪深 300 交易型开放式指数证券投资基金联接基金 基金简称 华夏沪深 300ETF 联接 基金主代码 000051 交易代码 000051 基金运作方式 契约型开放式 基金合同生效日 2009 年 7 月 10 日 基金管理人 华夏基金管理有限公司 基金托管人 中国工商银行股份有限公司 报告期末基金份额总额 7,936,274,365.43 份 基金合同存续期 不定期 华夏沪深 300ETF 华夏沪深 300ETF 华夏沪深 300ETF 下属分级基金的基金简称 联接 A 联接 C 联接 Y 下属分级基金的交易代码 000051 005658 022983 1,181,216,909.70 报告期末下属分级基金的份额总额 6,699,124,678.14 份 55,932,777.59 份 份 2.1.1 目标基金基本情况 基金名称 华夏沪深 300 交易型开放式指数证券投资基金 基金主代码 510330 基金运作方式 交易型开放式 基金合同生效日 2012 年 12 月 25 日",
+          "PDF第5、6页：业绩比较基准：沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+          "PDF第2页：本报告期自2026年1月1日起至6月30日止",
+          "PDF第8页：C类份额，过去六个月：份额净值增长率7.91%；份额净值增长率标准差1.07%；业绩比较基准收益率7.73%。原表片段：华夏沪深300ETF联接C：份额净值增业绩比较基份额净值增业绩比较基阶段长率标准差准收益率标①－③②－④长率①准收益率③②准差④过去三个月12.01%1.19%11.57%1.19%0.44%0.00%过去六个月7.91%1.07%7.73；过去六个月7.91%1.07%7.73%",
+          "PDF第17、18页：4.4.2报告期内基金的业绩表现截至2026年6月30日，华夏沪深300ETF联接A份额净值为1.8807元，本报告期份额净值增长率为8.07%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.34%；华夏沪深300ETF联接C份额净值为1.8328元，本报告期份额净值增长率为7.91%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.18%；华夏沪深300ETF联接Y份额净值为1.8807元，本报告期份额净值增长率为8.07%，同期业绩比较基准增长率7.73%，本报告期跟踪偏离度为+0.34%。与业绩比较基准产生偏离的主要原因为日常运作费用、指数结构调整、申购赎回、成份股分红等产生的差异。"
+        ],
+        "data_as_of": "2026-06-30"
+      },
+      "body": {
+        "kind": "interim",
+        "read_scope": "full_text",
+        "pdf_url": "https://www.chinaamc.com/upload/resources/file/2026/08/31/5bb637d64a3a45d99e4684ea96aaf2a8.pdf",
+        "pdf_sha256": "9eb012bc19c94249e456f6c88925a6ad429a93c82252561d887061e299b3827b",
+        "text_sha256": "332e3eb93baeb27e4b4e222b0701d49de271fff3310ce12acdb20fe743347796",
+        "page_count": 67,
+        "fragment_pages": [
+          [
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            2
+          ],
+          [
+            8
+          ],
+          [
+            17,
+            18
+          ]
+        ],
+        "share_class": "C",
+        "facts": {
+          "benchmark": {
+            "value": "沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+            "fragment_index": 1
+          },
+          "period_return_pct": {
+            "value": 7.91,
+            "fragment_index": 3
+          },
+          "benchmark_return_pct": {
+            "value": 7.73,
+            "fragment_index": 3
+          }
+        },
+        "period": {
+          "start": "2026-01-01",
+          "end": "2026-06-30"
+        }
+      }
+    },
+    {
+      "code": "005658",
+      "title": "000051_005658_华夏沪深300交易型开放式指数证券投资基金联接基金(华夏沪深300ETF联接C)基金产品资料概要更新(2026-05-29)",
+      "url": "https://www.chinaamc.com/c/2026-05-29/939990.shtml",
+      "published_at": "2026-05-29",
+      "status": "read",
+      "ref": {
+        "article_id": "fund-body-005658-13332caa7896603c",
+        "revision": 1,
+        "source": "华夏基金 · C类产品资料概要正文",
+        "url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+        "published_at": "2026-05-29",
+        "checked_at": "2026-10-05T16:18:03.718259+00:00",
+        "fragments": [
+          "PDF第1页：华夏沪深 300 交易型开放式指数证券投资基金联接基金（华夏沪深 300ETF 联接 C ）基金产品资料概要更新 编制日期： 2026 年 5 月 28 日 送出日期： 2026 年 5 月 29 日 本概要提供本基金的重要信息，是招募说明书的一部分。 作出投资决定前，请阅读完整的招募说明书等销售文件。 一、产品概况 基金简称 华夏沪深 300ETF 联接 基金代码 000051 下属基金简称 华夏沪深 300ETF 联接 C 下属基金代码 005658 中 国 工 商 银 行 股 份 有 限 基金管理人 华夏基金管理有限公司 基金托管人 公司 基金合同生效日 2009-07-10 基金类型 基金中基金 交易币种 人民币 运作方式 普通开放式 开放频率 每个开放日 开始担任本基金 2017-04-17 基金经理的日期 基金经理 赵宗庭 证券从业日期 2008-06-27 注：本基金自 2018",
+          "PDF第1、2页：业绩比较基准：沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+          "PDF第3页：注：①本基金自 2018 年 2 月 2 日起增加 C 类基金份额类别。 ②基金的过往业绩不代表未来表现。 三、投资本基金涉及的费用 ( 一 ) 基金销售相关费用 以下费用在认购 / 申购 / 赎回基金过程中收取： 份额（ S ）或金额（ M ） 费用类型 收费方式 / 费率 备注 / 持有期限（ N ） N < 7 天 1.50% - 赎回费 N >= 7 天 0.00% - 注：投资者选择申购 C 类基金份额的，申购费用为 0 ，从基金资产中计提销售服务费。 ( 二 ) 基金运作相关费用 以下费用将从基金资产中扣除： 费用类别 收费方式 / 年费率或金额 收费方 按前一日基金资产净值扣除基金资产 管理费 中目标 ETF 份额所对应资产净值后剩 基金管理人、销售机构 余部分的年费率计提。 0.15% 按前一日基金资产净值扣除基金资产 托管费 中目标 ETF 份额所对应资产净值后剩 基金托管人 余部分的年费率计提。 0.05% 销售服务费 固定费率 0.30% 销售机构 审计费用 年费用金额（元） 75,000.00 会计师事务所 信息披露费 年费用金额（元） 120,000.00 规定披露报刊 基金合同生效后与本基金相关的律师 费、基金份额持有人大会费用等可以 其他费用 相关服务机构 在基金财产中列支的其他费用按照国 家有关规定和《基金合同》约定在基",
+          "PDF第4页：金财产中列支。费用类别详见本基金 基金合同及招募说明书或其更新。 注：①本基金交易证券、基金等产生的费用和税负，按实际发生额从基金资产扣除。 ②管理费、托管费为最新合同费率。 ③审计费用、信息披露费用为由基金整体承担的年费用金额，非单个份额类别费用。上 表年费用金额为产品资料概要更新编制日所在年度的当年度初始预估年费用金额，非实 际产生费用金额，实际由基金资产承担的审计费和信息披露费可能与预估值存在差异， 最终实际金额以基金定期报告披露为准。 ④销售服务费为最新合同费率，不含费率优惠。 ( 三 ) 基金运作综合费用测算 若投资者认购 / 申购本基金份额，在持有期间，投资者需支出的运作费率如下表： 基金运作综合费率（年化） 0.50% 注：①基金运作综合费率 = 固定管理费率 + 托管费率 + 销售服务费率（若有） + 其他运作费 用合计占基金每日平均资产净值的比例（年化），以百分比形式列示，保留到小数点后 2 位。基金运作综合费用包含由基金资产承担的费用，如管理费、托管费、销售服务费（若 有）、审计费用、信息披露费、银行间账户维护费、银行汇划费等费用，不包括基金交 易产生的证券交易费用、税金及附加、信用减值损失（若有）等。审计费用、信息披露 费、银行间账户维护费、银行汇划费等其他运作费用，根据最近一次基金年报披露的其 他费用金额，除以基金每日平均资产净值计算年费率。基金每日平均资产净值 = 基金每日 资产净值合计 / 当年天数（保留两位小数，按当年自然天数计算，当年成立的基金，按当 年实际运作天数计算）。 ②基金管理费率、托管费率、销售服务费率（若有）为基金现行费率，其他运作费用以 最近一次基金年报披露的相关数据为基准测算。 ③其他运作费用合计占基金每日平均资产净值的比例（年化）系根据历史数据测算，计 算结果受基金日均规模影响，实际年化费率与测算数据可能存在差异，敬请投资者留意。 四、风险揭示与重要提示 ( 一 ) 风险揭示 本基金不提供任何保证。投资者可能损失投资本金。 投资有风险，投资者购买基金时应认真阅读本基金的《招募说明书》等销售文件。 本基金投资于证券市场，基金净值会因为证券市场波动等因素产生波动，投资者根据所"
+        ],
+        "data_as_of": "2026-05-29"
+      },
+      "body": {
+        "kind": "summary",
+        "read_scope": "full_text",
+        "pdf_url": "https://www.chinaamc.com/upload/resources/file/2026/05/29/cf23b2cbebf8451980704856553c4147.pdf",
+        "pdf_sha256": "13332caa7896603c4309117366560d7b7e28ce9775c5a0174c75b8339a8cdc71",
+        "text_sha256": "b12146229e2ab8c0a0634d86cff7fc60e8581e81af8ab937aeeed660770dfa8a",
+        "page_count": 6,
+        "fragment_pages": [
+          [
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "share_class": "C",
+        "facts": {
+          "benchmark": {
+            "value": "沪深300指数收益率×95%+1%（指年收益率，评价时应按期间折算）",
+            "fragment_index": 1
+          },
+          "management_pct": {
+            "value": 0.15,
+            "fragment_index": 2
+          },
+          "custody_pct": {
+            "value": 0.05,
+            "fragment_index": 2
+          },
+          "service_pct": {
+            "value": 0.3,
+            "fragment_index": 2
+          },
+          "redemption_terms": {
+            "value": "N<7天1.50%-赎回费N>=7天0.00%",
+            "fragment_index": 2
+          },
+          "fee_exclusion": {
+            "value": "管理费和托管费计提排除投资于目标ETF的部分。",
+            "fragment_index": 2
+          },
+          "published_operating_rate_pct": {
+            "value": 0.5,
+            "fragment_index": 3
+          }
+        }
+      }
+    }
+  ],
+  "other_directions": [
+    {
+      "direction_key": "csi500",
+      "index_code": "000905",
+      "index_name": "中证500",
+      "as_of": "2026-09-30",
+      "checked_at": "2026-10-05T16:20:05.436892+00:00",
+      "close": 7435.16,
+      "pe_ttm": 25.09,
+      "pb": 2.17,
+      "dividend_yield_pct": 1.4,
+      "daily": [
+        {
+          "date": "2026-09-02",
+          "close": 7729.23
+        },
+        {
+          "date": "2026-09-03",
+          "close": 7755.36
+        },
+        {
+          "date": "2026-09-04",
+          "close": 7652.69
+        },
+        {
+          "date": "2026-09-07",
+          "close": 7759.37
+        },
+        {
+          "date": "2026-09-08",
+          "close": 7770.73
+        },
+        {
+          "date": "2026-09-09",
+          "close": 7768.11
+        },
+        {
+          "date": "2026-09-10",
+          "close": 7717.8
+        },
+        {
+          "date": "2026-09-11",
+          "close": 7580.54
+        },
+        {
+          "date": "2026-09-14",
+          "close": 7571.2
+        },
+        {
+          "date": "2026-09-15",
+          "close": 7561.59
+        },
+        {
+          "date": "2026-09-16",
+          "close": 7683.47
+        },
+        {
+          "date": "2026-09-17",
+          "close": 7654.98
+        },
+        {
+          "date": "2026-09-18",
+          "close": 7799.61
+        },
+        {
+          "date": "2026-09-21",
+          "close": 7850.48
+        },
+        {
+          "date": "2026-09-22",
+          "close": 7828.94
+        },
+        {
+          "date": "2026-09-23",
+          "close": 7791.82
+        },
+        {
+          "date": "2026-09-24",
+          "close": 7624.07
+        },
+        {
+          "date": "2026-09-28",
+          "close": 7402.3
+        },
+        {
+          "date": "2026-09-29",
+          "close": 7439.63
+        },
+        {
+          "date": "2026-09-30",
+          "close": 7435.16
+        }
+      ],
+      "ref": {
+        "article_id": "market-csi500-2026-09-30-c188d1b6855c",
+        "revision": 1,
+        "source": "中证指数 · 中证500官方行情与估值",
+        "url": "https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+        "published_at": "",
+        "checked_at": "2026-10-05T16:20:05.436892+00:00",
+        "data_as_of": "2026-09-30",
+        "fragments": [
+          "数据截至2026-09-30：中证500（000905）价格指数收盘7435.16点；滚动市盈率25.09倍，市净率2.17倍，股息率1.4%。这份资料只覆盖价格与估值；不含基金条款、盈利预测或长期历史分位。",
+          "valuation原始查询：https://www.csindex.com.cn/csindex-home/data-service/indexValuation",
+          "daily原始查询：https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000905&startDate=20260807&endDate=20261006",
+          "daily_valuation原始查询：https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000905&startDate=20260807&endDate=20261006"
+        ]
+      },
+      "coverage": "price_and_valuation_only"
+    }
+  ]
+}

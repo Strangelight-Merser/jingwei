@@ -1,0 +1,58 @@
+appId: cn.jingwei.reading
+productName: 经纬
+electronVersion: 40.10.6
+asar: true
+npmRebuild: false
+buildDependenciesFromSource: false
+directories:
+  output: releases/1.0.0-rc.4
+files:
+  - desktop/main.mjs
+  - desktop/preload.cjs
+  - desktop/reading-seed.json
+  - desktop/public-evidence.json
+  - .desktop-build/runtime/**/*.js
+  - .desktop-build/web/**/*
+  - package.json
+  - LICENSE-AIHOT
+  - NOTICE-AIHOT
+  - '!**/*.map'
+  - '!**/.data/**'
+  - '!**/recovery/**'
+  - '!**/.local/**'
+  - '!**/test/**'
+  - '!**/tests/**'
+extraResources:
+  - from: node_modules/electron/dist/LICENSE
+    to: licenses/Electron-LICENSE.txt
+  - from: node_modules/electron/dist/LICENSES.chromium.html
+    to: licenses/LICENSES.chromium.html
+  - from: node_modules/pdfjs-dist
+    to: licenses/pdfjs-dist
+    filter:
+      - '**/LICENSE*'
+  - from: node_modules/@napi-rs/canvas/LICENSE
+    to: licenses/napi-canvas-MIT.txt
+mac:
+  icon: desktop/icon.icns
+  target:
+    - dmg
+    - zip
+  category: public.app-category.finance
+  identity: null
+  hardenedRuntime: false
+  artifactName: Jingwei-${version}-mac-${arch}.${ext}
+dmg:
+  title: 经纬 ${version}
+win:
+  icon: desktop/icon.ico
+  target: nsis
+  signExecutable: false
+  artifactName: Jingwei-${version}-windows-${arch}-setup.${ext}
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true

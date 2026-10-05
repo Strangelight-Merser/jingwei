@@ -1,0 +1,6 @@
+import type {getPendingFundReviewNotice,FundField} from '../../../../packages/backend/fund-updates.ts';
+const labels:Record<FundField,string>={management:'管理费',custody:'托管费',service:'销售服务费',total:'综合运作费率',subscription:'申购费',redemption:'赎回条件',trade_status:'业务状态',period_return:'报告期收益',benchmark_return:'同期基准',difference:'基准差额',tracking_error:'跟踪误差',benchmark:'业绩基准',document_date:'资料日期',fee_holding_terms:'销售服务费持有条件',fee_channel_scope:'费用渠道范围',fee_effective_from:'费用生效日',fee_announcement:'费用实施公告'};
+export function FundReviewNotice({notice}:{notice:ReturnType<typeof getPendingFundReviewNotice>}){
+ if(!notice)return null;
+ return <details className="fund-review-notice"><summary>相关依据有变化，本期判断待复核</summary><p>以下是原文事实变化。当前展示的操作观点仍为上一次审定版本，尚未作出新的加、持、减判断。</p>{notice.condition_changes.map(c=><p key={c}>{c}</p>)}{notice.condition_changes.length>0&&notice.condition_sources.map(r=><p key={r.article_id}><small>数据截至 {r.data_as_of} · <a href={r.url} target="_blank" rel="noreferrer">中证原文依据 ↗</a></small></p>)}{notice.changes.map(c=><p key={`${c.code}-${c.field}`}><strong>{c.code} · {labels[c.field]}</strong><br/>{c.old_value} → {c.new_value}<br/><small>核查于 {c.checked_at.slice(0,10)} · <a href={c.source.url} target="_blank" rel="noreferrer">原文依据 ↗</a></small></p>)}</details>
+}

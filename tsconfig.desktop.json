@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": ".desktop-build/runtime",
+    "rootDir": ".",
+    "rewriteRelativeImportExtensions": true,
+    "rootDirs": [
+      "."
+    ]
+  },
+  "include": [
+    "apps/api/src/**/*.ts",
+    "apps/worker/src/session-update.ts",
+    "packages/**/*.ts",
+    "industry/**/*.ts"
+  ],
+  "exclude": [
+    "tests",
+    "apps/web"
+  ]
+}

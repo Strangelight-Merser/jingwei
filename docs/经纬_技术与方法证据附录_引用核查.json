@@ -1,0 +1,20 @@
+{
+  "checked_on": "2026-10-03",
+  "document": "经纬_技术与方法证据附录.md",
+  "scope": "本轮研究启发与既有实现，不是产品效果实验",
+  "nber_direct_access": "w12659、w14859、w12261、w8655主页与官方工作稿PDF均返回403",
+  "sources": [
+    {"ref": 1, "url": "https://pubmed.ncbi.nlm.nih.gov/24443619/", "read": "作者论文摘要与图注", "version": "2013发表版，对应w12659", "limit": "未读全文；美国雇员退休储蓄不能证明中国年轻基金读者效果"},
+    {"ref": 2, "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/654750", "read": "出版社摘要与书目信息", "version": "2002发表版；w8655工作稿题名使用Participant Decisions，发表版使用Participant Choices", "limit": "未读全文；w8651是另一篇论文，不混用题名"},
+    {"ref": 3, "url": "https://depot.som.yale.edu/icf/papers/fileuploads/2547/original/09-05.pdf", "read": "印刷页2—3实验范围和结果、13—14结论", "version": "Yale ICF 09-05，2009-03-27；对应w14859", "limit": "可读27页PDF，未逐页通读；186名哈佛非教职白领员工，不外推经纬用户效果"},
+    {"ref": 4, "url": "https://www.nber.org/papers/w12261", "alternative_url": "https://scholarsarchive.byu.edu/facpub/9049/", "read": "NBER官方检索摘要、BYU作者机构仓储摘要", "limit": "未读全文；BYU作者字段混有早期版本，不据此抄作者名单；费用显著性不证明最低费总是最优"},
+    {"ref": 5, "url": "https://www.fca.org.uk/investsmart/5-smart-investment-checks", "read": "官方正文五项问题及发布日期", "published_on": "2025-04-28", "updated_on": "2026-08-27", "limit": "仅参考日常表达，不移植英国规则或具体金额要求，不作问卷买入门槛"},
+    {"ref": 6, "url": "https://www.yicai.com/news/102679597.html", "alternative_url": "https://theinitium.com/20260225-mainland-china-moves-into-deflation-zh-hans/", "read": "本次官方页面标题/导语，结合已有DESIGN.md的实际DOM与可见页头记录", "limit": "第一财经旧截图失败、端传媒媒体加载未完成；未取得产品效果数据，不声称完整交互评测"},
+    {"ref": 7, "url": "https://arxiv.org/abs/2409.19839v5", "read": "原论文摘要与版本信息", "version": "v5，2025-02-28", "limit": "未来事件预测基准，不是中国基金投资收益或本产品效果；未引用最新排行榜成绩"},
+    {"ref": 8, "read": "本项目代码、两次请求记录、原始草稿、编辑改动与第三批页面核查", "files": ["packages/backend/finance.ts", "packages/backend/publication.ts", "packages/backend/fund-updates.ts", "evidence/首次真实生成_任务结果.json", "evidence/第二次真实生成_原始草稿.json", "evidence/首次可用真实文章_编辑核对.json", "evidence/持续打磨第三批_交付核查.json"], "limit": "页面入口和离线样本核查不证明真人理解或下一次模型质量；原生折叠键盘验证待完成"}
+  ],
+  "changes_outside_owned_documents": false,
+  "new_model_calls": 0,
+  "credentials_accessed": false,
+  "uploaded_to_library": false
+}
