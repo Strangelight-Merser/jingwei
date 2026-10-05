@@ -12,6 +12,7 @@ import { startApi } from '../.desktop-build/runtime/apps/api/src/main.js';
 import { buildResearchSnapshot } from '../.desktop-build/runtime/packages/backend/fund-research.js';
 import { defaultResearchState, mergeResearchEvidence } from '../.desktop-build/runtime/packages/backend/research-service.js';
 import { collectResearchEvidence } from '../.desktop-build/runtime/packages/backend/fund-evidence.js';
+import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
 
 app.setName('经纬');
 if(process.env.JINGWEI_DESKTOP_DATA_DIR)app.setPath('userData',path.resolve(process.env.JINGWEI_DESKTOP_DATA_DIR));
@@ -64,6 +65,9 @@ async function start(){
  origin=`http://127.0.0.1:${web.address().port}`;
  const bookmarkFile=path.join(userDir,'bookmarks.json');
  const allowed=event=>event.sender===window?.webContents&&event.senderFrame?.url.startsWith(origin+'/');
+ const situationFile=path.join(userDir,'reader-situation.json');
+ ipcMain.on('reading:read-situation',event=>{try{if(!allowed(event))throw new Error();let value;try{value=JSON.parse(readFileSync(situationFile,'utf8'));}catch(e){if(e.code==='ENOENT')value=null;else throw e;}if(value!==null&&!validReaderSituation(value))throw new Error();event.returnValue={ok:true,value};}catch{event.returnValue={ok:false};}});
+ ipcMain.on('reading:write-situation',(event,value)=>{try{if(!allowed(event)||value!==null&&!validReaderSituation(value))throw new Error();writeFileSync(situationFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(situationFile+'.tmp',situationFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:read-saved',(event)=>{try{if(!allowed(event))throw new Error();let saved;try{saved=JSON.parse(readFileSync(bookmarkFile,'utf8'));}catch(e){if(e.code==='ENOENT')saved=[];else throw e;}if(!Array.isArray(saved)||saved.some(s=>typeof s!=='string'))throw new Error();event.returnValue={ok:true,slugs:saved};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:write-saved',(event,slugs)=>{try{if(!allowed(event)||!Array.isArray(slugs)||slugs.length>2000||slugs.some(s=>typeof s!=='string'||!/^[-a-zA-Z0-9_]{1,160}$/.test(s)))throw new Error();writeFileSync(bookmarkFile+'.tmp',JSON.stringify([...new Set(slugs)]),{mode:0o600});renameSync(bookmarkFile+'.tmp',bookmarkFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  window=new BrowserWindow({width:1260,height:900,minWidth:760,minHeight:580,title:'经纬 · 基金研究',backgroundColor:'#f8f6ef',show:false,webPreferences:{preload:path.join(import.meta.dirname,'preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false}});

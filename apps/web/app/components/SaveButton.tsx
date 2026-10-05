@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import type {ReaderSituation} from '../../../../packages/contracts/reader-situation.ts';
 
-declare global { interface Window { jingwei?: { readSaved:()=>string[]; writeSaved:(slugs:string[])=>void; platform:string; version:string } } }
+declare global { interface Window { jingwei?: { readSaved:()=>string[]; writeSaved:(slugs:string[])=>void; readSituation?:()=>ReaderSituation|null; writeSituation?:(value:ReaderSituation|null)=>void; platform:string; version:string } } }
 
 export const SAVED_KEY = 'jingwei.saved.articles';
 const SAVED_CHANGED = 'jingwei:saved-changed';
