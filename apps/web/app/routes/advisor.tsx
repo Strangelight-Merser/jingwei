@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useLoaderData} from 'react-router';
+import {Link,useLoaderData,useRouteError,isRouteErrorResponse} from 'react-router';
 import {PLAN_OPTIONS, HOLDING_OPTIONS, PERIOD_OPTIONS, EMPTY_SITUATION, validReaderSituation, type ReaderSituation} from '../../../../packages/contracts/reader-situation.ts';
 import {readChannelJudgment} from '../lib/rule-card.server.ts';
 import {AdvisorExplanation} from '../components/AdvisorExplanation.tsx';
@@ -20,7 +20,7 @@ export default function Advisor() {
     setInvalid(false); setSituation({...draft});
   }
   return <main id="main" className="advisor-page">
-    <div className="advisor-workspace-heading"><p className="eyebrow">机构与客户经理</p><h1>给客户一页清楚的说明</h1><p>选择客户情况，把当前规则对应到这笔钱。客户信息不保存、不上传，关页即清空。</p></div>
+    <div className="advisor-workspace-heading"><p className="eyebrow">机构与客户经理</p><h1>给客户一页清楚的说明</h1><p>选择客户情况，把当前规则对应到这笔钱。客户信息仅用于本页说明，关页即清空。</p></div>
     <div className="advisor-workspace"><form className="advisor-form" onSubmit={generate} autoComplete="off">
       <h2>客户情况</h2>
       {([['long_plan', '有没有长期计划？', PLAN_OPTIONS], ['holding', '现在持有哪只？', HOLDING_OPTIONS], ['holding_period', '准备持有多久？', PERIOD_OPTIONS]] as const).map(([key, title, options]) => <label key={key} htmlFor={`advisor-${key}`}>{title}<select id={`advisor-${key}`} value={draft[key]} onChange={event => setDraft({...draft, [key]: event.target.value})}>{options.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>)}
@@ -30,7 +30,12 @@ export default function Advisor() {
       {invalid && <p role="alert">请填写有效的情况与非负金额。</p>}
       {dirty && <p role="status">客户情况已修改，请重新生成说明。</p>}
     </form>
-    <div className="advisor-preview">{situation ? <><div className="advisor-print-actions"><span>给客户的一页说明</span><button type="button" disabled={dirty} onClick={() => window.print()}>打印 / 另存 PDF</button></div>{dirty ? <p className="advisor-empty">重新生成后，可预览并打印更新的说明。</p> : <AdvisorExplanation situation={situation} judgment={judgment} card={card}/>}</> : <div className="advisor-empty"><h2>这位客户，适合怎样说？</h2><p>填写左侧情况并生成说明，即可预览当前判断、具体说法与改判条件。</p></div>}</div>
+    <div className="advisor-preview">{situation ? <><div className="advisor-print-actions"><span>给客户的一页说明</span><button type="button" disabled={dirty} onClick={() => window.print()}>打印 / 另存 PDF</button></div>{dirty ? <p className="advisor-empty">重新生成后，可预览并打印更新的说明。</p> : <AdvisorExplanation situation={situation} judgment={judgment} card={card}/>}</> : <div className="advisor-empty"><h2>这位客户，适合怎样说？</h2><p>填写客户情况并生成说明，即可预览当前判断、具体说法与改判条件。</p></div>}</div>
     </div>
   </main>;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError(), unsupported = isRouteErrorResponse(error) && error.status === 404;
+  return <main id="main" className="advisor-page"><h1>客户说明暂时无法载入</h1><p className="advisor-empty">{unsupported ? '客户说明目前适用于沪深300。' : '估值判断暂时无法载入，请稍后重试。'}</p><div className="reader-actions">{unsupported ? <Link to="/advisor">打开沪深300说明 →</Link> : <a href="">重新载入</a>}<Link to="/">回到首页 →</Link></div></main>;
 }
