@@ -1,9 +1,27 @@
 import {Link} from 'react-router';
+import {useState} from 'react';
+import type {IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
 import type {RuleJudgmentResult, ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
 import {BAND_JUDGMENTS} from '../../../../packages/backend/valuation-rule.ts';
 import {date} from '../lib/format.ts';
 
 export type Judgment = NonNullable<RuleJudgmentResult> & {source_url: string; checked_at: string | null};
+export type JudgmentOverview = {indexes: Judgment[]};
+
+export function IndexOverview({indexes, selected, onSelect}: {indexes: Judgment[]; selected: IndexCode; onSelect: (index: IndexCode) => void}) {
+  return <nav className="rule-indexes" aria-label="选择宽基指数">
+    {indexes.map(j => <button key={j.index_code} type="button" aria-pressed={selected === j.index_code} onClick={() => onSelect(j.index_code)}>
+      <strong>{j.index_name}</strong>
+      <span className={`rule-index-band band-${j.band}`}>{j.judgment.label}</span>
+      <small>第 {j.percentile} 百分位</small>
+      <span className="rule-index-action">{j.judgment.new_money.title}</span>
+    </button>)}
+  </nav>;
+}
+
+export function IndexScopeNote({index}: {index: IndexCode}) {
+  return index !== '000300' && <p className="rule-index-note">基金比较和「我的情况」目前仅适用于沪深300。</p>;
+}
 
 const BAND_ORDER: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
 
@@ -44,7 +62,7 @@ export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}
       const nearest = changes.map(c => ({date: c.date, distance: Math.hypot(x(c.date) - px, y(c.percentile) - py)})).sort((a, b) => a.distance - b.distance)[0];
       return nearest.distance <= 10 ? nearest.date : null;
     }
-    return <svg className={`rule-chart rule-chart-${narrow ? 'mobile' : 'desktop'}`} viewBox={`0 0 ${width} ${height}`} role="group" aria-label="沪深300估值分位曲线，圆点为确认改判日" onMouseMove={event => onHover(changeAt(event.clientX, event.clientY, event.currentTarget))} onMouseLeave={() => onHover(null)} onClick={event => {if (event.detail > 0) {const changeDate = changeAt(event.clientX, event.clientY, event.currentTarget); if (changeDate) onSelect(changeDate);}}}>
+    return <svg className={`rule-chart rule-chart-${narrow ? 'mobile' : 'desktop'}`} viewBox={`0 0 ${width} ${height}`} role="group" aria-label={`${j.index_name}估值分位曲线，圆点为确认改判日`} onMouseMove={event => onHover(changeAt(event.clientX, event.clientY, event.currentTarget))} onMouseLeave={() => onHover(null)} onClick={event => {if (event.detail > 0) {const changeDate = changeAt(event.clientX, event.clientY, event.currentTarget); if (changeDate) onSelect(changeDate);}}}>
       {BAND_ORDER.map((band, i) => <rect key={band} x={pad} y={y(edges[i + 1])} width={right - pad} height={y(edges[i]) - y(edges[i + 1])} className={`rule-chart-band band-${band}`}/>)}
       {[100, j.rule.extreme, j.rule.high, j.rule.low, 0].map(v => <g key={v}>
         <line x1={pad} x2={right} y1={y(v)} y2={y(v)} className="rule-chart-guide"/>
@@ -91,13 +109,18 @@ function bandRange(j: Judgment, band: ValuationBand) {
 
 const STALE_DAYS = 10;
 
-export function RuleJudgment({j, today = new Date()}: {j: Judgment; today?: Date}) {
+export function RuleJudgment({j: initial, indexes = [initial], today = new Date()}: {j: Judgment; indexes?: Judgment[]; today?: Date}) {
+  const [selected, setSelected] = useState<IndexCode>(initial.index_code);
+  const j = indexes.find(item => item.index_code === selected) ?? initial;
   const last = j.last_change;
   const age = Math.floor((today.getTime() - Date.parse(`${j.as_of}T00:00:00+08:00`)) / 86_400_000);
   const lastFrom = last.from ? BAND_JUDGMENTS[last.from] : null;
-  return <section className="rule-judgment" aria-labelledby="rule-judgment-title">
+  return <>
+    <IndexOverview indexes={indexes} selected={j.index_code} onSelect={setSelected}/>
+    <IndexScopeNote index={j.index_code}/>
+    <section className="rule-judgment" aria-labelledby="rule-judgment-title">
     <div className="rule-head">
-      <small>沪深300 · 本期判断 · 数据截至 {date(j.as_of)}</small>
+      <small>{j.index_name} · 本期判断 · 数据截至 {date(j.as_of)}</small>
       <h1 id="rule-judgment-title">估值处在近十年{j.judgment.label}，{j.judgment.new_money.title}</h1>
       {age > STALE_DAYS && <p className="rule-pending">官方估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 的数据给出；联网打开应用时会自动补查。</p>}
       <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的数据日估值不高于当日。</p>
@@ -120,8 +143,8 @@ export function RuleJudgment({j, today = new Date()}: {j: Judgment; today?: Date
     </div>
     <p className="rule-last">
       上次改判：{date(last.date)}{lastFrom ? `，由「${lastFrom.new_money.title}」改为「${j.judgment.new_money.title}」` : ''}（当日第{last.percentile}百分位）。
-      <Link to="/changes#rule">十年里的 {j.changes.length - 1} 次改判 →</Link>
+      <Link to={`/changes?index=${j.index_code}#rule`}>十年里的 {j.changes.length - 1} 次改判 →</Link>
     </p>
-    <p className="rule-note">判断只由公开规则和中证指数官方估值决定，不读取你的资料；不预测涨跌，也不保证收益。<Link to="/changes#rule-method">规则与口径</Link></p>
-  </section>;
+    <p className="rule-note">判断只由公开规则和中证指数官方估值决定，不读取你的资料；不预测涨跌，也不保证收益。<Link to={`/changes?index=${j.index_code}#rule-method`}>规则与口径</Link></p>
+  </section></>;
 }

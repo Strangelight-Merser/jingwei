@@ -1,6 +1,7 @@
-// Public judgment rule for CSI 300: the stance follows where today's rolling PE sits in its own
+// Public judgment rule: the stance follows where each index's rolling PE sits in its own
 // trailing history. The rule is fixed in advance, so anyone can recompute every change from the data.
 import type {ValuationPoint} from './valuation-history.ts';
+import {VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
 
 export const VALUATION_RULE = {
   id: 'csi300-pe-ttm-10y-v1',
@@ -149,7 +150,7 @@ export type RuleJudgmentResult = ReturnType<typeof evaluateValuationRule>;
  * Full public judgment. `live_from` separates changes the running software observed from those
  * recomputed over history with the same rule before the software existed.
  */
-export function evaluateValuationRule(points: ValuationPoint[], options: {live_from: string} = {live_from: VALUATION_RULE.live_from}) {
+export function evaluateValuationRule(points: ValuationPoint[], options: {live_from?: string; index?: IndexCode} = {}) {
   const series = percentileSeries(points);
   const latest = series.at(-1);
   if (!latest) return null;
@@ -160,8 +161,12 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
   const chart = series.filter((p, i) => i % 5 === 0 || i === series.length - 1).map(p => ({date: p.date, percentile: p.percentile, pe_ttm: p.pe_ttm}));
   const counts = {low: 0, mid: 0, high: 0, extreme: 0} as Record<ValuationBand, number>;
   for (const p of series) counts[bandOf(p.exact)]++;
+  const index = options.index ?? '000300';
+  const identity = VALUATION_INDEXES[index];
   return {
-    rule: VALUATION_RULE,
+    index_code: index,
+    index_name: identity.name,
+    rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v1`, name: `${identity.name}估值分位规则 v1`},
     as_of: latest.date,
     pe_ttm: latest.pe_ttm,
     percentile: latest.percentile,
@@ -172,7 +177,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
     judgment: BAND_JUDGMENTS[band],
     pending: pending ? {...pending, needed: VALUATION_RULE.confirm_days, judgment: BAND_JUDGMENTS[pending.band]} : null,
     boundaries,
-    changes: changes.map(c => ({...c, origin: c.date >= options.live_from ? 'live' as const : 'recomputed' as const})).reverse(),
+    changes: changes.map(c => ({...c, origin: c.date >= (options.live_from ?? VALUATION_RULE.live_from) ? 'live' as const : 'recomputed' as const})).reverse(),
     last_change: changes.at(-1)!,
     history_first: points[0].date,
     rows: points.length,

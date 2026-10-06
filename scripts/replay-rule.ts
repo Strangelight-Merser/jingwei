@@ -1,6 +1,6 @@
 import {mkdir, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
-import {CSI300_PE_SEED} from '../packages/backend/csi300-pe-seed.ts';
+import {CSI300_PE_SEED, CSI500_PE_SEED, SSE50_PE_SEED} from '../packages/backend/csi300-pe-seed.ts';
 
 /**
  * Offline replay of the public rule in README.md / CODEX_PLAN.md (background).
@@ -20,7 +20,8 @@ import {CSI300_PE_SEED} from '../packages/backend/csi300-pe-seed.ts';
  * recomputations, not judgments published at the time or investment performance.
  * daily includes warm-up rows with blank percentile/bands, and distinguishes the
  * day's raw_band from the confirmed band. Records are in ascending date order.
- * Run: npm run replay:rule. Files go to this worktree's exports/rule-replay/.
+ * Run: npm run replay:rule -- --index 000905 (default: 000300).
+ * Files go to this worktree's exports/rule-replay/<index>/.
  */
 export type ReplayBand = 'low' | 'mid' | 'high' | 'extreme';
 export type ReplayPoint = {date: string; pe_ttm: number};
@@ -39,8 +40,11 @@ export type ReplayChange = ReplayPoint & {
   full_window: boolean;
 };
 
-export function replaySeed(): ReplayPoint[] {
-  return CSI300_PE_SEED.split(',').map(row => {
+const SEEDS = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED};
+type ReplayIndex = keyof typeof SEEDS;
+
+export function replaySeed(index: ReplayIndex = '000300'): ReplayPoint[] {
+  return SEEDS[index].split(',').map(row => {
     const [date, pe] = row.split(':');
     return {date: `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}`, pe_ttm: Number(pe)};
   });
@@ -96,8 +100,14 @@ export function replayRule(points: ReplayPoint[] = replaySeed()) {
 export type ReplayResult = ReturnType<typeof replayRule>;
 
 if (import.meta.main) {
-  const replay = replayRule();
-  const destination = new URL('../exports/rule-replay/', import.meta.url);
+  const args = process.argv.slice(2);
+  if (args.length && (args.length !== 2 || args[0] !== '--index' || !Object.hasOwn(SEEDS, args[1]))) {
+    console.error('用法：npm run replay:rule -- --index 000300|000905|000016');
+    process.exit(1);
+  }
+  const index = (args[1] ?? '000300') as ReplayIndex;
+  const replay = replayRule(replaySeed(index));
+  const destination = new URL(`../exports/rule-replay/${index}/`, import.meta.url);
   await mkdir(destination, {recursive: true});
   const changesCsv = [
     'date,from,to,pe_ttm,percentile,full_window',
@@ -112,6 +122,7 @@ if (import.meta.main) {
   await writeFile(new URL('daily.csv', destination), dailyCsv);
 
   const labels = {low: '偏低区', mid: '中间区', high: '偏高区', extreme: '高位区'};
+  console.log(`指数：${index} · ${{'000300':'沪深300','000905':'中证500','000016':'上证50'}[index]}`);
   console.log(`数据日数：${replay.daily.length}`);
   console.log(`数据起止：${replay.daily[0].date} 至 ${replay.daily.at(-1)!.date}`);
   console.log(`可计算分位：${replay.current ? replay.daily.find(row => row.percentile !== null)!.date : '无'} 起，共 ${replay.daily.filter(row => row.percentile !== null).length} 个数据日`);
