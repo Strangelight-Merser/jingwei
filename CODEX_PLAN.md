@@ -68,4 +68,8 @@
 
 ## 问题
 
-（Codex 在此记录）
+任务 Q 验收（2026-10-06，基于 main / 6cd182f，版本 1.0.0-rc.5）：以下问题均在新 ZIP 解包的 Mac 应用与临时隔离数据目录中发现，未改功能代码。
+
+1. **P1 · 客户说明打印闪退。** `/advisor` 能生成含计划、007339 持仓、期限及金额的完整说明，但点击“打印 / 另存 PDF”后应用退出，未能完成打印预览。进程退出码 139；系统报告 `/Users/huaiyi/Library/Logs/DiagnosticReports/经纬-2026-10-06-075801.ips` 为 `EXC_BAD_ACCESS / SIGSEGV`，主线程包含 `PJCSessionHasApplicationSetPrinter` 与 `-[NSPrintPanel runModalWithPrintInfo:]`。入口为 `apps/web/app/routes/advisor.tsx` 的 `window.print()`。根因尚未确定，需排查 Electron 与本机打印组件，修复后从这个按钮重验。
+2. **P2 · 正常重开后阅读引导再次弹出。** 关闭引导后，同次运行返回首页不会再弹；正常退出（退出码 0）后，用同一隔离数据目录重开仍弹第一步。`ReadingGuide.tsx` 把关闭标记写入 `localStorage`，而 `desktop/main.mjs` 每次以端口 0 启动网页服务；本次正常重开从 `127.0.0.1:53214` 变为 `127.0.0.1:53532`，关闭标记未跨来源保留。需让关闭标记跨应用启动保留，再重验正常退出与重开。
+3. **P2 · 鼠标松开曲线没有回到今天。** 拖动后大数字、日期与历史区间会改变；在曲线内松开鼠标后仍显示历史值（本次为 2022.10.26、第 18.5 百分位、PE 10.95），移出曲线后才恢复今天。`apps/web/app/components/HomeHero.tsx:97` 的 `onPointerUp` 只对非鼠标指针清空历史选择，与界面“松开回到今天”和任务 Q 要求不一致。需统一鼠标松开的行为或经确认修改交互说明。
