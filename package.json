@@ -14,6 +14,7 @@
     "build": "node scripts/build.ts",
     "typecheck": "npm run typegen -w @jingwei/web && tsc --noEmit",
     "test": "node --import ./scripts/test-env.ts --test tests/*.test.ts",
+    "replay:rule": "node scripts/replay-rule.ts",
     "test:storage": "node --import ./scripts/test-env.ts --test tests/storage-isolation.test.ts tests/maintenance-startup.test.ts",
     "collect": "node apps/worker/src/main.ts --once",
     "worker": "node apps/worker/src/main.ts",
