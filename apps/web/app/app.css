@@ -61,3 +61,6 @@
   --tone-extreme-ink:#9c2f46;--tone-extreme-bg:#f8e2e7;--tone-extreme-line:#c9536c;
   --ease-out:cubic-bezier(.2,.8,.2,1);
 }
+
+.situation-holdings{margin-top:14px!important;font-size:var(--text-ui)!important}.situation-holdings a{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:760px){.brand-row{flex-wrap:wrap;gap:8px;padding:16px 0 8px}.brand-row nav{width:100%;flex-basis:100%;justify-content:space-between;gap:8px}.brand-row nav a{min-height:44px}}

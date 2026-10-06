@@ -1,6 +1,6 @@
 import type {ResearchEvaluation} from '../../../../packages/contracts/research.ts';
 import type {SourceRef} from '../../../../packages/contracts/types.ts';
-import {Link,useLoaderData} from 'react-router';
+import {Link,useLoaderData,useSearchParams} from 'react-router';
 import {publication} from '../lib/api.server.ts';
 import type {homePublication} from '../../../../packages/backend/publication.ts';
 import type {ResearchUpdate} from '../components/ResearchBrief.tsx';
@@ -20,13 +20,15 @@ export async function loader(){
 export function meta(){return [{title:'经纬 · 研究与阅读'},{name:'description',content:'依据公开资料研究市场方向和基金工具，保留原日期与复核条件。'}];}
 export default function Home(){
  const {judgment,indexes,lead,selections,background}=useLoaderData<typeof loader>();
+ const [search]=useSearchParams();
+ const selected=indexes.find(item=>item.index_code===search.get('index'))??judgment;
  if(!lead)return <main id="main" className="error-page"><h1>内容还在准备中</h1><p>目前还没有已刊文章，可以先浏览专题。</p><Link className="text-link" to="/topics">浏览专题 <Arrow/></Link></main>;
  const all=[lead,...selections];const research=all.find(v=>v.research);const historical=all.find(v=>v.article.operation_view);
  const focus=research??historical??lead;
  const reading=[...new Map([focus,...all,...background].map(v=>[v.article.slug,v])).values()];
  return <main id="main" className="home-page">
   {indexes.length>0&&<FirstRun indexes={indexes}/>}
-  {judgment&&<HomeHero j={judgment} indexes={indexes} guide={<ReadingGuide judgment={judgment}/>}/>}
+  {selected&&<HomeHero key={selected.index_code} j={selected} indexes={indexes} guide={<ReadingGuide judgment={selected}/>}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
   <div className="home-companions">
    {judgment&&<AskJingwei/>}

@@ -3,6 +3,7 @@ import{PLAN_OPTIONS,HOLDING_OPTIONS,PERIOD_OPTIONS,type ReaderSituation}from'../
 import type{FinanceVersion}from'../../../../packages/contracts/types.ts';
 import type{Judgment}from'./RuleJudgment.tsx';
 import{ situationMoney }from'../lib/situation-money.ts';
+import {HoldingsSummary} from './HoldingsSummary.tsx';
 
 /** What the public rule means for this reader's stated situation; it never invents holdings or amounts. */
 function readingFor(s:ReaderSituation,j:Judgment|null):{title:string;body:string;rule?:string}{
@@ -23,8 +24,8 @@ function readingFor(s:ReaderSituation,j:Judgment|null):{title:string;body:string
 export function SituationCard({version,judgment=null}:{version:FinanceVersion;judgment?:Judgment|null}){
  const{situation:s,ready,unavailable}=useReaderSituation();
  if(!ready)return <section className="situation-card situation-loading" aria-hidden="true"><div/></section>;
- if(!s||unavailable)return <section className="situation-card"><div><small>我的情况</small><h2>想开始配置，还是复核持仓？</h2><p>选一下计划、持仓和期限，也可以填入金额，看看当前规则对应到这笔钱的说法。</p></div><Link className="text-link" to="/situation">设置我的情况 →</Link></section>;
+ if(!s||unavailable)return <section className="situation-card"><div><small>我的情况</small><h2>想开始配置，还是复核持仓？</h2><p>选一下计划、持仓和期限，也可以填入金额，看看当前规则对应到这笔钱的说法。</p><HoldingsSummary/></div><Link className="text-link" to="/situation">设置我的情况 →</Link></section>;
  const r=readingFor(s,judgment);
  const money=situationMoney(s,judgment);
- return <section className="situation-card"><div><small>我的情况 · {PLAN_OPTIONS.find(([k])=>k===s.long_plan)?.[1]} · {HOLDING_OPTIONS.find(([k])=>k===s.holding)?.[1]} · {PERIOD_OPTIONS.find(([k])=>k===s.holding_period)?.[1]}</small><h2>{r.title}</h2>{money&&<p className="situation-money">{money}</p>}<p>{r.body}</p>{r.rule&&<p className="situation-rule">{r.rule}</p>}</div><div className="situation-links"><Link to="/compare">比较两只C类费用 →</Link><Link to={`/articles/${version.article.slug}`}>本期解读文章 →</Link><Link to="/situation">修改我的情况</Link></div></section>;
+ return <section className="situation-card"><div><small>我的情况 · {PLAN_OPTIONS.find(([k])=>k===s.long_plan)?.[1]} · {HOLDING_OPTIONS.find(([k])=>k===s.holding)?.[1]} · {PERIOD_OPTIONS.find(([k])=>k===s.holding_period)?.[1]}</small><h2>{r.title}</h2>{money&&<p className="situation-money">{money}</p>}<p>{r.body}</p>{r.rule&&<p className="situation-rule">{r.rule}</p>}<HoldingsSummary/></div><div className="situation-links"><Link to="/compare">比较两只C类费用 →</Link><Link to={`/articles/${version.article.slug}`}>本期解读文章 →</Link><Link to="/situation">修改我的情况</Link></div></section>;
 }
