@@ -51,6 +51,14 @@ export async function refreshValuationState(fetcher?: typeof fetch) {
 }
 
 /** The rule result as citable research evidence; every number the model may use is in the fragment. */
+/** What moves the judgment out of the current band: PE range (buffered edges in force) → band, as on the home page. */
+function triggers(r: NonNullable<ReturnType<typeof evaluateValuationRule>>) {
+  const {low, high, extreme} = r.boundaries;
+  const range = {low: `低于约${low}倍`, mid: `在约${low}至${high}倍之间`, high: `在约${high}至${extreme}倍之间`, extreme: `高于约${extreme}倍`} as const;
+  return (['low', 'mid', 'high', 'extreme'] as const).filter(b => b !== r.band)
+    .map(b => `连续${r.rule.confirm_days}个数据日${range[b]}，改为${BAND_JUDGMENTS[b].label}（新增资金“${BAND_JUDGMENTS[b].new_money.title}”）`).join('；');
+}
+
 /** The rule result for one index as citable evidence; the research chain uses CSI 300, the default. */
 export function valuationRuleEvidence(state: State, index: IndexCode = '000300'): ValuationRuleEvidence | null {
   const history = currentValuationHistory(state, index);
@@ -60,7 +68,7 @@ export function valuationRuleEvidence(state: State, index: IndexCode = '000300')
   const fromLabel = r.last_change.from ? BAND_JUDGMENTS[r.last_change.from].label : null;
   const text = `数据截至${r.as_of}：${r.index_name}滚动市盈率${r.pe_ttm}倍；${r.window_start}以来，${r.percentile}%的数据日估值不高于当日，处于${j.label}。`
     + `按${r.rule.name}，新增资金“${j.new_money.title}”，已有持仓“${j.held.title}”。`
-    + `从当前区间出发的改判边界（已含缓冲）：连续${r.rule.confirm_days}个数据日低于约${r.boundaries.low}倍为偏低区，高于约${r.boundaries.high}倍为偏高区，高于约${r.boundaries.extreme}倍为高位区。`
+    + `从当前${j.label}出发、已含缓冲的改判条件：${triggers(r)}。`
     + `上次改判在${r.last_change.date}${fromLabel ? `，由${fromLabel}改为${j.label}` : ''}。`;
   return {
     rule_id: r.rule.id, rule_name: r.rule.name, as_of: r.as_of, pe_ttm: r.pe_ttm, percentile: r.percentile, window_start: r.window_start,
