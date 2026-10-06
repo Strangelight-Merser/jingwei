@@ -12,8 +12,8 @@ test('定投与闲钱使用各区间已有动作，不增加投入比例或次�
  const expectations:Record<ValuationBand,string>={
   low:'每月 1,000 元定投：照常；另外 50,000 元：偏低区可分批新增。',
   mid:'每月 1,000 元定投：照常；另外 50,000 元：中间区不一次性投入。',
-  high:'每月 1,000 元定投：暂缓新增；另外 50,000 元：偏高区暂缓新增。',
-  extreme:'每月 1,000 元定投：暂停新增；另外 50,000 元：高位区暂停新增。',
+  high:'每月 1,000 元定投：照常，不加大；另外 50,000 元：偏高区暂缓新增。',
+  extreme:'每月 1,000 元定投：暂停；另外 50,000 元：高位区暂停新增。',
  };
  for(const band of Object.keys(expectations)as ValuationBand[]){
   assert.equal(situationMoney(situation,{...current,band,judgment:BAND_JUDGMENTS[band]}),expectations[band]);
