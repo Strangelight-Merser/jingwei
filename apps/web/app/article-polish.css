@@ -1,0 +1,8 @@
+.article-history-note{font-size:14px;line-height:1.8;color:var(--muted);margin:20px 0}
+.article-history-note a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);text-decoration:underline;text-underline-offset:3px;margin-left:8px}
+.article-archive-judgment{margin:20px 0 30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.article-archive-judgment>summary{min-height:44px;align-content:center;cursor:pointer;font-size:14px;color:var(--accent);padding:10px 0}
+.article-archive-judgment[open]>summary{margin-bottom:20px}
+.article-page .article-end summary,.article-page .revision-notes>summary,.article-page .research-controls button,.article-page .reading-aside nav a{min-height:44px;align-content:center}
+.article-page .article-end details a{display:flex;align-items:center;min-height:44px}
+@media(max-width:760px){.article-page .fund-selector small,.article-page .fund-difference-summary small,.article-page .operation-comparison small{font-size:12px}}
