@@ -27,3 +27,11 @@
  .outcomes-details{font-size:13px}.outcomes-details table{font-size:12px}.outcomes-details th,.outcomes-details td{padding:10px 3px}
  .outcomes-details th{overflow-wrap:anywhere}
 }
+/* Band colours: bars and the current row follow the shared tone tokens. */
+.outcomes-row.is-current{background:var(--tone-bg);box-shadow:inset 3px 0 var(--tone-line)}
+.outcomes-bar{border-radius:8px;overflow:hidden}
+.outcomes-bar i{background:var(--tone-bg);border-radius:8px}
+.outcomes-row.is-current .outcomes-bar i{background:#fff}
+.outcomes-bar i.is-negative{background:repeating-linear-gradient(135deg,var(--tone-bg) 0 6px,#fff 6px 9px)}
+.outcomes-band strong:before{content:'';display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--tone-line);vertical-align:middle}
+.changes-view .rule-outcomes{margin:0;padding:0;border:0}

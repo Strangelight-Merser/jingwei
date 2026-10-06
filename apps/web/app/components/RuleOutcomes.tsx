@@ -20,7 +20,7 @@ export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: 
     <p className="outcomes-conclusion">{outcomes.conclusion}</p>
     <div className="outcomes-head" aria-hidden="true"><span>当天已确认区间</span><span>之后 3 年年化均值</span><span>3 年为正比例</span><span>之后 1 年均值</span></div>
     <div className="outcomes-rows">
-      {outcomes.bands.map(row => <div key={row.band} className={`outcomes-row${outcomes.current_band === row.band ? ' is-current' : ''}`}>
+      {outcomes.bands.map(row => <div key={row.band} className={`outcomes-row tone-${row.band}${outcomes.current_band === row.band ? ' is-current' : ''}`}>
         <div className="outcomes-band"><strong>{row.label}</strong>{outcomes.current_band === row.band && <small>当前区间</small>}</div>
         <div className="outcomes-return"><span className="outcomes-mobile-label">3 年年化均值</span><div className="outcomes-bar"><i className={row.three_year.mean !== null && row.three_year.mean < 0 ? 'is-negative' : ''} style={{width: `${Math.abs(row.three_year.mean ?? 0) / max * 100}%`}}/><strong>{percent(row.three_year.mean)}</strong></div><small>中位数 {percent(row.three_year.median)} · {number(row.three_year.sample_days)} 天</small></div>
         <div className="outcomes-positive"><span className="outcomes-mobile-label">3 年为正比例</span><strong>{percent(row.three_year.positive_pct)}</strong></div>

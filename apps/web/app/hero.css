@@ -146,3 +146,6 @@
   .hero-meta>span{flex-basis:100%}
   .hero-meta .home-reading-keywords{flex:1;justify-content:space-between}
 }
+.hero-chart-area.is-tall{height:340px}
+.hero-chart-change.is-selected{width:13px;height:13px;margin:-6.5px 0 0 -6.5px;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--tone-line)}
+@media(max-width:760px){.hero-chart-area.is-tall{height:230px}}

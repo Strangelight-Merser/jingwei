@@ -52,7 +52,7 @@ export function IndexSwitch({indexes, selected, onSelect}: {indexes: Judgment[];
 }
 
 /** Ten-year percentile with band shading. Dragging or hovering scrubs through history and drives the headline. */
-function ScrubChart({j, scrub, onScrub}: {j: Judgment; scrub: number | null; onScrub: (index: number | null) => void}) {
+export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tall = false}: {j: Judgment; scrub: number | null; onScrub: (index: number | null) => void; selectedChange?: string | null; onPickChange?: (date: string) => void; tall?: boolean}) {
   const pts = j.chart;
   const t0 = Date.parse(pts[0].date), span = Date.parse(pts.at(-1)!.date) - t0;
   const xs = useMemo(() => pts.map(p => (Date.parse(p.date) - t0) / span), [pts, t0, span]);
@@ -79,12 +79,18 @@ function ScrubChart({j, scrub, onScrub}: {j: Judgment; scrub: number | null; onS
     if (event.key === 'Escape' || event.key === 'End') onScrub(null);
   }
 
+  // A click near a confirmed change selects it (within about six weeks on the time axis).
+  function nearestChange(day: string) {
+    const t = Date.parse(day);
+    const best = changes.map(c => ({date: c.date, d: Math.abs(Date.parse(c.date) - t)})).sort((a, b) => a.d - b.d)[0];
+    return best && best.d <= 45 * 86_400_000 ? best.date : null;
+  }
   const at = scrub ?? pts.length - 1;
   const active = pts[at];
   return <figure className="hero-chart">
     <div
       ref={area}
-      className={`hero-chart-area${scrub !== null ? ' is-scrubbing' : ''}`}
+      className={`hero-chart-area${scrub !== null ? ' is-scrubbing' : ''}${tall ? ' is-tall' : ''}`}
       tabIndex={0}
       role="slider"
       aria-label={`${j.index_name}近十年估值分位，左右方向键回看历史`}
@@ -94,7 +100,7 @@ function ScrubChart({j, scrub, onScrub}: {j: Judgment; scrub: number | null; onS
       aria-valuetext={`${date(active.date)}，第 ${active.percentile} 百分位`}
       onPointerDown={event => {event.currentTarget.setPointerCapture(event.pointerId); pick(event.clientX);}}
       onPointerMove={event => {if (event.pointerType === 'mouse' || event.buttons) pick(event.clientX);}}
-      onPointerUp={() => onScrub(null)}
+      onPointerUp={() => {if (onPickChange && scrub !== null) {const near = nearestChange(pts[scrub].date); if (near) onPickChange(near);} onScrub(null);}}
       onPointerLeave={event => {if (event.pointerType === 'mouse') onScrub(null);}}
       onPointerCancel={() => onScrub(null)}
       onKeyDown={key}
@@ -105,7 +111,7 @@ function ScrubChart({j, scrub, onScrub}: {j: Judgment; scrub: number | null; onS
         {[j.rule.low, j.rule.high, j.rule.extreme].map(v => <line key={v} x1={0} x2={W} y1={H - v} y2={H - v} className="hero-chart-guide"/>)}
         <g key={j.index_code} className="hero-chart-draw"><path d={path} className="hero-chart-line"/></g>
       </svg>
-      {changes.map(c => <i key={c.date} className={`hero-chart-change tone-${c.to}`} style={{left: `${((Date.parse(c.date) - t0) / span) * 100}%`, top: `${100 - c.percentile}%`}} aria-hidden="true"/>)}
+      {changes.map(c => <i key={c.date} className={`hero-chart-change tone-${c.to}${selectedChange === c.date ? ' is-selected' : ''}`} style={{left: `${((Date.parse(c.date) - t0) / span) * 100}%`, top: `${100 - c.percentile}%`}} aria-hidden="true"/>)}
       <span className="hero-chart-cursor" style={{left: `${xs[at] * 100}%`}} aria-hidden="true">
         <i className={`tone-${bandOn(j, active.date)}`} style={{top: `${100 - active.percentile}%`}}/>
       </span>
