@@ -65,6 +65,7 @@ app.get('/publication/changes',judgmentChangesPublication);
 app.get('/publication/judgment',async(req,reply)=>{const index=(req.query as {index?:unknown}).index??'000300';if(!isIndexCode(index))return reply.code(400).send({error:'unknown_index'});return (await judgmentPublication(index))??reply.code(404).send({error:'judgment_unavailable'});});
 app.get('/publication/judgments',judgmentOverviewPublication);
 await (await import('../../../packages/backend/rule-outcomes-publication.ts')).registerRuleOutcomes(app,{networkChecks:mode==='active'});
+await (await import('../../../packages/backend/erp-publication.ts')).registerErp(app);
 app.get<{Params:{slug:string};Querystring:{version?:string}}>('/publication/articles/:slug',async(req,reply)=>{const v=req.query.version!==undefined?(req.query.version.trim()?Number(req.query.version):NaN):undefined;const result=await articlePublication(req.params.slug,v);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'article_not_found'});});
 app.get<{Params:{key:string}}>('/publication/topics/:key',async(req,reply)=>{const result=await topicPublication(req.params.key);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'topic_not_found'});});
 if(mode==='active'){

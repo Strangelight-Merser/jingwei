@@ -1,0 +1,30 @@
+.erp-lens{margin-top:28px;padding:24px 26px;border:1px solid var(--line);border-radius:18px;background:#fff;min-width:0;scroll-margin-top:24px}
+.erp-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.erp-heading p{margin:0;font-size:var(--text-caption);color:var(--muted);line-height:1.6}
+.erp-tag{flex:none;padding:3px 10px;border-radius:999px;background:var(--tone-bg);color:var(--tone-ink);font-size:12px;font-weight:600}
+.erp-lens h2{margin:10px 0 12px;font-size:1.375rem;letter-spacing:-.01em;line-height:1.4}
+.erp-conclusion{margin:0;font-size:1.0625rem;line-height:1.8;font-variant-numeric:tabular-nums}
+.erp-conclusion strong{font-weight:650}.erp-comparison{margin:6px 0 0;font-size:var(--text-ui);line-height:1.75;color:var(--muted)}
+.erp-chart{margin:22px 0}.erp-chart-area{position:relative;height:170px;margin-right:46px;border-radius:12px;background:var(--tone-bg)}
+.erp-chart-area svg{display:block;width:100%;height:100%;overflow:visible}.erp-chart-guide{stroke:#fff;stroke-width:1;vector-effect:non-scaling-stroke}
+.erp-chart-line{fill:none;stroke:var(--tone-ink);stroke-width:1.8;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.erp-chart-tick{position:absolute;right:-44px;transform:translateY(-50%);color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.erp-chart-current{position:absolute;right:-4px;width:8px;height:8px;margin-top:-4px;background:var(--tone-line);border-radius:50%;box-shadow:0 0 0 2px #fff}
+.erp-chart figcaption{display:flex;justify-content:space-between;gap:8px;margin:8px 46px 0 0;font-size:12px;color:var(--muted);line-height:1.6}
+.erp-consistency{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.erp-consistency>div{padding:16px 18px;display:grid;gap:5px;background:var(--surface)}.erp-consistency>div+div{border-left:1px solid var(--line)}
+.erp-consistency dt{font-size:var(--text-caption);line-height:1.7;color:var(--muted)}.erp-consistency dd{margin:0;font-size:1.875rem;line-height:1.2;letter-spacing:-.03em;font-weight:600;font-variant-numeric:tabular-nums}.erp-consistency small{font-size:12px;color:var(--muted)}
+.erp-outcomes{margin-top:22px}.erp-outcomes h3{margin:0;font-size:1rem;font-weight:650}.erp-outcomes>p{margin:8px 0 14px;font-size:var(--text-ui);line-height:1.75}
+.erp-outcome-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
+.erp-group strong{font-size:var(--text-ui);font-weight:600}.erp-group strong:before{content:'';display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--tone-line);vertical-align:middle}
+.erp-group small,.erp-return small{display:block;margin-top:4px;font-size:12px;color:var(--muted)}
+.erp-return>span{display:block;font-size:12px;color:var(--muted)}.erp-return strong{display:block;margin-top:3px;font-size:1.25rem;font-weight:600;font-variant-numeric:tabular-nums}
+.erp-method{margin-top:8px;font-size:var(--text-caption);line-height:1.8}.erp-method summary{cursor:pointer;min-height:44px;display:list-item;align-content:center;font-weight:600}.erp-method p{margin:8px 0 16px}.erp-method a{text-decoration:underline;text-underline-offset:3px}
+.erp-method table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px;font-variant-numeric:tabular-nums}.erp-method caption{text-align:left;font-weight:600;margin-bottom:8px}.erp-method th,.erp-method td{text-align:right;padding:8px 4px;border-bottom:1px solid var(--line)}.erp-method th{font-weight:500}.erp-method th:first-child{text-align:left}
+.erp-note{margin:6px 0 0;font-size:var(--text-caption);line-height:1.75;color:var(--muted)}
+@media(max-width:760px){
+ .erp-lens{padding:18px;border-radius:16px}.erp-heading{align-items:flex-start}.erp-heading p{font-size:12px}.erp-conclusion{font-size:1rem}.erp-chart-area{height:155px}.erp-chart figcaption{font-size:11px}.erp-chart figcaption span:nth-child(2){max-width:12em;text-align:center}
+ .erp-consistency{grid-template-columns:1fr}.erp-consistency>div{padding:14px 16px}.erp-consistency>div+div{border-left:0;border-top:1px solid var(--line)}.erp-consistency dd{font-size:1.75rem}
+ .erp-outcome-row{grid-template-columns:1fr 1fr;gap:8px 12px;padding:14px 0}.erp-group{grid-column:1/-1;display:flex;align-items:center;gap:10px}.erp-group small{margin:0}.erp-return strong{font-size:1.125rem}
+ .erp-method{font-size:13px}.erp-method th,.erp-method td{padding:8px 2px;overflow-wrap:anywhere}
+}

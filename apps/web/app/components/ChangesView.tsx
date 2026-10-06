@@ -5,6 +5,7 @@ import type {RuleOutcomesPublication} from '../../../../packages/backend/rule-ou
 import type {Judgment} from './RuleJudgment.tsx';
 import {IndexSwitch, ScrubChart} from './HomeHero.tsx';
 import {RuleOutcomes} from './RuleOutcomes.tsx';
+import {ErpLens} from './ErpLens.tsx';
 import {date} from '../lib/format.ts';
 import '../changes.css';
 
@@ -46,6 +47,7 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
 
     <div className="reveal" style={{'--i': 3} as React.CSSProperties}>
       <RuleOutcomes key={'o' + j.index_code} index={j.index_code} outcomes={outcomes}/>
+      <ErpLens index={j.index_code}/>
     </div>
 
     <section className="changes-log" id="rule" aria-labelledby="changes-log-title">
