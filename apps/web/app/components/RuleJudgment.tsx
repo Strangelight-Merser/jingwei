@@ -50,14 +50,27 @@ function Action({who, part}: {who: string; part: Judgment['judgment']['new_money
   </div>;
 }
 
-export function RuleJudgment({j}: {j: Judgment}) {
+/** PE range for a band at today's boundaries; the boundaries move as the ten-year window rolls. */
+function bandRange(j: Judgment, band: ValuationBand) {
+  const {low, high, extreme} = j.boundaries;
+  if (band === 'low') return <>低于约 <b>{low}</b> 倍</>;
+  if (band === 'mid') return <>在约 <b>{low}</b>–<b>{high}</b> 倍之间</>;
+  if (band === 'high') return <>在约 <b>{high}</b>–<b>{extreme}</b> 倍之间</>;
+  return <>高于约 <b>{extreme}</b> 倍</>;
+}
+
+const STALE_DAYS = 10;
+
+export function RuleJudgment({j, today = new Date()}: {j: Judgment; today?: Date}) {
   const last = j.last_change;
+  const age = Math.floor((today.getTime() - Date.parse(`${j.as_of}T00:00:00+08:00`)) / 86_400_000);
   const lastFrom = last.from ? BAND_JUDGMENTS[last.from] : null;
   return <section className="rule-judgment" aria-labelledby="rule-judgment-title">
     <div className="rule-head">
       <small>沪深300 · 本期判断 · 数据截至 {date(j.as_of)}</small>
       <h1 id="rule-judgment-title">估值处在近十年{j.judgment.label}，{j.judgment.new_money.title}</h1>
-      <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的数据日估值不高于今天。</p>
+      {age > STALE_DAYS && <p className="rule-pending">官方估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 的数据给出；联网打开应用时会自动补查。</p>}
+      <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的数据日估值不高于当日。</p>
     </div>
     <div className="rule-actions">
       <Action who="新增资金" part={j.judgment.new_money}/>
@@ -67,10 +80,11 @@ export function RuleJudgment({j}: {j: Judgment}) {
     <div className="rule-triggers">
       <h2>什么时候会改判</h2>
       <ul>
-        {j.band !== 'low' && <li>市盈率连续{j.rule.confirm_days}个数据日低于约 <b>{j.boundaries.low}</b> 倍 → 新增资金改为「{BAND_JUDGMENTS.low.new_money.title}」</li>}
-        {j.band !== 'high' && j.band !== 'extreme' && <li>连续{j.rule.confirm_days}个数据日高于约 <b>{j.boundaries.high}</b> 倍 → 改为「{BAND_JUDGMENTS.high.new_money.title}」</li>}
-        {j.band !== 'extreme' && <li>连续{j.rule.confirm_days}个数据日高于约 <b>{j.boundaries.extreme}</b> 倍 → 已有持仓「{BAND_JUDGMENTS.extreme.held.title}」</li>}
-        {(j.band === 'high' || j.band === 'extreme') && <li>连续{j.rule.confirm_days}个数据日低于约 <b>{j.boundaries.high}</b> 倍 → 回到「{BAND_JUDGMENTS.mid.new_money.title}」</li>}
+        {BAND_ORDER.filter(b => b !== j.band).map(b => {
+          const next = BAND_JUDGMENTS[b];
+          const heldChanges = next.held.title !== j.judgment.held.title;
+          return <li key={b}>市盈率连续{j.rule.confirm_days}个数据日{bandRange(j, b)} → {next.label}：新增资金「{next.new_money.title}」{heldChanges && <>，已有持仓「{next.held.title}」</>}</li>;
+        })}
       </ul>
       {j.pending && <p className="rule-pending">已有 {j.pending.days}/{j.pending.needed} 个数据日落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} 个数据日就会改判。</p>}
     </div>
