@@ -2,3 +2,39 @@
 .situation-page .choice-list label:focus-within{outline:2px solid var(--accent);outline-offset:3px}
 .situation-page .reader-actions a,.situation-page [role=status] a{display:inline-flex;align-items:center;min-height:44px}
 .situation-page [role=status]{font-size:14px;line-height:1.8}
+/* Choices on the left, a live preview of what the home page will say on the right. */
+.reader-page.situation-page{max-width:1120px}
+.situation-page h1{font-size:clamp(1.75rem,3vw,2.375rem);letter-spacing:-.02em}
+.situation-layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:start;margin-top:24px}
+.situation-page .situation-form fieldset{margin:0 0 26px;padding:0;border:0}
+.situation-page .situation-form legend{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:1rem;font-weight:650}
+.situation-page .situation-form legend span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--surface);font-size:12px}
+.situation-page .situation-form legend:after{content:none}
+.situation-page .choice-list{display:flex;flex-wrap:wrap;gap:8px}
+.situation-page .choice-list label{position:relative;display:inline-flex;margin:0;padding:0;border:0;background:none}
+.situation-page .choice-list input{position:absolute;opacity:0;pointer-events:none}
+.situation-page .choice-list span{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:var(--text-ui);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.situation-page .choice-list label:hover span{border-color:var(--ink)}
+.situation-page .choice-list input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.situation-page .choice-list label:focus-within{outline:none}
+.situation-page .choice-list input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.situation-page .situation-amounts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.situation-page .situation-amounts label{display:grid;gap:6px;font-size:var(--text-caption);color:var(--muted)}
+.situation-page .situation-amounts input{min-height:46px;padding:0 14px;border:1px solid #d7d7dc;border-radius:12px;font:inherit;font-size:1.0625rem;font-weight:600;color:var(--ink)}
+.situation-page .situation-amounts input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(35,35,38,.06)}
+.situation-page .reader-actions button[type=submit]{min-height:44px;padding:0 22px;border-radius:12px;background:var(--ink);border:1px solid var(--ink);color:#fff;font-weight:600}
+.situation-preview{position:sticky;top:88px;display:grid;gap:12px}
+.situation-preview>small{font-size:var(--text-caption);color:var(--muted);letter-spacing:.04em}
+.situation-preview>div{padding:24px 24px 22px;border-radius:18px;background:var(--tone-bg,var(--surface));border-left:3px solid var(--tone-line,var(--line));transition:background .3s}
+.situation-preview-band{display:inline-block;padding:2px 10px;border-radius:999px;background:#fff;color:var(--tone-ink);font-size:12px;font-weight:600}
+.situation-preview h2{margin:12px 0 8px;font-size:1.375rem;line-height:1.4}
+.situation-preview p{margin:6px 0 0;font-size:.9375rem;line-height:1.75;color:#3f3f46}
+.situation-preview-money{font-weight:650;color:var(--ink)!important}
+.situation-preview-rule{padding-top:10px;border-top:1px solid rgba(0,0,0,.06);font-size:var(--text-caption)!important;color:#55555d!important}
+.situation-preview-note{margin:0;font-size:12px;color:var(--muted)}
+@media(prefers-reduced-motion:no-preference){.situation-preview h2{animation:hero-rise .35s var(--ease-out,ease)}}
+@media(max-width:900px){
+  .situation-layout{grid-template-columns:1fr}
+  .situation-preview{position:static;order:-1}
+}
+@media(max-width:760px){.situation-page .situation-amounts{grid-template-columns:1fr}}

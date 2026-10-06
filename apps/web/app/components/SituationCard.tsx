@@ -6,7 +6,7 @@ import{ situationMoney }from'../lib/situation-money.ts';
 import {HoldingsSummary} from './HoldingsSummary.tsx';
 
 /** What the public rule means for this reader's stated situation; it never invents holdings or amounts. */
-function readingFor(s:ReaderSituation,j:Judgment|null):{title:string;body:string;rule?:string}{
+export function readingFor(s:ReaderSituation,j:Judgment|null):{title:string;body:string;rule?:string}{
  const held=['007339','005658','both'].includes(s.holding);
  if(s.holding==='other')return{title:'这项持仓暂不在支持范围',body:'目前只研究沪深300与007339、005658两只联接C类，不对其他基金作持仓判断。上面的判断可作为沪深300方向的参考。'};
  if(s.holding_period==='under7')return{title:'持有不足7天，先看赎回费',body:'两只C类确认持有不足7日，赎回费都是1.50%。估值规则面向长期资金，不适用于几天内的买卖。'};
