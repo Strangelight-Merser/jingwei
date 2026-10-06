@@ -32,6 +32,8 @@
 - [随包官方历史](packages/backend/csi300-pe-seed.ts)
 - 本次实际读取：`GET /publication/judgment`
 
+想自己算一遍：`npm run replay:rule` 不调用软件的规则代码，只用随包官方数据从头重算每天的分位、区间和全部改判，结果与软件逐日一致。算好的结果在 [changes.csv](exports/rule-replay/changes.csv)（31 次改判）和 [daily.csv](exports/rule-replay/daily.csv)（每日分位与区间），可直接用表格软件打开。
+
 ## 普通使用
 
 1. **阅读首页**：先看规则判断、估值位置和改判边界，再看「我的情况」。本期解读文章保留标题、日期与一句导读；「资料与口径」默认折叠，需要时展开。
