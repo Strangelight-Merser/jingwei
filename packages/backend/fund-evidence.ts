@@ -12,7 +12,7 @@ import {requiredFundDocuments,readFundDocument} from './fund-document-bodies.ts'
 
 export type FundSeries={code:FundCode;nav:{date:string;nav:number;accumulated_nav?:number}[];ref:SourceRef};
 export type FundDocument=FundResearchDocument;
-export type ResearchEvidence={refs:SourceRef[];funds:FundSnapshot[];market:MarketSnapshot|null;errors:string[];captured_at:string;fund_series:FundSeries[];documents:FundDocument[];other_directions?:OtherDirectionEvidence[]};
+export type ResearchEvidence={refs:SourceRef[];funds:FundSnapshot[];market:MarketSnapshot|null;errors:string[];captured_at:string;fund_series:FundSeries[];documents:FundDocument[];other_directions?:OtherDirectionEvidence[];valuation_rule?:import('../contracts/research.ts').ValuationRuleEvidence};
 export type ResearchEvidenceOptions={now?:Date;fetcher?:typeof fetch;archive_dir?:string;priorSnapshots?:FundSnapshot[];priorDocuments?:FundDocument[];pdfExtractor?:(path:string)=>Promise<string>};
 const hash=(value:string|Uint8Array)=>createHash('sha256').update(value).digest('hex');
 const clean=(s:string)=>s.replace(/\s+/g,' ').trim();

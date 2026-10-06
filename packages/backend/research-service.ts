@@ -11,7 +11,7 @@ import {toMarketEvidence} from './market-sources.ts';
 import {requiredFundDocuments} from './fund-document-bodies.ts';
 import type {ResearchEvidence} from './fund-evidence.ts';
 import {FUND_STORY_ID} from './fund-updates.ts';
-import {refreshValuationState} from './judgment.ts';
+import {refreshValuationState,valuationRuleEvidence} from './judgment.ts';
 
 export type ResearchCheck={id:string;started_at:string;finished_at:string;status:'partial'|'failed'|'updated'|'unchanged'|'model_waiting';evidence_hash:string|null;source_errors:string[];version_id:string|null;message:string};
 export type ResearchState={settings:{enabled:boolean;interval_minutes:number;model_enabled:boolean};latest_snapshot?:ResearchSnapshot;checks:ResearchCheck[];processed_hashes:{hash:string;result:'maintained'|'published'|'failed'|'running';version_id:string|null}[];followed_topics:string[]};
@@ -33,8 +33,9 @@ export function mergeResearchEvidence(evidence:ResearchEvidence,previous?:Resear
  for(const document of evidence.documents){const old=documentMap.get(document.url);documentMap.set(document.url,document.status==='discovered'&&old?.status==='read'?{...old,body_error:document.body_error}:document);}
  const documents=[...documentMap.values()].filter(d=>['007339','005658'].includes(d.code));
  const other=new Map((previous.other_directions??[]).map(d=>[d.direction_key,d]));for(const d of evidence.other_directions??[]){const old=other.get(d.direction_key);if(!old||d.as_of>=old.as_of)other.set(d.direction_key,d);}
- const merged={...evidence,funds:[...funds.values()],fund_series:[...series.values()] as ResearchEvidence['fund_series'],market,documents,other_directions:[...other.values()]};
- merged.refs=[...merged.funds.flatMap(f=>Object.values(f.fields).flatMap(v=>v?[v.source]:[])),...merged.fund_series.map(s=>s.ref),...documents.filter(d=>d.status==='read').map(d=>d.ref),...merged.other_directions.map(d=>d.ref),...(market?[toMarketEvidence(market).source]:[])];
+ const valuation_rule=evidence.valuation_rule??previous.valuation_rule;
+ const merged={...evidence,funds:[...funds.values()],fund_series:[...series.values()] as ResearchEvidence['fund_series'],market,documents,other_directions:[...other.values()],...(valuation_rule?{valuation_rule}:{})};
+ merged.refs=[...merged.funds.flatMap(f=>Object.values(f.fields).flatMap(v=>v?[v.source]:[])),...merged.fund_series.map(s=>s.ref),...documents.filter(d=>d.status==='read').map(d=>d.ref),...merged.other_directions.map(d=>d.ref),...(market?[toMarketEvidence(market).source]:[]),...(valuation_rule?[valuation_rule.ref]:[])];
  return merged;
 }
 
@@ -90,7 +91,7 @@ export function createResearchService({collector,provider,valuation,now=()=>new 
   try{
    // The rule judgment uses its own official series; its failure never blocks fund evidence.
    if(refreshValuation)await refreshValuation().catch(()=>console.warn('valuation_refresh_failed'));
-   const evidence=await fetchEvidence(),prior=(await readState()).research_state?.latest_snapshot,snapshot=buildResearchSnapshot(mergeResearchEvidence(evidence,prior));
+   const fetched=await fetchEvidence(),rule=refreshValuation?valuationRuleEvidence(await readState()):null,evidence={...fetched,...(rule?{valuation_rule:rule}:{})},prior=(await readState()).research_state?.latest_snapshot,snapshot=buildResearchSnapshot(mergeResearchEvidence(evidence,prior));
    // Check completion is public health information; it does not replace the content's first observation.
    snapshot.evidence_observed_at=prior?.evidence_hash===snapshot.evidence_hash?(prior.evidence_observed_at??prior.captured_at):snapshot.captured_at;
    if(closed)return {status:'failed' as const,message:'软件已退出，本次核查未提交。'};

@@ -13,7 +13,7 @@ import { buildResearchSnapshot } from '../.desktop-build/runtime/packages/backen
 import { defaultResearchState, mergeResearchEvidence } from '../.desktop-build/runtime/packages/backend/research-service.js';
 import { collectResearchEvidence } from '../.desktop-build/runtime/packages/backend/fund-evidence.js';
 import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
-import { refreshValuationState } from '../.desktop-build/runtime/packages/backend/judgment.js';
+import { refreshValuationState, valuationRuleEvidence } from '../.desktop-build/runtime/packages/backend/judgment.js';
 
 app.setName('经纬');
 process.env.JINGWEI_EDITOR_MODE='0';
@@ -39,7 +39,9 @@ async function start(){
  const evidence=JSON.parse(await readFile(path.join(import.meta.dirname,'public-evidence.json'),'utf8'));
  await mutateState(async state=>{
   const research=state.research_state??=defaultResearchState(),current=research.latest_snapshot;
-  const snapshot=buildResearchSnapshot(current?mergeResearchEvidence({...current,fund_series:current.fund_series??[],documents:current.documents??[]},buildResearchSnapshot(evidence)):evidence);
+  // The bundled valuation rule result is public evidence like the facts above.
+  const rule=valuationRuleEvidence(state),withRule=value=>rule?{...value,valuation_rule:rule}:value;
+  const snapshot=buildResearchSnapshot(current?mergeResearchEvidence(withRule({...current,fund_series:current.fund_series??[],documents:current.documents??[]}),buildResearchSnapshot(evidence)):withRule(evidence));
   snapshot.evidence_observed_at=current?.evidence_hash===snapshot.evidence_hash?(current.evidence_observed_at??current.captured_at):new Date().toISOString();
   research.latest_snapshot=snapshot;
   // This imports already verified public material, not a fresh network check or a new judgment.

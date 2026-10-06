@@ -76,3 +76,38 @@ test('当前已采集真实证据可进入专用研究链；仅fixture解释，�
  assert.ok(s.refs.every(r=>!input.documents!.some(d=>d.ref.article_id===r.article_id)));const metadata=structuredClone(input);metadata.documents![0].title='发现新公告，不代表已读正文';assert.equal(buildResearchSnapshot(metadata).evidence_hash,s.evidence_hash);
  const prompt=fundResearchPrompt({snapshot:s,evaluation,previous:null});assert.ok(prompt.includes('非分红')||prompt.includes('含分红'));assert.ok(!prompt.includes('Bearer'));
 });
+
+// ---- Public valuation rule as evidence: the model explains the rule's stance and cannot change it.
+import {valuationRuleEvidence} from '../packages/backend/judgment.ts';
+import type {State} from '../packages/backend/storage.ts';
+function ruleSnapshot(override?:(rule:NonNullable<ReturnType<typeof valuationRuleEvidence>>)=>void){
+ const rule=valuationRuleEvidence({} as State)!;override?.(rule);
+ return buildResearchSnapshot({...evidence(),valuation_rule:rule});
+}
+const followRule=(input:Parameters<typeof fundResearchFixture>[0])=>{
+ const out=fundResearchFixture(input),rule=input.snapshot.valuation_rule!,id=rule.ref.article_id;
+ out.research.new_money={stance:rule.new_money.stance,summary:`按公开估值规则，新增资金${rule.new_money.title}。`,conditions:['valuation_band'],refs:[id]};
+ out.research.held={stance:rule.held.stance,summary:`若已有经过考虑的长期计划，已有持仓${rule.held.title}。`,conditions:['valuation_band','user_plan_known'],refs:[id]};
+ return out;
+};
+test('有规则结果时新增资金与持仓可评估，规则档位作为必查条件',()=>{
+ const s=ruleSnapshot(),e=evaluateResearchSnapshot(s);
+ assert.equal(e.evaluability.new_money.status,'assessable');assert.equal(e.evaluability.held.status,'assessable');
+ assert.equal(e.checks.valuation_band.status,'triggered');
+ assert.ok(e.metrics.some(m=>m.key==='pe_ttm_percentile_10y'&&m.value===s.valuation_rule!.percentile));
+ assert.ok(s.refs.some(r=>r.article_id===s.valuation_rule!.ref.article_id));
+});
+test('模型立场与规则不一致时拒绝，一致时刊为规则立场',async()=>{
+ const s=ruleSnapshot();
+ await assert.rejects(composeFundResearch(s,null,async input=>fundResearchFixture(input)),/stance_must_follow_rule/);
+ const v=await composeFundResearch(s,null,async input=>followRule(input));
+ assert.ok(v);assert.equal(v.research.new_money.stance,s.valuation_rule!.new_money.stance);
+ assert.equal(v.article.operation_view!.unheld.action,'持');assert.equal(v.article.operation_view!.held.action,'持');
+});
+test('规则档位变化改变证据hash；偏低区允许写“分批买入”，中间区不允许',async()=>{
+ const mid=ruleSnapshot(),low=ruleSnapshot(r=>{r.band='low';r.new_money={stance:'conditional_add',title:'可分批新增',text:'可分批新增'};});
+ assert.notEqual(mid.evidence_hash,low.evidence_hash);
+ const withBuy=(input:Parameters<typeof fundResearchFixture>[0])=>{const out=followRule(input);out.research.direction.summary='估值处在规则偏低区，因此可分批买入。';return out;};
+ assert.ok(await composeFundResearch(low,null,async input=>withBuy(input)));
+ await assert.rejects(composeFundResearch(mid,null,async input=>withBuy(input)),/unsupported_public_market_action/);
+});
