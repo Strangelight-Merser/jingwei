@@ -24,7 +24,8 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
 
   useEffect(() => {
     let dismissed = false;
-    try {dismissed = localStorage.getItem(STORAGE_KEY) === '1';} catch {}
+    // The first-run welcome comes first; this guide only opens by itself once that is done.
+    try {dismissed = localStorage.getItem(STORAGE_KEY) === '1' || localStorage.getItem('jingwei.reader.first-run.done') !== '1';} catch {}
     if (!dismissed && !dialog.current?.open) dialog.current?.showModal();
   }, []);
 

@@ -9,6 +9,7 @@ directories:
 files:
   - desktop/main.mjs
   - desktop/preload.cjs
+  - desktop/splash.html
   - desktop/reading-seed.json
   - desktop/public-evidence.json
   - .desktop-build/runtime/**/*.js

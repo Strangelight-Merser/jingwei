@@ -28,6 +28,11 @@ else {
  app.whenReady().then(async()=>{try{await start();}catch(error){console.error('desktop_start_failed',error instanceof Error?error.message:'unknown');await dialog.showMessageBox({type:'error',title:'经纬暂时无法打开',message:'本机阅读数据未能载入。',detail:'已有资料保留。请退出后重新打开；若仍无法启动，请联系提供安装包的人。'});app.quit();}});
 }
 async function start(){
+ // Open at once on the launch mark; the app replaces it once data and servers are ready.
+ const launchedAt=Date.now();
+ window=new BrowserWindow({width:1260,height:900,minWidth:760,minHeight:580,title:'经纬 · 基金研究',backgroundColor:'#ffffff',show:false,webPreferences:{preload:path.join(import.meta.dirname,'preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false}});
+ window.once('ready-to-show',()=>window.show());
+ await window.loadFile(path.join(import.meta.dirname,'splash.html'));
  const userDir=app.getPath('userData');await mkdir(userDir,{recursive:true});
  const contentDir=path.join(userDir,'content');
  // Only this desktop instance owns this per-user store; recover a lock left by a crash.
@@ -81,13 +86,15 @@ async function start(){
  ipcMain.on('reading:write-situation',(event,value)=>{try{if(!allowed(event)||value!==null&&!validReaderSituation(value))throw new Error();writeFileSync(situationFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(situationFile+'.tmp',situationFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:read-saved',(event)=>{try{if(!allowed(event))throw new Error();let saved;try{saved=JSON.parse(readFileSync(bookmarkFile,'utf8'));}catch(e){if(e.code==='ENOENT')saved=[];else throw e;}if(!Array.isArray(saved)||saved.some(s=>typeof s!=='string'))throw new Error();event.returnValue={ok:true,slugs:saved};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:write-saved',(event,slugs)=>{try{if(!allowed(event)||!Array.isArray(slugs)||slugs.length>2000||slugs.some(s=>typeof s!=='string'||!/^[-a-zA-Z0-9_]{1,160}$/.test(s)))throw new Error();writeFileSync(bookmarkFile+'.tmp',JSON.stringify([...new Set(slugs)]),{mode:0o600});renameSync(bookmarkFile+'.tmp',bookmarkFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
- window=new BrowserWindow({width:1260,height:900,minWidth:760,minHeight:580,title:'经纬 · 基金研究',backgroundColor:'#f8f6ef',show:false,webPreferences:{preload:path.join(import.meta.dirname,'preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false}});
+ 
  window.on('page-title-updated',event=>{event.preventDefault();window.setTitle('经纬 · 基金研究');});
  window.webContents.setWindowOpenHandler(({url})=>{if(/^https?:\/\//.test(url))void shell.openExternal(url);return {action:'deny'};});
  window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith(origin+'/')){event.preventDefault();if(/^https?:\/\//.test(url))void shell.openExternal(url);}});
  const go=route=>window.loadURL(origin+route);
  const menu=[...(process.platform==='darwin'?[{label:'经纬',submenu:[{label:'关于经纬',click:()=>about()}, {type:'separator'}, {role:'hide'}, {role:'hideOthers'}, {role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'阅读',submenu:[{label:'首页',accelerator:'CmdOrCtrl+1',click:()=>go('/')},{label:'我的情况',accelerator:'CmdOrCtrl+2',click:()=>go('/situation')},{label:'两只C类费用比较',click:()=>go('/compare')},{label:'判断变化',click:()=>go('/changes')},{label:'我的收藏',accelerator:'CmdOrCtrl+3',click:()=>go('/saved')},{type:'separator'},{label:'偏好与连接',click:()=>go('/settings')},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]}, {label:'编辑',submenu:[{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]}, {label:'视图',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]}, {label:'帮助',submenu:[{label:'维护模式',type:'checkbox',checked:false,click:item=>{process.env.JINGWEI_EDITOR_MODE=item.checked?'1':'0';go(item.checked?'/maintenance':'/');}},{type:'separator'},{label:'关于经纬',click:()=>about()}]}];
  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+ // Let the launch mark finish drawing before the first page replaces it.
+ const shown=Date.now()-launchedAt;if(shown<1700)await new Promise(resolve=>setTimeout(resolve,1700-shown));
  await window.loadURL(origin+'/');window.show();
  if(process.env.JINGWEI_DESKTOP_CHECK_DIR){await mkdir(process.env.JINGWEI_DESKTOP_CHECK_DIR,{recursive:true});await writeFile(path.join(process.env.JINGWEI_DESKTOP_CHECK_DIR,'runtime.json'),JSON.stringify({pid:process.pid,platform:process.platform,arch:process.arch,version:app.getVersion(),packaged:app.isPackaged,web:origin,api:`http://127.0.0.1:${apiPort}`,userData:userDir},null,2));}
 }

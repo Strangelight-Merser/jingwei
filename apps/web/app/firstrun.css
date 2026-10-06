@@ -1,0 +1,54 @@
+/* First launch: a calm three-step card that opens over the home page. */
+.first-run{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:28px 32px 26px;border:0;border-radius:20px;background:#fff;color:var(--ink);box-shadow:0 24px 80px rgba(20,20,30,.18),0 2px 8px rgba(20,20,30,.06)}
+.first-run::backdrop{background:rgba(250,250,251,.72);backdrop-filter:blur(6px)}
+.first-run-steps{display:flex;gap:6px;margin-bottom:22px}
+.first-run-steps span{width:22px;height:4px;border-radius:999px;background:#e6e6ea;transition:background .3s,width .3s var(--ease-out)}
+.first-run-steps span.is-on{background:var(--ink)}
+.first-run-steps span.is-on:last-of-type{width:34px}
+.first-run-kicker{margin:0;font-size:var(--text-caption);color:var(--muted);letter-spacing:.04em}
+.first-run h2{margin:8px 0 0;font-size:1.625rem;line-height:1.4;letter-spacing:-.01em;font-weight:700}
+.first-run-points{display:grid;gap:14px;margin:24px 0 0;padding:0;list-style:none;counter-reset:point}
+.first-run-points li{display:grid;grid-template-columns:28px 1fr;gap:2px 12px;counter-increment:point}
+.first-run-points li:before{content:counter(point);grid-row:span 2;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface);font-size:13px;font-weight:650;color:var(--ink)}
+.first-run-points b{font-size:1rem}
+.first-run-points span{font-size:.9375rem;line-height:1.7;color:#55555d}
+
+.first-run-data{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none}
+.first-run-data li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:var(--surface);opacity:.35;transform:translateY(4px);transition:opacity .4s,transform .4s var(--ease-out)}
+.first-run-data li.is-ready{opacity:1;transform:none}
+.first-run-data li>div{flex:1;min-width:0}
+.first-run-data strong{display:block;font-size:1rem}
+.first-run-data small{font-size:var(--text-caption);color:var(--muted);font-variant-numeric:tabular-nums}
+.first-run-check{position:relative;width:22px;height:22px;border-radius:50%;border:2px solid #d4d4da;flex:none;transition:border-color .3s,background .3s}
+.first-run-data li.is-ready .first-run-check{border-color:var(--tone-line);background:var(--tone-line)}
+.first-run-data li.is-ready .first-run-check:after{content:'';position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.first-run-band{padding:3px 10px;border-radius:999px;background:var(--tone-bg);color:var(--tone-ink);font-size:12px;font-weight:600;white-space:nowrap}
+.first-run-note{margin:16px 0 0;font-size:var(--text-caption);line-height:1.7;color:var(--muted)}
+
+.first-run-choices{display:grid;gap:12px;margin:22px 0 0}
+.first-run-choices a{display:grid;gap:4px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;transition:border-color .2s,transform .2s var(--ease-out)}
+.first-run-choices a:hover{border-color:var(--ink);transform:translateY(-1px)}
+.first-run-choices a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.first-run-choices b{font-size:1rem}
+.first-run-choices b:after{content:' →';color:var(--accent)}
+.first-run-choices span{font-size:var(--text-caption);color:var(--muted)}
+
+.first-run-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px}
+.first-run-actions button{min-height:42px;padding:0 22px;border-radius:12px;border:1px solid var(--ink);background:var(--ink);color:#fff;font:inherit;font-size:var(--text-ui);font-weight:600;cursor:pointer;transition:transform .15s,opacity .2s}
+.first-run-actions button:active:not(:disabled){transform:scale(.97)}
+.first-run-actions button:disabled{opacity:.35;cursor:default}
+.first-run-actions button.ghost{border-color:transparent;background:none;color:var(--muted);font-weight:400;padding:0 6px}
+.first-run-actions button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media(prefers-reduced-motion:no-preference){
+  .first-run[open]{animation:first-run-in .5s var(--ease-out)}
+  .first-run[open]::backdrop{animation:first-run-fade .4s ease}
+  .first-run-page{animation:first-run-page .45s var(--ease-out)}
+}
+@keyframes first-run-in{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes first-run-fade{from{opacity:0}}
+@keyframes first-run-page{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+@media(max-width:760px){
+  .first-run{padding:22px 20px 20px;border-radius:18px}
+  .first-run h2{font-size:1.375rem}
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<title>经纬</title>
+<style>
+  :root{--ink:#232326;--muted:#77777f;--accent:#963749;--line:#d9d9de;--ease:cubic-bezier(.2,.8,.2,1)}
+  html,body{margin:0;height:100%;background:#fff;color:var(--ink);font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;-webkit-user-select:none;user-select:none;cursor:default}
+  body{display:grid;place-items:center}
+  .mark{display:grid;justify-items:center;gap:22px}
+  /* 经 = meridians (vertical), 纬 = parallels (horizontal): the grid draws itself, then today lights up. */
+  svg{width:120px;height:120px;overflow:visible}
+  .grid line{stroke:var(--line);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw .7s var(--ease) forwards}
+  .grid .v{stroke:#b9b9c0}
+  .grid line:nth-child(1){animation-delay:.05s}.grid line:nth-child(2){animation-delay:.12s}.grid line:nth-child(3){animation-delay:.19s}
+  .grid line:nth-child(4){animation-delay:.3s}.grid line:nth-child(5){animation-delay:.37s}.grid line:nth-child(6){animation-delay:.44s}
+  .curve{fill:none;stroke:var(--ink);stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw .9s var(--ease) .55s forwards}
+  .today{fill:var(--accent);transform-origin:96px 52px;transform:scale(0);animation:pop .45s var(--ease) 1.3s forwards}
+  .ring{fill:none;stroke:var(--accent);stroke-width:1.5;transform-origin:96px 52px;opacity:0;animation:ring 1.6s ease-out 1.55s infinite}
+  .word{display:grid;justify-items:center;gap:8px;opacity:0;transform:translateY(8px);animation:rise .6s var(--ease) .9s forwards}
+  .word strong{font-size:30px;font-weight:650;letter-spacing:.08em}
+  .word strong:after{content:'';display:block;height:3px;margin-top:6px;background:var(--accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ease) 1.25s forwards}
+  .word span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+  .status{position:fixed;bottom:36px;left:0;right:0;text-align:center;font-size:12px;color:var(--muted);opacity:0;animation:fade .4s ease 1.6s forwards}
+  .status i{display:inline-block;width:4px;height:4px;margin-left:6px;border-radius:50%;background:var(--muted);animation:blink 1s ease-in-out infinite}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{to{transform:scale(1)}}
+  @keyframes ring{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(3)}}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  @keyframes fade{to{opacity:1}}
+  @keyframes blink{50%{opacity:.2}}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+  <div class="mark" role="img" aria-label="经纬">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <g class="grid">
+        <line class="v" x1="24" y1="8" x2="24" y2="112" pathLength="1"/>
+        <line class="v" x1="60" y1="8" x2="60" y2="112" pathLength="1"/>
+        <line class="v" x1="96" y1="8" x2="96" y2="112" pathLength="1"/>
+        <line x1="8" y1="30" x2="112" y2="30" pathLength="1"/>
+        <line x1="8" y1="60" x2="112" y2="60" pathLength="1"/>
+        <line x1="8" y1="90" x2="112" y2="90" pathLength="1"/>
+      </g>
+      <path class="curve" d="M12 70 C 26 40, 34 34, 44 58 S 62 98, 74 80 S 88 44, 96 52" pathLength="1"/>
+      <circle class="ring" cx="96" cy="52" r="5"/>
+      <circle class="today" cx="96" cy="52" r="5"/>
+    </svg>
+    <div class="word"><strong>经纬</strong><span>按公开规则，看懂基金判断</span></div>
+  </div>
+  <p class="status">正在准备数据<i></i></p>
+</body>
+</html>
