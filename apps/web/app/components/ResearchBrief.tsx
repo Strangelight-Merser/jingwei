@@ -5,7 +5,7 @@ import type {SourceRef} from '../../../../packages/contracts/types.ts';
 import type {FinanceVersion} from '../../../../packages/contracts/types.ts';
 import type {ResearchPosition,ResearchScope} from '../../../../packages/contracts/research.ts';
 import {MarketFigure} from './MarketFigure.tsx';
-import {date,sourceDates} from '../lib/format.ts';
+import {date,sourceDates,number} from '../lib/format.ts';
 
 export type ResearchUpdate = {status:'idle'|'checking'|'partial'|'failed'|'updated'|'unchanged'|'model_waiting';last_checked_at:string|null;last_success_at:string|null;next_check_at:string|null;source_errors:string[];message:string};
 async function readingRequest(fields:Record<string,string>){const r=await fetch('/follow',{method:'POST',body:new URLSearchParams(fields),signal:AbortSignal.timeout(10000)});const result=await r.json()as{ok:boolean;message?:string};if(!r.ok||!result.ok)throw new Error(result.message??'暂时未能完成');return result;}
@@ -32,25 +32,31 @@ export function ResearchUpdateNote({update}:{update?:ResearchUpdate|null}){
 }
 const stanceLabel:Record<ResearchPosition['stance'],string>={conditional_add:'满足条件时可考虑新增',maintain_plan:'按原计划维护',conditional_reduce:'触发条件时考虑减少',observe:'继续观察',not_assessable:'当前资料无法评估'};
 const scopeLabel:Record<ResearchScope,string>={direction:'方向判断',comparison:'工具比较',new_money:'新增资金',held:'已有持仓',sell:'卖出或失效条件'};
+export function ArticleBrief({version}:{version:FinanceVersion}){
+ return <section className="article-brief" aria-label="本期解读文章">
+  <div className="article-brief-meta"><span>本期解读文章</span><time dateTime={version.as_of}>资料截至 {date(version.as_of)}</time></div>
+  <h2><Link to={`/articles/${version.article.slug}`}>{version.article.title}</Link></h2>
+  <div className="article-brief-guide"><p>{version.article.deck}</p><Link to={`/articles/${version.article.slug}`}>阅读全文 →</Link></div>
+ </section>;
+}
 export function ResearchBrief({version,home=false,update}:{version:FinanceVersion;home?:boolean;update?:ResearchUpdate|null}){
  const r=version.research;if(!r)return null;
+ if(home)return <ArticleBrief version={version}/>;
  const refDetails=(ids:string[])=>{
   const refs=version.input_refs.filter(ref=>ids.includes(ref.article_id));
   return refs.length?<details className="research-sources"><summary>查看依据</summary>{refs.map(ref=><div key={ref.article_id}><a href={ref.url} target="_blank" rel="noreferrer">{ref.source}</a><small>{sourceDates(ref)}</small>{(ref.display_fragments??ref.fragments).map((fragment,index)=><p key={index}>{fragment}</p>)}</div>)}</details>:null;
  };
  const position=(label:string,p:ResearchPosition)=><section className="research-position"><h3>{label}<span>{stanceLabel[p.stance]}</span></h3><p>{p.summary}</p>{p.conditions.length>0&&<ul>{p.conditions.map(c=><li key={c}>{r.conditions.find(condition=>condition.key===c)?.label??'待核查条件'}</li>)}</ul>}{refDetails(p.refs)}</section>;
- return <section className={'research-brief'+(home?' research-home':'')} aria-label="当前基金研究">
-  {home&&<header className="research-opening"><div className="research-byline"><span>{r.coverage.label} · 当前研究</span><time dateTime={version.as_of}>资料截至 {date(version.as_of)}</time></div><h1><Link to={`/articles/${version.article.slug}`}>{version.article.title}</Link></h1><p>{version.article.deck}</p></header>}
+ return <section className="research-brief" aria-label="当前基金研究">
   <div className="research-context"><p>当前覆盖沪深300方向内的工具比较，尚未比较其他市场方向。</p><div className="research-controls"><FollowButton topicKey={version.interpretation.topic_key}/><CheckResearchButton/></div></div>
   <ResearchUpdateNote update={update}/>
-  <section className="research-direction"><h2>为什么关注这个方向</h2><p>{r.direction.summary}</p>{home?<details className="research-sources"><summary>判断的理由</summary>{r.direction.why.map(reason=><p key={reason}>{reason}</p>)}</details>:r.direction.why.map(reason=><p key={reason}>{reason}</p>)}{refDetails(r.direction.refs)}</section>
+  <section className="research-direction"><h2>为什么关注这个方向</h2><p>{r.direction.summary}</p>{r.direction.why.map(reason=><p key={reason}>{reason}</p>)}{refDetails(r.direction.refs)}</section>
   {version.article.operation_view?.market&&<div className="research-market"><MarketFigure market={version.article.operation_view.market}/></div>}
   <div className="research-positions">{position('新增资金',r.new_money)}{position('已有持仓',r.held)}</div>
-  <section className="research-candidates"><h2>同一方向，工具怎样选</h2><p className="research-caption">两只承接相同指数，同时持有不增加方向分散。</p>{r.candidates.map(c=>{const fund=version.article.operation_view?.funds.find(f=>f.code===c.code);return <div key={c.code}><h3>{fund?.name??c.code}<small>{c.code}</small></h3><p>{c.summary}</p>{c.differences.length>0&&(home?<details className="research-sources"><summary>费用、跟踪与交易差异</summary><ul>{c.differences.map(d=><li key={d}>{d}</li>)}</ul></details>:<ul>{c.differences.map(d=><li key={d}>{d}</li>)}</ul>)}{refDetails(c.refs)}</div>;})}</section>
-  <details id="judgment-change-conditions" className="research-conditions" open={!home}><summary>卖出、失效与下次复核的条件</summary>{r.conditions.map(c=><div key={c.key}><h3>{c.label}<span>{c.status==='triggered'?'已触发':c.status==='not_triggered'?'未触发':'暂无法检查'}</span></h3><p>{c.explanation}</p>{refDetails(c.refs.map(ref=>ref.article_id))}</div>)}</details>
+  <section className="research-candidates"><h2>同一方向，工具怎样选</h2><p className="research-caption">两只承接相同指数，同时持有不增加方向分散。</p>{r.candidates.map(c=>{const fund=version.article.operation_view?.funds.find(f=>f.code===c.code);return <div key={c.code}><h3>{fund?.name??c.code}<small>{c.code}</small></h3><p>{c.summary}</p>{c.differences.length>0&&<ul>{c.differences.map(d=><li key={d}>{d}</li>)}</ul>}{refDetails(c.refs)}</div>;})}</section>
+  <details id="judgment-change-conditions" className="research-conditions" open><summary>卖出、失效与下次复核的条件</summary>{r.conditions.map(c=><div key={c.key}><h3>{c.label}<span>{c.status==='triggered'?'已触发':c.status==='not_triggered'?'未触发':'暂无法检查'}</span></h3><p>{c.explanation}</p>{refDetails(c.refs.map(ref=>ref.article_id))}</div>)}</details>
   <section className="research-change"><h2>这次研究有什么变化</h2><p>{version.changes.summary}</p>{r.impact_scope.length>0&&<p>影响：{r.impact_scope.map(scope=>scopeLabel[scope]).join('、')}。</p>}<p className="research-caption">研究日期 {date(r.evaluated_at)}。新资料到来后核对上述条件，有实质变化再修订判断。</p></section>
   {r.limitations.length>0&&<details className="research-limitations"><summary>哪些问题还不能回答</summary><ul>{r.limitations.map(item=><li key={item}>{item}</li>)}</ul><p>缺少的资料只影响对应结论，不自动代表应当买入、卖出或观察。</p></details>}
-  {home&&<Link className="read-link" to={`/articles/${version.article.slug}`}>阅读完整研究与此前版本 →</Link>}
  </section>;
 }
 export function HistoricalResearchNote({version}:{version:FinanceVersion}){
@@ -58,13 +64,22 @@ export function HistoricalResearchNote({version}:{version:FinanceVersion}){
  return <p className="historical-research-note">这份判断来自历史人工研究，复核于 {date(version.article.operation_view.reviewed_on)}。下面保留当时的依据与条件，不代表已按最新资料重新判断。</p>;
 }
 
+function factMetrics(facts:ResearchEvaluation){
+ const metrics=facts.metrics.filter(m=>m.key.endsWith('_nav_window_change_pct')||m.key==='same_date_nav_change_difference_pct').slice(0,3);
+ return metrics.length?metrics:facts.metrics.filter(m=>m.key==='close'||m.key==='pe_ttm').slice(0,2);
+}
+export function freeResearchFactCount(facts?:ResearchEvaluation|null){
+ if(!facts)return 0;
+ const visible=factMetrics(facts);
+ if(!visible.length&&!facts.limitations.length)return 0;
+ return Math.max(1,visible.length+facts.metrics.filter(m=>m.key.endsWith('_report_period_return_pct')||m.key==='csi500_pe_ttm').length);
+}
 export function FreeResearchFacts({facts,asOf,refs=[]}:{facts?:ResearchEvaluation|null;asOf?:string|null;refs?:SourceRef[]}){
  if(!facts)return null;
- const metrics=facts.metrics.filter(m=>m.key.endsWith('_nav_window_change_pct')||m.key==='same_date_nav_change_difference_pct').slice(0,3);
- const visible=metrics.length?metrics:facts.metrics.filter(m=>m.key==='close'||m.key==='pe_ttm').slice(0,2);
+ const visible=factMetrics(facts);
  const reports=facts.metrics.filter(m=>m.key.endsWith('_report_period_return_pct'));
  const other=facts.metrics.filter(m=>m.key==='csi500_pe_ttm');
  const used=refs.filter(r=>[...visible,...reports,...other].some(m=>m.refs.includes(r.article_id))||facts.checks.document_body_read?.refs.some(b=>b.article_id===r.article_id));
  if(!visible.length&&!facts.limitations.length)return null;
- return <section className="free-research-facts" aria-label="本次核查资料"><h2>可用资料</h2><p>官方记录保留各自的原日期，还没有形成新的行动判断。{asOf&&<>市场资料截至 {date(asOf)}。</>}</p>{reports.length>0&&<><h3>半年报补充的事实</h3>{reports.map(m=><p key={m.key}>{m.label}为 {m.value}%；对应报告期的本基金基准收益率为 {facts.metrics.find(b=>b.key===m.key.replace('period_return_pct','benchmark_return_pct'))?.value}%。</p>)}<p>{facts.checks.tracking_available.explanation}</p><p>这是报告中的历史表现；两只基金基准的现金部分不同，超基准差不能直接排出跟踪优劣。</p></>}{other.length>0&&<p>还取得了同日中证500价格与估值。该方向的基金条款、长期盈利和估值分位尚未核实，当前资料还不能支持方向选择。</p>}{visible.length>0&&<dl>{visible.map(m=><div key={m.key}><dt>{m.label}</dt><dd>{m.value.toLocaleString('zh-CN',{maximumFractionDigits:4})}{m.unit}<small>{m.as_of&&<>资料日期 {date(m.as_of)}</>}</small></dd></div>)}</dl>}{facts.checks.fee_scope_verified?.status==='not_assessable'&&<p>{facts.checks.fee_scope_verified.explanation}</p>}{facts.checks.document_body_read&&<p>{facts.checks.document_body_read.explanation}</p>}{visible.some(m=>m.key.includes('_nav_'))&&<p>单位净值未复权，分红可能影响区间变化和回撤；这些数值不是含分红总回报。</p>}{!visible.length&&<p>{facts.limitations[0]}</p>}{used.length>0&&<details className="research-sources"><summary>查看原文和口径</summary>{used.map(ref=><div key={ref.article_id}><a href={ref.url} target="_blank" rel="noreferrer">{ref.source}</a><small>{sourceDates(ref)}</small>{(ref.display_fragments??ref.fragments).map((f,i)=><p key={i}>{f}</p>)}</div>)}</details>}</section>;
+ return <section className="free-research-facts" aria-label="本次核查资料"><h2>可用资料</h2><p>官方记录保留各自的原日期；首页行动判断由公开估值规则给出。{asOf&&<>市场资料截至 {date(asOf)}。</>}</p>{reports.length>0&&<><h3>半年报补充的事实</h3>{reports.map(m=>{const benchmark=facts.metrics.find(b=>b.key===m.key.replace('period_return_pct','benchmark_return_pct'));return <p key={m.key}>{m.label}为 {number(m.value)}%{benchmark&&<>；对应报告期的本基金基准收益率为 {number(benchmark.value)}%</>}。</p>;})}<p>{facts.checks.tracking_available.explanation}</p><p>这是报告中的历史表现；两只基金基准的现金部分不同，超基准差不能直接排出跟踪优劣。</p></>}{other.length>0&&<p>还取得了同日中证500价格与估值。该方向的基金条款、长期盈利和估值分位尚未核实，当前资料还不能支持方向选择。</p>}{visible.length>0&&<dl>{visible.map(m=><div key={m.key}><dt>{m.label}</dt><dd>{number(m.value)}{m.unit}<small>{m.as_of&&<>资料日期 {date(m.as_of)}</>}</small></dd></div>)}</dl>}{facts.checks.fee_scope_verified?.status==='not_assessable'&&<p>{facts.checks.fee_scope_verified.explanation}</p>}{facts.checks.document_body_read&&<p>{facts.checks.document_body_read.explanation}</p>}{visible.some(m=>m.key.includes('_nav_'))&&<p>单位净值未复权，分红可能影响区间变化和回撤；这些数值不是含分红总回报。</p>}{!visible.length&&<p>{facts.limitations[0]}</p>}{used.length>0&&<details className="research-sources"><summary>查看原文和口径</summary>{used.map(ref=><div key={ref.article_id}><a href={ref.url} target="_blank" rel="noreferrer">{ref.source}</a><small>{sourceDates(ref)}</small>{(ref.display_fragments??ref.fragments).map((f,i)=><p key={i}>{f}</p>)}</div>)}</details>}</section>;
 }
