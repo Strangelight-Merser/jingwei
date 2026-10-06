@@ -110,10 +110,11 @@ test('当前 GET /publication/judgment 与离线种子复算一致（隔离存�
     assert.equal(response.statusCode, 200);
     const defaultJudgment = response.json();
     assert.equal(defaultJudgment.index_code, '000300');
-    assert.deepEqual(defaultJudgment.boundaries, {low:12.42,high:14.24,extreme:15.33,window_start:'2016-09-30'});
+    assert.deepEqual(defaultJudgment.boundaries, {low:12.22,high:14.41,extreme:15.33,percentiles:{low:25,high:75,extreme:90},window_start:'2016-09-30'});
     assert.equal(defaultJudgment.pe_ttm,13.15);
     assert.equal(defaultJudgment.percentile,48.8);
-    assert.equal(defaultJudgment.changes.length-1,31);
+    assert.equal(defaultJudgment.changes.length-1,17);
+    assert.deepEqual(defaultJudgment.stability,{changes:17,quick_reversals:1,v1_changes:31,v1_quick_reversals:7,reversal_days:45});
     const overview = await app.inject({method:'GET',url:'/publication/judgments'});
     assert.equal(overview.statusCode,200);
     assert.deepEqual(overview.json().indexes.map((j:{index_code:string}) => j.index_code),INDEX_CODES);

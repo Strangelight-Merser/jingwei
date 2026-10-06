@@ -182,7 +182,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
     <div className="hero-ladder reveal" style={{'--i': 3} as React.CSSProperties}>
       <div className="hero-ladder-head">
         <h2>什么时候会改判</h2>
-        <p>市盈率连续 {j.rule.confirm_days} 个数据日落在另一区间才改判；倍数边界随十年窗口移动。</p>
+        <p>连续 {j.rule.confirm_days} 个数据日落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随十年窗口移动。</p>
       </div>
       <ol>
         {BANDS.map(band => <li key={band} className={`tone-${band}${band === j.band ? ' is-current' : ''}`} aria-current={band === j.band ? 'true' : undefined}>

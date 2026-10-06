@@ -25,7 +25,8 @@ export function ruleCardData(j: PublicRuleJudgment, indexCode: string) {
     held: {title: j.judgment.held.title, text: j.judgment.held.text},
     boundaries: {
       low: j.boundaries.low, high: j.boundaries.high, extreme: j.boundaries.extreme,
-      low_percentile: j.rule.low, high_percentile: j.rule.high, extreme_percentile: j.rule.extreme,
+      // Edges in force for the confirmed band (v2 buffer), matching the PE figures beside them.
+      low_percentile: j.boundaries.percentiles?.low ?? j.rule.low, high_percentile: j.boundaries.percentiles?.high ?? j.rule.high, extreme_percentile: j.boundaries.percentiles?.extreme ?? j.rule.extreme,
       confirm_days: j.rule.confirm_days,
     },
     pending: j.pending ? {label: j.pending.judgment.label, days: j.pending.days, needed: j.pending.needed} : null,

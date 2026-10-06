@@ -4,8 +4,9 @@ import type {ValuationPoint} from './valuation-history.ts';
 import {VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
 
 export const VALUATION_RULE = {
-  id: 'csi300-pe-ttm-10y-v1',
-  name: '沪深300估值分位规则 v1',
+  id: 'csi300-pe-ttm-10y-v2',
+  name: '沪深300估值分位规则 v2',
+  version: 2,
   metric: '滚动市盈率（PE TTM）',
   window_years: 10,
   // Before ten years of official data exist, the window uses all available data, at least five years.
@@ -15,6 +16,11 @@ export const VALUATION_RULE = {
   extreme: 90,
   // A boundary must hold for this many consecutive trading days before the judgment changes.
   confirm_days: 5,
+  // v2: leaving the confirmed band takes crossing its edge by this many extra percentile points.
+  // v1 had no buffer and reversed within weeks about one change in three; see stability in the result.
+  buffer: 5,
+  // A change undone within this many calendar days counts as a quick reversal in the stability figures.
+  reversal_days: 45,
   // Changes dated on or after this day were observed by the running software; earlier ones are recomputed.
   live_from: '2026-10-06',
 } as const;
@@ -111,18 +117,36 @@ export type RuleChange = {
   full_window: boolean;
 };
 
-/** Applies the confirmation rule; only a band held for `confirm_days` days becomes the judgment. */
-export function ruleTimeline(series: PercentilePoint[]) {
+const EDGES = [VALUATION_RULE.low, VALUATION_RULE.high, VALUATION_RULE.extreme] as const;
+const BANDS: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
+
+/**
+ * Percentile edges in force while `current` is the confirmed band: the two edges of the current band
+ * move outward by `buffer`; edges further away stay where they are.
+ */
+export function effectiveEdges(current: ValuationBand | null, buffer: number = VALUATION_RULE.buffer): [number, number, number] {
+  const k = current === null ? -1 : BANDS.indexOf(current);
+  return EDGES.map((edge, i) => i === k ? edge + buffer : i === k - 1 ? edge - buffer : edge) as [number, number, number];
+}
+
+/** The band an exact percentile falls in, given the confirmed band and its buffer. */
+export function bandWithBuffer(exact: number, current: ValuationBand | null, buffer: number = VALUATION_RULE.buffer): ValuationBand {
+  const [a, b, c] = effectiveEdges(current, buffer);
+  return exact < a ? 'low' : exact < b ? 'mid' : exact < c ? 'high' : 'extreme';
+}
+
+/** Applies the buffer and the confirmation rule; only a band held for `confirm_days` days becomes the judgment. */
+export function ruleTimeline(series: PercentilePoint[], buffer: number = VALUATION_RULE.buffer) {
   const changes: RuleChange[] = [];
   let confirmed: ValuationBand | null = null;
   let pending: {band: ValuationBand; days: number} | null = null;
   for (const p of series) {
-    const band = bandOf(p.exact);
     if (confirmed === null) {
-      confirmed = band;
-      changes.push({date: p.date, from: null, to: band, pe_ttm: p.pe_ttm, percentile: p.percentile, full_window: p.full_window});
+      confirmed = bandOf(p.exact);
+      changes.push({date: p.date, from: null, to: confirmed, pe_ttm: p.pe_ttm, percentile: p.percentile, full_window: p.full_window});
       continue;
     }
+    const band = bandWithBuffer(p.exact, confirmed, buffer);
     if (band === confirmed) { pending = null; continue; }
     const previous = pending as {band: ValuationBand; days: number} | null;
     pending = previous?.band === band ? {band, days: previous.days + 1} : {band, days: 1};
@@ -135,13 +159,27 @@ export function ruleTimeline(series: PercentilePoint[]) {
   return {changes, confirmed, pending};
 }
 
-/** PE values that currently mark each band boundary, from today's trailing window. */
-export function boundaryPe(points: ValuationPoint[], date: string) {
+/** Changes that undo the previous change within `days` calendar days (A → B, then back to A). */
+export function quickReversals(changes: RuleChange[], days: number = VALUATION_RULE.reversal_days) {
+  let count = 0;
+  for (let i = 2; i < changes.length; i++) {
+    const prev = changes[i - 1], cur = changes[i];
+    if (cur.to === prev.from && Date.parse(cur.date) - Date.parse(prev.date) <= days * 86_400_000) count++;
+  }
+  return count;
+}
+
+/**
+ * PE values that mark each band edge in today's trailing window, using the edges in force for the
+ * current band (buffered), so the figures shown are the ones that would actually trigger a change.
+ */
+export function boundaryPe(points: ValuationPoint[], date: string, current: ValuationBand | null = null) {
   const windowStart = yearsBefore(date, VALUATION_RULE.window_years);
   const values = points.filter(p => p.date >= windowStart && p.date <= date).map(p => p.pe_ttm).sort((a, b) => a - b);
   // Smallest PE whose at-or-below share reaches the boundary percentile.
   const at = (pct: number) => values[Math.max(0, Math.ceil((pct / 100) * values.length) - 1)];
-  return {low: at(VALUATION_RULE.low), high: at(VALUATION_RULE.high), extreme: at(VALUATION_RULE.extreme), window_start: values.length ? windowStart : null};
+  const [low, high, extreme] = effectiveEdges(current);
+  return {low: at(low), high: at(high), extreme: at(extreme), percentiles: {low, high, extreme}, window_start: values.length ? windowStart : null};
 }
 
 export type RuleJudgmentResult = ReturnType<typeof evaluateValuationRule>;
@@ -156,7 +194,8 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
   if (!latest) return null;
   const {changes, confirmed, pending} = ruleTimeline(series);
   const band = confirmed!;
-  const boundaries = boundaryPe(points, latest.date);
+  const boundaries = boundaryPe(points, latest.date, band);
+  const v1 = ruleTimeline(series, 0).changes;
   // Downsample to weekly points for the reader's chart; the last point is always included.
   const chart = series.filter((p, i) => i % 5 === 0 || i === series.length - 1).map(p => ({date: p.date, percentile: p.percentile, pe_ttm: p.pe_ttm}));
   const counts = {low: 0, mid: 0, high: 0, extreme: 0} as Record<ValuationBand, number>;
@@ -166,7 +205,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
   return {
     index_code: index,
     index_name: identity.name,
-    rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v1`, name: `${identity.name}估值分位规则 v1`},
+    rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v2`, name: `${identity.name}估值分位规则 v2`},
     as_of: latest.date,
     pe_ttm: latest.pe_ttm,
     percentile: latest.percentile,
@@ -183,5 +222,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
     rows: points.length,
     share_of_days: Object.fromEntries(Object.entries(counts).map(([k, v]) => [k, Math.round((v / series.length) * 1000) / 10])) as Record<ValuationBand, number>,
     chart,
+    // Why v2 has a buffer: the same data without it, side by side.
+    stability: {changes: changes.length - 1, quick_reversals: quickReversals(changes), v1_changes: v1.length - 1, v1_quick_reversals: quickReversals(v1), reversal_days: VALUATION_RULE.reversal_days},
   };
 }

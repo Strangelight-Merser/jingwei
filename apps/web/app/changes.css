@@ -70,3 +70,7 @@ li.is-selected .changes-dot{box-shadow:0 0 0 3px var(--tone-bg),0 0 0 5px var(--
   .changes-method dd{margin-bottom:10px}
 }
 .reader-page.changes-page{max-width:1120px}
+.changes-stability{padding:18px 22px;border-radius:16px;background:var(--surface)}
+.changes-stability h2{margin:0;font-size:1.0625rem}
+.changes-stability p{margin:8px 0 0;font-size:.9375rem;line-height:1.75;color:#3f3f46}
+.changes-stability b{font-variant-numeric:tabular-nums;color:var(--ink)}

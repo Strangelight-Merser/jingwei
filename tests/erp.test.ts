@@ -28,9 +28,12 @@ function independent(pe: ValuationPoint[], prices: TotalReturnPoint[]) {
     if (shift(day.date, -5) < pe[0].date) continue;
     const window = pe.filter(p => p.date >= shift(day.date, -10) && p.date <= day.date);
     const pct = window.filter(p => p.pe_ttm <= day.pe_ttm).length / window.length * 100;
-    const raw = bands[pct < 30 ? 0 : pct < 70 ? 1 : pct < 90 ? 2 : 3];
+    const e = [30, 70, 90], k = current ? bands.indexOf(current) : -1;
+    if (k >= 1) e[k - 1] -= 5;
+    if (k >= 0 && k <= 2) e[k] += 5;
+    const raw: ValuationBand = bands[pct < e[0] ? 0 : pct < e[1] ? 1 : pct < e[2] ? 2 : 3];
     recent.push(raw); if (recent.length > 5) recent.shift();
-    if (!current || recent.length === 5 && recent.every(band => band === raw)) current = raw;
+    if (!current || raw !== current && recent.length === 5 && recent.every(band => band === raw)) {current = raw; recent.length = 0;}
     confirmed.set(day.date, current);
   }
   const compared = ranks.filter(p => confirmed.has(p.date));

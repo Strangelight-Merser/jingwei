@@ -48,8 +48,11 @@ test('新分档须连续确认才改判，中途回到原档则重新计数', ()
 
 test('分档按未取整分位：显示为30.0的29.98仍属偏低区', () => {
   const day = (exact: number, i: number) => ({date: `2020-01-${String(i + 1).padStart(2, '0')}`, pe_ttm: 10, percentile: Math.round(exact * 10) / 10, exact, window_start: '2010-01-01', full_window: true});
-  const t = ruleTimeline([50, 29.98, 29.98, 29.98, 29.98, 29.98].map(day));
-  assert.equal(t.confirmed, 'low');
+  // The rounding question is independent of the v2 buffer, so it is checked without one;
+  // with the buffer, 29.98 alone no longer leaves the middle band (it must fall below 25).
+  assert.equal(ruleTimeline([50, 29.98, 29.98, 29.98, 29.98, 29.98].map(day), 0).confirmed, 'low');
+  assert.equal(ruleTimeline([50, 29.98, 29.98, 29.98, 29.98, 29.98].map(day)).confirmed, 'mid');
+  assert.equal(ruleTimeline([50, 24.9, 24.9, 24.9, 24.9, 24.9].map(day)).confirmed, 'low');
   // 真实历史中2018-12-07等4个交易日取整后恰为边界值，改判记录不受影响
   const s = percentileSeries(seedHistory().points);
   const edge = s.filter(p => p.percentile === 30 && p.exact < 30).map(p => p.date);
@@ -108,4 +111,20 @@ test('增量更新：同日以新值为准，失败不改动原历史', async ()
   const failing = (async () => new Response('', {status: 502})) as typeof fetch;
   await assert.rejects(refreshPeHistory(base, {fetcher: failing}), /http_502/);
   assert.equal(base.checked_at, null);
+});
+
+test('v2 缓冲：离开已确认区间要多越过 5 个百分点，回到原区间不需要', () => {
+  const day = (exact: number, i: number) => ({date: `2020-02-${String(i + 1).padStart(2, '0')}`, pe_ttm: 10, percentile: exact, exact, window_start: '2010-01-01', full_window: true});
+  // mid → 72 for five days: inside the buffer, stays mid; 76 for five days: becomes high.
+  assert.equal(ruleTimeline([50, 72, 72, 72, 72, 72].map(day)).confirmed, 'mid');
+  assert.equal(ruleTimeline([50, 76, 76, 76, 76, 76].map(day)).confirmed, 'high');
+  // Once high, dipping to 67 does not return to mid; it takes below 65.
+  assert.equal(ruleTimeline([50, 76, 76, 76, 76, 76, 67, 67, 67, 67, 67].map(day)).confirmed, 'high');
+  assert.equal(ruleTimeline([50, 76, 76, 76, 76, 76, 64, 64, 64, 64, 64].map(day)).confirmed, 'mid');
+});
+
+test('v2 在真实历史上减少了反复改口，且各区间之后的三年收益顺序不变', () => {
+  const r = evaluateValuationRule(seedHistory().points)!;
+  assert.ok(r.stability.changes < r.stability.v1_changes);
+  assert.ok(r.stability.quick_reversals < r.stability.v1_quick_reversals);
 });

@@ -19,10 +19,14 @@ function independent(points: ValuationPoint[], prices: TotalReturnPoint[]) {
     const cutoff = shiftYear(point.date, -10);
     const window = points.filter(p => p.date >= cutoff && p.date <= point.date);
     const pct = window.filter(p => p.pe_ttm <= point.pe_ttm).length / window.length * 100;
-    const raw: Band = pct < 30 ? 'low' : pct < 70 ? 'mid' : pct < 90 ? 'high' : 'extreme';
+    // v2 buffer: the confirmed band's own edges sit 5 points further out.
+    const e = [30, 70, 90], k = confirmed ? (['low', 'mid', 'high', 'extreme'] as Band[]).indexOf(confirmed) : -1;
+    if (k >= 1) e[k - 1] -= 5;
+    if (k >= 0 && k <= 2) e[k] += 5;
+    const raw: Band = pct < e[0] ? 'low' : pct < e[1] ? 'mid' : pct < e[2] ? 'high' : 'extreme';
     recent.push(raw);
     if (recent.length > 5) recent.shift();
-    if (confirmed === null || (recent.length === 5 && recent.every(b => b === raw))) confirmed = raw;
+    if (confirmed === null || (raw !== confirmed && recent.length === 5 && recent.every(b => b === raw))) {confirmed = raw; recent.length = 0;}
     daily.push({date: point.date, band: confirmed});
   }
   const results = bands.map(band => ({band, horizons: [1, 3].map(years => {
@@ -68,11 +72,11 @@ for (const index of Object.keys(OUTCOME_INDICES) as OutcomeIndex[]) {
   });
 }
 
-test('CSI300 reproduces Claude’s published one/three-year means and positive proportions', () => {
+test('CSI300 reproduces the published v2 one/three-year means and positive proportions', () => {
   const actual = ruleOutcomesForHistory(seedHistory('000300').points, seedTotalReturnHistory('000300').points);
-  assert.deepEqual(actual.bands.map(b => Number(b.one_year.mean!.toFixed(1))), [9.4, 12.8, 2.5, -8]);
-  assert.deepEqual(actual.bands.map(b => Number(b.three_year.mean!.toFixed(1))), [11, 5.2, 3.6, -2.2]);
-  assert.deepEqual(actual.bands.map(b => Math.round(b.three_year.positive_pct!)), [100, 82, 71, 34]);
+  assert.deepEqual(actual.bands.map(b => Number(b.one_year.mean!.toFixed(1))), [7, 14.2, -1.8, -4.8]);
+  assert.deepEqual(actual.bands.map(b => Number(b.three_year.mean!.toFixed(1))), [9.6, 6.3, 3.7, -5.1]);
+  assert.deepEqual(actual.bands.map(b => Math.round(b.three_year.positive_pct!)), [100, 87, 71, 17]);
   assert.match(actual.conclusion, /1 年期没有同样排序/);
 });
 

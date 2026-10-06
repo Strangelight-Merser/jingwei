@@ -7,9 +7,9 @@ import {currentValuationHistory, judgmentPublication, refreshValuationState, val
 import {mutateState, readState} from '../packages/backend/storage.ts';
 
 const CURRENT = {
-  '000300': {pe:13.15,percentile:48.8,band:'mid',changes:31,rows:3788,boundaries:[12.42,14.24,15.33]},
-  '000905': {pe:25.09,percentile:71.6,band:'high',changes:17,rows:3785,boundaries:[18.49,24.35,30.43]},
-  '000016': {pe:10.95,percentile:61.2,band:'mid',changes:42,rows:3785,boundaries:[10.19,11.35,12.15]},
+  '000300': {pe:13.15,percentile:48.8,band:'mid',changes:17,rows:3788,boundaries:[12.22,14.41,15.33]},
+  '000905': {pe:25.09,percentile:71.6,band:'high',changes:9,rows:3785,boundaries:[18.49,23.48,36.51]},
+  '000016': {pe:10.95,percentile:61.2,band:'mid',changes:22,rows:3785,boundaries:[10.07,11.56,12.15]},
 } as const;
 
 for (const index of INDEX_CODES) test(`${index}：各自官方历史、当前判断与固定规则参数`, () => {
@@ -26,7 +26,7 @@ for (const index of INDEX_CODES) test(`${index}：各自官方历史、当前判
   assert.equal(result.changes.filter(c => c.from !== null).length,expected.changes);
   assert.equal(result.rows,expected.rows);
   assert.deepEqual([result.boundaries.low,result.boundaries.high,result.boundaries.extreme],expected.boundaries);
-  for (const key of ['window_years','min_years','low','high','extreme','confirm_days','live_from'] as const) assert.equal(result.rule[key],VALUATION_RULE[key]);
+  for (const key of ['window_years','min_years','low','high','extreme','confirm_days','buffer','live_from'] as const) assert.equal(result.rule[key],VALUATION_RULE[key]);
   assert.equal(new Set(history.points.map(p => p.date)).size,history.points.length);
   assert.ok(history.points.every(p => p.pe_ttm > 0 && Number.isFinite(p.pe_ttm)));
 });
@@ -87,7 +87,7 @@ test('三个联网核查独立保存：一组失败保留旧数据，成功组�
     const afterEvidence = valuationRuleEvidence(state)!;
     assert.equal(afterEvidence.pe_ttm,beforeEvidence!.pe_ttm);
     assert.equal(afterEvidence.percentile,beforeEvidence!.percentile);
-    assert.equal(afterEvidence.rule_id,'csi300-pe-ttm-10y-v1');
+    assert.equal(afterEvidence.rule_id,'csi300-pe-ttm-10y-v2');
     assert.equal((await judgmentPublication())!.index_code,'000300');
     assert.equal((await judgmentPublication('000905'))!.pe_ttm,26);
   } finally {

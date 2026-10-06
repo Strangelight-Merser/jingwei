@@ -62,6 +62,20 @@ function classify(percentile: number): ReplayBand {
   return 'extreme';
 }
 
+// v2 buffer, written out separately: while a band is confirmed, its own lower edge sits 5 points
+// lower and its upper edge 5 points higher; the other edges stay at 30 / 70 / 90.
+const ORDER: ReplayBand[] = ['low', 'mid', 'high', 'extreme'];
+function classifyFrom(percentile: number, confirmed: ReplayBand | null): ReplayBand {
+  const edges = [30, 70, 90];
+  const at = confirmed ? ORDER.indexOf(confirmed) : -1;
+  if (at >= 1) edges[at - 1] -= 5;
+  if (at >= 0 && at <= 2) edges[at] += 5;
+  if (percentile < edges[0]) return 'low';
+  if (percentile < edges[1]) return 'mid';
+  if (percentile < edges[2]) return 'high';
+  return 'extreme';
+}
+
 export function replayRule(points: ReplayPoint[] = replaySeed()) {
   const daily: ReplayDay[] = [];
   const changes: ReplayChange[] = [];
@@ -83,13 +97,15 @@ export function replayRule(points: ReplayPoint[] = replaySeed()) {
     const exact = atOrBelow / window.length * 100;
     const percentile = Math.round(exact * 10) / 10;
     const rawBand = classify(exact);
+    const candidate = classifyFrom(exact, confirmed);
     const fullWindow = cutoff >= points[0].date;
-    recentBands.push(rawBand);
+    recentBands.push(candidate);
     if (recentBands.length > 5) recentBands.shift();
 
-    if (confirmed === null || (rawBand !== confirmed && recentBands.length === 5 && recentBands.every(band => band === rawBand))) {
-      changes.push({...point, from: confirmed, to: rawBand, percentile, full_window: fullWindow});
-      confirmed = rawBand;
+    if (confirmed === null || (candidate !== confirmed && recentBands.length === 5 && recentBands.every(band => band === candidate))) {
+      changes.push({...point, from: confirmed, to: confirmed === null ? rawBand : candidate, percentile, full_window: fullWindow});
+      confirmed = confirmed === null ? rawBand : candidate;
+      recentBands.length = 0;
     }
     daily.push({...point, percentile, exact, raw_band: rawBand, band: confirmed, window_start: window[0].date, full_window: fullWindow});
   }

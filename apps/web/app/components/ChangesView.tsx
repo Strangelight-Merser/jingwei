@@ -45,7 +45,12 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
       <p className="changes-origin">{live ? `其中 ${live} 次发生在软件运行之后，其余为历史回算。` : `${date(j.rule.live_from)} 以前的改判都是按同一规则对官方历史数据的回算，不是当时发布的判断。`}点击曲线上的圆点可定位到下方记录。</p>
     </section>
 
-    <div className="reveal" style={{'--i': 3} as React.CSSProperties}>
+    <section className="changes-stability reveal" style={{'--i': 3} as React.CSSProperties} aria-labelledby="stability-title">
+      <h2 id="stability-title">为什么 v2 加了缓冲</h2>
+      <p>同一份官方数据，不加缓冲的 v1 共改判 <b>{j.stability.v1_changes}</b> 次，其中 <b>{j.stability.v1_quick_reversals}</b> 次在 {j.stability.reversal_days} 天内又改了回去；加缓冲的 v2 改判 <b>{j.stability.changes}</b> 次，{j.stability.reversal_days} 天内反转 <b>{j.stability.quick_reversals}</b> 次。缓冲只为减少反复改口，下面各区间之后的收益排序在两版中一致。</p>
+    </section>
+
+    <div className="reveal" style={{'--i': 4} as React.CSSProperties}>
       <RuleOutcomes key={'o' + j.index_code} index={j.index_code} outcomes={outcomes}/>
       <ErpLens index={j.index_code}/>
     </div>
@@ -82,7 +87,8 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
         <dt>指标</dt><dd>{j.index_name}{j.rule.metric}，来自中证指数有限公司官网每日估值数据（{j.rows.toLocaleString('zh-CN')} 个数据日，{date(j.history_first)} 至 {date(j.as_of)}）。</dd>
         <dt>分位</dt><dd>近 {j.rule.window_years} 年中，估值不高于当日的数据日所占比例。数据不足十年时用全部已有数据，且至少 {j.rule.min_years} 年。</dd>
         <dt>分档</dt><dd>{(['low', 'mid', 'high', 'extreme'] as const).map(b => `${BAND_JUDGMENTS[b].label}（${BAND_JUDGMENTS[b].range}）：新增资金${BAND_JUDGMENTS[b].new_money.title}，已有持仓${BAND_JUDGMENTS[b].held.title}`).join('；')}。</dd>
-        <dt>确认改判</dt><dd>新分档须连续 {j.rule.confirm_days} 个数据日成立才改判，避免在边界附近来回变化。</dd>
+        <dt>确认改判</dt><dd>新分档须连续 {j.rule.confirm_days} 个数据日成立才改判。</dd>
+        <dt>缓冲（v2）</dt><dd>离开已确认的区间，要比边界再多越过 {j.rule.buffer} 个百分点；例如从中间区升到偏高区要到第 {j.rule.high + j.rule.buffer} 百分位，从偏高区回到中间区要低于第 {j.rule.high - j.rule.buffer} 百分位。</dd>
         <dt>各档天数</dt><dd>偏低区 {j.share_of_days.low}%、中间区 {j.share_of_days.mid}%、偏高区 {j.share_of_days.high}%、高位区 {j.share_of_days.extreme}% 的数据日。</dd>
       </dl>
     </details>
