@@ -7,7 +7,7 @@ body:has(.embed-page) > .masthead, body:has(.embed-page) > footer, body:has(.emb
 .embed-heading span, .embed-current span { color: #66666e; font-size: 12px; }
 .embed-current { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; }
 .embed-current h1 { font-size: 25px; margin: 0; line-height: 1.4; }
-.embed-current > strong { font-size: 17px; padding: 4px 12px; background: #f1f1f3; border-radius: 6px; }
+.embed-current > strong { font-size: 17px; padding: 4px 12px; background: var(--tone-bg, #f1f1f3); color: var(--tone-ink, inherit); border-radius: 999px; }
 .embed-metric { font-size: 12px; }
 .embed-metric b { font-weight: 550; }
 .embed-actions { margin: 18px 0; padding: 12px 14px; background: #f7f7f8; }

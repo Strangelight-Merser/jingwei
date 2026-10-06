@@ -27,7 +27,12 @@ test('规则卡 JSON 经真实 publication API 读取，与公开判断的数字
     assert.equal(card.source.url, published.source_url);
     assert.ok(!('chart' in card) && !('changes' in card));
     assert.match(changeDescription(card.last_change), /历史回算|实际观察/);
-    for (const code of ['000905', '', 'constructor']) {
+    for (const [code, name] of [['000905', '中证500'], ['000016', '上证50']]) {
+      const other = await jsonLoader({request: new Request(`http://channel/embed/rule-card.json?index=${code}`)});
+      assert.equal(other.status, 200);
+      assert.equal((await other.json()).index.name, name);
+    }
+    for (const code of ['399006', '', 'constructor']) {
       const unsupported = await jsonLoader({request: new Request(`http://channel/embed/rule-card.json?index=${code}`)});
       assert.equal(unsupported.status, 404);
       assert.match((await unsupported.json()).error, /尚未提供/);

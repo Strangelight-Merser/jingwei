@@ -17,7 +17,7 @@ export default function EmbedRuleCard() {
     <article className="embed-rule-card" aria-label="经纬规则卡">
       <header className="embed-heading"><strong>经纬规则卡</strong><span>数据日 {card.as_of}</span></header>
       <DataDateNotice asOf={card.as_of}/>
-      <div className="embed-current"><div><h1>{card.index.name}</h1><span>{card.index.code}</span></div><strong>{card.label}</strong></div>
+      <div className="embed-current"><div><h1>{card.index.name}</h1><span>{card.index.code}</span></div><strong className={`tone-${card.band}`}>{card.label}</strong></div>
       <p className="embed-metric">滚动市盈率 <b>{number(card.pe_ttm)} 倍</b> · 近十年第 <b>{number(card.percentile)} 百分位</b></p>
       <dl className="embed-actions"><div><dt>新增资金</dt><dd>{card.new_money.title}</dd></div><div><dt>已有持仓</dt><dd>{card.held.title}</dd></div></dl>
       <section className="embed-boundaries"><h2>什么时候改判</h2><dl>

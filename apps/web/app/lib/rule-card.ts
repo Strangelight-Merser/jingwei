@@ -4,7 +4,7 @@ import {BAND_JUDGMENTS} from '../../../../packages/backend/valuation-rule.ts';
 export type PublicRuleJudgment = NonNullable<Awaited<ReturnType<typeof judgmentPublication>>>;
 
 // Only expose indices with a published judgment. Add another entry when its data is available.
-export const CHANNEL_INDICES: Record<string, string> = {'000300': '沪深300'};
+export const CHANNEL_INDICES: Record<string, string> = {'000300': '沪深300', '000905': '中证500', '000016': '上证50'};
 
 /** A compact snapshot of /publication/judgment; values are copied, never recalculated here.
  * PE is in multiples, percentile is 0–100, and dates are YYYY-MM-DD.

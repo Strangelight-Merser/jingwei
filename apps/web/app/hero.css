@@ -1,11 +1,5 @@
 /* Home hero: one focal number, a scrubbable ten-year chart, and the four bands as a shared colour language. */
-:root{
-  --tone-low-ink:#24694a;--tone-low-bg:#e3f1e8;--tone-low-line:#3f9a6e;
-  --tone-mid-ink:#3f4e66;--tone-mid-bg:#e7ebf2;--tone-mid-line:#6b7c99;
-  --tone-high-ink:#8d5414;--tone-high-bg:#f6ead8;--tone-high-line:#c98a3a;
-  --tone-extreme-ink:#9c2f46;--tone-extreme-bg:#f8e2e7;--tone-extreme-line:#c9536c;
-  --ease-out:cubic-bezier(.2,.8,.2,1);
-}
+/* Band colour tokens live in app.css so every page shares them. */
 .tone-low{--tone-ink:var(--tone-low-ink);--tone-bg:var(--tone-low-bg);--tone-line:var(--tone-low-line)}
 .tone-mid{--tone-ink:var(--tone-mid-ink);--tone-bg:var(--tone-mid-bg);--tone-line:var(--tone-mid-line)}
 .tone-high{--tone-ink:var(--tone-high-ink);--tone-bg:var(--tone-high-bg);--tone-line:var(--tone-high-line)}

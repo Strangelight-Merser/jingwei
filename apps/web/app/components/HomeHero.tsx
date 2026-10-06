@@ -41,7 +41,7 @@ function bandOn(j: Judgment, day: string): ValuationBand {
   return (j.changes.find(c => c.date <= day) ?? j.changes.at(-1)!).to;
 }
 
-function IndexSwitch({indexes, selected, onSelect}: {indexes: Judgment[]; selected: IndexCode; onSelect: (index: IndexCode) => void}) {
+export function IndexSwitch({indexes, selected, onSelect}: {indexes: Judgment[]; selected: IndexCode; onSelect: (index: IndexCode) => void}) {
   const position = Math.max(0, indexes.findIndex(j => j.index_code === selected));
   return <div className="hero-switch" role="tablist" aria-label="选择宽基指数" style={{'--count': indexes.length, '--position': position} as React.CSSProperties}>
     <span className="hero-switch-thumb" aria-hidden="true"/>

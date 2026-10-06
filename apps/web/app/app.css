@@ -52,3 +52,12 @@
 .fund-tracking-evidence { margin-top: .75rem; color: var(--muted); font-size: .9rem; }
 .fund-tracking-evidence summary { cursor: pointer; }
 .fund-tracking-evidence p { line-height: 1.8; }
+
+/* Shared band colours: low / mid / high / extreme. */
+:root{
+  --tone-low-ink:#24694a;--tone-low-bg:#e3f1e8;--tone-low-line:#3f9a6e;
+  --tone-mid-ink:#3f4e66;--tone-mid-bg:#e7ebf2;--tone-mid-line:#6b7c99;
+  --tone-high-ink:#8d5414;--tone-high-bg:#f6ead8;--tone-high-line:#c98a3a;
+  --tone-extreme-ink:#9c2f46;--tone-extreme-bg:#f8e2e7;--tone-extreme-line:#c9536c;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+}
