@@ -93,6 +93,8 @@
 .editorial-history>p{font-size:14px;color:var(--muted);line-height:1.8;margin:12px 0}
 .changes-page .timeline-index a{min-height:44px;align-content:center}
 .changes-page .timeline-group>summary,.changes-page .timeline-source>summary,.changes-page .timeline-record>summary{min-height:44px;align-content:center;color:var(--muted)}
+.changes-page .timeline-source>small,.changes-page .diff-pair small{color:var(--muted)}
+.changes-page .rule-chart-label,.changes-page .rule-chart-callout{font-size:13px}
 @media (max-width:760px){
  .rule-indexes{gap:6px;margin:20px 0 18px}
  .rule-indexes button{grid-template-columns:1fr;gap:5px;padding:10px 8px}

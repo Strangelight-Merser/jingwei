@@ -15,7 +15,9 @@ export function RuleRecord({j}: {j: Judgment}) {
   function selectChange(changeDate: string) {
     setSelectedDate(changeDate);
     setHoveredDate(null);
-    document.getElementById(`rule-change-${changeDate}`)?.scrollIntoView({block: 'nearest'});
+    const row = document.getElementById(`rule-change-${changeDate}`);
+    row?.scrollIntoView({block: 'nearest'});
+    row?.querySelector('button')?.focus({preventScroll: true});
   }
   return <>
     <section className="rule-record" id="rule">
