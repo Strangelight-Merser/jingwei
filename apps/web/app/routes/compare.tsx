@@ -6,37 +6,60 @@ import '../compare.css';
 export function meta(){return [{title:'两只C类费用比较 · 经纬'}];}
 const money=(n:number)=>n.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
 
+const AMOUNTS=[10000,50000,100000];
+const DAYS:[number,string][]=[[6,'6 天'],[7,'7 天'],[30,'1 个月'],[365,'1 年'],[1095,'3 年']];
+const SHORT:Record<string,string>={'007339':'易方达沪深300联接C','005658':'华夏沪深300联接C'};
+
 function ResultTable({result:r}:{result:FundCostComparison}){
  return <table className="cost-table">
-  <caption>销售服务费 + 赎回费 · 元</caption>
+  <caption>分项 · 元</caption>
   <thead><tr><th>费用项目</th>{r.funds.map(f=><th key={f.code}>{f.code==='007339'?'易方达C':'华夏C'}<small>{f.code}</small></th>)}</tr></thead>
   <tbody>{[['销售服务费','service_fee_yuan'],['赎回费','redemption_fee_yuan'],['两项合计','total_fee_yuan']].map(([label,key])=><tr key={key}><th>{label}</th>{r.funds.map(f=><td key={f.code}>{money(f[key as 'service_fee_yuan'])}</td>)}</tr>)}</tbody>
  </table>;
 }
 
 export default function Compare(){
- const [amount,setAmount]=useState(''),[days,setDays]=useState(''),[result,setResult]=useState<FundCostComparison|null>(null),[error,setError]=useState('');
- function calculate(event:React.FormEvent){
-  event.preventDefault();
-  try{const r=estimateFundCosts({amount:Number(amount),holding_days:Number(days)});setResult(r);setError('');}
-  catch{setResult(null);setError('请输入大于0的金额，以及大于0的整数持有天数。');}
- }
+ const [amount,setAmount]=useState('10000'),[days,setDays]=useState('365');
+ let result:FundCostComparison|null=null;
+ try{result=estimateFundCosts({amount:Number(amount),holding_days:Number(days)});}catch{}
+ const error=result?'':'请输入大于 0 的金额，以及大于 0 的整数天数。';
+ const max=result?Math.max(...result.funds.map(f=>f.total_fee_yuan),0.01):1;
+ const cheaper=result?[...result.funds].sort((a,b)=>a.total_fee_yuan-b.total_fee_yuan)[0]:null;
+ const diff=result?Math.abs(result.difference.total_fee_yuan):0;
+ const n=Number(days);
  return <main id="main" className="reader-page comparison-page">
-  <p className="eyebrow">同一指数 · 两只C类</p>
-  <h1>这笔钱，两只基金的费用差多少？</h1>
-  <p className="reader-intro">易方达007339与华夏005658都跟踪沪深300。填入金额和持有天数，看看销售服务费与赎回费的差别。</p>
-  <form onSubmit={calculate} noValidate className="cost-form">
-   <label>投入金额（元）<input type="number" inputMode="decimal" name="amount" min="0.01" step="0.01" value={amount} aria-invalid={!!error} aria-describedby={error?'cost-error':undefined} onChange={e=>{setAmount(e.target.value);setResult(null);setError('');}} placeholder="如 10000"/></label>
-   <label>持有天数（自然日）<input type="number" inputMode="numeric" name="holding_days" min="1" step="1" value={days} aria-invalid={!!error} aria-describedby={error?'cost-error':undefined} onChange={e=>{setDays(e.target.value);setResult(null);setError('');}} placeholder="如 7"/></label>
-   <button type="submit">算算费用差</button>
-  </form>
-  {error&&<p id="cost-error" className="cost-error" role="alert">{error}</p>}
-  {result&&<section className="cost-result" aria-live="polite">
-   <h2>{result.difference.total_fee_yuan===0?'按你的金额和天数，两只的这两项费用相同':<>按你的金额和天数，007339 比 005658 少交约 <strong>{money(result.difference.total_fee_yuan)} 元</strong></>}</h2>
-   <p>{money(result.amount)} 元 · {result.holding_days} 天</p>
-   <ResultTable result={result}/>
-  </section>}
-  <p className="reader-note">仅按固定费率估算，实际以渠道为准。</p>
+  <header className="cost-head">
+   <p className="eyebrow">同一指数 · 两只 C 类</p>
+   <h1>这笔钱，两只基金的费用差多少？</h1>
+   <p className="reader-intro">易方达 007339 与华夏 005658 都跟踪沪深300。改金额或天数，右边会立刻算出销售服务费与赎回费。</p>
+  </header>
+  <section className="cost-calc">
+   <form className="cost-inputs" onSubmit={e=>e.preventDefault()} noValidate>
+    <label className="cost-field"><span>投入金额</span>
+     <div className="cost-input"><input type="number" inputMode="decimal" name="amount" min="0.01" step="0.01" value={amount} aria-invalid={!result} aria-describedby={!result?'cost-error':undefined} onChange={e=>setAmount(e.target.value)}/><em>元</em></div>
+    </label>
+    <div className="cost-chips" role="group" aria-label="常用金额">{AMOUNTS.map(a=><button type="button" key={a} aria-pressed={Number(amount)===a} onClick={()=>setAmount(String(a))}>{a/10000} 万</button>)}</div>
+    <label className="cost-field"><span>持有天数（确认后的自然日）</span>
+     <div className="cost-input"><input type="number" inputMode="numeric" name="holding_days" min="1" step="1" value={days} aria-invalid={!result} onChange={e=>setDays(e.target.value)}/><em>天</em></div>
+    </label>
+    <input className="cost-slider" type="range" min={1} max={1095} step={1} value={Number.isFinite(n)&&n>0?Math.min(n,1095):1} aria-label="拖动调整持有天数" onChange={e=>setDays(e.target.value)} style={{'--fill':`${(Math.min(Math.max(n,1),1095)-1)/1094*100}%`} as React.CSSProperties}/>
+    <div className="cost-chips" role="group" aria-label="常用期限">{DAYS.map(([d,label])=><button type="button" key={d} aria-pressed={n===d} onClick={()=>setDays(String(d))}>{label}</button>)}</div>
+    {n>0&&n<7&&<p className="cost-hint">不足 7 天卖出，两只都要收 1.50% 赎回费。</p>}
+   </form>
+   <div className="cost-result" aria-live="polite">
+    {result&&cheaper?<>
+     <p className="cost-result-kicker">{money(result.amount)} 元 · 持有 {result.holding_days} 天</p>
+     <p className="cost-result-main">{diff===0?<>两只的这两项费用<strong>相同</strong></>:<><span>{SHORT[cheaper.code]}</span>少交约<strong>{money(diff)}</strong>元</>}</p>
+     <div className="cost-bars">{result.funds.map(f=><div key={f.code} className={f.code===cheaper.code&&diff>0?'is-cheaper':''}>
+      <span>{SHORT[f.code]}<small>{f.code}</small></span>
+      <i style={{width:`${Math.max(f.total_fee_yuan/max*100,1.5)}%`}}/>
+      <b>{money(f.total_fee_yuan)} 元</b>
+     </div>)}</div>
+     <ResultTable result={result}/>
+    </>:<p id="cost-error" className="cost-error" role="alert">{error}</p>}
+   </div>
+  </section>
+  <p className="reader-note">仅按固定费率估算，实际以购买渠道为准。</p>
   <details className="research-sources cost-method">
    <summary>计算口径与官方来源</summary>
    <h2>怎么算</h2>
