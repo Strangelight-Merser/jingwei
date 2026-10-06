@@ -24,7 +24,7 @@ export function RuleRecord({j}: {j: Judgment}) {
         {date(j.chart[0].date)} 至 {date(j.as_of)}，共 {changes.length} 次改判。估值进入新分档，连续 {j.rule.confirm_days} 个数据日才改变判断。
       </p>
       <div className="rule-record-summary">
-        <div><small>今天 · 数据截至 {date(j.as_of)}</small><strong>{j.judgment.label} · 第 {j.percentile} 百分位</strong><p>新增资金：{j.judgment.new_money.title}</p></div>
+        <div><small>当前判断 · 数据截至 {date(j.as_of)}</small><strong>{j.judgment.label} · 第 {j.percentile} 百分位</strong><p>新增资金：{j.judgment.new_money.title}</p></div>
         <div><small>最近一次改判 · {date(last.date)}</small><strong>{last.from && `${BAND_JUDGMENTS[last.from].label} → `}{BAND_JUDGMENTS[last.to].label}</strong><button type="button" onClick={() => selectChange(last.date)}>看这次改判 ↓</button></div>
       </div>
       <PercentileChart j={j} activeDate={activeDate} onHover={setHoveredDate} onSelect={selectChange}/>
@@ -49,13 +49,12 @@ export function RuleRecord({j}: {j: Judgment}) {
     <section className="rule-record rule-method" id="rule-method">
       <h2>规则与口径</h2>
       <dl>
-        <dt>规则</dt><dd>{j.rule.name}（{j.rule.id}）。规则在软件中公开，所有改判都可以用同一份数据复算。</dd>
+        <dt>规则</dt><dd>{j.rule.name}。所有改判都可以用同一份数据复算。</dd>
         <dt>指标</dt><dd>{j.index_name}{j.rule.metric}，来自中证指数有限公司官网每日估值数据（{j.rows} 个数据日，{date(j.history_first)} 至 {date(j.as_of)}）。</dd>
         <dt>分位</dt><dd>近 {j.rule.window_years} 年中，估值不高于当日的数据日所占比例。数据不足十年时用全部已有数据，且至少 {j.rule.min_years} 年。</dd>
         <dt>分档</dt><dd>{(['low', 'mid', 'high', 'extreme'] as const).map(b => `${BAND_JUDGMENTS[b].label}（${BAND_JUDGMENTS[b].range}）：新增资金${BAND_JUDGMENTS[b].new_money.title}，已有持仓${BAND_JUDGMENTS[b].held.title}`).join('；')}。</dd>
-        <dt>防抖</dt><dd>新分档须连续 {j.rule.confirm_days} 个数据日成立才改判，避免在边界附近来回变化。</dd>
+        <dt>确认改判</dt><dd>新分档须连续 {j.rule.confirm_days} 个数据日成立才改判，避免在边界附近来回变化。</dd>
         <dt>各档天数</dt><dd>按日计算，偏低区 {j.share_of_days.low}%、中间区 {j.share_of_days.mid}%、偏高区 {j.share_of_days.high}%、高位区 {j.share_of_days.extreme}% 的数据日。</dd>
-        <dt>不包括</dt><dd>盈利增速、利率、个人收入与风险承受能力。估值低不代表不会继续下跌；规则只回答“按估值位置，现在适合怎样安排长期资金”。</dd>
       </dl>
     </section>
   </>;

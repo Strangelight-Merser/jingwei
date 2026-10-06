@@ -23,5 +23,7 @@
  .rule-outcomes{margin:30px 0;padding-top:22px}.rule-outcomes h2{font-size:23px;margin:8px 0 12px}.outcomes-conclusion{font-size:13px;margin-bottom:20px}.outcomes-kicker{font-size:10px}
  .outcomes-head{display:none}.outcomes-row{grid-template-columns:minmax(0,1fr) 100px;gap:12px;padding:16px 12px}.outcomes-band{grid-column:1/-1;display:flex;align-items:center;gap:10px}.outcomes-band strong{font-size:15px}.outcomes-band small{margin:0}.outcomes-mobile-label{display:block;font-size:10px!important;color:var(--muted);margin-bottom:5px}
  .outcomes-bar strong{font-size:24px}.outcomes-positive strong{font-size:22px}.outcomes-short{grid-column:1/-1;display:flex;align-items:baseline;gap:8px}.outcomes-short .outcomes-mobile-label{margin:0}.outcomes-short small{margin:0}.outcomes-short>span{font-size:12px}.outcomes-return>small{font-size:10px}
- .outcomes-details table{font-size:10px}.outcomes-details th,.outcomes-details td{padding:8px 3px}.outcomes-note{font-size:10px}
+ .outcomes-kicker,.outcomes-band small,.outcomes-mobile-label,.outcomes-return>small,.outcomes-short small,.outcomes-note{font-size:12px!important}
+ .outcomes-details{font-size:13px}.outcomes-details table{font-size:12px}.outcomes-details th,.outcomes-details td{padding:10px 3px}
+ .outcomes-details th{overflow-wrap:anywhere}
 }

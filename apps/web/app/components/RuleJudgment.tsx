@@ -49,7 +49,7 @@ export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}
   const edges = [0, j.rule.low, j.rule.high, j.rule.extreme, 100];
   const last = j.last_change;
   function chart(width: number, narrow: boolean) {
-    const pad = 28, right = width - 16;
+    const pad = 28, right = width - (narrow ? 70 : 92), callout = width - 12;
     const x = (d: string) => pad + ((Date.parse(d) - t0) / (t1 - t0)) * (right - pad);
     const y = (p: number) => 34 + (1 - p / 100) * (height - 64);
     const path = pts.map((p, i) => `${i ? 'L' : 'M'}${x(p.date).toFixed(1)},${y(p.percentile).toFixed(1)}`).join('');
@@ -77,8 +77,9 @@ export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}
         <circle cx={x(c.date)} cy={y(c.percentile)} r={9} className="rule-chart-hit"/>
         <circle cx={x(c.date)} cy={y(c.percentile)} r={activeDate === c.date || c.date === last.date ? 5 : 3.5} className={`rule-chart-dot band-${c.to}`}/>
       </a>)}
-      <circle cx={x(j.as_of)} cy={y(j.percentile)} r={5} className="rule-chart-today"/>
-      <text x={right - 8} y={y(j.percentile) + 24} textAnchor="end" className="rule-chart-callout rule-chart-today-label">今天 · {j.percentile}</text>
+      <line x1={x(j.as_of)} x2={callout} y1={y(j.percentile)} y2={y(j.percentile)} className="rule-chart-current-guide"/>
+      <circle cx={callout} cy={y(j.percentile)} r={4} className="rule-chart-today"/>
+      <text x={callout} y={y(j.percentile) + 23} textAnchor="end" className="rule-chart-callout rule-chart-today-label">最新 · {j.percentile}</text>
       {years.map(yr => {const d = pts.find(p => p.date.startsWith(yr))!.date; return <text key={yr} x={x(d)} y={height - 6} className="rule-chart-label" textAnchor={yr === years.at(-1) ? 'end' : 'middle'}>{yr}</text>;})}
     </svg>;
   }

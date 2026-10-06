@@ -11,7 +11,8 @@ function FullStats({stats}: {stats: OutcomeStats}) {
 }
 
 export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: RuleOutcomesPublication | null}) {
-  if (!outcomes || outcomes.index_code !== index || !outcomes.bands.some(row => row.three_year.sample_days)) return null;
+  if (!outcomes || outcomes.index_code !== index) return <section className="rule-outcomes"><h2>历史收益统计暂时无法载入</h2><p role="status">改判记录仍可阅读。<a className="text-link" href="">重新载入 →</a></p></section>;
+  if (!outcomes.bands.some(row => row.three_year.sample_days)) return <section className="rule-outcomes"><h2>历史收益统计</h2><p>该指数暂没有完整的三年持有期样本。</p></section>;
   const max = Math.max(1, ...outcomes.bands.map(row => Math.abs(row.three_year.mean ?? 0)));
   return <section className="rule-outcomes" id="rule-outcomes" aria-labelledby={`rule-outcomes-title-${index}`}>
     <p className="outcomes-kicker">{outcomes.index_name} · 含分红的全收益指数 · 数据截至 {outcomes.returns_as_of}</p>
@@ -31,6 +32,6 @@ export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: 
       {([['one_year', '之后 1 年'], ['three_year', '之后 3 年']] as const).map(([key, label]) => <table key={key}><caption>{label} · 年化收益</caption><thead><tr><th scope="col">区间</th><th scope="col">均值</th><th scope="col">中位数</th><th scope="col">为正比例</th><th scope="col">样本天数</th></tr></thead><tbody>{outcomes.bands.map(row => <tr key={row.band}><th scope="row">{row.label}</th><FullStats stats={row[key]}/></tr>)}</tbody></table>)}
       <a href={`https://www.csindex.com.cn/#/indices/family/detail?indexCode=${outcomes.total_return_code}`} target="_blank" rel="noreferrer">中证指数官方全收益数据 ↗</a>
     </details>
-    <p className="outcomes-note">约一个完整周期；相邻样本的持有期重叠；历史不保证未来。</p>
+    <p className="outcomes-note">约一个完整周期，样本持有期重叠；规则不预测涨跌，历史不保证未来。</p>
   </section>;
 }
