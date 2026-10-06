@@ -58,6 +58,7 @@ app.get('/publication/articles',publishedVersions);
 app.get('/publication/topics',async()=>TOPICS.filter(t=>t.key==='china-equity-index'));
 app.get('/publication/changes',judgmentChangesPublication);
 app.get('/publication/judgment',async(req,reply)=>(await judgmentPublication())??reply.code(404).send({error:'judgment_unavailable'}));
+await (await import('../../../packages/backend/rule-outcomes-publication.ts')).registerRuleOutcomes(app,{networkChecks:mode==='active'});
 app.get<{Params:{slug:string};Querystring:{version?:string}}>('/publication/articles/:slug',async(req,reply)=>{const v=req.query.version!==undefined?(req.query.version.trim()?Number(req.query.version):NaN):undefined;const result=await articlePublication(req.params.slug,v);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'article_not_found'});});
 app.get<{Params:{key:string}}>('/publication/topics/:key',async(req,reply)=>{const result=await topicPublication(req.params.key);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'topic_not_found'});});
 if(mode==='active'){
