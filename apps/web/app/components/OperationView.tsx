@@ -21,7 +21,7 @@ export function OperationView({version,home=false,availability=null,marketCheck=
  const fieldValue=(f:typeof v.funds[number],key:string)=>key==='management'?f.management+' / '+f.custody:String(f[key as keyof typeof f]??'未核实');
  const sharedKeys=new Set(['management'].filter(key=>v.funds.length>1&&v.funds.every(f=>fieldValue(f,key)===fieldValue(v.funds[0],key))));
  const commonRows=rows.filter(([,key])=>sharedKeys.has(key));
- const actions=[{label:'原有持仓',value:v.held},{label:'临时新增 · 首次买入或追加',value:v.unheld}];
+ const actions=[{label:'已有持仓',value:v.held},{label:'新增资金 · 首次买入或追加',value:v.unheld}];
  const openSection=(event:MouseEvent<HTMLAnchorElement>,details:RefObject<HTMLDetailsElement|null>,id:string)=>{
   if(event.metaKey||event.ctrlKey||event.altKey||event.shiftKey||event.button!==0)return;
   event.preventDefault();if(details.current)details.current.open=true;
