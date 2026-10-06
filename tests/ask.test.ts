@@ -73,8 +73,8 @@ test('片段里存在且单位一致的数字可以解释，至少一条且编�
  }
 });
 
-test('拒绝预测涨跌、承诺收益、超过200字，以及stance正确却改变动作的答案',async()=>{
- for(const answer of ['未来肯定上涨。','明天可能回落。','稳稳赚取收益。','当前可以立即加仓。','所以应该卖出。','当前不追加，但建议买入。','当规则确认高位区，可以加仓。','解释'.repeat(101)]) {
+test('拒绝预测涨跌、承诺收益、超过280字，以及stance正确却改变动作的答案',async()=>{
+ for(const answer of ['未来肯定上涨。','明天可能回落。','稳稳赚取收益。','当前可以立即加仓。','所以应该卖出。','当前不追加，但建议买入。','当规则确认高位区，可以加仓。','解释'.repeat(141)]) {
   const fake=fixture({...await goodOutput(),answer}),p=await fake.service.preview(question);
   assert.equal((await fake.service.answer(question,p.quote)).record.status,'rejected',answer);
  }
@@ -127,4 +127,18 @@ test('风险提示与规则范围不算预测；预测上涨仍被拒',async()=>
  const ok={answer:'估值偏低时仍可能继续下跌，规则也不覆盖盈利变化，所以偏低区只建议长期资金分批投入。',cites:[2,6],stance:rule.new_money.stance};
  assert.equal(validateAskOutput(ok,rule,fragments).answer,ok.answer);
  assert.throws(()=>validateAskOutput({...ok,answer:'偏低区之后通常会反弹上涨。'},rule,fragments),/ask_forecast_or_promise/);
+});
+
+test('片段编号与字段名不进入答案；转述读者看法不算预测；预测本身仍被拒',async()=>{
+ const rule=valuationRuleEvidence(await readState())!;
+ const fragments=askFragments(rule);
+ const out=validateAskOutput({answer:'按片段1，当前新增资金“按原计划，不额外追加”（片段3），stance=maintain_plan。您觉得马上大涨属预测，规则不预测涨跌。',cites:[1,3],stance:rule.new_money.stance},rule,fragments);
+ assert.doesNotMatch(out.answer,/片段|stance/);
+ assert.throws(()=>validateAskOutput({answer:'马上会大涨，可以加仓。',cites:[1],stance:rule.new_money.stance},rule,fragments));
+});
+
+test('引号里转述的读者说法不算预测',async()=>{
+ const rule=valuationRuleEvidence(await readState())!;
+ const out=validateAskOutput({answer:'规则不预测未来涨跌，所以无法根据“马上要大涨”的判断来操作。当前新增资金按原计划、不额外追加。',cites:[1],stance:rule.new_money.stance},rule,askFragments(rule));
+ assert.match(out.answer,/马上要大涨/);
 });
