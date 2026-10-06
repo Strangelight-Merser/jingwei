@@ -11,21 +11,21 @@ import {ArticleRow} from '../components/ArticleRow.tsx';
 import {Arrow} from '../components/Arrow.tsx';
 import {SituationCard} from '../components/SituationCard.tsx';
 import {CurrentChange} from '../components/CurrentChange.tsx';
-import {RuleJudgment,type Judgment} from '../components/RuleJudgment.tsx';
+import {RuleJudgment,type JudgmentOverview} from '../components/RuleJudgment.tsx';
 export async function loader(){
- const [home,judgment]=await Promise.all([publication<Awaited<ReturnType<typeof homePublication>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[];research_evidence_hash?:string|null}>('home'),publication<Judgment>('judgment').catch(()=>null)]);
- return {...home,judgment};
+ const [home,overview]=await Promise.all([publication<Awaited<ReturnType<typeof homePublication>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[];research_evidence_hash?:string|null}>('home'),publication<JudgmentOverview>('judgments')]);
+ return {...home,judgment:overview.indexes.find(j=>j.index_code==='000300')??null,indexes:overview.indexes};
 }
 export function meta(){return [{title:'经纬 · 研究与阅读'},{name:'description',content:'依据公开资料研究市场方向和基金工具，保留原日期与复核条件。'}];}
 export default function Home(){
- const {judgment,lead,selections,background,topics,progress,latest_change,fund_review_notice,market_check,research_update,research_facts,research_data_as_of,research_source_refs,research_evidence_hash}=useLoaderData<typeof loader>();
+ const {judgment,indexes,lead,selections,background,topics,progress,latest_change,fund_review_notice,market_check,research_update,research_facts,research_data_as_of,research_source_refs,research_evidence_hash}=useLoaderData<typeof loader>();
  if(!lead)return <main id="main" className="error-page"><h1>内容还在准备中</h1><p>目前还没有已刊文章，可以先浏览专题。</p><Link className="text-link" to="/topics">浏览专题 <Arrow/></Link></main>;
  const all=[lead,...selections];const research=all.find(v=>v.research);const historical=all.find(v=>v.article.operation_view);
  const focus=research??historical??lead;
  const order=['csi300-etf-and-share-classes','lpr-june-unchanged','growth-and-demand-2025'];
  const chosen=[lead,...selections,...background].filter(v=>order.includes(v.article.slug)&&v.id!==focus.id).sort((a,b)=>order.indexOf(a.article.slug)-order.indexOf(b.article.slug));
  return <main id="main" className="home-page">
-  {judgment&&<RuleJudgment j={judgment}/>}
+  {judgment&&<RuleJudgment j={judgment} indexes={indexes}/>}
   <SituationCard version={focus} judgment={judgment}/>
   {research?<ResearchBrief version={research} home/>:<ArticleBrief version={focus}/>}
   <details className="home-materials">

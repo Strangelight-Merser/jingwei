@@ -1,5 +1,14 @@
 /* Rule judgment: lead card, scale, chart and change record. */
-.rule-judgment{margin:40px 0 8px;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.rule-indexes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:28px 0 20px}
+.rule-indexes button{display:grid;grid-template-columns:1fr auto;align-content:start;gap:6px 8px;padding:12px 14px;text-align:left;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;min-width:0}
+.rule-indexes button[aria-pressed="true"]{border-color:var(--ink);background:var(--surface);box-shadow:inset 0 2px 0 var(--ink)}
+.rule-indexes button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.rule-indexes strong{font-size:var(--text-ui)}
+.rule-index-band{padding:1px 6px;border-radius:3px;font-size:var(--text-caption);white-space:nowrap}
+.rule-indexes small{grid-column:1/-1;color:var(--muted);font-size:var(--text-caption);font-variant-numeric:tabular-nums}
+.rule-index-action{grid-column:1/-1;font-size:var(--text-ui);line-height:1.5}
+.rule-index-note{margin:0 0 14px;color:var(--muted);font-size:var(--text-ui);line-height:1.7}
+.rule-judgment{margin:20px 0 8px;padding-bottom:36px;border-bottom:1px solid var(--line)}
 .rule-head small,.rule-action small{display:block;color:var(--muted);font-size:var(--text-caption)}
 .rule-head h1{margin:10px 0 12px;font-size:2.25rem;line-height:1.3;letter-spacing:0}
 .rule-fact{color:var(--ink);font-size:var(--text-body);line-height:1.8}
@@ -79,6 +88,12 @@
 .rule-method dt{color:var(--muted)}
 .situation-rule{margin-top:10px;padding:12px 14px;background:var(--surface);border-radius:4px;line-height:1.75}
 @media (max-width:760px){
+ .rule-indexes{gap:6px;margin:20px 0 18px}
+ .rule-indexes button{grid-template-columns:1fr;gap:5px;padding:10px 8px}
+ .rule-indexes strong{font-size:.8125rem}
+ .rule-index-band{justify-self:start;font-size:.6875rem}
+ .rule-indexes small{font-size:.625rem;white-space:nowrap}
+ .rule-index-action{font-size:.6875rem;line-height:1.65}
  .rule-actions{grid-template-columns:1fr}
  .rule-head h1{font-size:1.75rem}
  .rule-scale-band em{font-size:.7rem}

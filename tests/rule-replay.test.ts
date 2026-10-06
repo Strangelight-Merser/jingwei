@@ -5,6 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {bandOf, evaluateValuationRule, percentileSeries} from '../packages/backend/valuation-rule.ts';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
+import {INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 import {replayRule, replaySeed, type ReplayResult} from '../scripts/replay-rule.ts';
 
 const tolerance = 1e-9;
@@ -39,11 +40,11 @@ function matchesApi(replay: ReplayResult, actual: NonNullable<ReturnType<typeof 
   near(replay.current.percentile, actual.percentile, 'current percentile');
 }
 
-test('独立规则复算：改判列表、当前分位、每日分位和区间逐项一致（容差 1e-9）', () => {
-  const points = seedHistory().points;
-  assert.deepEqual(replaySeed(), points, 'independent seed parser');
-  const replay = replayRule();
-  const actual = evaluateValuationRule(points);
+for (const index of INDEX_CODES) test(`${index} 独立规则复算：改判列表、当前分位、每日分位和区间逐项一致（容差 1e-9）`, () => {
+  const points = seedHistory(index).points;
+  assert.deepEqual(replaySeed(index), points, 'independent seed parser');
+  const replay = replayRule(replaySeed(index));
+  const actual = evaluateValuationRule(points, {index});
   assert.ok(actual);
   matchesApi(replay, actual);
 
@@ -68,15 +69,17 @@ test('独立规则复算：改判列表、当前分位、每日分位和区间�
   }
   assert.equal(changeIndex, expectedChanges.length, 'all changes appear in daily timeline');
   const roundingEdges = expectedDays.filter(row => bandOf(row.exact) !== bandOf(row.percentile));
-  assert.equal(roundingEdges.length, 4, 'four real-data days affected by rounding before banding');
-  assert.ok(roundingEdges.some(row => row.date === '2018-12-07'));
+  if (index === '000300') {
+    assert.equal(roundingEdges.length, 4, 'four real-data days affected by rounding before banding');
+    assert.ok(roundingEdges.some(row => row.date === '2018-12-07'));
+  }
 });
 
-test('复算 CLI：三份导出完整、warm-up 留空、每日原始分档与确认区间分开', async () => {
+for (const index of INDEX_CODES) test(`${index} 复算 CLI：三份导出完整、warm-up 留空、每日原始分档与确认区间分开`, async () => {
   const root = new URL('../', import.meta.url);
-  const output = execFileSync(process.execPath, ['scripts/replay-rule.ts'], {cwd: fileURLToPath(root), encoding: 'utf8'});
-  const replay = replayRule();
-  const destination = new URL('exports/rule-replay/', root);
+  const output = execFileSync(process.execPath, ['scripts/replay-rule.ts', '--index', index], {cwd: fileURLToPath(root), encoding: 'utf8'});
+  const replay = replayRule(replaySeed(index));
+  const destination = new URL(`exports/rule-replay/${index}/`, root);
   const json = JSON.parse(await readFile(new URL('changes.json', destination), 'utf8'));
   assert.deepEqual(json, replay.changes);
   const changes = (await readFile(new URL('changes.csv', destination), 'utf8')).trimEnd().split('\n');
@@ -85,10 +88,18 @@ test('复算 CLI：三份导出完整、warm-up 留空、每日原始分档与�
   const daily = (await readFile(new URL('daily.csv', destination), 'utf8')).trimEnd().split('\n');
   assert.equal(daily.shift(), 'date,pe_ttm,percentile,exact,raw_band,band,window_start,full_window');
   assert.deepEqual(daily, replay.daily.map(row => [row.date, row.pe_ttm, row.percentile ?? '', row.exact ?? '', row.raw_band ?? '', row.band ?? '', row.window_start ?? '', row.full_window].join(',')));
-  assert.match(output, /数据日数：3788/);
+  assert.match(output, new RegExp(`指数：${index}`));
+  assert.match(output, new RegExp(`数据日数：${replay.daily.length}`));
   assert.match(output, /数据起止：2011-06-28 至 2026-09-30/);
-  assert.match(output, /改判次数：31（导出 32 条记录，含首次初始化）/);
-  assert.match(output, /中间区（mid），第 48\.8 百分位/);
+  assert.match(output, new RegExp(`改判次数：${replay.changes.length-1}（导出 ${replay.changes.length} 条记录，含首次初始化）`));
+  if (index === '000300') assert.match(output, /中间区（mid），第 48\.8 百分位/);
+});
+
+test('复算 CLI：默认仍为沪深300，不支持的指数报错且不生成数据', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const output = execFileSync(process.execPath, ['scripts/replay-rule.ts'], {cwd:root,encoding:'utf8'});
+  assert.match(output, /指数：000300 · 沪深300/);
+  assert.throws(() => execFileSync(process.execPath, ['scripts/replay-rule.ts','--index','399006'], {cwd:root,stdio:'pipe'}));
 });
 
 test('当前 GET /publication/judgment 与离线种子复算一致（隔离存储，无取数）', async () => {
@@ -97,7 +108,29 @@ test('当前 GET /publication/judgment 与离线种子复算一致（隔离存�
   try {
     const response = await app.inject({method: 'GET', url: '/publication/judgment'});
     assert.equal(response.statusCode, 200);
-    matchesApi(replayRule(), response.json<NonNullable<ReturnType<typeof evaluateValuationRule>>>());
+    const defaultJudgment = response.json();
+    assert.equal(defaultJudgment.index_code, '000300');
+    assert.deepEqual(defaultJudgment.boundaries, {low:12.42,high:14.24,extreme:15.33,window_start:'2016-09-30'});
+    assert.equal(defaultJudgment.pe_ttm,13.15);
+    assert.equal(defaultJudgment.percentile,48.8);
+    assert.equal(defaultJudgment.changes.length-1,31);
+    const overview = await app.inject({method:'GET',url:'/publication/judgments'});
+    assert.equal(overview.statusCode,200);
+    assert.deepEqual(overview.json().indexes.map((j:{index_code:string}) => j.index_code),INDEX_CODES);
+    for (const index of INDEX_CODES) {
+      const response = await app.inject({method:'GET',url:`/publication/judgment?index=${index}`});
+      assert.equal(response.statusCode,200);
+      const actual = response.json();
+      assert.equal(actual.index_code,index);
+      matchesApi(replayRule(replaySeed(index)), actual);
+      assert.deepEqual(overview.json().indexes.find((j:{index_code:string}) => j.index_code === index),actual);
+      if(index === '000300') assert.deepEqual(actual,defaultJudgment);
+    }
+    for(const index of ['399006','000852','','000905&index=000016']) {
+      const response = await app.inject({method:'GET',url:`/publication/judgment?index=${index}`});
+      assert.equal(response.statusCode,400);
+      assert.equal(response.json().error,'unknown_index');
+    }
   } finally {
     await app.close();
   }

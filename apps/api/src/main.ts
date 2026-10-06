@@ -10,7 +10,8 @@ import { pipelineSnapshot,processNext,processTask,publishDraft,editDraft } from 
 import { collectOnce } from '../../../packages/backend/jobs.ts';
 import { mutateState, readState, initializeStorage, PRODUCTION_DATA_DIR, storageConfiguration } from '../../../packages/backend/storage.ts';
 import {createResearchService,defaultResearchState,readingResearch} from '../../../packages/backend/research-service.ts';
-import {judgmentPublication} from '../../../packages/backend/judgment.ts';
+import {judgmentPublication,judgmentOverviewPublication} from '../../../packages/backend/judgment.ts';
+import {isIndexCode} from '../../../packages/backend/valuation-indexes.ts';
 export async function startApi({credentialStore=keychainStore,credentialCapability=credentialSupport,port=4411,mode='active',restoreSavedKey,composeProvider,collectSource=collectOnce,researchUpdates=false,researchCollector,researchProvider,valuationRefresh}:{credentialStore?:CredentialStore;credentialCapability?:()=>Promise<CredentialStatus>;port?:number;mode?:'read_only'|'manual_collect'|'active';restoreSavedKey?:boolean;composeProvider?:Parameters<typeof processTask>[1];collectSource?:typeof collectOnce;researchUpdates?:boolean;researchCollector?:NonNullable<Parameters<typeof createResearchService>[0]>['collector'];researchProvider?:NonNullable<Parameters<typeof createResearchService>[0]>['provider'];valuationRefresh?:(()=>Promise<unknown>)|null}={}){
 storageConfiguration();await readState(); // The caller determines the directory before the API starts.
 const app=Fastify({logger:false});
@@ -57,7 +58,8 @@ app.get('/publication/home',async()=>({...await homePublication(),research_updat
 app.get('/publication/articles',publishedVersions);
 app.get('/publication/topics',async()=>TOPICS.filter(t=>t.key==='china-equity-index'));
 app.get('/publication/changes',judgmentChangesPublication);
-app.get('/publication/judgment',async(req,reply)=>(await judgmentPublication())??reply.code(404).send({error:'judgment_unavailable'}));
+app.get('/publication/judgment',async(req,reply)=>{const index=(req.query as {index?:unknown}).index??'000300';if(!isIndexCode(index))return reply.code(400).send({error:'unknown_index'});return (await judgmentPublication(index))??reply.code(404).send({error:'judgment_unavailable'});});
+app.get('/publication/judgments',judgmentOverviewPublication);
 app.get<{Params:{slug:string};Querystring:{version?:string}}>('/publication/articles/:slug',async(req,reply)=>{const v=req.query.version!==undefined?(req.query.version.trim()?Number(req.query.version):NaN):undefined;const result=await articlePublication(req.params.slug,v);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'article_not_found'});});
 app.get<{Params:{key:string}}>('/publication/topics/:key',async(req,reply)=>{const result=await topicPublication(req.params.key);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'topic_not_found'});});
 if(mode==='active'){
