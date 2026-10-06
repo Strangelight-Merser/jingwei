@@ -4,7 +4,7 @@ body:has(.embed-page) > .masthead, body:has(.embed-page) > footer, body:has(.emb
 .embed-rule-card { padding: 20px; border: 1px solid #dcdce0; border-radius: 12px; background: #fff; color: #25252b; font-size: 13px; line-height: 1.65; font-variant-numeric: tabular-nums; }
 .embed-heading { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e8; }
 .embed-heading strong { font-size: 14px; }
-.embed-heading span, .embed-current span { color: #66666e; font-size: 11px; }
+.embed-heading span, .embed-current span { color: #66666e; font-size: 12px; }
 .embed-current { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; }
 .embed-current h1 { font-size: 25px; margin: 0; line-height: 1.4; }
 .embed-current > strong { font-size: 17px; padding: 4px 12px; background: #f1f1f3; border-radius: 6px; }
@@ -18,8 +18,10 @@ body:has(.embed-page) > .masthead, body:has(.embed-page) > footer, body:has(.emb
 .embed-boundaries dl { margin: 0; }
 .embed-boundaries dl > div { display: flex; justify-content: space-between; gap: 8px; margin: 5px 0; }
 .embed-boundaries dd { margin: 0; white-space: nowrap; }
-.embed-boundaries > p { color: #66666e; font-size: 11px; margin-top: 10px; }
+.embed-boundaries > p { color: #66666e; font-size: 12px; margin-top: 10px; }
 .embed-boundaries .embed-pending { color: #25252b; }
 .embed-last { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e5e8; }
 .embed-last p { font-size: 12px; }
-.embed-source { font-size: 10px; color: #66666e; margin-top: 14px; }
+.embed-source { font-size: 12px; color: #66666e; margin-top: 14px; }
+.embed-retry { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.embed-rule-card > h1 { font-size: 20px; margin: 0 0 12px; }
