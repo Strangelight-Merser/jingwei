@@ -29,7 +29,8 @@ function run(index: IndexCode, v: Variant) {
   const closes = new Map(seedTotalReturnHistory(index).points.map(p => [p.date, p.close]));
   const dates = [...closes.keys()].sort();
   let start = 0;
-  let current: number | null = null, pending: {b: number; n: number} | null = null, changes = 0, reversals = 0;
+  let current: number | null = null, changes = 0, reversals = 0;
+  let pending = null as {b: number; n: number} | null;
   const log: {date: string; from: number; to: number}[] = [];
   const confirmed = new Map<string, number>();
   for (let i = 0; i < pts.length; i++) {

@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {Link, useSearchParams} from 'react-router';
 import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import type {IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
 import {BAND_JUDGMENTS, type ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
@@ -131,7 +131,12 @@ function bandRange(j: Judgment, band: ValuationBand) {
 }
 
 export function HomeHero({j: initial, indexes = [initial], guide, today = new Date()}: {j: Judgment; indexes?: Judgment[]; guide?: ReactNode; today?: Date}) {
-  const [selected, setSelected] = useState<IndexCode>(initial.index_code);
+  // ?index= opens a given index (links from holdings and changes) and records the reader's switch,
+  // so other parts of the page (问经纬) follow the same index.
+  const [search, setSearch] = useSearchParams();
+  const requested = indexes.find(item => item.index_code === search.get('index'))?.index_code ?? initial.index_code;
+  const [selected, setSelected] = useState<IndexCode>(requested);
+  useEffect(() => setSelected(requested), [requested]);
   const [scrub, setScrub] = useState<number | null>(null);
   const j = indexes.find(item => item.index_code === selected) ?? initial;
   useEffect(() => setScrub(null), [j.index_code]);
@@ -145,7 +150,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
 
   return <section className="hero" aria-labelledby="hero-title">
     <div className="hero-top reveal" style={{'--i': 0} as React.CSSProperties}>
-      <IndexSwitch indexes={indexes} selected={j.index_code} onSelect={setSelected}/>
+      <IndexSwitch indexes={indexes} selected={j.index_code} onSelect={index => {setSelected(index); setSearch((prev: URLSearchParams) => {const next = new URLSearchParams(prev); next.set('index', index); return next;}, {replace: true, preventScrollReset: true});}}/>
       <div className="hero-meta">
         <span>数据截至 {date(j.as_of)}</span>
         {guide}

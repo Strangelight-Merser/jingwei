@@ -3,6 +3,7 @@ import type {FastifyInstance} from 'fastify';
 import {z} from 'zod';
 import {readState, mutateState} from './storage.ts';
 import {valuationRuleEvidence} from './judgment.ts';
+import {INDEX_CODES, type IndexCode} from './valuation-indexes.ts';
 import {BAND_JUDGMENTS, VALUATION_RULE} from './valuation-rule.ts';
 import {composeWithDeepSeekPrompt, modelMessages, modelState} from './model.ts';
 import {estimateReservation, sessionState, PRICE_POLICY} from './budget.ts';
@@ -17,7 +18,7 @@ export function askFragments(rule:ValuationRuleEvidence):AskFragment[] {
  return [
   {id:1,text:rule.ref.fragments.join('\n')+`当前新增资金动作的 stance=${rule.new_money.stance}。新增资金：${rule.new_money.text}已有持仓：${rule.held.text}`},
   ...Object.values(BAND_JUDGMENTS).map((band,i)=>({id:i+2,text:`${band.label}（${band.range}）：新增资金“${band.new_money.title}”，${band.new_money.text}已有持仓“${band.held.title}”，${band.held.text}`})),
-  {id:6,text:`规则口径：${rule.rule_name}。滚动市盈率与近${VALUATION_RULE.window_years}年数据比较，历史不足时至少需要${VALUATION_RULE.min_years}年；分位为窗口内估值不高于当日的数据日比例。分位低于${VALUATION_RULE.low}%为偏低区，${VALUATION_RULE.low}%至低于${VALUATION_RULE.high}%为中间区，${VALUATION_RULE.high}%至低于${VALUATION_RULE.extreme}%为偏高区，达到${VALUATION_RULE.extreme}%为高位区。连续${VALUATION_RULE.confirm_days}个数据日处在新区间才改判。边界随窗口更新，市盈率倍数仅为当前约数。规则只描述估值位置，不预测未来涨跌，也不保证收益；不覆盖个人情况、盈利变化和利率。官方数据来源：${rule.ref.url}`},
+  {id:6,text:`规则口径：${rule.rule_name}。滚动市盈率与近${VALUATION_RULE.window_years}年数据比较，历史不足时至少需要${VALUATION_RULE.min_years}年；分位为窗口内估值不高于当日的数据日比例。分位低于${VALUATION_RULE.low}%为偏低区，${VALUATION_RULE.low}%至低于${VALUATION_RULE.high}%为中间区，${VALUATION_RULE.high}%至低于${VALUATION_RULE.extreme}%为偏高区，达到${VALUATION_RULE.extreme}%为高位区。连续${VALUATION_RULE.confirm_days}个数据日处在新区间才改判；离开已确认的区间还要比边界多越过${VALUATION_RULE.buffer}个百分点（缓冲），所以从中间区升到偏高区要到第${VALUATION_RULE.high+VALUATION_RULE.buffer}百分位，回落到中间区要低于第${VALUATION_RULE.high-VALUATION_RULE.buffer}百分位。边界随窗口更新，市盈率倍数仅为当前约数。规则只描述估值位置，不预测未来涨跌，也不保证收益；不覆盖个人情况、盈利变化和利率。官方数据来源：${rule.ref.url}`},
  ];
 }
 
@@ -74,9 +75,9 @@ export function validateAskOutput(output:unknown,rule:ValuationRuleEvidence,frag
 
 export type AskProvider=(prompt:string,evidenceHash:string,taskId:string)=>Promise<unknown>;
 export function createAskService({provider=composeWithDeepSeekPrompt,session=sessionState,model=modelState}:{provider?:AskProvider;session?:typeof sessionState;model?:typeof modelState}={}) {
- async function context(question:string) {
+ async function context(question:string,index:IndexCode='000300') {
   question=questionSchema.parse(question);
-  const state=await readState(),rule=valuationRuleEvidence(state);
+  const state=await readState(),rule=valuationRuleEvidence(state,index);
   if(!rule)throw Error('judgment_unavailable');
   const fragments=askFragments(rule),prompt=askPrompt(question,fragments);
   const estimate_micro_cny=estimateReservation(JSON.stringify(modelMessages(prompt)));
@@ -87,9 +88,9 @@ export function createAskService({provider=composeWithDeepSeekPrompt,session=ses
   return {rule,prompt,preview};
  }
  return {
-  preview:async(question:string)=>(await context(question)).preview,
-  async answer(question:string,quote:string):Promise<AskResult> {
-   const {rule,prompt,preview}=await context(question);
+  preview:async(question:string,index:IndexCode='000300')=>(await context(question,index)).preview,
+  async answer(question:string,quote:string,index:IndexCode='000300'):Promise<AskResult> {
+   const {rule,prompt,preview}=await context(question,index);
    if(quote!==preview.quote)throw Error('ask_estimate_changed');
    const id='ask-'+randomUUID();
    const record:AskRecord={id,question:preview.question,answer:'',cites:preview.fragments,stance:rule.new_money.stance,model:preview.model,at:new Date().toISOString(),status:'unavailable',estimate_micro_cny:preview.estimate_micro_cny,reserved_micro_cny:0};
@@ -119,15 +120,15 @@ export function createAskService({provider=composeWithDeepSeekPrompt,session=ses
 export async function registerAskRoutes(app:FastifyInstance) {
  const service=createAskService();
  app.get('/ask',async(req,reply)=>{
-  const parsed=z.object({question:questionSchema}).safeParse(req.query);
+  const parsed=z.object({question:questionSchema,index:z.enum(INDEX_CODES as [IndexCode,...IndexCode[]]).default('000300')}).safeParse(req.query);
   if(!parsed.success)return reply.code(400).send({error:'invalid_ask_question'});
-  try{return await service.preview(parsed.data.question);}catch{return reply.code(503).send({error:'judgment_unavailable'});}
+  try{return await service.preview(parsed.data.question,parsed.data.index);}catch{return reply.code(503).send({error:'judgment_unavailable'});}
  });
  app.post('/ask',async(req,reply)=>{
   if(req.headers['x-jingwei-reader']!=='local')return reply.code(403).send({error:'local_reading_request_required'});
-  const parsed=z.object({question:questionSchema,quote:z.string().regex(/^[a-f0-9]{64}$/)}).strict().safeParse(req.body);
+  const parsed=z.object({question:questionSchema,quote:z.string().regex(/^[a-f0-9]{64}$/),index:z.enum(INDEX_CODES as [IndexCode,...IndexCode[]]).default('000300')}).strict().safeParse(req.body);
   if(!parsed.success)return reply.code(400).send({error:'invalid_ask_request'});
-  try{return await service.answer(parsed.data.question,parsed.data.quote);}catch(error){return reply.code(409).send({error:error instanceof Error?error.message:'ask_failed'});}
+  try{return await service.answer(parsed.data.question,parsed.data.quote,parsed.data.index);}catch(error){return reply.code(409).send({error:error instanceof Error?error.message:'ask_failed'});}
  });
  app.get('/owner/ask/history',async()=>({records:(await readState()).ask_records??[]}));
 }

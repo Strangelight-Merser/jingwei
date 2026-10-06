@@ -142,3 +142,14 @@ test('引号里转述的读者说法不算预测',async()=>{
  const out=validateAskOutput({answer:'规则不预测未来涨跌，所以无法根据“马上要大涨”的判断来操作。当前新增资金按原计划、不额外追加。',cites:[1],stance:rule.new_money.stance},rule,askFragments(rule));
  assert.match(out.answer,/马上要大涨/);
 });
+
+test('问经纬按所选指数取证：中证500 的片段与立场来自中证500 的规则；片段说明 v2 缓冲',async()=>{
+ const state=await readState();
+ const csi500=valuationRuleEvidence(state,'000905')!;
+ const fragments=askFragments(csi500);
+ assert.match(fragments[0].text,/中证500/);
+ assert.doesNotMatch(fragments[0].text,/沪深300/);
+ assert.equal(csi500.band,'high');
+ assert.match(fragments.at(-1)!.text,/缓冲/);
+ assert.equal(valuationRuleEvidence(state)!.rule_id,valuationRuleEvidence(state,'000300')!.rule_id);
+});
