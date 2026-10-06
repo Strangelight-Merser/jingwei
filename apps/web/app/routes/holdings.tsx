@@ -121,7 +121,7 @@ export default function HoldingsPage() {
     {state.phase === 'loading' && <p role="status" className="holdings-muted">读取本机持仓中…</p>}
     {state.phase === 'empty' && <section className="holdings-import" aria-label="导入持仓">
       <div className={`holdings-drop${dragging ? ' is-dragging' : ''}`} onDragOver={event => {event.preventDefault(); setDragging(true);}} onDragLeave={event => {if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDragging(false);}} onDrop={event => {event.preventDefault(); setDragging(false); void importFiles(Array.from(event.dataTransfer.files));}}>
-        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" aria-hidden="true"><rect x="5" y="5" width="32" height="32" rx="8" stroke="currentColor" strokeWidth="1.5"/><path d="M21 29V13m-6 6 6-6 6 6M12 29h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        <img className="holdings-drop-art" src="/images/holdings-empty.webp" width={480} height={240} alt="" aria-hidden="true"/>
         <button type="button" className="holdings-drop-title" onClick={() => desktopOcr ? input.current?.click() : setMode('text')}>拖入、选择或粘贴持仓截图</button>
         <p>截图在本机识别，不上传</p>
         <small>{desktopOcr ? '支持多张截图，也可用 Cmd / Ctrl + V 粘贴图片' : '截图识别需桌面版；在浏览器里可粘贴文字或手动添加。'}</small>
