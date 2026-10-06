@@ -27,3 +27,10 @@ footer{width:min(1120px,calc(100% - 48px))}
   .brand-row nav a{padding:7px 10px}
   .brand-row nav a:after{bottom:-8px}
 }
+
+/* Form controls site-wide: rounded, quiet borders, ink focus ring. */
+.search-form input[type=search],.search-form input[type=text],.search-form select{min-height:44px;padding:0 14px;border:1px solid #d7d7dc;border-radius:12px;background:#fff;font:inherit;font-size:var(--text-ui);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+.search-form input:focus,.search-form select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(35,35,38,.06)}
+.search-form button{min-height:44px;padding:0 20px;border:1px solid var(--ink);border-radius:12px;background:var(--ink);color:#fff;font:inherit;font-size:var(--text-ui);font-weight:600;cursor:pointer}
+.search-form button:active{transform:scale(.98)}
+.listing article,.article-listing article{transition:background .2s}
