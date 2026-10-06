@@ -1,0 +1,4 @@
+.article-listing .article-history-label{font-size:13px;color:var(--muted);line-height:1.7;margin-top:24px}
+.article-listing .article-history-label+.article-row{padding-top:10px}
+.article-listing .results-count{overflow-wrap:anywhere;line-height:1.8}
+.article-listing .search-form select,.article-listing .search-form button{min-height:44px}

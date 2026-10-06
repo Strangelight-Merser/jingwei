@@ -2,6 +2,7 @@ import { useLoaderData,useSearchParams,Form,Link } from 'react-router';
 import { publication } from '../lib/api.server.ts';
 import type { FinanceVersion } from '../../../../packages/contracts/types.ts';
 import { ArticleRow } from '../components/ArticleRow.tsx';
+import '../articles.css';
 export async function loader(){return publication<FinanceVersion[]>('articles');}
 export function meta(){return [{title:'全部文章 · 经纬'}];}
 function normalized(text: string) { return text.normalize('NFKC').trim().toLocaleLowerCase('zh-CN'); }
@@ -55,23 +56,24 @@ export default function Articles() {
   const cat = params.get('category') ?? '';
   const archive=params.get('archive')==='1';
   const words = normalized(q).split(/\s+/u).filter(Boolean);
-  const filtered = all.filter(version => {
+  const inScope = all.filter(version => archive || version.interpretation.topic_key==='china-equity-index');
+  const filtered = inScope.filter(version => {
     const article = version.article;
     const text = normalized([article.title, article.deck, article.category, ...article.sections.flatMap(section => [section.heading, ...section.paragraphs]), ...operationText(version)].join(' '));
-    return (archive||version.interpretation.topic_key==='china-equity-index')&&(!cat || article.category === cat) && words.every(word => text.includes(word));
+    return (!cat || article.category === cat) && words.every(word => text.includes(word));
   }).sort((a, b) => b.as_of.localeCompare(a.as_of));
-  return <main id="main" className="listing">
+  return <main id="main" className="listing article-listing">
     <h1>{archive?'历史资料':'沪深300阅读'}</h1>{archive&&<p className="listing-deck">旧宏观文章按原日期保留，作为历史背景；不参与首页本期基金判断。</p>}
     <Form key={JSON.stringify([q, cat])} className="search-form" method="get">
       {archive&&<input type="hidden" name="archive" value="1"/>}<label htmlFor="search">找一篇文章</label>
       <div><input id="search" name="q" type="search" defaultValue={q} placeholder="标题或正文关键词" aria-describedby="search-help" />
-        <select name="category" defaultValue={cat} aria-label="文章分类"><option value="">所有分类</option>{[...new Set(all.map(version => version.article.category))].map(category => <option key={category}>{category}</option>)}</select>
+        <select name="category" defaultValue={cat} aria-label="文章分类"><option value="">所有分类</option>{[...new Set(inScope.map(version => version.article.category))].map(category => <option key={category}>{category}</option>)}</select>
         <button type="submit">查找</button></div>
       <p id="search-help" className="search-help">搜索标题、导读和正文；多个关键词用空格分开。</p>
     </Form>
     <p className="results-count" role="status">{filtered.length}篇文章{q && ` · “${q}”`}{cat && ` · ${cat}`}</p>
     {(q || cat) && <Link className="text-link" to={archive?'/articles?archive=1':'/articles'}>清除筛选</Link>}
-    {filtered.map((version, index) => <ArticleRow key={version.id} article={version} index={index} />)}
+    {filtered.map((version, index) => <div key={version.id}>{version.article.operation_view&&!version.research&&<p className="article-history-label">历史解读</p>}<ArticleRow article={version} index={index} /></div>)}
     {!filtered.length && <p className="empty-small">没有找到相关文章，试试更短的关键词或清除分类筛选。</p>}
   </main>;
 }
