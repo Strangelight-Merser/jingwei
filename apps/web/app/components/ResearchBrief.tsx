@@ -33,10 +33,10 @@ export function ResearchUpdateNote({update}:{update?:ResearchUpdate|null}){
 const stanceLabel:Record<ResearchPosition['stance'],string>={conditional_add:'满足条件时可考虑新增',maintain_plan:'按原计划维护',conditional_reduce:'触发条件时考虑减少',observe:'继续观察',not_assessable:'当前资料无法评估'};
 const scopeLabel:Record<ResearchScope,string>={direction:'方向判断',comparison:'工具比较',new_money:'新增资金',held:'已有持仓',sell:'卖出或失效条件'};
 export function ArticleBrief({version}:{version:FinanceVersion}){
- return <section className="article-brief" aria-label="本期解读文章">
-  <div className="article-brief-meta"><span>本期解读文章</span><time dateTime={version.as_of}>资料截至 {date(version.as_of)}</time></div>
+ return <section className="article-brief" aria-label="往期解读">
+  <div className="article-brief-meta"><span>往期解读</span><time dateTime={version.as_of}>资料截至 {date(version.as_of)}</time></div>
   <h2><Link to={`/articles/${version.article.slug}`}>{version.article.title}</Link></h2>
-  <div className="article-brief-guide"><p>{version.article.deck}</p><Link to={`/articles/${version.article.slug}`}>阅读全文 →</Link></div>
+  <div className="article-brief-guide"><p>背景阅读，当前行动以上方规则为准</p><Link to={`/articles/${version.article.slug}`}>阅读全文 →</Link></div>
  </section>;
 }
 export function ResearchBrief({version,home=false,update}:{version:FinanceVersion;home?:boolean;update?:ResearchUpdate|null}){

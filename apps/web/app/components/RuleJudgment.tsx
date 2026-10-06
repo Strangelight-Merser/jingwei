@@ -23,23 +23,53 @@ export function PercentileScale({j}: {j: Judgment}) {
 }
 
 /** Percentile over time with the band boundaries; each confirmed change is a dot. */
-export function PercentileChart({j, height = 180}: {j: Judgment; height?: number}) {
-  const width = 720, pad = 28;
-  const pts = j.chart;
+export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}: {j: Judgment; height?: number; activeDate: string; onHover: (date: string | null) => void; onSelect: (date: string) => void}) {
+  const changes = j.changes.filter(c => c.from);
+  const active = changes.find(c => c.date === activeDate);
+  const pts = [...new Map([...j.chart, ...changes].map(p => [p.date, p])).values()].sort((a, b) => a.date.localeCompare(b.date));
   const t0 = Date.parse(pts[0].date), t1 = Date.parse(pts.at(-1)!.date);
-  const x = (d: string) => pad + ((Date.parse(d) - t0) / (t1 - t0)) * (width - pad * 2);
-  const y = (p: number) => 8 + (1 - p / 100) * (height - 30);
-  const path = pts.map((p, i) => `${i ? 'L' : 'M'}${x(p.date).toFixed(1)},${y(p.percentile).toFixed(1)}`).join('');
-  const years = [...new Set(pts.map(p => p.date.slice(0, 4)))].filter((_, i, a) => i % 2 === 0 || i === a.length - 1);
-  return <svg className="rule-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="沪深300滚动市盈率在近十年中的分位变化">
-    {[j.rule.low, j.rule.high, j.rule.extreme].map(v => <g key={v}>
-      <line x1={pad} x2={width - pad} y1={y(v)} y2={y(v)} className="rule-chart-guide"/>
-      <text x={width - pad + 4} y={y(v) + 4} className="rule-chart-label">{v}</text>
-    </g>)}
-    <path d={path} className="rule-chart-line"/>
-    {j.changes.filter(c => c.from).map(c => <circle key={c.date} cx={x(c.date)} cy={y(c.percentile)} r={3} className={`rule-chart-dot band-${c.to}`}><title>{`${c.date} 改为${BAND_JUDGMENTS[c.to].label}`}</title></circle>)}
-    {years.map(yr => { const d = pts.find(p => p.date.startsWith(yr))!.date; return <text key={yr} x={x(d)} y={height - 4} className="rule-chart-label" textAnchor="middle">{yr}</text>; })}
-  </svg>;
+  const edges = [0, j.rule.low, j.rule.high, j.rule.extreme, 100];
+  const last = j.last_change;
+  function chart(width: number, narrow: boolean) {
+    const pad = 28, right = width - 16;
+    const x = (d: string) => pad + ((Date.parse(d) - t0) / (t1 - t0)) * (right - pad);
+    const y = (p: number) => 34 + (1 - p / 100) * (height - 64);
+    const path = pts.map((p, i) => `${i ? 'L' : 'M'}${x(p.date).toFixed(1)},${y(p.percentile).toFixed(1)}`).join('');
+    const years = [...new Set(pts.map(p => p.date.slice(0, 4)))].filter((_, i, a) => i === a.length - 1 || (i % (narrow ? 3 : 2) === 0 && (!narrow || i < a.length - 2)));
+    // Nearby changes share touch areas: select by distance to the actual point.
+    function changeAt(clientX: number, clientY: number, svg: SVGSVGElement) {
+      const rect = svg.getBoundingClientRect();
+      const px = (clientX - rect.left) * width / rect.width;
+      const py = (clientY - rect.top) * height / rect.height;
+      const nearest = changes.map(c => ({date: c.date, distance: Math.hypot(x(c.date) - px, y(c.percentile) - py)})).sort((a, b) => a.distance - b.distance)[0];
+      return nearest.distance <= 10 ? nearest.date : null;
+    }
+    return <svg className={`rule-chart rule-chart-${narrow ? 'mobile' : 'desktop'}`} viewBox={`0 0 ${width} ${height}`} role="group" aria-label="沪深300估值分位曲线，圆点为确认改判日" onMouseMove={event => onHover(changeAt(event.clientX, event.clientY, event.currentTarget))} onMouseLeave={() => onHover(null)} onClick={event => {if (event.detail > 0) {const changeDate = changeAt(event.clientX, event.clientY, event.currentTarget); if (changeDate) onSelect(changeDate);}}}>
+      {BAND_ORDER.map((band, i) => <rect key={band} x={pad} y={y(edges[i + 1])} width={right - pad} height={y(edges[i]) - y(edges[i + 1])} className={`rule-chart-band band-${band}`}/>)}
+      {[100, j.rule.extreme, j.rule.high, j.rule.low, 0].map(v => <g key={v}>
+        <line x1={pad} x2={right} y1={y(v)} y2={y(v)} className="rule-chart-guide"/>
+        <text x={pad - 6} y={y(v) + 4} className="rule-chart-label" textAnchor="end">{v}</text>
+      </g>)}
+      <path d={path} className="rule-chart-line"/>
+      {active && <line x1={x(active.date)} x2={x(active.date)} y1={y(100)} y2={y(0)} className="rule-chart-selected-guide"/>}
+      <line x1={x(last.date)} x2={x(last.date)} y1={24} y2={y(last.percentile)} className="rule-chart-recent-guide"/>
+      <text x={right} y={16} textAnchor="end" className="rule-chart-callout">最近改判 · {date(last.date)}</text>
+      {changes.map(c => <a key={c.date} href={`#rule-change-${c.date}`} aria-label={`${date(c.date)}，${BAND_JUDGMENTS[c.from!].label}改为${BAND_JUDGMENTS[c.to].label}，查看记录`} aria-controls={`rule-change-${c.date}`} className={`rule-chart-event${activeDate === c.date ? ' is-active' : ''}`} onFocus={() => onHover(c.date)} onBlur={() => onHover(null)} onClick={event => {event.preventDefault(); if (event.detail === 0) onSelect(c.date);}}>
+        <title>{`${date(c.date)}：${BAND_JUDGMENTS[c.from!].label} → ${BAND_JUDGMENTS[c.to].label}；新增资金${BAND_JUDGMENTS[c.to].new_money.title}`}</title>
+        <circle cx={x(c.date)} cy={y(c.percentile)} r={9} className="rule-chart-hit"/>
+        <circle cx={x(c.date)} cy={y(c.percentile)} r={activeDate === c.date || c.date === last.date ? 5 : 3.5} className={`rule-chart-dot band-${c.to}`}/>
+      </a>)}
+      <circle cx={x(j.as_of)} cy={y(j.percentile)} r={5} className="rule-chart-today"/>
+      <text x={right - 8} y={y(j.percentile) + 24} textAnchor="end" className="rule-chart-callout rule-chart-today-label">今天 · {j.percentile}</text>
+      {years.map(yr => {const d = pts.find(p => p.date.startsWith(yr))!.date; return <text key={yr} x={x(d)} y={height - 6} className="rule-chart-label" textAnchor={yr === years.at(-1) ? 'end' : 'middle'}>{yr}</text>;})}
+    </svg>;
+  }
+  return <figure className="rule-chart-figure">
+    <div className="rule-chart-legend" aria-label="分位区间与新增资金判断">{BAND_ORDER.map((band, i) => <div key={band}><span className={`band-${band}`}>{BAND_JUDGMENTS[band].label} · {edges[i]}–{edges[i + 1]}</span><small>{BAND_JUDGMENTS[band].new_money.title}</small></div>)}</div>
+    <p className="rule-chart-hint">曲线是估值分位；圆点是确认改判日。点选或悬停圆点，与下方记录对照。</p>
+    {chart(720, false)}{chart(360, true)}
+    <figcaption className="rule-chart-detail" aria-live="polite">{active && <><strong>{date(active.date)} · {BAND_JUDGMENTS[active.from!].label} → {BAND_JUDGMENTS[active.to].label}</strong><span>新增资金：{BAND_JUDGMENTS[active.to].new_money.title}；当日 {active.pe_ttm} 倍，第 {active.percentile} 百分位</span></>}</figcaption>
+  </figure>;
 }
 
 function Action({who, part}: {who: string; part: Judgment['judgment']['new_money']}) {

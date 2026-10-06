@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {BAND_JUDGMENTS} from '../../../../packages/backend/valuation-rule.ts';
 import {PercentileChart, type Judgment} from './RuleJudgment.tsx';
 import {date} from '../lib/format.ts';
@@ -6,28 +7,43 @@ import {date} from '../lib/format.ts';
 export function RuleRecord({j}: {j: Judgment}) {
   const changes = j.changes.filter(c => c.from);
   const live = changes.filter(c => c.origin === 'live').length;
+  const years = [...new Set(changes.map(c => c.date.slice(0, 4)))];
+  const [selectedDate, setSelectedDate] = useState(j.last_change.date);
+  const [hoveredDate, setHoveredDate] = useState<string | null>(null);
+  const activeDate = hoveredDate ?? selectedDate;
+  const last = j.last_change;
+  function selectChange(changeDate: string) {
+    setSelectedDate(changeDate);
+    setHoveredDate(null);
+    document.getElementById(`rule-change-${changeDate}`)?.scrollIntoView({block: 'nearest'});
+  }
   return <>
     <section className="rule-record" id="rule">
-      <h2>规则判断的每一次改变</h2>
+      <h2>十年里，判断怎样改变</h2>
       <p>
-        {date(j.history_first)} 起的中证官方估值数据，按同一规则逐日计算，共改判 {changes.length} 次。
-        {live ? `其中 ${live} 次发生在软件运行之后。` : `${date(j.rule.live_from)} 以前的改判是按同一规则对历史数据回算，不是当时发布的判断。`}
-        回算只说明规则会在什么时候改变判断，不证明照做能获得收益。
+        {date(j.chart[0].date)} 至 {date(j.as_of)}，共 {changes.length} 次改判。估值进入新分档，连续 {j.rule.confirm_days} 个数据日才改变判断。
       </p>
-      <PercentileChart j={j}/>
-      <table className="rule-table">
-        <thead><tr><th>日期</th><th>改为</th><th>新增资金</th><th className="hide-narrow">已有持仓</th><th className="num">市盈率</th><th className="num">分位</th></tr></thead>
-        <tbody>{changes.map(c => {
+      <div className="rule-record-summary">
+        <div><small>今天 · 数据截至 {date(j.as_of)}</small><strong>{j.judgment.label} · 第 {j.percentile} 百分位</strong><p>新增资金：{j.judgment.new_money.title}</p></div>
+        <div><small>最近一次改判 · {date(last.date)}</small><strong>{last.from && `${BAND_JUDGMENTS[last.from].label} → `}{BAND_JUDGMENTS[last.to].label}</strong><button type="button" onClick={() => selectChange(last.date)}>看这次改判 ↓</button></div>
+      </div>
+      <PercentileChart j={j} activeDate={activeDate} onHover={setHoveredDate} onSelect={selectChange}/>
+      <p className="rule-record-origin">{live ? `其中 ${live} 次发生在软件运行之后，其余为历史回算。` : `${date(j.rule.live_from)} 以前的改判为历史回算，保留当日估值和规则结果，不是当时发布的判断。`}</p>
+      <table className="rule-table" aria-label="按年份排列的规则改判记录">
+        <thead><tr><th scope="col">日期</th><th scope="col">判断变化</th><th scope="col">新增资金</th><th scope="col">已有持仓</th><th scope="col" className="num">市盈率</th><th scope="col" className="num">分位</th></tr></thead>
+        {years.map(year => <tbody key={year}>
+          <tr className="rule-year"><th scope="colgroup" colSpan={6}>{year} 年 <small>{changes.filter(c => c.date.startsWith(year)).length} 次改判</small></th></tr>
+          {changes.filter(c => c.date.startsWith(year)).map(c => {
           const to = BAND_JUDGMENTS[c.to];
-          return <tr key={c.date}>
-            <td>{date(c.date)}<div className="origin">{c.origin === 'live' ? '软件运行中' : '回算'}{c.full_window ? '' : ' · 不足十年数据'}</div></td>
-            <td>{to.label}</td>
-            <td>{to.new_money.title}</td>
-            <td className="hide-narrow">{to.held.title}</td>
-            <td className="num">{c.pe_ttm}</td>
-            <td className="num">{c.percentile}</td>
+          return <tr key={c.date} id={`rule-change-${c.date}`} className={`rule-change${activeDate === c.date ? ' is-active' : ''}`} onMouseMove={() => setHoveredDate(c.date)} onMouseLeave={() => setHoveredDate(null)} onFocus={() => setHoveredDate(c.date)} onBlur={() => setHoveredDate(null)}>
+            <td className="rule-change-date"><button type="button" onClick={() => setSelectedDate(c.date)} aria-pressed={selectedDate === c.date}>{date(c.date)}</button>{c.date === last.date && <span className="rule-latest">最近一次</span>}<div className="origin">{c.origin === 'live' ? '软件运行中' : '回算'}{c.full_window ? '' : ' · 不足十年数据'}</div></td>
+            <td className="rule-transition">{c.from && <span>{BAND_JUDGMENTS[c.from].label} → </span>}<b className={`band-${c.to}`}>{to.label}</b></td>
+            <td className="rule-change-action" data-label="新增资金">{to.new_money.title}</td>
+            <td className="rule-change-action" data-label="已有持仓">{to.held.title}</td>
+            <td className="num" data-label="市盈率">{c.pe_ttm} 倍</td>
+            <td className="num" data-label="分位">{c.percentile}%</td>
           </tr>;
-        })}</tbody>
+        })}</tbody>)}
       </table>
     </section>
     <section className="rule-record rule-method" id="rule-method">
