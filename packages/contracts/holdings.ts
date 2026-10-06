@@ -21,6 +21,8 @@ export type HoldingRow = {
   input_name: string;
   amount: number;
   fund: FundMatch | null;
+  /** Ranked public-list suggestions, score 0–100 with the matching reasons; near ties stay unconfirmed. */
+  candidates?: (FundMatch & {score: number; reasons: string[]})[];
   /** Index the fund tracks, from its name; null for active, bond and money funds. */
   tracked_index: string | null;
   exposure: Exposure;

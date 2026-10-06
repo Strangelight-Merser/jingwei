@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import type {FundMatch, Holdings, OcrLine} from '../packages/contracts/holdings.ts';
-import {parseOcrLines, parseText, matchFund, classify, parseHoldings, buildCheckup, type HoldingJudgments} from '../packages/backend/holdings.ts';
+import {parseOcrLines, parseText, matchFund, rankFundCandidates, classify, parseHoldings, buildCheckup, type HoldingJudgments} from '../packages/backend/holdings.ts';
 import {validHoldings, parseRequestSchema} from '../packages/backend/holdings-validation.ts';
 import {INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
@@ -48,9 +48,134 @@ test('真实公开列表容忍简称差异；不补份额、不改指数数字�
     ['南方纳斯达克100指数(QDII)C', '016453'], ['圆信永丰科技驱动混合C', '024593'], ['英大策略优选混合C', '001608']];
   for (const [name, code] of cases) assert.equal(matchFund(name)?.code, code);
   assert.equal(matchFund('南方中证500ETF联接A')?.code, '160119');
-  for (const name of ['不存在的基金C', '999999', '南方纳斯达克200指数(QDII)C', '南方纳斯达克100指数(QDII)', '余额宝', '景顺长城纳斯达克科技市值加权ETF联接(QDII)A']) assert.equal(matchFund(name), null);
+  for (const name of ['不存在的基金C', '999999', '南方纳斯达克200指数(QDII)C', '南方纳斯达克100指数(QDII)', '余额宝']) assert.equal(matchFund(name), null);
   const funds: FundMatch[] = [{code: '000001', name: '某某成长精选混合A', type: '混合型-偏股'}, {code: '000002', name: '某某成长精挑混合A', type: '混合型-偏股'}];
   assert.equal(matchFund('某某成长精远混合A', funds), null);
+});
+
+test('三个漏配名称与全半角、括号、发起/发起式、人民币及管理人简称唯一对齐', () => {
+  const cases = [
+    ['景顺长城纳斯达克科技市值加权ETF联接(QDII)A', '017091'],
+    ['华泰柏瑞南方东英恒生科技指数ETF联接(QDII)C', '015311'],
+    ['易方达沪深300联接C', '007339'],
+    ['景顺长城纳斯达克科技市值加权发起式指数联接（ＱＤＩＩ）Ａ人民币', '017091'],
+    ['华泰柏瑞基金管理有限公司恒生科技发起指数联接【QDII】C', '015311'],
+    ['景顺长城纳斯达克科技市值加权联接(QDII)E', '019118'],
+    ['华泰柏瑞南方东英恒生科技指数联接(QDII)I', '022680'],
+  ];
+  for (const [name, code] of cases) {
+    assert.equal(matchFund(name)?.code, code, name);
+    const candidates = rankFundCandidates(name);
+    assert.equal(candidates[0].code, code);
+    assert.ok(candidates[0].score >= 92);
+    assert.ok(candidates[0].reasons.some(reason => reason.startsWith('份额类别一致')));
+    assert.ok(candidates[0].reasons.some(reason => reason.startsWith('跟踪标的一致')));
+  }
+  // Eight public funds plus a cash product: the cash product has no single fund code.
+  assert.deepEqual(parseHoldings({images}).rows.map(row => row.fund?.code ?? null),
+    ['002771', '160213', '016453', null, '017091', '015311', '024593', '015528', '001608']);
+});
+
+test('份额 A/C/E/I、管理人、跟踪标的、增强版本与币种为硬约束', () => {
+  const funds: FundMatch[] = [
+    ...['A', 'C', 'E', 'I'].map((cls, i) => ({code: `99000${i}`, name: `晨岚沪深300ETF联接${cls}`, type: '指数型-股票'})),
+    {code: '990010', name: '晴屿沪深300ETF联接C', type: '指数型-股票'},
+    {code: '990011', name: '晨岚沪深300红利ETF联接C', type: '指数型-股票'},
+    {code: '990012', name: '晨岚沪深300指数增强C', type: '指数型-股票'},
+    {code: '990013', name: '晨岚沪深300ETF联接C美元现汇', type: '指数型-海外股票'},
+  ];
+  for (const [i, cls] of ['A', 'C', 'E', 'I'].entries()) {
+    const name = `晨岚沪深300发起联接${cls}`;
+    assert.equal(matchFund(name, funds)?.code, `99000${i}`);
+    assert.deepEqual(rankFundCandidates(name, funds).map(fund => fund.code), [`99000${i}`]);
+    assert.equal(matchFund(name, funds.filter(fund => fund.code !== `99000${i}`)), null);
+  }
+  assert.equal(matchFund('晨岚沪深300联接', funds), null);
+  assert.equal(matchFund('晨岚沪深301联接C', funds), null);
+  assert.equal(matchFund('晨岚沪深300等权联接C', funds), null);
+  assert.equal(matchFund('晨岚沪深300联接C美元现汇', funds)?.code, '990013');
+  assert.equal(matchFund('晨岚沪深300联接C美元现钞', funds), null);
+  assert.equal(matchFund('景顺长城纳斯达克科技市值加权联接(QDII)A美元现汇')?.code, '017092');
+  assert.equal(matchFund('景顺长城纳斯达克科技市值加权联接(QDII)A', funds), null);
+});
+
+test('多个高分/接近候选返回得分与理由；精确写法和低分单候选也不越过确认门槛', () => {
+  const funds: FundMatch[] = [
+    {code: '990001', name: '晨岚沪深300ETF联接C', type: '指数型-股票'},
+    {code: '990002', name: '晨岚沪深300指数C', type: '指数型-股票'},
+  ];
+  for (const name of ['晨岚沪深300C', funds[0].name]) {
+    assert.equal(matchFund(name, funds), null);
+    const result = parseHoldings({text: `${name} 1234.56`}, funds);
+    assert.equal(result.rows[0].fund, null);
+    assert.deepEqual(result.rows[0].candidates?.map(candidate => candidate.code), ['990001', '990002']);
+    assert.ok(result.rows[0].candidates!.every(candidate => candidate.score >= 92 && candidate.reasons.length >= 4));
+    assert.equal(validHoldings({saved_at: '2026-10-06T12:00:00Z', rows: result.rows}), true);
+  }
+  const near: FundMatch[] = [
+    {code: '990003', name: '安信星河远航优选成长主题混合A', type: '混合型-偏股'},
+    {code: '990004', name: '安信星河远航优选成才主题混合A', type: '混合型-偏股'},
+  ];
+  assert.equal(matchFund('安信星河远航优选成远主题混合A', near), null);
+  assert.equal(rankFundCandidates('安信星河远航优选成远主题混合A', near).length, 2);
+  const weak: FundMatch[] = [{code: '990005', name: '安信星河远航优选混合A', type: '混合型-偏股'}];
+  assert.ok(rankFundCandidates('安信星河远景优选混合A', weak)[0].score < 92);
+  assert.equal(matchFund('安信星河远景优选混合A', weak), null);
+});
+
+for (const layout of ['tiantian-table', 'bank-cards', 'bank-market-value']) {
+  test(`虚构 OCR ${layout}：代码尾缀、右列金额、上方标签、千分位与万元单位`, async () => {
+    const fixture: {source: string; lines: OcrLine[]; holdings: {name: string; amount: number}[]} = JSON.parse(await readFile(new URL(`./fixtures/holdings/${layout}.synthetic.json`, import.meta.url), 'utf8'));
+    assert.match(fixture.source, /虚构/);
+    assert.deepEqual(parseOcrLines([fixture.lines]), fixture.holdings);
+    assert.deepEqual(parseOcrLines([[...fixture.lines].reverse()]), fixture.holdings);
+    const parsed = parseHoldings({images: [fixture.lines]});
+    assert.deepEqual(parsed.rows.map(row => ({name: row.input_name, amount: row.amount})), fixture.holdings);
+    assert.deepEqual(parsed.unread, []);
+  });
+}
+
+test('OCR 歧义留空：同一金额列多值、单行多数字、仅正收益或代码、列边界不明', async () => {
+  const {lines}: {lines: OcrLine[]} = JSON.parse(await readFile(new URL('./fixtures/holdings/tiantian-table.synthetic.json', import.meta.url), 'utf8'));
+  const firstRow = lines.filter(line => line.y < 0.3);
+  const number = firstRow.find(line => line.text === '１，２３４．５６')!;
+  for (const changed of [
+    firstRow.filter(line => line !== number),
+    firstRow.map(line => line === number ? {...line, text: '1,234.56 18.90'} : line),
+    firstRow.map(line => line === number ? {...line, text: '100 20'} : line),
+    [...firstRow, {...number, text: '2,000.00', y: 0.24}],
+    firstRow.map(line => line === number ? {...line, x: 0.745, w: 0.1} : line),
+  ]) {
+    assert.deepEqual(parseOcrLines([changed]), [{name: '晨岚沪深300ETF联接C', amount: null}]);
+    const parsed = parseHoldings({images: [changed]});
+    assert.deepEqual(parsed.rows, []);
+    assert.deepEqual(parsed.unread, ['晨岚沪深300ETF联接C']);
+  }
+  const name: OcrLine = {text: '晴屿稳进混合A', x: 0.06, y: 0.2, w: 0.4, h: 0.02};
+  assert.deepEqual(parseOcrLines([[name, {text: '990001', x: 0.06, y: 0.23, w: 0.1, h: 0.02}]]), [{name: name.text, amount: null}]);
+  assert.deepEqual(parseOcrLines([[{text: '名称/金额', x: 0.06, y: 0.1, w: 0.2, h: 0.02}, name,
+    {text: '990001', x: 0.06, y: 0.23, w: 0.1, h: 0.02},
+  ]]), [{name: name.text, amount: null}]);
+  assert.deepEqual(parseOcrLines([[{text: '持有金额', x: 0.6, y: 0.1, w: 0.2, h: 0.02}, name,
+    {text: '990001', x: 0.6, y: 0.2, w: 0.1, h: 0.02},
+  ]]), [{name: name.text, amount: null}]);
+  assert.deepEqual(parseOcrLines([[name,
+    {text: '1,234.56', x: 0.55, y: 0.2, w: 0.15, h: 0.02},
+    {text: '18.90', x: 0.8, y: 0.2, w: 0.1, h: 0.02},
+  ]]), [{name: name.text, amount: null}]);
+  assert.deepEqual(parseOcrLines([[name,
+    {text: '持有金额：100 20', x: 0.06, y: 0.24, w: 0.5, h: 0.02},
+    {text: '18.90', x: 0.06, y: 0.28, w: 0.1, h: 0.02},
+  ]]), [{name: name.text, amount: null}]);
+});
+
+test('OCR 名称内部空格不截断指数；粘连尾缀代码移除，标签下六位金额可识别', () => {
+  const names = ['晨岚 沪深 300 ETF 联接 C （990001）', '晨岚沪深300ETF联接C990001'];
+  for (const text of names) assert.deepEqual(parseOcrLines([[
+    {text, x: 0.06, y: 0.2, w: 0.5, h: 0.02},
+    {text: '持有金额（元）', x: 0.06, y: 0.24, w: 0.2, h: 0.02},
+    {text: '123456', x: 0.06, y: 0.28, w: 0.2, h: 0.02},
+  ]]), [{name: '晨岚沪深300ETF联接C', amount: 123456}]);
 });
 
 test('分类只覆盖三个原指数；增强、指数变体、境外、货币与债券不套规则', () => {

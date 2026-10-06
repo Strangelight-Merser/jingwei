@@ -13,6 +13,10 @@ test('真实 API：parse/checkup 使用当前三指数判断，不记录或保�
     const parsed = await app.inject({method: 'POST', url: '/holdings/parse', payload: {images}});
     assert.equal(parsed.statusCode, 200);
     assert.deepEqual(parsed.json().rows.map((row: {input_name: string; amount: number}) => ({name: row.input_name, amount: row.amount})), expected);
+    assert.deepEqual(parsed.json().rows.map((row: {fund: {code: string} | null}) => row.fund?.code ?? null),
+      ['002771', '160213', '016453', null, '017091', '015311', '024593', '015528', '001608']);
+    assert.equal(parsed.json().rows[4].candidates[0].score, 98);
+    assert.ok(parsed.json().rows[4].candidates[0].reasons.some((reason: string) => reason.includes('份额类别一致：A')));
     const response = await app.inject({method: 'POST', url: '/holdings/checkup', payload: {saved_at: '2026-10-06T12:00:00Z', rows: parsed.json().rows}});
     assert.equal(response.statusCode, 200);
     assert.equal(response.json().uncovered_share, 1);
@@ -25,6 +29,12 @@ test('真实 API：parse/checkup 使用当前三指数判断，不记录或保�
     assert.equal(checkup.covered[0].band, current.band);
     assert.equal(checkup.covered[0].new_money_title, current.judgment.new_money.title);
     assert.equal(checkup.uncovered_share, 7.28 / 633.29);
+    for (const layout of ['tiantian-table', 'bank-cards', 'bank-market-value']) {
+      const fixture = JSON.parse(await readFile(new URL(`./fixtures/holdings/${layout}.synthetic.json`, import.meta.url), 'utf8'));
+      const response = await app.inject({method: 'POST', url: '/holdings/parse', payload: {images: [fixture.lines]}});
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.json().rows.map((row: {input_name: string; amount: number}) => ({name: row.input_name, amount: row.amount})), fixture.holdings);
+    }
     for (const payload of [{}, {images: [[{text: 'bad', x: 2, y: 0, w: 0.1, h: 0.1}]]}]) assert.equal((await app.inject({method: 'POST', url: '/holdings/parse', payload})).statusCode, 400);
     assert.equal((await app.inject({method: 'POST', url: '/holdings/checkup', payload: {saved_at: 'invalid', rows: []}})).statusCode, 400);
     assert.deepEqual(await readState(), before);

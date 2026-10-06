@@ -6,33 +6,80 @@ import type {RuleJudgmentResult} from './valuation-rule.ts';
 
 export function normalizeHoldingName(name: string): string {return name.normalize('NFKC').trim().replace(/\s+/g, '');}
 const keyOf = (name: string) => normalizeHoldingName(name).toUpperCase();
-const moneyValue = (text: string): number | null => {
-  const value = text.normalize('NFKC').trim().replace(/^[¥￥]\s*/, '').replace(/元$/, '').trim();
-  if (!/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/.test(value)) return null;
-  const amount = Number(value.replaceAll(',', ''));
+const moneyValue = (text: string, scale = 1): number | null => {
+  const value = text.normalize('NFKC').trim().replace(/^[¥￥]\s*/, '');
+  const match = /^((?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?)\s*(万)?\s*元?$/.exec(value);
+  if (!match) return null;
+  if (match[2]) scale = 10_000;
+  if ((match[1].split('.')[1]?.length ?? 0) > (scale === 10_000 ? 6 : 2)) return null;
+  const amount = Number((Number(match[1].replaceAll(',', '')) * scale).toFixed(2));
   return Number.isFinite(amount) && amount <= Number.MAX_SAFE_INTEGER ? amount : null;
 };
-const ignored = (text: string) => /(?:status bar|名称.*金额|日收益|持有收益|累计收益|收益明细|收益提醒|占比|百比|进阶理财|灵活取用|交易记录|全部持有|^全部|买一笔|反馈|投诉|本页面|法律文件|过往业绩|市场有风险|平台设计|^[：:]?基金$|^定投$)/i.test(text);
+const ignored = (text: string) => /(?:status bar|名称.*金额|^基金(?:名称|代码)|日收益|持有收益|累计收益|收益明细|收益提醒|占比|百比|进阶理财|灵活取用|交易记录|全部持有|^全部|买一笔|反馈|投诉|本页面|法律文件|过往业绩|市场有风险|平台设计|^[：:]?基金$|^定投$)/i.test(text);
 const looksLikeHolding = (text: string) => !ignored(text) && /(?:余额宝|零钱通|货币|混合|债券|指数|ETF|联接|股票|QDII|FOF|REIT)/i.test(text);
 
-/** Names and the amount underneath share the left column; return rows in screenshot order. */
+type AmountLabel = {line: OcrLine; scale: number; value: string; kind: 'amount' | 'other'};
+function amountLabel(line: OcrLine): AmountLabel | null {
+  const text = line.text.replace(/\s+/g, '');
+  if (/^名称[\/／]金额/.test(text)) return {line, scale: 1, value: '', kind: 'amount'};
+  const match = /^(?:持有金额|最新市值|持有市值|资产金额|市值|金额)(?:\((?:人民币)?(万?元)\))?[:：]?(.*)$/.exec(text);
+  if (match) {
+    // Keep whitespace between numbers: two amounts must never become one number.
+    const value = line.text.replace(/^(?:持有金额|最新市值|持有市值|资产金额|市值|金额)\s*(?:\((?:人民币)?万?元\))?\s*[:：]?\s*/, '');
+    return {line, scale: match[1] === '万元' ? 10_000 : 1, value, kind: 'amount'};
+  }
+  return /^(?:(?:昨日|今日|当日|日|持有|累计|总)?收益(?:率)?|持有份额|份额|最新净值|单位净值|成本)(?:\([^)]*\))?[:：]?$/.test(text)
+    ? {line, scale: 1, value: '', kind: 'other'} : null;
+}
+
+function ocrHoldingName(text: string): string {
+  return normalizeHoldingName(text.replace(/\s+\d{6}$/, '')
+    .replace(/\s*\((?:基金)?(?:代码[:：]?)?\d{6}\)$/, '')
+    .replace(/\s*(?:基金)?代码[:：]?\s*\d{6}$/, '').replace(/(?<=[A-Z])\d{6}$/, ''));
+}
+
+/** Use labels/columns first, then an unambiguous nearby amount; preserve screenshot order. */
 export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
   const result: ParsedHolding[] = [], seen = new Set<string>();
   for (const image of images) {
-    const lines = image.map(line => ({...line, text: normalizeHoldingName(line.text)})).sort((a, b) => a.y - b.y || a.x - b.x);
-    const header = lines.find(line => /名称.*金额/.test(line.text));
-    const left = header?.x ?? lines.find(line => looksLikeHolding(line.text))?.x ?? 0;
-    const revenueX = lines.filter(line => /^(日收益|持有收益|累计收益)$/.test(line.text)).map(line => line.x);
-    const columnEnd = revenueX.length ? Math.min(...revenueX) : left + 0.28;
-    const names = lines.filter(line => line.x >= left - 0.04 && line.x < Math.min(columnEnd, left + 0.12) && looksLikeHolding(line.text));
+    const lines = image.map(line => ({...line, text: line.text.normalize('NFKC').trim()})).sort((a, b) => a.y - b.y || a.x - b.x);
+    const labels = lines.map(amountLabel).filter((label): label is AmountLabel => label !== null);
+    const names = lines.filter(line => looksLikeHolding(line.text));
     for (let i = 0; i < names.length; i++) {
-      const line = names[i], key = keyOf(line.text);
+      const line = names[i], name = ocrHoldingName(line.text), key = keyOf(name);
       if (seen.has(key)) continue;
       seen.add(key);
-      const end = Math.min(names[i + 1]?.y ?? 1, line.y + Math.max(0.09, line.h * 5));
-      const candidate = lines.find(amount => amount.y > line.y + line.h * 0.5 && amount.y < end &&
-        Math.abs(amount.x - line.x) <= Math.max(0.04, line.h * 2) && amount.x + amount.w <= columnEnd && moneyValue(amount.text) !== null);
-      result.push({name: line.text, amount: candidate ? moneyValue(candidate.text) : null});
+      const end = Math.min(names[i + 1]?.y ?? 1, line.y + Math.max(0.16, line.h * 8));
+      const inRow = (other: OcrLine) => other.y >= line.y - Math.min(line.h, other.h) * 0.5 && other.y < end;
+      const inline = labels.filter(label => label.kind === 'amount' && label.value && inRow(label.line));
+      if (inline.length) {
+        result.push({name, amount: inline.length === 1 ? moneyValue(inline[0].value, inline[0].scale) : null});
+        continue;
+      }
+      const values: (number | null)[] = [];
+      for (const value of lines) {
+        if (value === line || !inRow(value) || !/^[¥￥]?\s*[\d,.\s]+(?:万)?\s*元?$/.test(value.text)) continue;
+        // The closest preceding header row owns the columns, including positive profits.
+        const preceding = labels.filter(label => !label.value && label.line.y <= value.y + value.h * 0.5);
+        const latestY = Math.max(...preceding.map(label => label.line.y));
+        const headerRow = preceding.filter(label => label.line.y >= latestY - Math.max(0.012, label.line.h));
+        const center = value.x + value.w / 2;
+        const ranked = headerRow.map(label => ({label, gap: Math.abs(center - (label.line.x + label.line.w / 2))})).sort((a, b) => a.gap - b.gap);
+        const owner = ranked[0];
+        const sameRow = Math.abs(value.y - line.y) <= Math.min(line.h, value.h) * 0.5;
+        if (/^\d{6}$/.test(value.text) && (!owner || owner.label.line.y < line.y)) continue;
+        if (owner) {
+          if (ranked[1] && ranked[1].gap - owner.gap < 0.025) {
+            if (ranked.slice(0, 2).some(item => item.label.kind === 'amount')) values.push(null);
+            continue;
+          }
+          if (owner.label.kind !== 'amount' || owner.gap > Math.max(0.12, (owner.label.line.w + value.w) / 2)) continue;
+          values.push(moneyValue(value.text, owner.label.scale));
+        } else {
+          if (sameRow || Math.abs(value.x - line.x) <= Math.max(0.04, line.h * 2)) values.push(moneyValue(value.text));
+        }
+      }
+      result.push({name, amount: values.length === 1 ? values[0] : null});
     }
   }
   return result;
@@ -44,7 +91,7 @@ export function parseText(text: string): ParsedHolding[] {
   for (const raw of text.split(/\r?\n/)) {
     const line = raw.normalize('NFKC').trim();
     if (!line) continue;
-    const pair = /^(.*?)\s+([¥￥]?\s*(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?\s*元?)$/.exec(line);
+    const pair = /^(.*?)\s+([¥￥]?\s*(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,6})?\s*万?\s*元?)$/.exec(line);
     const name = normalizeHoldingName(pair?.[1] ?? line), key = keyOf(name);
     if (!name || seen.has(key)) continue;
     seen.add(key);
@@ -53,9 +100,30 @@ export function parseText(text: string): ParsedHolding[] {
   return result;
 }
 
-// Cosmetic short-name differences; share class, feeder/ETF and enhancement are retained.
-const matchKey = (name: string) => keyOf(name).replace(/\(QDII(?:-LOF)?\)|\(LOF\)|证券投资基金|灵活配置|发起式|发起|指数型|指数|混合/g, '');
-const shareClass = (name: string) => /(?:^|[^A-Z])([A-Z])(?:\([^)]*\))?(?:人民币|美元(?:现汇|现钞)?)?$/.exec(keyOf(name))?.[1] ?? null;
+const shareClass = (name: string) => {
+  const text = keyOf(name).replace(/\((?:QDII(?:-LOF)?|LOF)\)/g, '').replace(/\(?(?:人民币|美元(?:现汇|现钞)?|港币|欧元)\)?$/, '');
+  return /ETF$/.test(text) ? null : /(?:\(([A-Z])(?:类(?:份额)?)?\)|([A-Z])(?:类(?:份额)?)?)$/.exec(text)?.slice(1).find(Boolean) ?? null;
+};
+const managers = ['景顺长城', '华泰柏瑞', '易方达', '圆信永丰', '弘毅远方', '汇丰晋信', '工银瑞信', '建信', '安信', '国泰', '南方', '英大', '华夏', '富国', '广发', '嘉实', '天弘', '博时', '汇添富', '招商', '鹏华', '银华', '华安', '中欧', '华宝', '中银', '大成', '交银', '兴全', '兴证全球'];
+function matchProfile(name: string) {
+  const normalized = keyOf(name).replace(/[【\[]/g, '(').replace(/[】\]]/g, ')');
+  // The full names and short names refer to the same targets, verified in the fund documents:
+  // https://www.igwfmc.com/main/jjcp/product/017091/detail.html
+  // https://statics.citics.com/product/file/abstract/015310.pdf
+  const aligned = normalized.replace(/^华泰柏瑞南方东英(?=恒生科技)/, '华泰柏瑞')
+    .replace(/^景顺长城纳斯达克科技市值加权/, '景顺长城纳斯达克科技');
+  const cls = shareClass(aligned);
+  const currency = /美元现汇|美元现钞|美元|港币|欧元/.exec(aligned)?.[0] ?? '人民币';
+  const key = aligned.replace(/\((?:QDII(?:-LOF)?|LOF)\)/g, '')
+    .replace(/\(?(?:人民币|美元(?:现汇|现钞)?|港币|欧元)\)?$/, '')
+    .replace(/(?:\([A-Z](?:类(?:份额)?)?\)|[A-Z](?:类(?:份额)?)?)$/, cls ? '' : '$&')
+    .replace(/基金管理有限公司|基金管理公司|证券投资基金|交易型开放式|灵活配置|发起式|发起|指数型|指数|ETF|联接|混合型|混合|基金|[()]/g, '');
+  const targetStart = key.search(/沪深|中证|上证|深证|国证|恒生|恒指|纳斯达克|标普|道琼斯|创业板|科创|北证|MSCI|富时|罗素|日经|DAX/);
+  const manager = targetStart > 0 ? key.slice(0, targetStart) : managers.find(manager => key.startsWith(manager)) ?? null;
+  const target = targetStart >= 0 ? key.slice(targetStart) : null;
+  return {normalized, key, cls, currency, manager, target, indexLike: /指数|ETF|联接|交易型/.test(aligned),
+    numbers: JSON.stringify(key.match(/[A-Z]*\d+/g)), enhanced: /增强|多因子|量化|策略/.test(aligned)};
+}
 function distance(a: string, b: string): number {
   let prior = Array.from({length: b.length + 1}, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
@@ -66,25 +134,43 @@ function distance(a: string, b: string): number {
   return prior[b.length];
 }
 
-/** Return only a unique match. Missing share classes and near ties remain unconfirmed. */
+/** Hard identity gates precede scoring. Target variants and share/currency differences never qualify. */
+export function rankFundCandidates(name: string, funds: FundMatch[] = FUND_LIST_SEED.funds): NonNullable<HoldingRow['candidates']> {
+  const input = matchProfile(name);
+  if (/^\d{6}$/.test(input.normalized)) return funds.filter(fund => fund.code === input.normalized).map(fund => ({...fund, score: 100, reasons: ['基金代码一致']}));
+  if (/^(余额宝|零钱通)$/.test(input.normalized)) return [];
+  const ranked: NonNullable<HoldingRow['candidates']> = [];
+  for (const fund of funds) {
+    const candidate = matchProfile(fund.name);
+    if (candidate.cls !== input.cls || candidate.currency !== input.currency || candidate.numbers !== input.numbers || candidate.enhanced !== input.enhanced) continue;
+    if (candidate.manager !== input.manager || candidate.target !== input.target) continue;
+    if ((input.indexLike || candidate.indexLike || /指数型/.test(fund.type)) && candidate.key !== input.key) continue;
+    if (['混合', '债券', '货币', '股票'].some(kind => input.normalized.includes(kind) && !candidate.normalized.includes(kind) && !fund.type.includes(kind))) continue;
+    const same = candidate.key === input.key;
+    // Unknown managers require an identical normalized name; no guessed manager prefix.
+    if (!same && (!input.manager || input.key.length < 8)) continue;
+    const score = candidate.normalized === input.normalized ? 100 : same ? 98
+      : Number((100 * (1 - distance(input.key, candidate.key) / Math.max(input.key.length, candidate.key.length))).toFixed(2));
+    if (score < 80) continue;
+    const reasons = [candidate.normalized === input.normalized ? '名称一致' : same ? '名称归一后一致（省略词及已核对简称）' : `名称相似度 ${score}%`];
+    if (input.manager) reasons.push(`管理人一致：${input.manager}`);
+    if (input.target) reasons.push(`跟踪标的一致：${input.target}`);
+    reasons.push(input.cls ? `份额类别一致：${input.cls}` : '双方名称均未标注份额类别', `币种一致：${input.currency}（省略币种按人民币）`);
+    ranked.push({...fund, score, reasons});
+  }
+  return ranked.sort((a, b) => b.score - a.score || a.code.localeCompare(b.code));
+}
+
+// At least 92/100 and a five-point lead; even a literal name cannot overrule a near tie.
+function uniqueFund(candidates: NonNullable<HoldingRow['candidates']>): FundMatch | null {
+  const best = candidates[0];
+  return best && best.score >= 92 && (!candidates[1] || best.score - candidates[1].score >= 5)
+    ? {code: best.code, name: best.name, type: best.type} : null;
+}
+
+/** Return only a unique high-scoring match; rankFundCandidates explains unconfirmed suggestions. */
 export function matchFund(name: string, funds: FundMatch[] = FUND_LIST_SEED.funds): FundMatch | null {
-  const normalized = keyOf(name);
-  if (/^\d{6}$/.test(normalized)) return funds.find(fund => fund.code === normalized) ?? null;
-  if (/^(余额宝|零钱通)$/.test(normalized)) return null;
-  const exact = funds.filter(fund => keyOf(fund.name) === normalized);
-  if (exact.length) return exact.length === 1 ? {...exact[0]} : null;
-  const key = matchKey(name), cls = shareClass(name);
-  const candidates = funds.filter(fund => shareClass(fund.name) === cls &&
-    (!/混合/.test(normalized) || /混合/.test(fund.type)) &&
-    JSON.stringify(keyOf(fund.name).match(/[A-Z]*\d+/g)) === JSON.stringify(normalized.match(/[A-Z]*\d+/g)) &&
-    ['ETF', '联接', '增强'].every(token => keyOf(fund.name).includes(token) === normalized.includes(token)));
-  const same = candidates.filter(fund => matchKey(fund.name) === key);
-  if (same.length) return same.length === 1 ? {...same[0]} : null;
-  if (key.length < 8) return null;
-  const ranked = candidates.filter(fund => matchKey(fund.name).slice(0, 3) === key.slice(0, 3))
-    .map(fund => ({fund, score: distance(key, matchKey(fund.name)) / Math.max(key.length, matchKey(fund.name).length)}))
-    .filter(candidate => candidate.score <= 0.12).sort((a, b) => a.score - b.score);
-  return ranked[0] && (!ranked[1] || ranked[1].score - ranked[0].score >= 0.05) ? {...ranked[0].fund} : null;
+  return uniqueFund(rankFundCandidates(name, funds));
 }
 
 /** The rule applies only to a plain tracker of one of the three covered indices. */
@@ -123,8 +209,9 @@ export function parseHoldings(request: ParseRequest, funds: FundMatch[] = FUND_L
     if (seen.has(keyOf(item.name))) continue;
     seen.add(keyOf(item.name));
     if (item.amount === null) {unread.push(item.name); continue;}
-    const fund = matchFund(item.name, funds);
-    rows.push({id: randomUUID(), input_name: item.name, amount: item.amount, fund, ...classify(item.name, fund)});
+    const candidates = rankFundCandidates(item.name, funds), fund = uniqueFund(candidates);
+    rows.push({id: randomUUID(), input_name: item.name, amount: item.amount, fund,
+      ...(candidates.length ? {candidates} : {}), ...classify(item.name, fund)});
   }
   return {rows, unread};
 }
