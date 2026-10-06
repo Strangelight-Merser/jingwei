@@ -35,7 +35,7 @@ test('不足五年数据不出分位；分位按窗口内不高于当日的比�
 });
 
 test('新分档须连续确认才改判，中途回到原档则重新计数', () => {
-  const pts = (bands: number[]) => bands.map((pct, i) => ({date: `2020-01-${String(i + 1).padStart(2, '0')}`, pe_ttm: 10, percentile: pct, window_start: '2010-01-01', full_window: true}));
+  const pts = (bands: number[]) => bands.map((pct, i) => ({date: `2020-01-${String(i + 1).padStart(2, '0')}`, pe_ttm: 10, percentile: pct, exact: pct, window_start: '2010-01-01', full_window: true}));
   const flicker = ruleTimeline(pts([50, 75, 75, 75, 75, 50, 75, 75]));
   assert.equal(flicker.confirmed, 'mid');
   assert.equal(flicker.changes.length, 1);
@@ -44,6 +44,17 @@ test('新分档须连续确认才改判，中途回到原档则重新计数', ()
   assert.equal(held.confirmed, 'high');
   assert.equal(held.changes.at(-1)!.date, '2020-01-06');
   assert.equal(VALUATION_RULE.confirm_days, 5);
+});
+
+test('分档按未取整分位：显示为30.0的29.98仍属偏低区', () => {
+  const day = (exact: number, i: number) => ({date: `2020-01-${String(i + 1).padStart(2, '0')}`, pe_ttm: 10, percentile: Math.round(exact * 10) / 10, exact, window_start: '2010-01-01', full_window: true});
+  const t = ruleTimeline([50, 29.98, 29.98, 29.98, 29.98, 29.98].map(day));
+  assert.equal(t.confirmed, 'low');
+  // 真实历史中2018-12-07等4个交易日取整后恰为边界值，改判记录不受影响
+  const s = percentileSeries(seedHistory().points);
+  const edge = s.filter(p => p.percentile === 30 && p.exact < 30).map(p => p.date);
+  assert.ok(edge.includes('2018-12-07'));
+  assert.ok(s.every(p => Math.abs(p.percentile - p.exact) <= 0.05 + 1e-9));
 });
 
 test('边界市盈率对应窗口内的分位值', () => {

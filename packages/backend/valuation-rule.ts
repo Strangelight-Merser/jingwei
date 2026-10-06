@@ -70,9 +70,13 @@ function yearsBefore(date: string, years: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-export type PercentilePoint = {date: string; pe_ttm: number; percentile: number; window_start: string; full_window: boolean};
+export type PercentilePoint = {date: string; pe_ttm: number; percentile: number; exact: number; window_start: string; full_window: boolean};
 
-/** Share of trailing-window days (including today) with PE at or below today's PE, in percent. */
+/**
+ * Share of trailing-window days (including today) with PE at or below today's PE, in percent.
+ * `exact` decides the band; `percentile` is the same value rounded to one decimal for display,
+ * so a day at 29.98 stays in the low band even though it reads as 30.0.
+ */
 export function percentileSeries(points: ValuationPoint[]): PercentilePoint[] {
   if (!points.length) return [];
   const first = points[0].date;
@@ -85,9 +89,11 @@ export function percentileSeries(points: ValuationPoint[]): PercentilePoint[] {
     while (points[start].date < windowStart) start++;
     let atOrBelow = 0;
     for (let j = start; j <= i; j++) if (points[j].pe_ttm <= p.pe_ttm) atOrBelow++;
+    const exact = (atOrBelow / (i - start + 1)) * 100;
     out.push({
       date: p.date, pe_ttm: p.pe_ttm,
-      percentile: Math.round((atOrBelow / (i - start + 1)) * 1000) / 10,
+      percentile: Math.round(exact * 10) / 10,
+      exact,
       window_start: points[start].date,
       full_window: windowStart >= first,
     });
@@ -110,7 +116,7 @@ export function ruleTimeline(series: PercentilePoint[]) {
   let confirmed: ValuationBand | null = null;
   let pending: {band: ValuationBand; days: number} | null = null;
   for (const p of series) {
-    const band = bandOf(p.percentile);
+    const band = bandOf(p.exact);
     if (confirmed === null) {
       confirmed = band;
       changes.push({date: p.date, from: null, to: band, pe_ttm: p.pe_ttm, percentile: p.percentile, full_window: p.full_window});
@@ -153,7 +159,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
   // Downsample to weekly points for the reader's chart; the last point is always included.
   const chart = series.filter((p, i) => i % 5 === 0 || i === series.length - 1).map(p => ({date: p.date, percentile: p.percentile, pe_ttm: p.pe_ttm}));
   const counts = {low: 0, mid: 0, high: 0, extreme: 0} as Record<ValuationBand, number>;
-  for (const p of series) counts[bandOf(p.percentile)]++;
+  for (const p of series) counts[bandOf(p.exact)]++;
   return {
     rule: VALUATION_RULE,
     as_of: latest.date,
@@ -161,7 +167,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
     percentile: latest.percentile,
     window_start: latest.window_start,
     full_window: latest.full_window,
-    raw_band: bandOf(latest.percentile),
+    raw_band: bandOf(latest.exact),
     band,
     judgment: BAND_JUDGMENTS[band],
     pending: pending ? {...pending, needed: VALUATION_RULE.confirm_days, judgment: BAND_JUDGMENTS[pending.band]} : null,
