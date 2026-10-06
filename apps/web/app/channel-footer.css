@@ -1,0 +1,5 @@
+.channel-footer { width: min(1120px, calc(100% - 96px)); margin: 64px auto 0; border-top: 1px solid var(--line); padding-top: 22px; display: flex; gap: 12px 24px; align-items: baseline; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.channel-footer strong { color: var(--ink); font-weight: 550; }
+.channel-footer a { text-decoration: underline; text-underline-offset: 4px; padding-block: 8px; }
+.channel-footer + footer { border-top: 0; margin-top: 0; padding-top: 12px; }
+@media (max-width: 760px) { .channel-footer { width: calc(100% - 40px); margin-top: 40px; gap: 8px 20px; } .channel-footer strong { width: 100%; } }
