@@ -7,7 +7,8 @@ import type {ResearchUpdate} from '../components/ResearchBrief.tsx';
 import {Arrow} from '../components/Arrow.tsx';
 import {SituationCard} from '../components/SituationCard.tsx';
 import {SinceLastVisit} from '../components/SinceLastVisit.tsx';
-import {RuleJudgment,type JudgmentOverview} from '../components/RuleJudgment.tsx';
+import {type JudgmentOverview} from '../components/RuleJudgment.tsx';
+import {HomeHero} from '../components/HomeHero.tsx';
 import {ReadingGuide} from '../components/ReadingGuide.tsx';
 import {ExtendedReading} from '../components/ExtendedReading.tsx';
 import {AskJingwei} from '../components/AskJingwei.tsx';
@@ -23,11 +24,12 @@ export default function Home(){
  const focus=research??historical??lead;
  const reading=[...new Map([focus,...all,...background].map(v=>[v.article.slug,v])).values()];
  return <main id="main" className="home-page">
-  {judgment&&<ReadingGuide judgment={judgment}/>}
-  {judgment&&<RuleJudgment j={judgment} indexes={indexes}/>}
+  {judgment&&<HomeHero j={judgment} indexes={indexes} guide={<ReadingGuide judgment={judgment}/>}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
-  {judgment&&<AskJingwei/>}
-  <SituationCard version={focus} judgment={judgment}/>
+  <div className="home-companions">
+   {judgment&&<AskJingwei/>}
+   <SituationCard version={focus} judgment={judgment}/>
+  </div>
   <ExtendedReading articles={reading}/>
  </main>;
 }

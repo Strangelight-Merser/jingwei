@@ -12,7 +12,9 @@ export function SinceLastVisit({judgment:j}:{judgment:VisitJudgment}){
    const current=judgmentVisit(j);
    const summary=sinceLastVisit(previous.current.visit,current);
    localStorage.setItem(key,JSON.stringify(current));
-   setChange(summary);
+   // Nothing new since last time is not worth a line on the page.
+   const quiet=summary&&!summary.changed&&previous.current.visit?.rows===current.rows&&!current.pending;
+   setChange(quiet?null:summary);
    setCanRequest(Boolean(summary?.changed)&&window.matchMedia('(min-width: 681px)').matches&&'Notification' in window&&Notification.permission==='default');
    if(summary?.changed)notifyJudgmentChange(j,summary.text);
   }catch{setCanRequest(false);}
