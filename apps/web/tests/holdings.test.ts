@@ -150,9 +150,9 @@ test('体检组件按 fixture 展示重复、区间与已有持仓动作，链�
   const render = (value: Checkup) => renderToStaticMarkup(createElement(MemoryRouter, null, createElement(HoldingsCheckup, {holdings: {...saved, rows}, checkup: value})));
   const html = render(checkup);
   assert.match(html, /5,000/);
-  assert.match(html, /2 只基金跟踪纳斯达克100/);
+  assert.match(html, /2 只基金都跟踪纳斯达克100/);
   assert.match(html, /同时持有不增加分散/);
-  assert.match(html, /80% 不在当前估值规则/);
+  assert.match(html, /其余 80% 暂不覆盖/);
   assert.match(html, /tone-mid/);
   assert.match(html, /已有持仓/);
   assert.match(html, /继续持有/);

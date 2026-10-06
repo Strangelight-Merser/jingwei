@@ -1,0 +1,29 @@
+/* App shell: a compact header that stays put, with the same mark as the app icon. */
+.masthead{position:sticky;top:0;z-index:40;width:100%;max-width:none;margin:0;padding:0 max(24px,calc((100% - 1120px) / 2));border-bottom:1px solid transparent;background:rgba(255,255,255,.82);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);transition:border-color .2s}
+.masthead:has(+ main),.masthead{border-bottom-color:rgba(0,0,0,.06)}
+.brand-row{display:flex;align-items:center;justify-content:space-between;gap:32px;min-height:64px;padding:0;flex-wrap:nowrap}
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:650;letter-spacing:.06em;color:var(--ink);line-height:1}
+.brand:after{content:none}
+.brand-mark{width:28px;height:28px;flex:none}
+.brand-mark rect{fill:#fff;stroke:#dcdce1}
+.brand-mark .brand-grid{fill:none;stroke:#c9c9d0;stroke-width:1}
+.brand-mark .brand-curve{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.brand-mark circle{fill:var(--accent)}
+.brand-row nav{display:flex;align-items:center;gap:4px;width:auto;flex:none;font-size:var(--text-ui);color:var(--muted)}
+.brand-row nav a{position:relative;padding:8px 12px;border-radius:9px;white-space:nowrap;color:var(--muted);transition:color .2s,background .2s}
+.brand-row nav a:hover{color:var(--ink);background:#f2f2f4}
+.brand-row nav a.active{color:var(--ink);font-weight:600}
+.brand-row nav a:after{content:'';position:absolute;left:12px;right:12px;bottom:-12px;height:2px;border-radius:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s var(--ease-out,ease)}
+.brand-row nav a.active:after{transform:scaleX(1)}
+.brand-row nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+main{scroll-margin-top:72px}
+footer{width:min(1120px,calc(100% - 48px))}
+@media(max-width:760px){
+  .masthead{padding:0 16px}
+  .brand-row{flex-direction:column;align-items:stretch;gap:0;min-height:0}
+  .brand{min-height:52px}
+  .brand-row nav{margin:0 -16px;padding:0 10px 8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:flex-start}
+  .brand-row nav::-webkit-scrollbar{display:none}
+  .brand-row nav a{padding:7px 10px}
+  .brand-row nav a:after{bottom:-8px}
+}

@@ -1,7 +1,8 @@
 import {Link} from 'react-router';
-import type {Checkup, Holdings} from '../../../../packages/contracts/holdings.ts';
+import type {Checkup, Exposure, Holdings} from '../../../../packages/contracts/holdings.ts';
 import {number} from '../lib/format.ts';
 const INDEX_NAMES: Record<string, string> = {'000300': '沪深300', '000905': '中证500', '000016': '上证50'};
+const EXPOSURE_LABELS: Record<Exposure, string> = {a_broad: 'A股宽基', a_other_index: 'A股其他指数', a_active: 'A股主动', us_equity: '美股', hk_equity: '港股', overseas_other: '其他境外', bond: '债券', money: '货币', other: '其他'};
 
 export function SavedHoldings({holdings}: {holdings: Holdings}) {
   return <details className="holdings-saved-list"><summary>已保存 {holdings.rows.length} 只持仓</summary>
@@ -9,41 +10,66 @@ export function SavedHoldings({holdings}: {holdings: Holdings}) {
   </details>;
 }
 
+/** Share of the total the rule can judge, as a ring. */
+function CoverageRing({share}: {share: number}) {
+  const r = 52, c = 2 * Math.PI * r;
+  return <svg className="holdings-ring" viewBox="0 0 120 120" role="img" aria-label={`规则覆盖 ${number(share * 100)}%`}>
+    <circle cx="60" cy="60" r={r} className="holdings-ring-track"/>
+    <circle cx="60" cy="60" r={r} className="holdings-ring-fill" strokeDasharray={`${c * share} ${c}`} transform="rotate(-90 60 60)"/>
+    <text x="60" y="58" textAnchor="middle" className="holdings-ring-value">{number(share * 100)}%</text>
+    <text x="60" y="78" textAnchor="middle" className="holdings-ring-label">规则覆盖</text>
+  </svg>;
+}
+
 export function HoldingsCheckup({holdings, checkup}: {holdings: Holdings; checkup: Checkup}) {
   const parts = checkup.by_exposure.filter(part => part.amount > 0);
+  const covered = new Map(checkup.covered.map(item => [item.row_id, item]));
+  const coveredShare = checkup.total === 0 ? 0 : 1 - checkup.uncovered_share;
+  const rows = [...holdings.rows].sort((a, b) => b.amount - a.amount);
   return <div className="holdings-report">
-    <section className="holdings-card holdings-allocation" aria-labelledby="allocation-title">
+    <section className="holdings-panel holdings-allocation reveal" style={{'--i': 0} as React.CSSProperties} aria-labelledby="allocation-title">
       <h2 id="allocation-title">钱投向了哪里</h2>
-      <div className="holdings-total"><small>持仓总额</small><p><strong>{number(checkup.total)}</strong><span>元</span></p></div>
+      <p className="holdings-total"><strong>{number(checkup.total)}</strong><span>元 · {holdings.rows.length} 只</span></p>
       {parts.length > 0 && <div className="holdings-stack" role="img" aria-label={parts.map(part => `${part.label} ${number(part.share * 100)}%`).join('，')}>
-        {parts.map(part => <span key={part.exposure} className={`exposure-${part.exposure}`} style={{width: `${part.share * 100}%`}}/>) }
+        {parts.map(part => <span key={part.exposure} className={`exposure-${part.exposure}`} style={{flexGrow: part.share}}/>)}
       </div>}
       <ul className="holdings-legend">{parts.map(part => <li key={part.exposure}>
-        <i className={`exposure-${part.exposure}`} aria-hidden="true"/><span>{part.label}</span><strong>{number(part.share * 100)}%</strong><small>{number(part.amount)} 元</small>
+        <i className={`exposure-${part.exposure}`} aria-hidden="true"/><span>{part.label}</span><small>{number(part.amount)} 元</small><strong>{number(part.share * 100)}%</strong>
       </li>)}</ul>
       {checkup.total === 0 && <p className="holdings-muted">所有金额都是 0 元，暂时没有可计算的配置占比。</p>}
     </section>
 
-    {checkup.duplicates.length > 0 && <section className="holdings-card" aria-labelledby="duplicates-title"><h2 id="duplicates-title">留意重复的方向</h2>
-      <ul className="holdings-duplicates">{checkup.duplicates.map(duplicate => <li key={duplicate.tracked_index}>
-        <p><strong>{duplicate.row_ids.length} 只基金跟踪{INDEX_NAMES[duplicate.tracked_index] ?? duplicate.tracked_index}</strong>，同时持有不增加分散。</p>
-        <small>{duplicate.row_ids.map(id => holdings.rows.find(row => row.id === id)?.input_name).filter(Boolean).join('、')}</small>
-      </li>)}</ul>
-    </section>}
+    <div className="holdings-side">
+      <section className="holdings-panel holdings-coverage reveal" style={{'--i': 1} as React.CSSProperties} aria-labelledby="coverage-title">
+        <h2 id="coverage-title" className="sr-only">规则覆盖</h2>
+        <CoverageRing share={coveredShare}/>
+        <p>{checkup.total === 0 ? '总额为 0 元，覆盖占比暂无法计算。' : checkup.covered.length === 0
+          ? '这些持仓都不跟踪沪深300、中证500或上证50，估值规则暂时给不出判断。下面仍可看清钱的去向与重复。'
+          : `${number(coveredShare * 100)}% 的持仓有规则判断；其余 ${number(checkup.uncovered_share * 100)}% 暂不覆盖，不给判断。`}</p>
+      </section>
+      {checkup.duplicates.length > 0 && <section className="holdings-panel holdings-duplicates reveal" style={{'--i': 2} as React.CSSProperties} aria-labelledby="duplicates-title">
+        <h2 id="duplicates-title">留意重复的方向</h2>
+        <ul>{checkup.duplicates.map(duplicate => <li key={duplicate.tracked_index}>
+          <p><strong>{duplicate.row_ids.length} 只基金都跟踪{INDEX_NAMES[duplicate.tracked_index] ?? duplicate.tracked_index}</strong>，合计 {number(duplicate.amount)} 元。同时持有不增加分散。</p>
+          <small>{duplicate.row_ids.map(id => holdings.rows.find(row => row.id === id)?.input_name).filter(Boolean).join('、')}</small>
+        </li>)}</ul>
+      </section>}
+    </div>
 
-    <section className="holdings-card" aria-labelledby="covered-title"><h2 id="covered-title">规则能说到哪些持仓</h2>
-      <p className="holdings-uncovered">{checkup.total === 0 ? '总额为 0 元，规则覆盖占比暂无法计算。' : `你的持仓中有 ${number(checkup.uncovered_share * 100)}% 不在当前估值规则的覆盖范围内，这部分暂不给出持仓判断。`}</p>
-      <ul className="holdings-covered">{checkup.covered.map(item => {
-        const row = holdings.rows.find(row => row.id === item.row_id);
-        return <li key={item.row_id}>
-          <div><h3>{row?.input_name}</h3><p>{item.index_name}{row && ` · ${number(row.amount)} 元`}</p></div>
-          <span className={`holdings-band tone-${item.band}`}>{item.band_label}</span>
-          <div className="holdings-held"><small>已有持仓</small><strong>{item.held_title}</strong></div>
-          <Link to={`/?index=${item.index}#hero-title`}>查看规则 →</Link>
+    <section className="holdings-panel holdings-list reveal" style={{'--i': 3} as React.CSSProperties} aria-labelledby="list-title">
+      <h2 id="list-title">逐只看</h2>
+      <ul>{rows.map(row => {
+        const item = covered.get(row.id);
+        return <li key={row.id} className={item ? `tone-${item.band}` : 'is-uncovered'}>
+          <div className="holdings-list-name"><strong>{row.input_name}</strong><small>{row.fund ? `${row.fund.code} · ${row.fund.type}` : '未匹配公开基金列表'}{row.tracked_index ? ` · 跟踪${INDEX_NAMES[row.tracked_index] ?? row.tracked_index}` : ''}</small></div>
+          <span className={`holdings-exposure exposure-${row.exposure}`}>{EXPOSURE_LABELS[row.exposure]}</span>
+          <span className="holdings-list-amount">{number(row.amount)} 元</span>
+          {item
+            ? <Link className="holdings-verdict" to={`/?index=${item.index}#hero-title`}><span className="holdings-band">{item.band_label}</span><span>已有持仓 · <b>{item.held_title}</b></span></Link>
+            : <span className="holdings-verdict is-muted">规则暂不覆盖</span>}
         </li>;
       })}</ul>
       {checkup.notes.length > 0 && <ul className="holdings-notes">{checkup.notes.slice(0, 3).map(note => <li key={note}>{note}</li>)}</ul>}
     </section>
-    <SavedHoldings holdings={holdings}/>
   </div>;
 }

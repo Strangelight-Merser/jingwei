@@ -24,6 +24,8 @@ async function restoreCredential(interactive:boolean){credentialAccessed=true;co
 app.get('/health',async()=>({ok:true}));
 app.addHook('onRequest',async(req,reply)=>{
  if(['GET','HEAD'].includes(req.method))return;
+ // Holdings parsing and check-up only compute from the request body and store nothing.
+ if(req.method==='POST'&&['/holdings/parse','/holdings/checkup'].includes(req.url))return;
  if(mode==='read_only')return reply.code(503).send({error:'maintenance_read_only'});
  if(mode==='manual_collect'&&(req.method!=='POST'||req.url!=='/owner/collect'))return reply.code(403).send({error:'manual_collection_only'});
 });
