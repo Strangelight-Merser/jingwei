@@ -28,6 +28,7 @@ export function ruleCardData(j: PublicRuleJudgment, indexCode: string) {
       // Edges in force for the confirmed band (v2 buffer), matching the PE figures beside them.
       low_percentile: j.boundaries.percentiles?.low ?? j.rule.low, high_percentile: j.boundaries.percentiles?.high ?? j.rule.high, extreme_percentile: j.boundaries.percentiles?.extreme ?? j.rule.extreme,
       confirm_days: j.rule.confirm_days,
+      buffer: j.rule.buffer,
     },
     pending: j.pending ? {label: j.pending.judgment.label, days: j.pending.days, needed: j.pending.needed} : null,
     last_change: {
@@ -38,7 +39,7 @@ export function ruleCardData(j: PublicRuleJudgment, indexCode: string) {
     },
     rule: {
       id: j.rule.id,
-      summary: `按近${j.rule.window_years}年滚动市盈率分位划分${j.rule.low}/${j.rule.high}/${j.rule.extreme}四个区间，连续${j.rule.confirm_days}个数据日处在同一新区间才改判。`,
+      summary: `按近${j.rule.window_years}年滚动市盈率分位划分${j.rule.low}/${j.rule.high}/${j.rule.extreme}四个区间，连续${j.rule.confirm_days}个数据日处在同一新区间才改判，离开当前区间要多越过${j.rule.buffer}个百分点。`,
     },
     source: {name: '中证指数 · 每日估值', url: j.source_url, checked_at: j.checked_at},
   };
