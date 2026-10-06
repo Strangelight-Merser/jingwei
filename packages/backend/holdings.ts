@@ -16,7 +16,9 @@ const moneyValue = (text: string, scale = 1): number | null => {
   return Number.isFinite(amount) && amount <= Number.MAX_SAFE_INTEGER ? amount : null;
 };
 const ignored = (text: string) => /(?:status bar|名称.*金额|^基金(?:名称|代码)|日收益|持有收益|累计收益|收益明细|收益提醒|占比|百比|进阶理财|灵活取用|交易记录|全部持有|^全部|买一笔|反馈|投诉|本页面|法律文件|过往业绩|市场有风险|平台设计|^[：:]?基金$|^定投$)/i.test(text);
-const looksLikeHolding = (text: string) => !ignored(text) && /(?:余额宝|零钱通|货币|混合|债券|指数|ETF|联接|股票|QDII|FOF|REIT)/i.test(text);
+let publicNames: Set<string> | null = null;
+const isPublicName = (text: string) => (publicNames ??= new Set(FUND_LIST_SEED.funds.map(fund => keyOf(fund.name)))).has(keyOf(text));
+const looksLikeHolding = (text: string) => !ignored(text) && (/(?:余额宝|零钱通|货币|混合|债券|指数|增强|量化|ETF|LOF|联接|股票|QDII|FOF|REIT)/i.test(text) || isPublicName(text));
 
 type AmountLabel = {line: OcrLine; scale: number; value: string; kind: 'amount' | 'other'};
 function amountLabel(line: OcrLine): AmountLabel | null {
@@ -49,7 +51,9 @@ export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
   for (const image of images) {
     const lines = image.map(line => ({...line, text: line.text.normalize('NFKC').trim()})).sort((a, b) => a.y - b.y || a.x - b.x);
     const labels = lines.map(amountLabel).filter((label): label is AmountLabel => label !== null);
-    const names = lines.filter(line => looksLikeHolding(line.text));
+    // A name without a type word still counts when a fund code sits right under it.
+    const codeBelow = (line: OcrLine) => lines.some(other => /^\d{6}$/.test(other.text) && other.y > line.y && other.y <= line.y + line.h * 2.5 && Math.abs(other.x - line.x) <= 0.03);
+    const names = lines.filter(line => looksLikeHolding(line.text) || (/\p{Script=Han}{2}/u.test(line.text) && !ignored(line.text) && !amountLabel(line) && codeBelow(line)));
     for (let i = 0; i < names.length; i++) {
       const line = names[i], name = ocrHoldingName(line.text), key = keyOf(name);
       if (seen.has(key)) continue;
@@ -189,6 +193,9 @@ export function classify(name: string, fund: FundMatch | null = null): Pick<Hold
   if (/余额宝|零钱通|货币/.test(text + type)) return make('money');
   if (/债券|纯债|短债|中短债|信用债|国债/.test(text + type)) return make('bond');
   if (/FOF|REIT|商品|黄金|原油/.test(text + type)) return make('other');
+  // Enhanced index funds benchmark one index but deviate from it: same direction, no rule judgment.
+  const benchmark = /沪深300/.test(text) ? '000300' : /中证500/.test(text) ? '000905' : /上证50/.test(text) ? '000016' : null;
+  if (/增强|多因子/.test(text) && benchmark && !/QDII/.test(type)) return make('a_other_index', benchmark);
   if (/增强|多因子|优选|量化精选|策略/.test(text) && /300|500|50/.test(text)) return make(/QDII/.test(type) ? 'overseas_other' : 'a_active');
   const tracked = /纳斯达克(?:100|一百)/.test(text) ? '纳斯达克100'
     : /纳斯达克科技/.test(text) ? '纳斯达克科技市值加权'
@@ -260,6 +267,7 @@ export function buildCheckup(holdings: Holdings, judgments: HoldingJudgments): C
   if (rows.some(row => /QDII/.test(keyOf(row.input_name) + keyOf(row.fund?.name ?? '') + (row.fund?.type ?? '')))) notes.push('QDII持仓涉及境外资产与汇率变化。');
   if (rows.some(row => shareClass(row.fund?.name ?? row.input_name) === 'C')) notes.push('C类份额通常收取销售服务费，具体费率与赎回条件应查看基金文件。');
   if (rows.some(row => !row.fund && row.exposure !== 'money')) notes.push('部分名称未唯一匹配公开基金列表，请确认名称与份额。');
+  if (rows.some(row => row.exposure === 'a_other_index' && /增强|多因子/.test(keyOf(row.fund?.name ?? row.input_name)))) notes.push('指数增强基金以指数为基准，但持仓与收益会偏离指数，规则判断不直接套用。');
   if (uncoveredAmount > 0) notes.push('估值规则仅覆盖沪深300、中证500、上证50跟踪基金；其余持仓没有规则判断。');
   return {total, by_exposure, duplicates, covered, uncovered_share: total ? uncoveredAmount / total : 0, notes};
 }

@@ -258,3 +258,23 @@ test('截图里读对的基金代码优先于读错的名称（沪 → 泸）', 
   assert.equal(second.fund?.code, '005658');
   assert.equal(parseHoldings({text: '易方达泸深300联接C 007339 1000'}).rows[0].fund?.code, '007339');
 });
+
+test('名称里没有类型词的基金，靠下方代码或公开列表名称也能读到', () => {
+  const lines = [
+    {text: '易方达上证50增强A', x: 0.04, y: 0.46, w: 0.4, h: 0.04},
+    {text: '3,210.50', x: 0.74, y: 0.46, w: 0.18, h: 0.05},
+    {text: '110003', x: 0.04, y: 0.52, w: 0.12, h: 0.027},
+    {text: '某某说明文字', x: 0.04, y: 0.70, w: 0.3, h: 0.04},
+  ];
+  assert.deepEqual(parseOcrLines([lines]), [{name: '易方达上证50增强A', amount: 3210.5, code: '110003'}]);
+});
+
+test('指数增强基金记作其他指数并计入同方向重复，但不套规则', () => {
+  const enhanced = classify('易方达上证50增强A', {code: '110003', name: '易方达上证50增强A', type: '指数型-股票'});
+  assert.deepEqual(enhanced, {exposure: 'a_other_index', tracked_index: '000016', covered_index: null});
+  assert.equal(classify('上证50策略混合A').exposure, 'a_active');
+  const checkup = buildCheckup(holdings('易方达上证50增强A 110003 1000\n华夏上证50ETF联接C 2000'), judgments);
+  assert.equal(checkup.duplicates[0]?.tracked_index, '000016');
+  assert.equal(checkup.covered.length, 1);
+  assert.ok(checkup.notes.some(note => note.includes('指数增强')));
+});
