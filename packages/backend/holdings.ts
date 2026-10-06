@@ -32,6 +32,11 @@ function amountLabel(line: OcrLine): AmountLabel | null {
     ? {line, scale: 1, value: '', kind: 'other'} : null;
 }
 
+/** A six-digit fund code written with the name ("… 007339", "(007339)", "代码：007339"). */
+function codeIn(text: string): string | undefined {
+  return /(?:^|[\s(（:：A-Z])(\d{6})\)?$/.exec(text.normalize('NFKC').trim())?.[1];
+}
+
 function ocrHoldingName(text: string): string {
   return normalizeHoldingName(text.replace(/\s+\d{6}$/, '')
     .replace(/\s*\((?:基金)?(?:代码[:：]?)?\d{6}\)$/, '')
@@ -48,12 +53,15 @@ export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
     for (let i = 0; i < names.length; i++) {
       const line = names[i], name = ocrHoldingName(line.text), key = keyOf(name);
       if (seen.has(key)) continue;
+      // The code is usually read reliably even when a character in the name is not (沪 → 泸).
+      const codeLine = lines.find(other => other !== line && /^\d{6}$/.test(other.text) && other.y >= line.y - line.h * 0.5 && other.y <= line.y + line.h * 2.5 && other.x <= line.x + line.w);
+      const code = codeIn(line.text) ?? codeLine?.text;
       seen.add(key);
       const end = Math.min(names[i + 1]?.y ?? 1, line.y + Math.max(0.16, line.h * 8));
       const inRow = (other: OcrLine) => other.y >= line.y - Math.min(line.h, other.h) * 0.5 && other.y < end;
       const inline = labels.filter(label => label.kind === 'amount' && label.value && inRow(label.line));
       if (inline.length) {
-        result.push({name, amount: inline.length === 1 ? moneyValue(inline[0].value, inline[0].scale) : null});
+        result.push({name, amount: inline.length === 1 ? moneyValue(inline[0].value, inline[0].scale) : null, ...(code ? {code} : {})});
         continue;
       }
       const values: (number | null)[] = [];
@@ -79,7 +87,7 @@ export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
           if (sameRow || Math.abs(value.x - line.x) <= Math.max(0.04, line.h * 2)) values.push(moneyValue(value.text));
         }
       }
-      result.push({name, amount: values.length === 1 ? values[0] : null});
+      result.push({name, amount: values.length === 1 ? values[0] : null, ...(code ? {code} : {})});
     }
   }
   return result;
@@ -95,7 +103,8 @@ export function parseText(text: string): ParsedHolding[] {
     const name = normalizeHoldingName(pair?.[1] ?? line), key = keyOf(name);
     if (!name || seen.has(key)) continue;
     seen.add(key);
-    result.push({name, amount: pair ? moneyValue(pair[2]) : null});
+    const code = codeIn(pair?.[1] ?? line);
+    result.push({name, amount: pair ? moneyValue(pair[2]) : null, ...(code ? {code} : {})});
   }
   return result;
 }
@@ -209,7 +218,11 @@ export function parseHoldings(request: ParseRequest, funds: FundMatch[] = FUND_L
     if (seen.has(keyOf(item.name))) continue;
     seen.add(keyOf(item.name));
     if (item.amount === null) {unread.push(item.name); continue;}
-    const candidates = rankFundCandidates(item.name, funds), fund = uniqueFund(candidates);
+    const byName = rankFundCandidates(item.name, funds);
+    // A code read from the screenshot or text decides the match; the name still drives the candidates shown.
+    const byCode = item.code ? funds.find(f => f.code === item.code) : undefined;
+    const candidates = byCode ? [{...byCode, score: 100, reasons: ['截图或文字中的基金代码一致']}, ...byName.filter(c => c.code !== byCode.code)] : byName;
+    const fund = byCode ? {code: byCode.code, name: byCode.name, type: byCode.type} : uniqueFund(byName);
     rows.push({id: randomUUID(), input_name: item.name, amount: item.amount, fund,
       ...(candidates.length ? {candidates} : {}), ...classify(item.name, fund)});
   }

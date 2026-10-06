@@ -12,11 +12,13 @@ const images: OcrLine[][] = await Promise.all([1, 2].map(async n => JSON.parse(a
 const expected = JSON.parse(await readFile(new URL('./fixtures/holdings/alipay.expected.json', import.meta.url), 'utf8')).holdings;
 const judgments: HoldingJudgments = {};
 for (const index of INDEX_CODES) judgments[index] = evaluateValuationRule(seedHistory(index).points, {index})!;
+/** Older parse assertions compare name and amount; the read fund code is tested on its own. */
+const plain = <T extends {code?: string}>(rows: T[]) => rows.map(({code: _code, ...row}) => row);
 const holdings = (text: string): Holdings => ({saved_at: '2026-10-06T12:00:00Z', rows: parseHoldings({text}).rows});
 
 test('支付宝两张 OCR fixture：逐项等于 expected，重叠名称保留首个虚构金额', () => {
-  assert.deepEqual(parseOcrLines(images), expected);
-  assert.deepEqual(parseOcrLines(images.map(image => [...image].reverse())), expected);
+  assert.deepEqual(plain(parseOcrLines(images)), expected);
+  assert.deepEqual(plain(parseOcrLines(images.map(image => [...image].reverse()))), expected);
   const result = parseHoldings({images});
   assert.deepEqual(result.rows.map(row => ({name: row.input_name, amount: row.amount})), expected);
   assert.deepEqual(result.unread, []);
@@ -26,17 +28,17 @@ test('支付宝两张 OCR fixture：逐项等于 expected，重叠名称保留�
 
 test('坐标配对不拾取收益列、百分比、广告和标签；缺金额保留未读状态', () => {
   const altered = images[0].filter(line => line.text !== '626.01');
-  assert.deepEqual(parseOcrLines([altered])[0], {name: expected[0].name, amount: null});
+  assert.deepEqual(plain(parseOcrLines([altered]))[0], {name: expected[0].name, amount: null});
   const result = parseHoldings({images: [altered]});
   assert.deepEqual(result.unread, [expected[0].name]);
   assert.equal(result.rows.some(row => row.amount === 9.15), false);
   assert.equal(result.rows.some(row => /法律|提醒|收益|进阶/.test(row.input_name)), false);
   const line: OcrLine = {text: '某某稳健收益债券A', x: 0.06, y: 0.2, w: 0.4, h: 0.02};
-  assert.deepEqual(parseOcrLines([[line, {text: '1,234.56', x: 0.06, y: 0.26, w: 0.12, h: 0.02}]]), [{name: line.text, amount: 1234.56}]);
+  assert.deepEqual(plain(parseOcrLines([[line, {text: '1,234.56', x: 0.06, y: 0.26, w: 0.12, h: 0.02}]])), [{name: line.text, amount: 1234.56}]);
 });
 
 test('粘贴文字支持名称、代码、千分位及全半角；没有金额不臆造', () => {
-  assert.deepEqual(parseText('南方纳斯达克100指数（QDII）C １，２３４．５６\n007339 50.00\n007339 90\n余额宝\n'), [
+  assert.deepEqual(plain(parseText('南方纳斯达克100指数（QDII）C １，２３４．５６\n007339 50.00\n007339 90\n余额宝\n')), [
     {name: '南方纳斯达克100指数(QDII)C', amount: 1234.56}, {name: '007339', amount: 50}, {name: '余额宝', amount: null},
   ]);
   assert.deepEqual(parseHoldings({text: '007339\n余额宝 7.28'}).unread, ['007339']);
@@ -127,8 +129,8 @@ for (const layout of ['tiantian-table', 'bank-cards', 'bank-market-value']) {
   test(`虚构 OCR ${layout}：代码尾缀、右列金额、上方标签、千分位与万元单位`, async () => {
     const fixture: {source: string; lines: OcrLine[]; holdings: {name: string; amount: number}[]} = JSON.parse(await readFile(new URL(`./fixtures/holdings/${layout}.synthetic.json`, import.meta.url), 'utf8'));
     assert.match(fixture.source, /虚构/);
-    assert.deepEqual(parseOcrLines([fixture.lines]), fixture.holdings);
-    assert.deepEqual(parseOcrLines([[...fixture.lines].reverse()]), fixture.holdings);
+    assert.deepEqual(plain(parseOcrLines([fixture.lines])), fixture.holdings);
+    assert.deepEqual(plain(parseOcrLines([[...fixture.lines].reverse()])), fixture.holdings);
     const parsed = parseHoldings({images: [fixture.lines]});
     assert.deepEqual(parsed.rows.map(row => ({name: row.input_name, amount: row.amount})), fixture.holdings);
     assert.deepEqual(parsed.unread, []);
@@ -146,16 +148,16 @@ test('OCR 歧义留空：同一金额列多值、单行多数字、仅正收益�
     [...firstRow, {...number, text: '2,000.00', y: 0.24}],
     firstRow.map(line => line === number ? {...line, x: 0.745, w: 0.1} : line),
   ]) {
-    assert.deepEqual(parseOcrLines([changed]), [{name: '晨岚沪深300ETF联接C', amount: null}]);
+    assert.deepEqual(plain(parseOcrLines([changed])), [{name: '晨岚沪深300ETF联接C', amount: null}]);
     const parsed = parseHoldings({images: [changed]});
     assert.deepEqual(parsed.rows, []);
     assert.deepEqual(parsed.unread, ['晨岚沪深300ETF联接C']);
   }
   const name: OcrLine = {text: '晴屿稳进混合A', x: 0.06, y: 0.2, w: 0.4, h: 0.02};
-  assert.deepEqual(parseOcrLines([[name, {text: '990001', x: 0.06, y: 0.23, w: 0.1, h: 0.02}]]), [{name: name.text, amount: null}]);
-  assert.deepEqual(parseOcrLines([[{text: '名称/金额', x: 0.06, y: 0.1, w: 0.2, h: 0.02}, name,
+  assert.deepEqual(plain(parseOcrLines([[name, {text: '990001', x: 0.06, y: 0.23, w: 0.1, h: 0.02}]])), [{name: name.text, amount: null}]);
+  assert.deepEqual(plain(parseOcrLines([[{text: '名称/金额', x: 0.06, y: 0.1, w: 0.2, h: 0.02}, name,
     {text: '990001', x: 0.06, y: 0.23, w: 0.1, h: 0.02},
-  ]]), [{name: name.text, amount: null}]);
+  ]])), [{name: name.text, amount: null}]);
   assert.deepEqual(parseOcrLines([[{text: '持有金额', x: 0.6, y: 0.1, w: 0.2, h: 0.02}, name,
     {text: '990001', x: 0.6, y: 0.2, w: 0.1, h: 0.02},
   ]]), [{name: name.text, amount: null}]);
@@ -171,11 +173,11 @@ test('OCR 歧义留空：同一金额列多值、单行多数字、仅正收益�
 
 test('OCR 名称内部空格不截断指数；粘连尾缀代码移除，标签下六位金额可识别', () => {
   const names = ['晨岚 沪深 300 ETF 联接 C （990001）', '晨岚沪深300ETF联接C990001'];
-  for (const text of names) assert.deepEqual(parseOcrLines([[
+  for (const text of names) assert.deepEqual(plain(parseOcrLines([[
     {text, x: 0.06, y: 0.2, w: 0.5, h: 0.02},
     {text: '持有金额（元）', x: 0.06, y: 0.24, w: 0.2, h: 0.02},
     {text: '123456', x: 0.06, y: 0.28, w: 0.2, h: 0.02},
-  ]]), [{name: '晨岚沪深300ETF联接C', amount: 123456}]);
+  ]])), [{name: '晨岚沪深300ETF联接C', amount: 123456}]);
 });
 
 test('分类只覆盖三个原指数；增强、指数变体、境外、货币与债券不套规则', () => {
@@ -237,4 +239,22 @@ test('持仓与OCR输入拒绝无效金额、字段、重复id与错误坐标', 
   assert.equal(parseRequestSchema.safeParse({images}).success, true);
   assert.equal(parseRequestSchema.safeParse({}).success, false);
   assert.equal(parseRequestSchema.safeParse({images: [[{...images[0][0], x: -0.1}]]}).success, false);
+});
+
+test('截图里读对的基金代码优先于读错的名称（沪 → 泸）', () => {
+  const lines = [
+    {text: '易方达泸深300联接C 007339', x: 0.06, y: 0.20, w: 0.6, h: 0.02},
+    {text: '30,000.00', x: 0.06, y: 0.24, w: 0.2, h: 0.02},
+    {text: '华夏沪深300联接C', x: 0.06, y: 0.40, w: 0.5, h: 0.02},
+    {text: '005658', x: 0.06, y: 0.425, w: 0.12, h: 0.015},
+    {text: '20,000.00', x: 0.06, y: 0.45, w: 0.2, h: 0.02},
+  ];
+  const {rows} = parseHoldings({images: [lines]});
+  const first = rows.find(r => r.input_name.includes('易方达'))!;
+  assert.equal(first.fund?.code, '007339');
+  assert.equal(first.covered_index, '000300');
+  assert.match(first.candidates![0].reasons.join(), /基金代码/);
+  const second = rows.find(r => r.input_name.includes('华夏'))!;
+  assert.equal(second.fund?.code, '005658');
+  assert.equal(parseHoldings({text: '易方达泸深300联接C 007339 1000'}).rows[0].fund?.code, '007339');
 });

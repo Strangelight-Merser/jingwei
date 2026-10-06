@@ -7,7 +7,7 @@ import type {ValuationBand} from '../backend/valuation-rule.ts';
 export type OcrLine = {text: string; x: number; y: number; w: number; h: number; confidence?: number};
 
 /** A holding read from a screenshot or pasted text, before matching. Amount is in yuan. */
-export type ParsedHolding = {name: string; amount: number | null};
+export type ParsedHolding = {name: string; amount: number | null; /** Six-digit fund code read beside the name, when present. */ code?: string};
 
 /** A public fund list entry (code, official short name, type as published). */
 export type FundMatch = {code: string; name: string; type: string};

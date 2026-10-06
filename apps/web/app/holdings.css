@@ -69,7 +69,7 @@
 .holdings-duplicates small{display:block;margin-top:4px;font-size:var(--text-caption);color:#6b5a44}
 .holdings-list{grid-column:1/-1}
 .holdings-list>ul{margin:12px 0 0;padding:0;list-style:none}
-.holdings-list>ul>li{display:grid;grid-template-columns:minmax(0,1fr) 88px 110px 220px;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.holdings-list>ul:not(.holdings-notes)>li{display:grid;grid-template-columns:minmax(0,1fr) 88px 110px 220px;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
 .holdings-list-name strong{display:block;font-size:.9375rem;font-weight:600;overflow-wrap:anywhere}
 .holdings-list-name small{font-size:12px;color:var(--muted)}
 .holdings-exposure{justify-self:start;padding:2px 9px;border-radius:999px;font-size:12px;color:#fff;background:var(--c)}
