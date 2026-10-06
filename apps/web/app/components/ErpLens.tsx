@@ -41,7 +41,10 @@ export function ErpLens({index}: {index: IndexCode}) {
     <div className="erp-heading"><p>{data.index_name} · 数据截至 {data.as_of}</p><span className="erp-tag">第二视角</span></div>
     <h2 id={`erp-title-${index}`}>换个角度：股债性价比</h2>
     <p className="erp-conclusion">ERP <strong>{percent(now.erp_pct, 2)}</strong>，{now.full_window ? '近十年' : '已有历史'}第 <strong>{now.percentile}</strong> 百分位，与 PE 规则<strong>{now.consistent ? '一致' : '不一致'}</strong>。</p>
-    <p className="erp-comparison">PE：{now.pe_label} <span aria-hidden="true">·</span> ERP：{now.erp_label}；ERP 把债券收益率也纳入比较。</p>
+    <p className="erp-comparison">PE：{now.pe_label} <span aria-hidden="true">·</span> ERP：{now.erp_label}</p>
+    <p className="erp-why">{now.consistent
+      ? <>两个角度给出同样的方向：股票相对自己的十年历史、相对国债，位置一致。</>
+      : <>两个角度回答的问题不同：PE 分位看股票相对自己的十年历史贵不贵；ERP 看股票相对国债划不划算——盈利收益率 {percent(100 / now.pe_ttm, 2)} 减去十年期国债 {percent(now.bond_yield_pct, 2)}。国债收益率越低，股票相对债券就显得越便宜。经纬的动作仍按公开的 PE 规则，ERP 作为对照。</>}</p>
     <ErpChart data={data}/>
     <dl className="erp-consistency">
       <div><dt>PE 偏低区时，ERP 也在高位</dt><dd>{percent(low.matching_pct)}</dd><small>{count(low.matching_days)} / {count(low.days)} 天</small></div>

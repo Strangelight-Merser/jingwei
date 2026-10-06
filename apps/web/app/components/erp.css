@@ -28,3 +28,4 @@
  .erp-outcome-row{grid-template-columns:1fr 1fr;gap:8px 12px;padding:14px 0}.erp-group{grid-column:1/-1;display:flex;align-items:center;gap:10px}.erp-group small{margin:0}.erp-return strong{font-size:1.125rem}
  .erp-method{font-size:13px}.erp-method th,.erp-method td{padding:8px 2px;overflow-wrap:anywhere}
 }
+.erp-why{margin:8px 0 0;max-width:46em;font-size:.9375rem;line-height:1.75;color:#3f3f46}
