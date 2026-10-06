@@ -14,6 +14,7 @@ import {judgmentPublication} from '../../../packages/backend/judgment.ts';
 export async function startApi({credentialStore=keychainStore,credentialCapability=credentialSupport,port=4411,mode='active',restoreSavedKey,composeProvider,collectSource=collectOnce,researchUpdates=false,researchCollector,researchProvider,valuationRefresh}:{credentialStore?:CredentialStore;credentialCapability?:()=>Promise<CredentialStatus>;port?:number;mode?:'read_only'|'manual_collect'|'active';restoreSavedKey?:boolean;composeProvider?:Parameters<typeof processTask>[1];collectSource?:typeof collectOnce;researchUpdates?:boolean;researchCollector?:NonNullable<Parameters<typeof createResearchService>[0]>['collector'];researchProvider?:NonNullable<Parameters<typeof createResearchService>[0]>['provider'];valuationRefresh?:(()=>Promise<unknown>)|null}={}){
 storageConfiguration();await readState(); // The caller determines the directory before the API starts.
 const app=Fastify({logger:false});
+await (await import('../../../packages/backend/ask.ts')).registerAskRoutes(app);
 let credentialAccessed=false;
 let credentialRecovery:{restored:boolean;error:string|null}|null=null;
 const savedRecovery=(await readState()).owner_preferences?.restore_saved_key_on_start===true;

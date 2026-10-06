@@ -1,4 +1,6 @@
 import {OperationReviewForm} from '../components/OperationReviewForm.tsx';
+import {AskHistory} from '../components/AskJingwei.tsx';
+import type {AskRecord} from '../../../../packages/contracts/ask.ts';
 import { Form,Link,useLoaderData,useActionData,useNavigation } from 'react-router';
 import type { ActionFunctionArgs } from 'react-router';
 import type { pipelineSnapshot } from '../../../../packages/backend/pipeline.ts';
@@ -14,7 +16,7 @@ export async function owner<T>(path:string,body?:unknown):Promise<T>{
   if(!r.ok)throw new Error(data.error??'owner_action_failed');return data;
  }catch(error){if(error instanceof Response)throw error;if(body===undefined)throw new Response('暂时无法载入设置',{status:503});throw error;}
 }
-export async function loader(){if(process.env.JINGWEI_EDITOR_MODE!=='1')throw new Response('维护入口未启用',{status:404});return owner<Snapshot>('state');}
+export async function loader(){if(process.env.JINGWEI_EDITOR_MODE!=='1')throw new Response('维护入口未启用',{status:404});const [state,ask]=await Promise.all([owner<Snapshot>('state'),owner<{records:AskRecord[]}>('ask/history')]);return {...state,ask_records:ask.records};}
 export function meta(){return [{title:'内容维护 · 经纬'},{name:'robots',content:'noindex'}];}
 const reasons:Record<string,string>={draft_edit_not_available:'这篇文章已刊发或不适用正文修订，请保留原版本',invalid_draft_edits:'正文修订不完整，请检查所有段落',evidence_year_mismatch:'正文年份与所引用原文不对应，请订正或补齐原文',evidence_date_mismatch:'正文日期与所引用原文不对应，请核对日期',task_busy:'这项任务正在处理，请等本次结果，不要重复生成',composition_copy_review_required:'请核对原文与正文，填写人工核对说明后再刊发',key_required:'等待本机设置密钥',budget_approval_required:'等待本轮费用授权',budget_exhausted:'本轮剩余额度不足',model_setup_required:'等待模型设置',needs_event:'待确认事件的主体、动作和发生期',needs_evidence:'待补齐原文证据',already_covered:'已被当前文章采用',replaced_by_new_evidence:'已有更新的证据任务',published:'已刊发',same_input:'证据未变，不重复生成',maintained:'判断维持，不新增版本',pricing_verification_failed:'官方费率未确认，未启动新调用',generation_failed:'生成未完成，保留任务',model_output_truncated:'文章输出不完整，未刊发',interrupted:'上次处理被中断，未自动重试',collection_failed:'官方原文请求未完成，自动更新已暂停',update_failed:'本次更新未完成，自动更新已暂停',invalid_model_structure:'文章结构未通过检查',operation_automatic_publication_forbidden:'基金或市场条件变化只形成待审草稿，请选择仅采集或草稿模式',operation_manual_review_required:'操作观点必须先人工重新评估并审定',operation_review_note_required:'请填写本次重新评估依据并选择补充或修正',operation_change_requires_revision:'动作或适用条件改变时请选择修正',draft_has_newer_evidence:'已有更新资料，请审定最新草稿',unknown_related_claim:'观点引用未通过检查',claim_change_requires_revision:'观点变化与更新类型不一致',keychain_key_required:'首次保存到安全存储，请在本机输入一次Key',keychain_access_required:'安全存储需要本机访问许可，请由你决定是否允许',keychain_cancelled:'安全存储操作已取消',keychain_helper_unavailable:'安全存储程序尚未准备就绪',keychain_unavailable:'这台设备不支持本机安全存储',keychain_failed:'安全存储操作未完成，没有回退到明文保存'};
 function sessionTime(s:string){return new Date(s).toISOString().slice(0,19).replace('T',' ')+' UTC';}
@@ -65,6 +67,7 @@ export default function Settings(){
  {readingOnly&&<div className="owner-notice" role="status"><strong>当前仅开放阅读</strong><p>内容更新与设置暂时暂停，已有文章和收藏可以正常使用。保存过的密钥仍保留；本次启动没有读取，恢复内容更新后仍可在重启时自动尝试恢复。</p></div>}
  {data.credential_recovery?.error&&<p className="owner-notice problem" role="status">保存的密钥尚未恢复：{reason(data.credential_recovery.error)}。文章与预算记录保留，可由你点击下方恢复；未启用付费调用。</p>}
  {result&&<p role="status" className={`owner-notice ${result.ok?'':'problem'}`}>{result.message}</p>}
+ <AskHistory records={data.ask_records}/>
  <fieldset className="owner-controls" disabled={readingOnly}>
  <div className="owner-grid"><fieldset className="owner-controls" disabled={manualCollect}><section className="owner-section"><h2>AI 解读（可选）</h2><p>本机模型配置统一在一个入口完成。配置不会启动付费生成。</p><Link className="text-link" to="/settings/model">模型与基金研究设置 →</Link></section></fieldset>
  <section className="owner-section"><h2>启动一次内容更新</h2><p className="owner-help">先取得官方原文，再识别事件与新证据。采集本身不会调用模型或刊发文章。</p><Form method="post"><label htmlFor="source">资讯来源</label><select name="source_id" id="source">{data.sources.map(s=><option value={s.id} key={s.id}>{s.name}</option>)}</select><div className="owner-actions"><button disabled={busy||manualCollect} name="intent" value="update">更新一次</button><button disabled={busy} className="secondary" name="intent" value="collect">仅采集原文</button></div></Form><Form method="post"><button className="secondary" disabled={busy||manualCollect} name="intent" value="process">处理下一项待生成任务</button></Form>{busy&&<p role="status" className="owner-help">正在处理本次操作，请稍候…</p>}{data.last_collection&&<div className="owner-run"><p>最近一次采集：{date(data.last_collection.finished_at)}</p>{data.last_collection.sources.map(s=><p key={s.source}>{sourceName(s.source)}：发现{s.discovered}条，新增{s.stored}条，修订{s.revised}条，未完成{s.errors.length}条。</p>)}</div>}<p className="owner-help">公开阅读页只显示已刊发文章。材料不足、判断维持或处理失败，都不会制造新的更新。</p></section></div>
