@@ -35,7 +35,7 @@ export default function Compare(){
    <p>{money(result.amount)} 元 · {result.holding_days} 天</p>
    <ResultTable result={result}/>
   </section>}
-  <p className="reader-note">仅按费率不变估算两项费用，实际以购买渠道为准。</p>
+  <p className="reader-note">仅按固定费率估算，实际以渠道为准。</p>
   <details className="research-sources cost-method">
    <summary>计算口径与官方来源</summary>
    <h2>怎么算</h2>
