@@ -10,6 +10,7 @@ import {Arrow} from '../components/Arrow.tsx';
 import {SituationCard} from '../components/SituationCard.tsx';
 import {SinceLastVisit} from '../components/SinceLastVisit.tsx';
 import {RuleJudgment,type JudgmentOverview} from '../components/RuleJudgment.tsx';
+import {ReadingGuide} from '../components/ReadingGuide.tsx';
 export async function loader(){
  const [home,overview]=await Promise.all([publication<Awaited<ReturnType<typeof homePublication>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[];research_evidence_hash?:string|null}>('home'),publication<JudgmentOverview>('judgments')]);
  return {...home,judgment:overview.indexes.find(j=>j.index_code==='000300')??null,indexes:overview.indexes};
@@ -23,6 +24,7 @@ export default function Home(){
  const order=['csi300-etf-and-share-classes','lpr-june-unchanged','growth-and-demand-2025'];
  const chosen=[lead,...selections,...background].filter(v=>order.includes(v.article.slug)&&v.id!==focus.id).sort((a,b)=>order.indexOf(a.article.slug)-order.indexOf(b.article.slug));
  return <main id="main" className="home-page">
+  {judgment&&<ReadingGuide judgment={judgment}/>}
   {judgment&&<RuleJudgment j={judgment} indexes={indexes}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
   <SituationCard version={focus} judgment={judgment}/>
