@@ -1,0 +1,6 @@
+.comparison-page .cost-form input[type=number]{font-size:16px;min-height:44px}
+.comparison-page .cost-method>summary{min-height:44px;align-content:center}
+.comparison-page .reader-actions a{display:inline-flex;align-items:center;min-height:44px}
+.comparison-page .cost-table{table-layout:fixed}
+.comparison-page .cost-table td{overflow-wrap:anywhere}
+.comparison-page .cost-result h2 strong{white-space:normal;overflow-wrap:anywhere}

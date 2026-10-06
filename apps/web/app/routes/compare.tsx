@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Link} from 'react-router';
 import {estimateFundCosts,FUND_COST_TERMS,type FundCostComparison} from '../../../../packages/backend/fund-cost.ts';
+import '../compare.css';
 
 export function meta(){return [{title:'两只C类费用比较 · 经纬'}];}
 const money=(n:number)=>n.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -25,11 +26,11 @@ export default function Compare(){
   <h1>这笔钱，两只基金的费用差多少？</h1>
   <p className="reader-intro">易方达007339与华夏005658都跟踪沪深300。填入金额和持有天数，看看销售服务费与赎回费的差别。</p>
   <form onSubmit={calculate} noValidate className="cost-form">
-   <label>投入金额（元）<input type="number" inputMode="decimal" name="amount" min="0.01" step="0.01" value={amount} onChange={e=>{setAmount(e.target.value);setResult(null);}} placeholder="如 10000"/></label>
-   <label>持有天数（自然日）<input type="number" inputMode="numeric" name="holding_days" min="1" step="1" value={days} onChange={e=>{setDays(e.target.value);setResult(null);}} placeholder="如 7"/></label>
+   <label>投入金额（元）<input type="number" inputMode="decimal" name="amount" min="0.01" step="0.01" value={amount} aria-invalid={!!error} aria-describedby={error?'cost-error':undefined} onChange={e=>{setAmount(e.target.value);setResult(null);setError('');}} placeholder="如 10000"/></label>
+   <label>持有天数（自然日）<input type="number" inputMode="numeric" name="holding_days" min="1" step="1" value={days} aria-invalid={!!error} aria-describedby={error?'cost-error':undefined} onChange={e=>{setDays(e.target.value);setResult(null);setError('');}} placeholder="如 7"/></label>
    <button type="submit">算算费用差</button>
   </form>
-  {error&&<p className="cost-error" role="alert">{error}</p>}
+  {error&&<p id="cost-error" className="cost-error" role="alert">{error}</p>}
   {result&&<section className="cost-result" aria-live="polite">
    <h2>{result.difference.total_fee_yuan===0?'按你的金额和天数，两只的这两项费用相同':<>按你的金额和天数，007339 比 005658 少交约 <strong>{money(result.difference.total_fee_yuan)} 元</strong></>}</h2>
    <p>{money(result.amount)} 元 · {result.holding_days} 天</p>
