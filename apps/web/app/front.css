@@ -32,3 +32,5 @@ body.home-exploration{--front-ink:#20242c;--front-muted:#626d7e;--front-accent:#
 @media(max-width:680px){.article-brief h2{font-size:16px}.article-brief-meta{font-size:11px;gap:12px}.article-brief-guide{font-size:12px;gap:10px}}
 
 .cost-result h2{line-height:1.7}.cost-result h2 strong{color:var(--accent);font-weight:600;white-space:nowrap}.cost-method{padding:18px 0;border-top:1px solid var(--line)}.cost-method>summary{cursor:pointer;color:var(--accent);font-size:14px}.cost-method h2{font-size:19px;margin:24px 0 12px}.cost-method .cost-terms small{display:block;color:var(--muted);font-size:12px}
+.situation-amounts{display:flex;flex-wrap:wrap;gap:20px;padding-top:8px}.situation-amounts label{display:grid;gap:10px;font-size:14px}.situation-card .situation-money{color:var(--ink);font-weight:600}.situation-loading{min-height:170px}.situation-loading>div{width:65%;height:90px;background:var(--surface)}
+@media(max-width:680px){.situation-amounts{display:grid;grid-template-columns:1fr}.situation-amounts input[type=number]{width:100%}.situation-loading{min-height:240px}.situation-loading>div{width:100%;height:150px}}
