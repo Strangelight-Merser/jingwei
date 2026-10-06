@@ -45,9 +45,7 @@ AI 解读需要用户自备 Key，并在维护模式中配置费用上限及授�
 
 ## 发行与验收
 
-rc.5 产物将存入 `releases/1.0.0-rc.5/`，与旧发行目录并列保留。构建目标是 Mac arm64 DMG / ZIP 与 Windows x64 安装器；安装包与简明使用说明随包交付。rc.5 当前界面截图见 [首页检查](evidence/rc5-home/)，最终桌面验收见 [rc.5 验收](evidence/rc5-acceptance/)。构建成功与安装运行验收分别记录。
-
-rc.5 使用隔离数据目录重新检查桌面运行路径，截图随包保留。本轮不覆盖用户已安装的经纬。
+rc.5 本地发行包存入 `releases/1.0.0-rc.5/`，与旧发行目录并列保留，提供 Mac arm64 DMG / ZIP 与 Windows x64 安装器。界面截图见 [首页检查](evidence/rc5-home/)，三种“我的情况”的桌面截图与简短说明见 [rc.5 验收](evidence/rc5-acceptance/)。
 
 ## 构建源码
 
@@ -67,7 +65,7 @@ Mac 与 Windows 构建串行进行。隔离验收从项目目录运行，临时�
 JINGWEI_DESKTOP_DATA_DIR="$(mktemp -d /tmp/jingwei-rc5-XXXXXX)" npx electron .
 ```
 
-测试预载隔离设置，仅使用临时目录，拒绝生产数据及其符号链接别名。桌面主进程管理 API 与 SSR 的动态回环端口，不依赖外部 Node 进程或固定端口。各用户的资料、收藏与有限备份保存在系统用户目录，
+桌面主进程自行启动 API 与阅读服务。各用户的资料、收藏与有限备份保存在系统用户目录。
 
 ## 边界与许可
 

@@ -44,7 +44,7 @@
     "electron-builder": "26.15.3",
     "typescript": "6.0.3"
   },
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "description": "经纬财经阅读与研究",
   "main": "desktop/main.mjs",
   "author": "经纬"
