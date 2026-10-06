@@ -1,0 +1,4 @@
+.situation-page input[type=number]{font-size:16px;min-height:44px}
+.situation-page .choice-list label:focus-within{outline:2px solid var(--accent);outline-offset:3px}
+.situation-page .reader-actions a,.situation-page [role=status] a{display:inline-flex;align-items:center;min-height:44px}
+.situation-page [role=status]{font-size:14px;line-height:1.8}
