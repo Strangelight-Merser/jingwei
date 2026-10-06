@@ -104,10 +104,12 @@ export function parseText(text: string): ParsedHolding[] {
     const line = raw.normalize('NFKC').trim();
     if (!line) continue;
     const pair = /^(.*?)\s+([¥￥]?\s*(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,6})?\s*万?\s*元?)$/.exec(line);
-    const name = normalizeHoldingName(pair?.[1] ?? line), key = keyOf(name);
+    const head = pair?.[1] ?? line, lead = /^(\d{6})\s+(?=\S)/.exec(head);
+    // "007339 易方达…" or "易方达… 007339": the code is kept apart from the name.
+    const name = lead ? normalizeHoldingName(head.slice(lead[0].length)) : ocrHoldingName(head), key = keyOf(name);
     if (!name || seen.has(key)) continue;
     seen.add(key);
-    const code = codeIn(pair?.[1] ?? line);
+    const code = lead?.[1] ?? codeIn(head);
     result.push({name, amount: pair ? moneyValue(pair[2]) : null, ...(code ? {code} : {})});
   }
   return result;

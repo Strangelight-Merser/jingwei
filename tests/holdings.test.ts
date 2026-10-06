@@ -278,3 +278,11 @@ test('指数增强基金记作其他指数并计入同方向重复，但不套�
   assert.equal(checkup.covered.length, 1);
   assert.ok(checkup.notes.some(note => note.includes('指数增强')));
 });
+
+test('粘贴文字里的基金代码不留在名称里', () => {
+  assert.deepEqual(parseText('易方达上证50增强A 110003 1000\n007339 易方达沪深300ETF联接C 2,000\n华夏沪深300联接C(005658) 300'), [
+    {name: '易方达上证50增强A', amount: 1000, code: '110003'},
+    {name: '易方达沪深300ETF联接C', amount: 2000, code: '007339'},
+    {name: '华夏沪深300联接C', amount: 300, code: '005658'},
+  ]);
+});
