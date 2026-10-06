@@ -65,11 +65,18 @@ async function start(){
  const ssr=createRequestListener({build,mode:'production'});
  const types={'.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.ico':'image/x-icon'};
  web=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url??'/','http://127.0.0.1').pathname);const file=path.resolve(client,'.'+pathname);const info=file.startsWith(client+path.sep)?await stat(file).catch(()=>null):null;if(info?.isFile()){res.setHeader('Content-Type',types[path.extname(file)]??'application/octet-stream');createReadStream(file).pipe(res);return;}ssr(req,res);}catch{res.writeHead(500,{'Content-Type':'text/plain;charset=utf-8'});res.end('文章暂时无法载入');}});
- await new Promise((resolve,reject)=>{web.once('error',reject);web.listen(0,'127.0.0.1',resolve);});
+ // Reuse the last port so the page origin, and with it localStorage (reading guide, last visit), survives restarts.
+ const portFile=path.join(userDir,'web-port');
+ const listen=port=>new Promise((resolve,reject)=>{const fail=error=>{web.off('listening',ok);reject(error);};const ok=()=>{web.off('error',fail);resolve();};web.once('error',fail);web.once('listening',ok);web.listen(port,'127.0.0.1');});
+ let lastPort=0;try{lastPort=Number(readFileSync(portFile,'utf8'))||0;}catch{}
+ try{await listen(lastPort>1024&&lastPort<65536?lastPort:0);}catch{await listen(0);}
+ try{writeFileSync(portFile,String(web.address().port));}catch{}
  origin=`http://127.0.0.1:${web.address().port}`;
  const bookmarkFile=path.join(userDir,'bookmarks.json');
  const allowed=event=>event.sender===window?.webContents&&event.senderFrame?.url.startsWith(origin+'/');
  const situationFile=path.join(userDir,'reader-situation.json');
+ // Save the advisor sheet as an A4 PDF. The native print panel crashes Electron on macOS 15, so it is not used.
+ ipcMain.handle('reading:save-pdf',async event=>{if(!allowed(event))return {ok:false};const {canceled,filePath}=await dialog.showSaveDialog(window,{title:'另存客户说明',defaultPath:path.join(app.getPath('documents'),`经纬客户说明-${new Date().toISOString().slice(0,10)}.pdf`),filters:[{name:'PDF',extensions:['pdf']}]});if(canceled||!filePath)return {ok:false,canceled:true};const data=await event.sender.printToPDF({pageSize:'A4',printBackground:true,preferCSSPageSize:true});await writeFile(filePath,data);shell.showItemInFolder(filePath);return {ok:true};});
  ipcMain.on('reading:read-situation',event=>{try{if(!allowed(event))throw new Error();let value;try{value=JSON.parse(readFileSync(situationFile,'utf8'));}catch(e){if(e.code==='ENOENT')value=null;else throw e;}if(value!==null&&!validReaderSituation(value))throw new Error();event.returnValue={ok:true,value};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:write-situation',(event,value)=>{try{if(!allowed(event)||value!==null&&!validReaderSituation(value))throw new Error();writeFileSync(situationFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(situationFile+'.tmp',situationFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:read-saved',(event)=>{try{if(!allowed(event))throw new Error();let saved;try{saved=JSON.parse(readFileSync(bookmarkFile,'utf8'));}catch(e){if(e.code==='ENOENT')saved=[];else throw e;}if(!Array.isArray(saved)||saved.some(s=>typeof s!=='string'))throw new Error();event.returnValue={ok:true,slugs:saved};}catch{event.returnValue={ok:false};}});

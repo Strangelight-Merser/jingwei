@@ -94,7 +94,7 @@ function ScrubChart({j, scrub, onScrub}: {j: Judgment; scrub: number | null; onS
       aria-valuetext={`${date(active.date)}，第 ${active.percentile} 百分位`}
       onPointerDown={event => {event.currentTarget.setPointerCapture(event.pointerId); pick(event.clientX);}}
       onPointerMove={event => {if (event.pointerType === 'mouse' || event.buttons) pick(event.clientX);}}
-      onPointerUp={event => {if (event.pointerType !== 'mouse') onScrub(null);}}
+      onPointerUp={() => onScrub(null)}
       onPointerLeave={event => {if (event.pointerType === 'mouse') onScrub(null);}}
       onPointerCancel={() => onScrub(null)}
       onKeyDown={key}
@@ -156,7 +156,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
         </div>
         <p className="hero-plain">
           {point
-            ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时近十年的第 <b>{point.percentile}</b> 百分位。松开回到今天。</>
+            ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时近十年的第 <b>{point.percentile}</b> 百分位。松开或移开回到今天。</>
             : <>{historyWindow}有 <b>{j.percentile}%</b> 的日子比今天便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
         </p>
         {age > STALE_DAYS && <p className="hero-stale">官方估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}

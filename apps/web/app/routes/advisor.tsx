@@ -8,6 +8,14 @@ import '../advisor.css';
 export async function loader({request}: {request: Request}) { return readChannelJudgment(request); }
 export function meta() { return [{title: '客户经理一页说明 · 经纬'}]; }
 
+type DesktopBridge = {savePdf?: () => Promise<{ok: boolean}>};
+// The desktop app exports a PDF directly; the native print panel is avoided there.
+function printSheet() {
+  const bridge = (window as unknown as {jingwei?: DesktopBridge}).jingwei;
+  if (bridge?.savePdf) void bridge.savePdf();
+  else window.print();
+}
+
 export default function Advisor() {
   const {judgment, card} = useLoaderData<typeof loader>();
   const [draft, setDraft] = useState<ReaderSituation>({...EMPTY_SITUATION});
@@ -30,7 +38,7 @@ export default function Advisor() {
       {invalid && <p role="alert">请填写有效的情况与非负金额。</p>}
       {dirty && <p role="status">客户情况已修改，请重新生成说明。</p>}
     </form>
-    <div className="advisor-preview">{situation ? <><div className="advisor-print-actions"><span>给客户的一页说明</span><button type="button" disabled={dirty} onClick={() => window.print()}>打印 / 另存 PDF</button></div>{dirty ? <p className="advisor-empty">重新生成后，可预览并打印更新的说明。</p> : <AdvisorExplanation situation={situation} judgment={judgment} card={card}/>}</> : <div className="advisor-empty"><h2>这位客户，适合怎样说？</h2><p>填写客户情况并生成说明，即可预览当前判断、具体说法与改判条件。</p></div>}</div>
+    <div className="advisor-preview">{situation ? <><div className="advisor-print-actions"><span>给客户的一页说明</span><button type="button" disabled={dirty} onClick={printSheet}>另存 PDF / 打印</button></div>{dirty ? <p className="advisor-empty">重新生成后，可预览并打印更新的说明。</p> : <AdvisorExplanation situation={situation} judgment={judgment} card={card}/>}</> : <div className="advisor-empty"><h2>这位客户，适合怎样说？</h2><p>填写客户情况并生成说明，即可预览当前判断、具体说法与改判条件。</p></div>}</div>
     </div>
   </main>;
 }
