@@ -13,6 +13,8 @@ import { buildResearchSnapshot } from '../.desktop-build/runtime/packages/backen
 import { defaultResearchState, mergeResearchEvidence } from '../.desktop-build/runtime/packages/backend/research-service.js';
 import { collectResearchEvidence } from '../.desktop-build/runtime/packages/backend/fund-evidence.js';
 import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
+import { validHoldings } from '../.desktop-build/runtime/packages/backend/holdings-validation.js';
+import { recognizeImage } from '../.desktop-build/runtime/packages/backend/local-ocr.js';
 import { refreshValuationState, valuationRuleEvidence } from '../.desktop-build/runtime/packages/backend/judgment.js';
 
 app.setName('经纬');
@@ -80,6 +82,10 @@ async function start(){
  const bookmarkFile=path.join(userDir,'bookmarks.json');
  const allowed=event=>event.sender===window?.webContents&&event.senderFrame?.url.startsWith(origin+'/');
  const situationFile=path.join(userDir,'reader-situation.json');
+ const holdingsFile=path.join(userDir,'reader-holdings.json');
+ ipcMain.handle('reading:recognize-image',async(event,bytes)=>{if(!allowed(event))throw new Error('ocr_local_request_required');const helperPath=app.isPackaged?path.join(process.resourcesPath,'native',process.platform==='darwin'?'jingwei-ocr':'ocr.ps1'):path.resolve(import.meta.dirname,'..',process.platform==='darwin'?'.local/bin/jingwei-ocr':'native/ocr.ps1');return recognizeImage(bytes,{tempDir:app.getPath('temp'),helperPath});});
+ ipcMain.on('reading:read-holdings',event=>{try{if(!allowed(event))throw new Error();let value;try{value=JSON.parse(readFileSync(holdingsFile,'utf8'));}catch(e){if(e.code==='ENOENT')value=null;else throw e;}if(value!==null&&!validHoldings(value))throw new Error();event.returnValue={ok:true,value};}catch{event.returnValue={ok:false};}});
+ ipcMain.on('reading:write-holdings',(event,value)=>{try{if(!allowed(event)||value!==null&&!validHoldings(value))throw new Error();writeFileSync(holdingsFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(holdingsFile+'.tmp',holdingsFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  // Save the advisor sheet as an A4 PDF. The native print panel crashes Electron on macOS 15, so it is not used.
  ipcMain.handle('reading:save-pdf',async event=>{if(!allowed(event))return {ok:false};const {canceled,filePath}=await dialog.showSaveDialog(window,{title:'另存客户说明',defaultPath:path.join(app.getPath('documents'),`经纬客户说明-${new Date().toISOString().slice(0,10)}.pdf`),filters:[{name:'PDF',extensions:['pdf']}]});if(canceled||!filePath)return {ok:false,canceled:true};const data=await event.sender.printToPDF({pageSize:'A4',printBackground:true,preferCSSPageSize:true});await writeFile(filePath,data);shell.showItemInFolder(filePath);return {ok:true};});
  ipcMain.on('reading:read-situation',event=>{try{if(!allowed(event))throw new Error();let value;try{value=JSON.parse(readFileSync(situationFile,'utf8'));}catch(e){if(e.code==='ENOENT')value=null;else throw e;}if(value!==null&&!validReaderSituation(value))throw new Error();event.returnValue={ok:true,value};}catch{event.returnValue={ok:false};}});

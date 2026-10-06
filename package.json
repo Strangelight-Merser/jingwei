@@ -19,8 +19,9 @@
     "collect": "node apps/worker/src/main.ts --once",
     "worker": "node apps/worker/src/main.ts",
     "build:keychain": "node scripts/build-keychain.ts",
+    "build:ocr": "node scripts/build-ocr.ts",
     "desktop:compile": "tsc -p tsconfig.desktop.json",
-    "desktop:prepare": "npm run build && npm run desktop:compile && node desktop/prepare.mjs",
+    "desktop:prepare": "npm run build:ocr && npm run build && npm run desktop:compile && node desktop/prepare.mjs",
     "desktop:dev": "electron .",
     "desktop:mac": "electron-builder --mac dmg zip --arm64",
     "desktop:win": "electron-builder --win nsis --x64"

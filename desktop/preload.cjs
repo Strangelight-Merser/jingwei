@@ -1,6 +1,9 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('jingwei',{
  platform:process.platform,
+ recognizeImage(bytes){return ipcRenderer.invoke('reading:recognize-image',bytes);},
+ readHoldings(){const reply=ipcRenderer.sendSync('reading:read-holdings');if(!reply?.ok)throw new Error('holdings_read_failed');return reply.value;},
+ writeHoldings(value){const reply=ipcRenderer.sendSync('reading:write-holdings',value);if(!reply?.ok)throw new Error('holdings_write_failed');},
  savePdf(){return ipcRenderer.invoke('reading:save-pdf');},
  readSituation(){const reply=ipcRenderer.sendSync('reading:read-situation');if(!reply?.ok)throw new Error('situation_read_failed');return reply.value;},
  writeSituation(value){const reply=ipcRenderer.sendSync('reading:write-situation',value);if(!reply?.ok)throw new Error('situation_write_failed');},

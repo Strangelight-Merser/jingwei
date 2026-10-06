@@ -16,6 +16,7 @@ export async function startApi({credentialStore=keychainStore,credentialCapabili
 storageConfiguration();await readState(); // The caller determines the directory before the API starts.
 const app=Fastify({logger:false});
 await (await import('../../../packages/backend/ask.ts')).registerAskRoutes(app);
+await (await import('../../../packages/backend/holdings-routes.ts')).registerHoldings(app,{networkChecks:mode==='active'&&process.env.JINGWEI_TEST_MODE!=='1'});
 let credentialAccessed=false;
 let credentialRecovery:{restored:boolean;error:string|null}|null=null;
 const savedRecovery=(await readState()).owner_preferences?.restore_saved_key_on_start===true;

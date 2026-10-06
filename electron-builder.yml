@@ -35,6 +35,9 @@ extraResources:
   - from: node_modules/@napi-rs/canvas/LICENSE
     to: licenses/napi-canvas-MIT.txt
 mac:
+  extraResources:
+    - from: .local/bin/jingwei-ocr
+      to: native/jingwei-ocr
   icon: desktop/icon.icns
   target:
     - dmg
@@ -46,6 +49,9 @@ mac:
 dmg:
   title: 经纬 ${version}
 win:
+  extraResources:
+    - from: native/ocr.ps1
+      to: native/ocr.ps1
   icon: desktop/icon.ico
   target: nsis
   signExecutable: false
