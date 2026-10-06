@@ -10,6 +10,7 @@ import {SinceLastVisit} from '../components/SinceLastVisit.tsx';
 import {RuleJudgment,type JudgmentOverview} from '../components/RuleJudgment.tsx';
 import {ReadingGuide} from '../components/ReadingGuide.tsx';
 import {ExtendedReading} from '../components/ExtendedReading.tsx';
+import {AskJingwei} from '../components/AskJingwei.tsx';
 export async function loader(){
  const [home,overview]=await Promise.all([publication<Awaited<ReturnType<typeof homePublication>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[];research_evidence_hash?:string|null}>('home'),publication<JudgmentOverview>('judgments')]);
  return {...home,judgment:overview.indexes.find(j=>j.index_code==='000300')??null,indexes:overview.indexes};
@@ -25,6 +26,7 @@ export default function Home(){
   {judgment&&<ReadingGuide judgment={judgment}/>}
   {judgment&&<RuleJudgment j={judgment} indexes={indexes}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
+  {judgment&&<AskJingwei/>}
   <SituationCard version={focus} judgment={judgment}/>
   <ExtendedReading articles={reading}/>
  </main>;
