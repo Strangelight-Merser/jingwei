@@ -12,6 +12,7 @@ import { date } from '../lib/format.ts';
 import { FundReviewNotice } from '../components/FundReviewNotice.tsx';
 import { ReadingText } from '../components/Typography.tsx';
 import { MarketCheckNote } from '../components/MarketCheckNote.tsx';
+import '../topic-polish.css';
 export async function loader({params}:LoaderFunctionArgs){return publication<NonNullable<Awaited<ReturnType<typeof topicPublication>>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[]}>(`topics/${params.key}`);}
 export function meta({loaderData:data}:{loaderData?:Awaited<ReturnType<typeof loader>>}){return [{title:`${data?.topic.title??'专题'} · 经纬`}];}
 export default function Topic(){
@@ -26,13 +27,13 @@ export default function Topic(){
    </>:<>{as_of?<>最新收录资料日期 <time dateTime={as_of}>{date(as_of)}</time></>:<>尚无已刊资料</>}</>}</div>
   </header>
   {!latest?.research&&view&&<FreeResearchFacts facts={research_facts} asOf={research_data_as_of} refs={research_source_refs}/>}<FundReviewNotice notice={fund_review_notice??null}/>
-  {latest?.research?<ResearchBrief version={latest} update={research_update}/>:<section className="current-progress">{latest&&<HistoricalResearchNote version={latest}/>}<ResearchUpdateNote update={research_update}/><h2>{view?'当前进展':'最近收录进展'}</h2><p><ReadingText text={current}/></p>
+  {latest?.research?<ResearchBrief version={latest} update={research_update}/>:<details className="current-progress topic-history-details"><summary>{view?'历史解读与后续关注':'最近收录进展'}</summary>{latest&&<HistoricalResearchNote version={latest}/>}<ResearchUpdateNote update={research_update}/><h2>{view?'当时的解读':'最近收录进展'}</h2><p><ReadingText text={current}/></p>
    <MarketCheckNote check={market_check}/>
    {!market_check&&market_availability&&<p role="status">{market_availability.message}</p>}
    {view&&<>
     <h3>这项判断怎样适用</h3>
-    <p><strong>原有持仓：</strong><ReadingText text={view.held.text}/></p>
-    <p><strong>临时新增 · 首次买入或追加：</strong><ReadingText text={view.unheld.text}/></p>
+    <p><strong>已有持仓：</strong><ReadingText text={view.held.text}/></p>
+    <p><strong>新增资金 · 首次买入或追加：</strong><ReadingText text={view.unheld.text}/></p>
     <p>既定长期计划内的投入，原条件仍成立时按原计划执行，不由本篇一概暂停。</p>
     {view.next_watch&&<p><ReadingText text={view.next_watch}/></p>}
     <details><summary>反方解释与改判条件</summary><p><ReadingText text={view.counterargument}/></p>
@@ -40,7 +41,7 @@ export default function Topic(){
     </details>
     <Link className="text-link" to={`/articles/${latest!.article.slug}`}>核对判断依据与基金条款 <Arrow/></Link>
    </>}
-  </section>}
+  </details>}
   <div className="topic-content"><section><div className="section-top"><h2>最新文章</h2></div>{latest&&<ArticleRow article={latest} heading="h3"/>}{earlier.length>0&&<><div className="section-top earlier-title"><h2>早期文章</h2></div>{earlier.map(v=><ArticleRow key={v.id} article={v} heading="h3"/>)}</>}</section>{background.length>0&&<aside className="topic-background"><h2>背景解释</h2>{background.map(v=><Link key={v.id} to={`/articles/${v.article.slug}`}><strong>{v.article.title}</strong><p>{v.article.deck}</p><span>{v.article.read_minutes}分钟阅读 <Arrow/></span></Link>)}</aside>}</div>
   <Link className="text-link" to="/topics"><Arrow back/> 沪深300专题</Link>
  </main>;

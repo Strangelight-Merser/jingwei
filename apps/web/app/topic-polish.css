@@ -1,0 +1,4 @@
+.topic-history-details>summary{font-size:16px;line-height:1.8;min-height:44px;align-content:center;cursor:pointer;color:var(--ink)}
+.topic-history-details[open]>summary{margin-bottom:20px}
+.topic-page .research-controls button{min-height:44px}
+.topic-page .topic-dates{font-size:13px}
