@@ -10,7 +10,8 @@ import { pipelineSnapshot,processNext,processTask,publishDraft,editDraft } from 
 import { collectOnce } from '../../../packages/backend/jobs.ts';
 import { mutateState, readState, initializeStorage, PRODUCTION_DATA_DIR, storageConfiguration } from '../../../packages/backend/storage.ts';
 import {createResearchService,defaultResearchState,readingResearch} from '../../../packages/backend/research-service.ts';
-export async function startApi({credentialStore=keychainStore,credentialCapability=credentialSupport,port=4411,mode='active',restoreSavedKey,composeProvider,collectSource=collectOnce,researchUpdates=false,researchCollector,researchProvider}:{credentialStore?:CredentialStore;credentialCapability?:()=>Promise<CredentialStatus>;port?:number;mode?:'read_only'|'manual_collect'|'active';restoreSavedKey?:boolean;composeProvider?:Parameters<typeof processTask>[1];collectSource?:typeof collectOnce;researchUpdates?:boolean;researchCollector?:NonNullable<Parameters<typeof createResearchService>[0]>['collector'];researchProvider?:NonNullable<Parameters<typeof createResearchService>[0]>['provider']}={}){
+import {judgmentPublication} from '../../../packages/backend/judgment.ts';
+export async function startApi({credentialStore=keychainStore,credentialCapability=credentialSupport,port=4411,mode='active',restoreSavedKey,composeProvider,collectSource=collectOnce,researchUpdates=false,researchCollector,researchProvider,valuationRefresh}:{credentialStore?:CredentialStore;credentialCapability?:()=>Promise<CredentialStatus>;port?:number;mode?:'read_only'|'manual_collect'|'active';restoreSavedKey?:boolean;composeProvider?:Parameters<typeof processTask>[1];collectSource?:typeof collectOnce;researchUpdates?:boolean;researchCollector?:NonNullable<Parameters<typeof createResearchService>[0]>['collector'];researchProvider?:NonNullable<Parameters<typeof createResearchService>[0]>['provider'];valuationRefresh?:(()=>Promise<unknown>)|null}={}){
 storageConfiguration();await readState(); // The caller determines the directory before the API starts.
 const app=Fastify({logger:false});
 let credentialAccessed=false;
@@ -27,7 +28,7 @@ app.addHook('onRequest',async(req,reply)=>{if(req.url.startsWith('/owner/')&&req
 let collecting=false;
 async function collectSelected(id:string){if(collecting)throw new Error('collection_busy');collecting=true;try{return await collectSource(id);}finally{collecting=false;}}
 const automatic=createSessionUpdater({collect:collectSelected,process:ids=>processNext(ids,composeProvider),publish:publishDraft,ready:setupWaitingReason});
-const research=createResearchService({collector:researchCollector,provider:researchProvider});
+const research=createResearchService({collector:researchCollector,provider:researchProvider,valuation:valuationRefresh});
 app.get('/reading/research',async()=>({...await readingResearch(),update:await research.status()}));
 app.get('/reading/followed',async()=>({topic_keys:(await readState()).research_state?.followed_topics??[]}));
 app.post('/reading/followed',async(req,reply)=>{
@@ -56,6 +57,7 @@ app.get('/publication/home',async()=>({...await homePublication(),research_updat
 app.get('/publication/articles',publishedVersions);
 app.get('/publication/topics',async()=>TOPICS.filter(t=>t.key==='china-equity-index'));
 app.get('/publication/changes',judgmentChangesPublication);
+app.get('/publication/judgment',async(req,reply)=>(await judgmentPublication())??reply.code(404).send({error:'judgment_unavailable'}));
 app.get<{Params:{slug:string};Querystring:{version?:string}}>('/publication/articles/:slug',async(req,reply)=>{const v=req.query.version!==undefined?(req.query.version.trim()?Number(req.query.version):NaN):undefined;const result=await articlePublication(req.params.slug,v);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'article_not_found'});});
 app.get<{Params:{key:string}}>('/publication/topics/:key',async(req,reply)=>{const result=await topicPublication(req.params.key);return result?{...result,research_update:await research.status()}:reply.code(404).send({error:'topic_not_found'});});
 if(mode==='active'){

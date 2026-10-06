@@ -6,8 +6,9 @@ import type { FinanceVersion, Material, CandidateEvent, GenerationTask, Collecti
 import type { MarketSnapshot } from './market-sources.ts';
 import type { FundSnapshot } from './fund-updates.ts';
 import type {ResearchState} from './research-service.ts';
+import type {ValuationHistory} from './valuation-history.ts';
 
-export type State = { data_version?:number; owner_preferences?:{restore_saved_key_on_start:boolean}; finance_versions:FinanceVersion[]; materials:Material[]; events:CandidateEvent[]; tasks:GenerationTask[]; collection_runs:CollectionRun[]; budget:BudgetLedger|null; fund_observations?:FundSnapshot[]; market_observations?:MarketSnapshot[];research_state?:ResearchState };
+export type State = { data_version?:number; owner_preferences?:{restore_saved_key_on_start:boolean}; finance_versions:FinanceVersion[]; materials:Material[]; events:CandidateEvent[]; tasks:GenerationTask[]; collection_runs:CollectionRun[]; budget:BudgetLedger|null; fund_observations?:FundSnapshot[]; market_observations?:MarketSnapshot[];research_state?:ResearchState; valuation_history?:ValuationHistory };
 export const PRODUCTION_DATA_DIR = resolve(import.meta.dirname, '../../.data');
 export type StorageOptions = { dataDir:string; readOnly?:boolean; testMode?:boolean };
 const backupLimit=5;

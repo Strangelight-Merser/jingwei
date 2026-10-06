@@ -11,6 +11,7 @@ import {toMarketEvidence} from './market-sources.ts';
 import {requiredFundDocuments} from './fund-document-bodies.ts';
 import type {ResearchEvidence} from './fund-evidence.ts';
 import {FUND_STORY_ID} from './fund-updates.ts';
+import {refreshValuationState} from './judgment.ts';
 
 export type ResearchCheck={id:string;started_at:string;finished_at:string;status:'partial'|'failed'|'updated'|'unchanged'|'model_waiting';evidence_hash:string|null;source_errors:string[];version_id:string|null;message:string};
 export type ResearchState={settings:{enabled:boolean;interval_minutes:number;model_enabled:boolean};latest_snapshot?:ResearchSnapshot;checks:ResearchCheck[];processed_hashes:{hash:string;result:'maintained'|'published'|'failed'|'running';version_id:string|null}[];followed_topics:string[]};
@@ -38,7 +39,9 @@ export function mergeResearchEvidence(evidence:ResearchEvidence,previous?:Resear
 }
 
 /** Free evidence checks and model research are distinct, durable steps. No credential is read here. */
-export function createResearchService({collector,provider,now=()=>new Date(),schedule=(fn:()=>void,ms:number)=>{const t=setTimeout(fn,ms);t.unref();return t;},cancel=(t:unknown)=>clearTimeout(t as ReturnType<typeof setTimeout>)}:{collector?:Collector;provider?:Provider;now?:()=>Date;schedule?:(fn:()=>void,ms:number)=>unknown;cancel?:(timer:unknown)=>void}={}){
+export function createResearchService({collector,provider,valuation,now=()=>new Date(),schedule=(fn:()=>void,ms:number)=>{const t=setTimeout(fn,ms);t.unref();return t;},cancel=(t:unknown)=>clearTimeout(t as ReturnType<typeof setTimeout>)}:{collector?:Collector;provider?:Provider;now?:()=>Date;schedule?:(fn:()=>void,ms:number)=>unknown;cancel?:(timer:unknown)=>void;valuation?:(()=>Promise<unknown>)|null}={}){
+ // Injected collectors (tests, desktop) opt in to the valuation refresh explicitly.
+ const refreshValuation=valuation===undefined?(collector?null:()=>refreshValuationState()):valuation;
  const fetchEvidence=collector??(async()=>{const previous=(await readState()).research_state?.latest_snapshot;return collectResearchEvidence({priorSnapshots:previous?.funds??[],priorDocuments:previous?.documents??[]});});
  let timer:unknown=null,busy=false,processing=false,closed=false,nextCheck:string|null=null;
  const stamp=()=>now().toISOString();
@@ -85,6 +88,8 @@ export function createResearchService({collector,provider,now=()=>new Date(),sch
   if(busy)return {status:'checking' as const,message:'正在核查官方资料。'};
   busy=true;const started_at=stamp();
   try{
+   // The rule judgment uses its own official series; its failure never blocks fund evidence.
+   if(refreshValuation)await refreshValuation().catch(()=>console.warn('valuation_refresh_failed'));
    const evidence=await fetchEvidence(),prior=(await readState()).research_state?.latest_snapshot,snapshot=buildResearchSnapshot(mergeResearchEvidence(evidence,prior));
    // Check completion is public health information; it does not replace the content's first observation.
    snapshot.evidence_observed_at=prior?.evidence_hash===snapshot.evidence_hash?(prior.evidence_observed_at??prior.captured_at):snapshot.captured_at;

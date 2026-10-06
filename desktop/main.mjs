@@ -13,6 +13,7 @@ import { buildResearchSnapshot } from '../.desktop-build/runtime/packages/backen
 import { defaultResearchState, mergeResearchEvidence } from '../.desktop-build/runtime/packages/backend/research-service.js';
 import { collectResearchEvidence } from '../.desktop-build/runtime/packages/backend/fund-evidence.js';
 import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
+import { refreshValuationState } from '../.desktop-build/runtime/packages/backend/judgment.js';
 
 app.setName('经纬');
 process.env.JINGWEI_EDITOR_MODE='0';
@@ -53,7 +54,7 @@ async function start(){
  };
  // Public free sources use the desktop's native network stack. Model transport is unchanged.
  const researchCollector=async()=>{const previous=(await readState()).research_state?.latest_snapshot;return collectResearchEvidence({priorSnapshots:previous?.funds??[],priorDocuments:previous?.documents??[],fetcher:(input,init)=>net.fetch(input,{...init,credentials:'omit'})});};
- api=await startApi({port:0,mode:'active',credentialStore:credentials,credentialCapability:capability,researchUpdates:true,researchCollector});
+ api=await startApi({port:0,mode:'active',credentialStore:credentials,credentialCapability:capability,researchUpdates:true,researchCollector,valuationRefresh:()=>refreshValuationState((input,init)=>net.fetch(input,{...init,credentials:'omit'}))});
  const apiPort=api.server.address().port;
  process.env.JINGWEI_API_URL=`http://127.0.0.1:${apiPort}`;
  process.env.JINGWEI_DESKTOP='1';

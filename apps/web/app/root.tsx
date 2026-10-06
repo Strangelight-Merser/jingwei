@@ -2,6 +2,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, NavLink, Link, useRout
 import { useEffect, useState } from 'react';
 import './app.css';
 import './front.css';
+import './judgment.css';
 export async function loader(){
  let followed:string[]|null=null;
  try{const response=await fetch(`${process.env.JINGWEI_API_URL??'http://127.0.0.1:4411'}/reading/followed`,{signal:AbortSignal.timeout(3000)});if(response.ok){const data=await response.json() as {topic_keys:string[]};if(Array.isArray(data.topic_keys))followed=data.topic_keys;}}catch{}
