@@ -20,6 +20,7 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
 
   function pick(day: string) {
     setSelected(day);
+    document.getElementById(`rule-change-${day}`)?.querySelector<HTMLButtonElement>('button')?.focus({preventScroll: true});
     document.getElementById(`rule-change-${day}`)?.scrollIntoView({block: 'center', behavior: 'smooth'});
   }
 

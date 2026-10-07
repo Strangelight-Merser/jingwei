@@ -18,6 +18,7 @@ function PlainHint({term, children}: {term: string; children: React.ReactNode}) 
 /** The example uses the homepage's latest CSI 300 judgment, including its date and rule. */
 export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
   const [step, setStep] = useState(0);
   const historyWindow = j.full_window ? `近${j.rule.window_years}年里` : `${date(j.window_start)}以来`;
   const cheaperDays = `${historyWindow}有 ${j.percentile}% 的${j.rule.frequency === 'weekly' ? '周读数' : '交易日'}，比现在便宜或一样贵。`;
@@ -29,6 +30,8 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
     try {dismissed = localStorage.getItem(STORAGE_KEY) === '1' || localStorage.getItem('jingwei.reader.first-run.done') !== '1';} catch {}
     if (!dismissed && !dialog.current?.open) dialog.current?.showModal();
   }, []);
+
+  useEffect(() => {if (dialog.current?.open) dialog.current.querySelector<HTMLElement>('#reading-guide-title')?.focus();}, [step]);
 
   function openGuide() {
     setStep(0);
@@ -44,9 +47,9 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
         <PlainHint term="滚动市盈率">把指数价格与最近12个月的盈利相比，倍数越低，表示为同样的盈利付的钱越少。</PlainHint>
         <PlainHint term="百分位">把当前估值与{j.full_window ? `近${j.rule.window_years}年` : `${date(j.window_start)}以来`}{eachReading(j)}的估值排一排；数字越小，历史上比现在便宜的时候越少。</PlainHint>
       </div>
-      <button type="button" onClick={openGuide}>如何阅读 <span aria-hidden="true">→</span></button>
+      <button type="button" ref={trigger} onClick={openGuide}>如何阅读 <span aria-hidden="true">→</span></button>
     </div>
-    <dialog ref={dialog} className="home-reading-guide" aria-labelledby="reading-guide-title" onClose={rememberDismissal}>
+    <dialog ref={dialog} className="home-reading-guide" aria-labelledby="reading-guide-title" onClose={() => {rememberDismissal(); trigger.current?.focus();}}>
       <header>
         <span>30 秒读懂经纬</span>
         <button type="button" aria-label="关闭阅读引导" onClick={() => dialog.current?.close()}>×</button>
@@ -54,7 +57,7 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
       <div className="home-guide-progress" aria-label={`第 ${step + 1} 步，共 ${TITLES.length} 步`}>
         {TITLES.map((title, i) => <span key={title} className={i === step ? 'is-current' : ''} aria-current={i === step ? 'step' : undefined}>{i + 1}</span>)}
       </div>
-      <h2 id="reading-guide-title">{TITLES[step]}</h2>
+      <h2 id="reading-guide-title" tabIndex={-1}>{TITLES[step]}</h2>
       <p className="home-guide-context">以{j.index_name}为例 · 数据截至 <time dateTime={j.as_of}>{date(j.as_of)}</time></p>
       <div className="home-guide-content" aria-live="polite">
         {step === 0 && <>

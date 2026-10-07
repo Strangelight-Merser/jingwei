@@ -49,16 +49,24 @@ export function IndexSwitch({indexes, selected, onSelect}: {indexes: Judgment[];
   const picker = useRef<HTMLDivElement>(null);
   // On a phone each row scrolls sideways; keep the selected index in view without moving the page.
   useEffect(() => {
-    const button = picker.current?.querySelector<HTMLElement>('[aria-selected="true"]'), row = button?.parentElement;
+    const button = picker.current?.querySelector<HTMLElement>('[aria-pressed="true"]'), row = button?.parentElement;
     if (!button || !row || row.scrollWidth <= row.clientWidth) return;
     row.scrollLeft = button.offsetLeft - (row.clientWidth - button.offsetWidth) / 2;
   }, [selected]);
-  return <div ref={picker} className="index-picker" role="tablist" aria-label="选择指数">
+  return <div ref={picker} className="index-picker" role="group" aria-label="选择指数">
     {PICKER_GROUPS.map(group => {
       const items = indexes.filter(j => group.markets.includes(VALUATION_INDEXES[j.index_code].market));
       return items.length > 0 && <div key={group.label} className="index-picker-group">
         <span className="index-picker-label">{group.label}</span>
-        <div className="index-picker-row">{items.map(j => <button key={j.index_code} type="button" role="tab" aria-selected={selected === j.index_code} onClick={() => onSelect(j.index_code)}>
+        <div className="index-picker-row">{items.map(j => <button key={j.index_code} type="button" aria-pressed={selected === j.index_code} tabIndex={selected === j.index_code ? 0 : -1} onKeyDown={event => {
+          const buttons = Array.from(picker.current!.querySelectorAll<HTMLButtonElement>('button'));
+          const at = buttons.indexOf(event.currentTarget);
+          const next = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? (at + 1) % buttons.length : event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? (at + buttons.length - 1) % buttons.length : event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : null;
+          if (next === null) return;
+          event.preventDefault();
+          buttons[next].focus();
+          buttons[next].click();
+        }} onClick={() => onSelect(j.index_code)}>
           <i className={`tone-dot tone-${j.band}`} aria-hidden="true"/>{j.index_name}
         </button>)}</div>
       </div>;
@@ -89,9 +97,11 @@ export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tal
   function key(event: React.KeyboardEvent) {
     const current = scrub ?? pts.length - 1;
     const step = event.shiftKey ? 26 : 1;
-    if (event.key === 'ArrowLeft') {onScrub(Math.max(0, current - step)); event.preventDefault();}
-    if (event.key === 'ArrowRight') {onScrub(Math.min(pts.length - 1, current + step)); event.preventDefault();}
-    if (event.key === 'Escape' || event.key === 'End') onScrub(null);
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {onScrub(Math.max(0, current - step)); event.preventDefault();}
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {onScrub(Math.min(pts.length - 1, current + step)); event.preventDefault();}
+    if (event.key === 'Home') {onScrub(0); event.preventDefault();}
+    if (event.key === 'Escape' || event.key === 'End') {onScrub(null); event.preventDefault();}
+    if (event.key === 'Enter' && onPickChange) {const near = nearestChange(pts[current].date); if (near) onPickChange(near); event.preventDefault();}
   }
 
   // A click near a confirmed change selects it (within about six weeks on the time axis).
@@ -108,11 +118,11 @@ export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tal
       className={`hero-chart-area${scrub !== null ? ' is-scrubbing' : ''}${tall ? ' is-tall' : ''}`}
       tabIndex={0}
       role="slider"
-      aria-label={`${j.index_name}${historySpan(j)}估值分位，左右方向键回看历史`}
+      aria-label={`${j.index_name}${historySpan(j)}估值分位，左右方向键回看历史，Home 到最早，End 或 Esc 回到最新${onPickChange ? '，Enter 查看附近改判记录' : ''}`}
       aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={active.percentile}
-      aria-valuetext={`${date(active.date)}，第 ${active.percentile} 百分位`}
+      aria-valuemax={pts.length - 1}
+      aria-valuenow={at}
+      aria-valuetext={`${date(active.date)}，第 ${active.percentile} 百分位，已确认${BAND_JUDGMENTS[bandOn(j, active.date)].label}`}
       onPointerDown={event => {event.currentTarget.setPointerCapture(event.pointerId); pick(event.clientX);}}
       onPointerMove={event => {if (event.pointerType === 'mouse' || event.buttons) pick(event.clientX);}}
       onPointerUp={() => {if (onPickChange && scrub !== null) {const near = nearestChange(pts[scrub].date); if (near) onPickChange(near);} onScrub(null);}}

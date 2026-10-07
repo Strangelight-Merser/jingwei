@@ -18,12 +18,17 @@ export function firstRunDone() {
  */
 export function FirstRun({indexes}: {indexes: Judgment[]}) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const [step, setStep] = useState(0);
   const [ready, setReady] = useState(0);
 
   useEffect(() => {
-    if (!firstRunDone() && !dialog.current?.open) dialog.current?.showModal();
+    if (!firstRunDone() && !dialog.current?.open) {
+      returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      dialog.current?.showModal();
+    }
   }, []);
+  useEffect(() => {if (dialog.current?.open) dialog.current.querySelector<HTMLElement>('#first-run-title')?.focus();}, [step]);
   // Reveal the data rows one by one when the preparation step opens.
   useEffect(() => {
     if (step !== 1) return;
@@ -38,12 +43,16 @@ export function FirstRun({indexes}: {indexes: Judgment[]}) {
   }
 
   const checked = indexes.find(j => j.checked_at)?.checked_at ?? null;
-  return <dialog ref={dialog} className="first-run" aria-labelledby="first-run-title" onCancel={finish}>
+  return <dialog ref={dialog} className="first-run" aria-labelledby="first-run-title" onCancel={finish} onClose={() => {
+    const target = returnFocus.current;
+    if (target && target !== document.body && target.isConnected) target.focus();
+    else document.querySelector<HTMLButtonElement>('.home-reading-keywords button')?.focus();
+  }}>
     <div className="first-run-steps" aria-label={`第 ${step + 1} 步，共 3 步`}>{[0, 1, 2].map(i => <span key={i} className={i <= step ? 'is-on' : ''}/>)}</div>
 
     {step === 0 && <section key="welcome" className="first-run-page">
       <p className="first-run-kicker">欢迎使用经纬</p>
-      <h2 id="first-run-title">新钱怎么投、手里的怎么拿，<br/>按公开规则给你答案。</h2>
+      <h2 id="first-run-title" tabIndex={-1}>新钱怎么投、手里的怎么拿，<br/>按公开规则给你答案。</h2>
       <ol className="first-run-points">
         <li><b>每天一个判断</b><span>A股宽基、红利、科创，加上纳指、标普、恒生，按估值在近十年里的位置，给出新增资金和已有持仓的做法。</span></li>
         <li><b>改口有据可查</b><span>什么价位会改判、十年里改过几次，都能回看，也能自己复算。</span></li>
@@ -54,7 +63,7 @@ export function FirstRun({indexes}: {indexes: Judgment[]}) {
 
     {step === 1 && <section key="data" className="first-run-page">
       <p className="first-run-kicker">准备数据</p>
-      <h2 id="first-run-title">已载入 {indexes.length} 个指数的估值</h2>
+      <h2 id="first-run-title" tabIndex={-1}>已载入 {indexes.length} 个指数的估值</h2>
       <ul className="first-run-data">
         {indexes.map((j, i) => <li key={j.index_code} className={i < ready ? 'is-ready' : ''}>
           <i className={`first-run-check tone-${j.band}`} aria-hidden="true"/>
@@ -68,7 +77,7 @@ export function FirstRun({indexes}: {indexes: Judgment[]}) {
 
     {step === 2 && <section key="start" className="first-run-page">
       <p className="first-run-kicker">从哪里开始</p>
-      <h2 id="first-run-title">让判断对应到你自己</h2>
+      <h2 id="first-run-title" tabIndex={-1}>让判断对应到你自己</h2>
       <div className="first-run-choices">
         <Link to="/holdings" onClick={finish}><b>导入持仓截图</b><span>支付宝、手机银行的持仓页都可以，截图只在本机识别</span></Link>
         <Link to="/situation" onClick={finish}><b>设置我的情况</b><span>三个选择：有没有计划、持有哪只、准备拿多久</span></Link>

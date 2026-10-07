@@ -22,7 +22,7 @@
 .index-picker-row{display:flex;flex-wrap:wrap;gap:2px;padding:4px;border-radius:12px;background:#f1f1f3}
 .index-picker-row button{display:flex;align-items:center;gap:7px;min-height:34px;padding:0 12px;border:0;border-radius:9px;background:none;font:inherit;font-size:var(--text-ui);color:var(--muted);cursor:pointer;white-space:nowrap;transition:background .25s var(--ease-out),color .2s,box-shadow .25s var(--ease-out)}
 .index-picker-row button:hover{color:var(--ink)}
-.index-picker-row button[aria-selected="true"]{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(20,20,30,.08),0 2px 8px rgba(20,20,30,.06)}
+.index-picker-row button[aria-pressed="true"]{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(20,20,30,.08),0 2px 8px rgba(20,20,30,.06)}
 .index-picker-row button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Copy on the left, chart on the right. */
@@ -47,12 +47,12 @@
 .hero-chart-guide{stroke:#fff;stroke-width:1.5;vector-effect:non-scaling-stroke}
 .hero-chart-line{fill:none;stroke:var(--ink);stroke-width:1.75;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .hero-chart-change{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:var(--tone-line);box-shadow:0 0 0 2px #fff;pointer-events:none}
-.hero-chart-tick{position:absolute;right:8px;transform:translateY(-50%);font-size:11px;color:#77777f;font-variant-numeric:tabular-nums;pointer-events:none}
+.hero-chart-tick{position:absolute;right:8px;transform:translateY(-50%);font-size:11px;color:#66666e;font-variant-numeric:tabular-nums;pointer-events:none}
 .hero-chart-cursor{position:absolute;top:0;bottom:0;width:0;border-left:1px solid rgba(35,35,38,.35);pointer-events:none;transition:left .12s linear}
 .hero-chart-area:not(.is-scrubbing) .hero-chart-cursor{border-left-color:transparent;transition:none}
 .hero-chart-cursor i{position:absolute;left:-7px;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--tone-line);box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.18)}
 .hero-chart-area:not(.is-scrubbing) .hero-chart-cursor i:after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--tone-line);opacity:0}
-.hero-chart-years{position:relative;height:22px;margin-top:8px;font-size:12px;color:#77777f;font-variant-numeric:tabular-nums}
+.hero-chart-years{position:relative;height:22px;margin-top:8px;font-size:12px;color:#66666e;font-variant-numeric:tabular-nums}
 .hero-chart-years span{position:absolute;transform:translateX(-50%)}
 .hero-chart-years span:last-child{transform:translateX(-100%)}
 .hero-chart figcaption{margin-top:4px;font-size:var(--text-caption);color:var(--muted);min-height:1.5em}
@@ -75,7 +75,7 @@
 .hero-ladder li:last-child{border-right:0}
 .hero-ladder li.is-current{background:var(--tone-bg);color:var(--tone-ink)}
 .hero-ladder-name{display:flex;align-items:center;gap:7px;font-size:var(--text-ui);font-weight:600;color:var(--ink)}
-.hero-ladder-name em{margin-left:auto;font-style:normal;font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--tone-line);color:#fff}
+.hero-ladder-name em{margin-left:auto;font-style:normal;font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--tone-ink);color:#fff}
 .hero-ladder li strong{font-size:1.0625rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
 .hero-pending{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:var(--tone-high-bg);color:var(--tone-high-ink);font-size:var(--text-ui)}
 .hero-last{display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 0;font-size:var(--text-ui);color:var(--muted)}
@@ -191,3 +191,5 @@
 }
 
 .hero-buffer-note{display:block;margin-bottom:6px;color:var(--ink)}
+
+.home-page .situation-card small{color:var(--muted)}

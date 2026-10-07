@@ -56,3 +56,5 @@ footer{width:min(1120px,calc(100% - 48px))}
 .search-form button:active{transform:scale(.98)}
 .listing article,.article-listing article{transition:background .2s}
 .reader-setting-links{display:flex;gap:20px;flex-wrap:wrap}
+
+.maintenance-banner{color:#906936}
