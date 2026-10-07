@@ -7,6 +7,8 @@ import {validHoldings, parseRequestSchema} from '../packages/backend/holdings-va
 import {INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {evaluateValuationRule} from '../packages/backend/valuation-rule.ts';
+import {FUND_LIST_SEED} from '../packages/backend/fund-list-seed.ts';
+import type {IndexCode} from '../packages/backend/valuation-indexes.ts';
 
 const images: OcrLine[][] = await Promise.all([1, 2].map(async n => JSON.parse(await readFile(new URL(`./fixtures/holdings/alipay-${n}.ocr.json`, import.meta.url), 'utf8'))));
 const expected = JSON.parse(await readFile(new URL('./fixtures/holdings/alipay.expected.json', import.meta.url), 'utf8')).holdings;
@@ -296,4 +298,108 @@ test('粘贴文字里的基金代码不留在名称里', () => {
     {name: '易方达沪深300ETF联接C', amount: 2000, code: '007339'},
     {name: '华夏沪深300联接C', amount: 300, code: '005658'},
   ]);
+});
+
+test('公开列表中的量化、中证红利增强和恒生指数增强不套规则，保留指数方向', () => {
+  for (const [code, index, exposure] of [
+    ['005113', '000300', 'a_other_index'], ['005114', '000300', 'a_other_index'],
+    ['008682', '000922', 'a_other_index'], ['022903', '000922', 'a_other_index'],
+    ['100032', '000922', 'a_other_index'], ['100033', '000922', 'a_other_index'],
+    ['025293', 'HSI', 'hk_equity'], ['025294', 'HSI', 'hk_equity'], ['025295', 'HSI', 'hk_equity'],
+  ] as const) {
+    const fund = FUND_LIST_SEED.funds.find(fund => fund.code === code)!;
+    assert.ok(fund, code);
+    assert.deepEqual(classify(fund.name, fund), {tracked_index: index, exposure, covered_index: null}, fund.name);
+    assert.equal(classify(fund.name).covered_index, null, fund.name);
+  }
+});
+
+test('科创板50成份完整名称与经核对的纳指ETF、工银科创联接简称得到各自判断', () => {
+  const abbreviations = ['159501', '159632', '159660', '159696', '159941', '513100', '513110', '513300', '513870', '022932'];
+  const fullNames = FUND_LIST_SEED.funds.filter(fund => /科创板50成份/.test(fund.name) && !/增强/.test(fund.name));
+  assert.equal(fullNames.length, 26);
+  for (const fund of [...fullNames, ...abbreviations.map(code => FUND_LIST_SEED.funds.find(fund => fund.code === code)!)]) {
+    assert.ok(fund);
+    const index = /纳指|纳斯达克/.test(fund.name) ? 'NDX' : '000688';
+    assert.equal(classify(fund.name, fund).covered_index, index, fund.name);
+    assert.equal(classify(fund.name).covered_index, index, fund.name);
+  }
+  // 科创 and 纳斯达克 without a verified tracker name do not identify a covered index.
+  for (const name of ['央企科创ETF融通', '科创ETF', '纳斯达克指数ETF', '纳指科技ETF景顺', '纳指生物科技ETF汇添富'])
+    assert.equal(classify(name).covered_index, null, name);
+});
+
+test('增强与策略后缀对全部十一项指数一致生效，LOF与交易型普通跟踪基金可以覆盖', () => {
+  for (const [name, index] of [
+    ['沪深300', '000300'], ['中证500', '000905'], ['上证50', '000016'], ['中证1000', '000852'],
+    ['中证红利', '000922'], ['科创板50成份', '000688'], ['创业板指', '399006'],
+    ['纳斯达克100', 'NDX'], ['标普500', 'SPX'], ['恒生指数', 'HSI'], ['恒生科技', 'HSTECH'],
+  ] as const) {
+    for (const suffix of ['指数量化A', '指数增强A', '多因子ETF', 'ETF策略A', '优选指数A', '指数指增A'])
+      assert.equal(classify(`${name}${suffix}`).covered_index, null, `${name}${suffix}`);
+    for (const suffix of ['LOF', '交易型开放式基金'])
+      assert.equal(classify(`${name}${suffix}`).covered_index, index, `${name}${suffix}`);
+  }
+  for (const name of ['大成标普500等权重指数(QDII)C人民币', '华夏恒生互联网科技业ETF联接(QDII)A', '恒生医疗ETF大成',
+    '华泰柏瑞中证红利低波ETF联接A', '创业板50ETF华安', '科创100ETF鹏华', '沪深300ESGETF富国'])
+    assert.equal(classify(name).covered_index, null, name);
+  // Enhancing a different target must not join the base index's duplicate-holding group.
+  for (const name of ['创业板50指数增强A', '创业板综指增强A', '科创板100指数增强A', '沪深300红利指数增强A'])
+    assert.equal(INDEX_CODES.includes(classify(name).tracked_index as IndexCode), false, name);
+});
+
+test('港股通恒生、恒生科技ETF的简称不等于恒生指数、恒生科技指数', () => {
+  for (const [code, target] of [['520940', '恒指港股通'], ['520840', '恒生港股通科技主题']]) {
+    const fund = FUND_LIST_SEED.funds.find(fund => fund.code === code)!;
+    assert.ok(fund, code);
+    assert.deepEqual(classify(fund.name, fund), {exposure: 'hk_equity', tracked_index: target, covered_index: null});
+    assert.deepEqual(classify(fund.name), classify(fund.name, fund));
+  }
+});
+
+test('公开列表全量核查：逐只按已审阅的完整标的名称核对 covered_index', () => {
+  const terms = /沪深300|中证500|上证50|中证1000|中证红利|科创|创业板|纳斯达克|纳指|标普|恒生/;
+  const funds = FUND_LIST_SEED.funds.filter(fund => terms.test(fund.name.normalize('NFKC')));
+  // These are the plain target families in the public list. Strip only packaging/currency/share
+  // labels, then compare the remaining full target; do not reuse classify's prefix/strategy gates.
+  const families: [IndexCode, string[]][] = [
+    ['000300', ['沪深300', '沪深300指数', '沪深300指数发起']],
+    ['000905', ['中证500', '中证500指数']], ['000016', ['上证50', '上证50指数']],
+    ['000852', ['中证1000']], ['000922', ['中证红利', '中证红利指数']],
+    ['000688', ['科创50', '科创50联接', '科创板50', '科创板50指数', '科创板50成份', '科创板50成份指数', '科创板50成份指数发起式']],
+    ['399006', ['创业板', '创业板指数', '创业板指数发起式']],
+    ['NDX', ['纳斯达克100', '纳斯达克100指数', '纳斯达克100指数发起', '纳斯达克100指数发起式', '纳指100']],
+    ['SPX', ['标普500', '标普500指数']], ['HSI', ['恒生', '恒生指数']],
+    ['HSTECH', ['恒生科技', '恒生科技指数', '恒生科技指数发起']],
+  ];
+  const targets = new Map(families.flatMap(([index, names]) => names.map(name => [name, index] as const)));
+  const nasdaqAbbreviations = new Set(['159501', '159632', '159660', '159696', '159941', '513100', '513110', '513300', '513870']);
+  const counts = Object.fromEntries(INDEX_CODES.map(index => [index, 0]));
+  assert.equal(funds.length, 2368);
+  for (const fund of funds) {
+    const text = fund.name.normalize('NFKC').toUpperCase();
+    const target = text.slice(text.search(terms));
+    const family = target.includes('ETF') ? target.slice(0, target.indexOf('ETF')) : target
+      .replace(/\((?:QDII(?:-LOF)?|LOF|后端|美元现汇|美元现钞|人民币)\)/g, '')
+      .replace(/人民币|美元(?:现汇|现钞|汇)?|港币|美钞|美汇|现汇|现钞/g, '').replace(/[A-Z]$/, '');
+    const expected = ['520940', '520840'].includes(fund.code) ? null
+      : nasdaqAbbreviations.has(fund.code) ? 'NDX' : fund.code === '022932' ? '000688'
+      : /指数型/.test(fund.type) ? targets.get(family) ?? null : null;
+    assert.equal(classify(fund.name, fund).covered_index, expected, `${fund.code} ${fund.name}`);
+    if (expected) counts[expected]++;
+  }
+  assert.deepEqual(counts, {'000300': 129, '000905': 80, '000016': 36, '000852': 22, '399006': 76,
+    '000688': 71, '000922': 27, NDX: 72, SPX: 22, HSI: 19, HSTECH: 58});
+});
+
+test('按基金代码导入后，体检使用修正后的覆盖并保留增强基金同方向重复', () => {
+  const parsed = holdings('022932 1000\n159501 2000\n008682 3000\n025293 4000\n007801 5000');
+  assert.deepEqual(parsed.rows.map(row => row.covered_index), ['000688', 'NDX', null, null, '000922']);
+  // Existing stored rows are also reclassified at checkup time.
+  for (const row of parsed.rows) row.covered_index = '000300';
+  const checkup = buildCheckup(parsed, judgments);
+  assert.deepEqual(checkup.covered.map(row => row.index), ['000688', 'NDX', '000922']);
+  assert.equal(checkup.duplicates[0]?.tracked_index, '000922');
+  assert.equal(checkup.duplicates[0]?.amount, 8000);
+  assert.equal(checkup.uncovered_share, 7000 / 15000);
 });

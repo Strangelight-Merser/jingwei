@@ -188,41 +188,60 @@ export function matchFund(name: string, funds: FundMatch[] = FUND_LIST_SEED.fund
   return uniqueFund(rankFundCandidates(name, funds));
 }
 
-/** The rule applies only to a plain tracker of one of the three covered indices. */
+// Public-list abbreviations that omit or obscure the target. Match the verified name in full,
+// never infer Nasdaq-100 from an arbitrary "纳斯达克" or STAR 50 from "科创".
+// Fund-company product pages: https://www.huaan.com.cn/funds/159632/index.shtml
+// https://www.99fund.com/main/products/pofund/159660/fundinfo.shtml
+// https://www.gffunds.com.cn/funds/?fundcode=159941
+// https://www.fullgoal.com.cn/fundDetail/513870/index.html
+// Exchange disclosures: https://www.sse.com.cn/disclosure/announcement/listing/c/c_20230317_5718138.shtml
+// ICBC's Y-share summary: https://e.boc.cn/cmsimage/ezcms/public/89968496/20241216/f4d88f891f0b408ebc1d5e0d49ceae34.pdf
+// Huaan's distinct Stock Connect targets:
+// https://huaan.com.cn/upload2010/2026/04/22/005856097_33ec341c-6001-333e-bb03-5292ff326160.pdf
+// https://wap.huaan.com.cn/upload2010/2026/01/15/091252386_0_f40aa45f-de2f-3747-979d-15e4dcdefce3.pdf
+const TRACKER_ABBREVIATIONS: Record<string, string> = {
+  纳指ETF嘉实: 'NDX', 纳斯达克ETF华安: 'NDX', 纳指ETF汇添富: 'NDX',
+  纳指ETF易方达: 'NDX', 纳指ETF广发: 'NDX', 纳指ETF国泰: 'NDX',
+  纳指ETF华泰柏瑞: 'NDX', 纳斯达克ETF华夏: 'NDX', 纳指ETF富国: 'NDX',
+  工银科创ETF联接Y: '000688',
+  港股通恒生ETF华安: '恒指港股通',
+  港股通恒生科技ETF华安: '恒生港股通科技主题',
+};
+
+/** The rule applies only to a plain tracker of a covered index. */
 export function classify(name: string, fund: FundMatch | null = null): Pick<HoldingRow, 'tracked_index' | 'exposure' | 'covered_index'> {
   const text = keyOf(fund?.name ?? name), type = fund?.type ?? '';
   const make = (exposure: Exposure, tracked_index: string | null = null, covered_index: IndexCode | null = null) => ({exposure, tracked_index, covered_index});
   if (/余额宝|零钱通|货币/.test(text + type)) return make('money');
   if (/债券|纯债|短债|中短债|信用债|国债/.test(text + type)) return make('bond');
   if (/FOF|REIT|商品|黄金|原油/.test(text + type)) return make('other');
-  // Enhanced index funds benchmark one index but deviate from it: same direction, no rule judgment.
-  const benchmark = /沪深300/.test(text) ? '000300' : /中证500/.test(text) ? '000905' : /上证50/.test(text) ? '000016' : /中证1000/.test(text) ? '000852' : /创业板/.test(text) ? '399006' : /科创50/.test(text) ? '000688' : null;
-  if (/增强|多因子/.test(text) && benchmark && !/QDII/.test(type)) return make('a_other_index', benchmark);
-  if (/增强|多因子|优选|量化精选|策略/.test(text) && /300|500|50|1000/.test(text)) return make(/QDII/.test(type) ? 'overseas_other' : 'a_active');
-  // A plain tracker of a covered index: the index name followed by a fund-type word, never a variant
-  // (创业板50, 红利低波, 恒生医疗 …). Codes are the rule's index codes.
-  const plain = '(?=指数|ETF|联接|交易型|LOF|\\(|[A-Z]?$)';
-  const tracked = /纳斯达克(?:100|一百)|纳指100/.test(text) ? 'NDX'
+  // The target must end before a fund-type or strategy word: 创业板50 and 科创100
+  // cannot become the base index. Strategy words keep the direction but bar coverage below.
+  const plain = '(?=指数|ETF|联接|交易型|LOF|增强|多因子|量化|优选|策略|指增|\\(|[A-Z]?$)';
+  const tracked = TRACKER_ABBREVIATIONS[text] ?? (new RegExp(`(?:纳斯达克(?:100|一百)|纳指100)${plain}`).test(text) ? 'NDX'
     : /纳斯达克科技/.test(text) ? '纳斯达克科技市值加权'
-    : /标普500(?!等权|红利|价值|成长)/.test(text) ? 'SPX'
+    : new RegExp(`标普500${plain}`).test(text) ? 'SPX'
     : new RegExp(`恒生科技${plain}`).test(text) ? 'HSTECH'
-    : /恒生指数|恒指/.test(text) || new RegExp(`恒生${plain}`).test(text) ? 'HSI'
+    : new RegExp(`(?:恒生(?:指数)?|恒指)${plain}`).test(text) ? 'HSI'
     : new RegExp(`沪深300${plain}`).test(text) ? '000300'
     : new RegExp(`中证500${plain}`).test(text) ? '000905'
     : new RegExp(`上证50${plain}`).test(text) ? '000016'
     : new RegExp(`中证1000${plain}`).test(text) ? '000852'
     : new RegExp(`中证红利${plain}`).test(text) ? '000922'
-    : new RegExp(`科创板?50${plain}`).test(text) ? '000688'
-    : new RegExp(`创业板(?:指数)?${plain}`).test(text) ? '399006'
+    : new RegExp(`科创板?50(?:成份)?${plain}`).test(text) ? '000688'
+    : new RegExp(`创业板(?:指(?:数)?)?${plain}`).test(text) ? '399006'
     : /恒生科技/.test(text) ? '恒生科技（其他口径）'
     : /创业板/.test(text) ? '创业板（其他口径）'
-    : /科创/.test(text) ? '科创（其他口径）' : null;
-  const indexLike = /指数|ETF|联接/.test(text + type);
-  const covered = tracked && indexLike && isIndexCode(tracked) ? tracked : null;
+    : /科创/.test(text) ? '科创（其他口径）' : null);
+  const indexLike = /指数|ETF|联接|LOF|交易型/.test(text + type);
+  // Check the whole name, including words after 指数/ETF, for every market and index.
+  const variant = /增强|多因子|量化|优选|策略|指增/.test(text);
+  const covered = tracked && indexLike && !variant && isIndexCode(tracked) ? tracked : null;
   if (/纳斯达克|标普|美国|美股|道琼斯|纳指/.test(text)) return make('us_equity', indexLike ? tracked : null, covered);
   if (/恒生|港股|香港|恒指/.test(text)) return make('hk_equity', indexLike ? tracked : null, covered);
   if (/QDII|海外|全球|欧洲|德国|日本|越南|印度|新兴市场/.test(text + type)) return make('overseas_other', indexLike ? tracked : null);
   if (covered) return make(covered === '000922' ? 'a_other_index' : 'a_broad', covered, covered);
+  if (/增强|多因子|量化/.test(text) && tracked && isIndexCode(tracked)) return make('a_other_index', tracked);
   if (indexLike) return make('a_other_index', tracked);
   if (/混合|股票/.test(text + type)) return make('a_active');
   return make('other');
