@@ -23,7 +23,7 @@ export type IndexCode = keyof typeof VALUATION_INDEXES;
 // Display order. Not Object.keys: a numeric-looking key like '399006' would sort first.
 export const INDEX_CODES: IndexCode[] = ['000300', '000905', '000016', '000852', '399006', '000688', '000922', 'NDX', 'SPX', 'HSI', 'HSTECH'];
 /** Indices with a bundled total-return series and a matching bond yield: forward outcomes and ERP. */
-export const RETURN_INDEX_CODES = ['000300', '000905', '000016'] as const satisfies readonly IndexCode[];
+export const RETURN_INDEX_CODES = ['000300', '000905', '000016', '000852', '000922'] as const satisfies readonly IndexCode[];
 export type ReturnIndexCode = typeof RETURN_INDEX_CODES[number];
 
 export function isIndexCode(value: unknown): value is IndexCode {

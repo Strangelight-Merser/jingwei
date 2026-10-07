@@ -6,7 +6,7 @@ import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
 import {OUTCOME_INDICES, type OutcomeIndex} from '../packages/backend/total-return-source.ts';
 
-test('real API route serves all three indices with current-band and full distributions', async () => {
+test('real API route serves all five indices with current-band and full distributions', async () => {
   const app = await startApi({port: 0, mode: 'read_only'});
   try {
     for (const index of Object.keys(OUTCOME_INDICES) as OutcomeIndex[]) {
@@ -20,6 +20,6 @@ test('real API route serves all three indices with current-band and full distrib
       for (const key of ['current_band', 'judgment_as_of', 'returns_as_of', 'bands', 'conclusion'] as const) assert.deepEqual(data[key], expected[key]);
     }
     assert.equal((await app.inject({method: 'GET', url: '/publication/rule-outcomes'})).json().index_code, '000300');
-    for (const index of ['', 'H00300', '999999', 'constructor', '__proto__']) assert.equal((await app.inject({method: 'GET', url: `/publication/rule-outcomes?index=${index}`})).statusCode, 400);
+    for (const index of ['', 'H00300', '999999', 'constructor', '__proto__', '000688', 'NDX', 'HSTECH']) assert.equal((await app.inject({method: 'GET', url: `/publication/rule-outcomes?index=${index}`})).statusCode, 400);
   } finally {await app.close();}
 });

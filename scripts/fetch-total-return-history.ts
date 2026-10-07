@@ -1,11 +1,14 @@
-// Run: node scripts/fetch-total-return-history.ts. Leaves the PE seeds untouched.
+// Run: node scripts/fetch-total-return-history.ts [index ...]. Leaves the PE seeds untouched.
 import {writeFile} from 'node:fs/promises';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {fetchTotalReturnHistory, OUTCOME_INDICES, TOTAL_RETURN_URL, type OutcomeIndex} from '../packages/backend/total-return-source.ts';
 
-const start = seedHistory().points[0].date;
 const end = '2026-09-30';
-await Promise.all((Object.keys(OUTCOME_INDICES) as OutcomeIndex[]).map(async index => {
+const requested = process.argv.slice(2);
+for (const index of requested) if (!Object.hasOwn(OUTCOME_INDICES, index)) throw new Error(`unknown_total_return_index_${index}`);
+const indices = (requested.length ? requested : Object.keys(OUTCOME_INDICES)) as OutcomeIndex[];
+await Promise.all(indices.map(async index => {
+  const start = seedHistory(index).points[0].date;
   const points = await fetchTotalReturnHistory(index, start, end);
   if (!points.length || points[0].date !== start || points.at(-1)!.date !== end) throw new Error(`total_return_seed_incomplete_${index}`);
   const file = `../packages/backend/${index}-total-return-seed.ts`;

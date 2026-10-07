@@ -1,12 +1,13 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {dailyErp, erpPercentiles, erpGroup, erpForHistory, seedBondYields} from '../packages/backend/erp.ts';
+import {dailyErp, erpPercentiles, erpGroup, erpForHistory, seedBondYields, bundledErp} from '../packages/backend/erp.ts';
 import {BOND_YIELD_SOURCE} from '../packages/backend/government-bond-yield-seed.ts';
 import {seedHistory, type ValuationPoint} from '../packages/backend/valuation-history.ts';
 import {seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
 import {RETURN_INDEX_CODES as INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 import type {ValuationBand} from '../packages/backend/valuation-rule.ts';
 import type {TotalReturnPoint} from '../packages/backend/total-return-source.ts';
+import {OUTCOME_INDICES} from '../packages/backend/total-return-source.ts';
 
 const shift = (date: string, years: number) => {const d = new Date(date); d.setUTCFullYear(d.getUTCFullYear() + years); return d.toISOString().slice(0, 10);};
 const bands: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
@@ -74,6 +75,10 @@ for (const index of INDEX_CODES) test(`${index}: independently recomputed ERP, r
   const pe = seedHistory(index).points, closes = seedTotalReturnHistory(index).points;
   const actual = erpForHistory(pe, seedBondYields(), closes)!;
   const expected = independent(pe, closes);
+  const offline = bundledErp(index);
+  assert.equal(offline.index_code, index);
+  assert.equal(offline.total_return_code, OUTCOME_INDICES[index].code);
+  for (const key of ['current', 'consistency', 'outcomes', 'outcome_conclusion'] as const) assert.deepEqual(offline[key], actual[key]);
   assert.equal(actual.as_of, '2026-09-30');
   assert.equal(actual.daily.length, expected.daily.length);
   for (const [i, p] of actual.daily.entries()) {

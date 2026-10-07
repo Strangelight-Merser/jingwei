@@ -5,9 +5,12 @@ import {storageConfiguration} from './storage.ts';
 import {TOTAL_RETURN_SEED as CSI300_SEED, TOTAL_RETURN_SOURCE as CSI300_SOURCE} from './000300-total-return-seed.ts';
 import {TOTAL_RETURN_SEED as CSI500_SEED, TOTAL_RETURN_SOURCE as CSI500_SOURCE} from './000905-total-return-seed.ts';
 import {TOTAL_RETURN_SEED as SSE50_SEED, TOTAL_RETURN_SOURCE as SSE50_SOURCE} from './000016-total-return-seed.ts';
+import {TOTAL_RETURN_SEED as CSI1000_SEED, TOTAL_RETURN_SOURCE as CSI1000_SOURCE} from './000852-total-return-seed.ts';
+import {TOTAL_RETURN_SEED as CSIDIV_SEED, TOTAL_RETURN_SOURCE as CSIDIV_SOURCE} from './000922-total-return-seed.ts';
 import {fetchTotalReturnHistory, OUTCOME_INDICES, TOTAL_RETURN_URL, type OutcomeIndex, type TotalReturnPoint} from './total-return-source.ts';
 
-const SEEDS = {'000300': {data: CSI300_SEED, source: CSI300_SOURCE}, '000905': {data: CSI500_SEED, source: CSI500_SOURCE}, '000016': {data: SSE50_SEED, source: SSE50_SOURCE}};
+const SEEDS = {'000300': {data: CSI300_SEED, source: CSI300_SOURCE}, '000905': {data: CSI500_SEED, source: CSI500_SOURCE}, '000016': {data: SSE50_SEED, source: SSE50_SOURCE},
+  '000852': {data: CSI1000_SEED, source: CSI1000_SOURCE}, '000922': {data: CSIDIV_SEED, source: CSIDIV_SOURCE}};
 export type TotalReturnHistory = {index_code: OutcomeIndex; total_return_code: string; source_url: string; checked_at: string | null; points: TotalReturnPoint[]};
 
 export function seedTotalReturnHistory(index: OutcomeIndex): TotalReturnHistory {

@@ -3,6 +3,8 @@ export const OUTCOME_INDICES = {
   '000300': {name: '沪深300', code: 'H00300', name_cn: '沪深300全收益指数', name_en: 'CSI 300 Total Return Index'},
   '000905': {name: '中证500', code: 'H00905', name_cn: '中证小盘500全收益指数', name_en: 'CSI Smallcap 500 Total Return Index'},
   '000016': {name: '上证50', code: 'H00016', name_cn: '上证50全收益指数', name_en: 'SSE 50 Total Return Index'},
+  '000852': {name: '中证1000', code: 'H00852', name_cn: '中证1000全收益指数', name_en: 'CSI 1000 Total Return Index'},
+  '000922': {name: '中证红利', code: 'H00922', name_cn: '中证红利全收益指数', name_en: 'CSI Dividend Total Return Index'},
 } as const;
 export type OutcomeIndex = keyof typeof OUTCOME_INDICES;
 export type TotalReturnPoint = {date: string; close: number};

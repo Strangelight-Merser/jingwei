@@ -7,9 +7,11 @@ import {currentValuationHistory, judgmentPublication, refreshValuationState, val
 import {mutateState, readState} from '../packages/backend/storage.ts';
 
 const CURRENT = {
-  '000300': {pe:13.15,percentile:48.8,band:'mid',changes:17,rows:3788,boundaries:[12.22,14.41,15.33]},
-  '000905': {pe:25.09,percentile:71.6,band:'high',changes:9,rows:3785,boundaries:[18.49,23.48,36.51]},
-  '000016': {pe:10.95,percentile:61.2,band:'mid',changes:22,rows:3785,boundaries:[10.07,11.56,12.15]},
+  '000300': {first:'2011-06-28',pe:13.15,percentile:48.8,band:'mid',changes:17,rows:3788,boundaries:[12.22,14.41,15.33]},
+  '000905': {first:'2011-06-28',pe:25.09,percentile:71.6,band:'high',changes:9,rows:3785,boundaries:[18.49,23.48,36.51]},
+  '000016': {first:'2011-06-28',pe:10.95,percentile:61.2,band:'mid',changes:22,rows:3785,boundaries:[10.07,11.56,12.15]},
+  '000852': {first:'2014-09-25',pe:29.59,percentile:66.3,band:'high',changes:6,rows:3057,boundaries:[23.39,29.34,47.05]},
+  '000922': {first:'2011-06-28',pe:8.6,percentile:75.6,band:'high',changes:17,rows:3786,boundaries:[7.17,8.25,10.45]},
 } as const;
 
 for (const index of RETURN_INDEX_CODES) test(`${index}：各自官方历史、当前判断与固定规则参数`, () => {
@@ -17,7 +19,7 @@ for (const index of RETURN_INDEX_CODES) test(`${index}：各自官方历史、�
   const expected = CURRENT[index];
   const result = evaluateValuationRule(history.points, {index})!;
   assert.equal(history.index_code,index);
-  assert.equal(history.points[0].date,'2011-06-28');
+  assert.equal(history.points[0].date,expected.first);
   assert.equal(history.points.at(-1)!.date,'2026-09-30');
   assert.equal(result.index_name,VALUATION_INDEXES[index].name);
   assert.equal(result.pe_ttm,expected.pe);
@@ -31,7 +33,7 @@ for (const index of RETURN_INDEX_CODES) test(`${index}：各自官方历史、�
   assert.ok(history.points.every(p => p.pe_ttm > 0 && Number.isFinite(p.pe_ttm)));
 });
 
-test('三个指数的官方响应不能混用中英文身份；英文名也逐项校验', () => {
+test('五个收益回放指数的官方响应不能混用中英文身份；英文名也逐项校验', () => {
   for (const index of RETURN_INDEX_CODES) {
     const identity = VALUATION_INDEXES[index];
     const row = {tradeDate:'20260930',indexName:identity.name,indexNameEn:identity.name_en,peg:CURRENT[index].pe};

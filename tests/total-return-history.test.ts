@@ -5,12 +5,39 @@ import {join} from 'node:path';
 import {parseTotalReturnHistory, fetchTotalReturnHistory, OUTCOME_INDICES, type OutcomeIndex} from '../packages/backend/total-return-source.ts';
 import {currentTotalReturnHistory, refreshTotalReturnHistory, seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
 import {storageConfiguration} from '../packages/backend/storage.ts';
+import {RETURN_INDEX_CODES, hasReturns, INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 
 function row(index: OutcomeIndex, tradeDate: string, close = 100) {
   const info = OUTCOME_INDICES[index];
   return {indexCode: info.code, indexNameCnAll: info.name_cn, indexNameEnAll: info.name_en, tradeDate, close};
 }
 const body = (data: unknown[]) => ({code: '200', data});
+
+test('return coverage includes exactly the five supported total-return series', () => {
+  assert.deepEqual(RETURN_INDEX_CODES, ['000300', '000905', '000016', '000852', '000922']);
+  assert.deepEqual(Object.keys(OUTCOME_INDICES).sort(), [...RETURN_INDEX_CODES].sort());
+  for (const index of INDEX_CODES) assert.equal(hasReturns(index), Object.hasOwn(OUTCOME_INDICES, index));
+});
+
+test('CSI1000 and CSI Dividend validate the official full names and reject price or other return series', () => {
+  const identities = [
+    {index: '000852', code: 'H00852', name_cn: '中证1000全收益指数', name_en: 'CSI 1000 Total Return Index', close: 8463.63},
+    {index: '000922', code: 'H00922', name_cn: '中证红利全收益指数', name_en: 'CSI Dividend Total Return Index', close: 11935.19},
+  ] as const;
+  for (const info of identities) {
+    const official = {indexCode: info.code, indexNameCnAll: info.name_cn, indexNameEnAll: info.name_en, tradeDate: '20260930', close: info.close};
+    const parse = (data: unknown[]) => parseTotalReturnHistory(body(data), info.index, '2026-09-30', '2026-09-30');
+    assert.deepEqual(parse([official]), [{date: '2026-09-30', close: info.close}]);
+    for (const patch of [{indexCode: info.index}, {indexNameCnAll: info.name_cn.replace('全收益', '')}, {indexNameEnAll: info.name_en.replace('Total Return ', '')}]) {
+      assert.throws(() => parse([{...official, ...patch}]), /identity_mismatch/);
+    }
+    for (const other of RETURN_INDEX_CODES.filter(code => code !== info.index)) assert.throws(() => parse([row(other, '20260930')]), /identity_mismatch/);
+    const seed = seedTotalReturnHistory(info.index);
+    assert.equal(seed.total_return_code, info.code);
+    assert.deepEqual(seed.points.at(-1), {date: '2026-09-30', close: info.close});
+    assert.equal(seed.points[0].date, info.index === '000852' ? '2014-09-25' : '2011-06-28');
+  }
+});
 
 test('official parser validates total-return identity, real dates, bounds and positive closes', () => {
   const valid = row('000300', '20260930');

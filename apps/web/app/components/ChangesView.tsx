@@ -1,6 +1,6 @@
 import {useState, type ReactNode} from 'react';
 import {BAND_JUDGMENTS} from '../../../../packages/backend/valuation-rule.ts';
-import {hasReturns, type IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
+import {hasReturns, RETURN_INDEX_CODES, VALUATION_INDEXES, type IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
 import type {RuleOutcomesPublication} from '../../../../packages/backend/rule-outcomes-publication.ts';
 import type {Judgment} from './RuleJudgment.tsx';
 import {IndexSwitch, ScrubChart} from './HomeHero.tsx';
@@ -47,13 +47,13 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
 
     <section className="changes-stability reveal" style={{'--i': 3} as React.CSSProperties} aria-labelledby="stability-title">
       <h2 id="stability-title">为什么 v2 加了缓冲</h2>
-      <p>同一份数据，不加缓冲的 v1 共改判 <b>{j.stability.v1_changes}</b> 次，其中 <b>{j.stability.v1_quick_reversals}</b> 次在 {j.stability.reversal_days} 天内又改了回去；加缓冲的 v2 改判 <b>{j.stability.changes}</b> 次，{j.stability.reversal_days} 天内反转 <b>{j.stability.quick_reversals}</b> 次。缓冲只为减少反复改口{hasReturns(j.index_code) ? '，下面各区间之后的收益排序在两版中一致' : ''}。</p>
+      <p>同一份数据，不加缓冲的 v1 共改判 <b>{j.stability.v1_changes}</b> 次，其中 <b>{j.stability.v1_quick_reversals}</b> 次在 {j.stability.reversal_days} 天内又改了回去；加缓冲的 v2 改判 <b>{j.stability.changes}</b> 次，{j.stability.reversal_days} 天内反转 <b>{j.stability.quick_reversals}</b> 次。缓冲只为减少反复改口{hasReturns(j.index_code) ? '，各区间之后的实际收益见下方回放' : ''}。</p>
     </section>
 
     <div className="reveal" style={{'--i': 4} as React.CSSProperties}>
       {hasReturns(j.index_code)
         ? <><RuleOutcomes key={'o' + j.index_code} index={j.index_code} outcomes={outcomes}/><ErpLens index={j.index_code}/></>
-        : <section className="changes-stability"><h2>各区间之后的收益</h2><p>收益回放与股债对照需要含分红的全收益指数和对应的国债收益率，目前只有沪深300、中证500、上证50具备。{j.index_name}先给出估值判断和改判记录。</p></section>}
+        : <section className="changes-stability"><h2>各区间之后的收益</h2><p>收益回放与股债对照需要含分红的全收益指数和对应的国债收益率，目前只有{RETURN_INDEX_CODES.map(code => VALUATION_INDEXES[code].name).join('、')}具备。{j.index_name}先给出估值判断和改判记录。</p></section>}
     </div>
 
     <section className="changes-log" id="rule" aria-labelledby="changes-log-title">

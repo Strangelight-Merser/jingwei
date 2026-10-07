@@ -48,7 +48,10 @@ for (const index of Object.keys(OUTCOME_INDICES) as OutcomeIndex[]) {
     const history = seedHistory(index);
     assert.equal(history.index_code, index, 'the PE history must belong to the requested index');
     const pe = history.points;
-    const closes = seedTotalReturnHistory(index).points;
+    const returns = seedTotalReturnHistory(index);
+    assert.equal(returns.index_code, index);
+    assert.equal(returns.total_return_code, OUTCOME_INDICES[index].code);
+    const closes = returns.points;
     assert.equal(closes[0].date, pe[0].date);
     assert.equal(closes.at(-1)!.date, '2026-09-30');
     assert.equal(new Set(closes.map(p => p.date)).size, closes.length);
