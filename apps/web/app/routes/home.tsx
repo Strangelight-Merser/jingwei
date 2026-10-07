@@ -13,6 +13,7 @@ import {ReadingGuide} from '../components/ReadingGuide.tsx';
 import {ExtendedReading} from '../components/ExtendedReading.tsx';
 import {AskJingwei} from '../components/AskJingwei.tsx';
 import {FirstRun} from '../components/FirstRun.tsx';
+import {IndexOverview} from '../components/IndexOverview.tsx';
 export async function loader(){
  const [home,overview]=await Promise.all([publication<Awaited<ReturnType<typeof homePublication>>&{research_update?:ResearchUpdate;research_facts?:ResearchEvaluation|null;research_data_as_of?:string|null;research_source_refs?:SourceRef[];research_evidence_hash?:string|null}>('home'),publication<JudgmentOverview>('judgments')]);
  return {...home,judgment:overview.indexes.find(j=>j.index_code==='000300')??null,indexes:overview.indexes};
@@ -29,6 +30,7 @@ export default function Home(){
  return <main id="main" className="home-page">
   {indexes.length>0&&<FirstRun indexes={indexes}/>}
   {selected&&<HomeHero key={selected.index_code} j={selected} indexes={indexes} guide={<ReadingGuide judgment={selected}/>}/>}
+  {selected&&indexes.length>1&&<IndexOverview indexes={indexes} selected={selected.index_code}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
   <div className="home-companions">
    {judgment&&<AskJingwei/>}
