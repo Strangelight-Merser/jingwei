@@ -40,7 +40,7 @@ test('last date, row count and last PE each invalidate the calculation', () => {
 test('publication and research evidence use fresh source metadata even on a cache hit', async () => {
   const history = seedHistory('NDX');
   cachedValuationRule(history);
-  await mutateState(state => {
+  await mutateState(async state => {
     (state.valuation_histories ??= {}).NDX = {...history, checked_at: '2026-10-07T12:00:00Z', source_url: 'https://example.org/updated-source'};
   });
   const publication = (await judgmentPublication('NDX'))!;

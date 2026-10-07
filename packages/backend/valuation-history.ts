@@ -51,6 +51,17 @@ export function mergePeHistory(base: ValuationPoint[], update: ValuationPoint[])
   return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
+// One observation per mainland calendar week, including holiday-shifted readings.
+function weekOf(date: string): string {
+  const day = new Date(`${date}T00:00:00Z`);
+  day.setUTCDate(day.getUTCDate() - (day.getUTCDay() + 6) % 7);
+  return day.toISOString().slice(0, 10);
+}
+
+function weeklyPoints(points: ValuationPoint[]): ValuationPoint[] {
+  return [...new Map([...points].sort((a, b) => a.date.localeCompare(b.date)).map(p => [weekOf(p.date), p])).values()];
+}
+
 const SEEDS: Record<IndexCode, string> = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED,
   ...Object.fromEntries(Object.entries(EXTRA_PE_SEEDS).map(([code, seed]) => [code, seed.data]))} as Record<IndexCode, string>;
 const seedCache = new Map<IndexCode, ValuationPoint[]>();
@@ -116,7 +127,12 @@ export async function fetchPeHistory(start: string, options: {index?: IndexCode;
 export async function refreshPeHistory(current: ValuationHistory, options: {now?: Date; fetcher?: typeof fetch} = {}): Promise<ValuationHistory> {
   if (sourceOf(current.index_code) === 'danjuan') {
     const update = await fetchDanjuanHistory(current.index_code, options);
-    return {...current, checked_at: (options.now ?? new Date()).toISOString(), points: mergePeHistory(current.points, update)};
+    const base = current.points;
+    const existingWeeks = new Map(base.map(p => [weekOf(p.date), p.date]));
+    // Keep the established observation date when the provider shifts a weekly reading.
+    const additions = weeklyPoints(update).filter(p => existingWeeks.get(weekOf(p.date)) === p.date
+      || (p.date > (base.at(-1)?.date ?? '') && !existingWeeks.has(weekOf(p.date))));
+    return {...current, checked_at: (options.now ?? new Date()).toISOString(), points: mergePeHistory(base, additions)};
   }
   const last = current.points.at(-1)?.date ?? '2011-01-01';
   const from = new Date(`${last}T00:00:00Z`);
