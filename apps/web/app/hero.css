@@ -7,7 +7,8 @@
 .tone-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--tone-line);flex:none}
 
 .hero{display:grid;gap:28px;padding-top:4px}
-.hero-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.hero-top{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+/* The reveal animation gives each section its own stacking context; the top row (with its help popovers) stays above the chart. */
 .hero-meta{display:flex;align-items:center;gap:18px;font-size:var(--text-ui);color:var(--muted)}
 .hero-meta .home-reading-keywords{display:flex;align-items:center;gap:14px;margin:0;padding:0;border:0}
 .hero-meta .home-reading-keywords>div{display:flex;gap:12px}
@@ -188,3 +189,5 @@
   .index-overview li a{grid-template-columns:1fr auto auto;grid-template-areas:'name pct band' 'track track track' 'action action action';row-gap:8px;gap:8px 10px}
   .index-overview-name{grid-area:name}.index-overview-pct{grid-area:pct}.index-overview-band{grid-area:band}.index-overview-track{grid-area:track}.index-overview-action{grid-area:action;font-size:var(--text-caption)}
 }
+
+.hero-buffer-note{display:block;margin-bottom:6px;color:var(--ink)}

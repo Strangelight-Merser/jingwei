@@ -4,6 +4,7 @@ import {VALUATION_INDEXES, type IndexCode} from '../../../../packages/backend/va
 import {BAND_JUDGMENTS, type ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
 import type {Judgment} from './RuleJudgment.tsx';
 import {date} from '../lib/format.ts';
+import {actionText, bufferNote, eachReading, historySpan} from '../lib/rule-wording.ts';
 import '../hero.css';
 
 const BANDS: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
@@ -107,7 +108,7 @@ export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tal
       className={`hero-chart-area${scrub !== null ? ' is-scrubbing' : ''}${tall ? ' is-tall' : ''}`}
       tabIndex={0}
       role="slider"
-      aria-label={`${j.index_name}近十年估值分位，左右方向键回看历史`}
+      aria-label={`${j.index_name}${historySpan(j)}估值分位，左右方向键回看历史`}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={active.percentile}
@@ -132,7 +133,7 @@ export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tal
       {[j.rule.low, j.rule.high, j.rule.extreme].map(v => <span key={v} className="hero-chart-tick" style={{top: `${100 - v}%`}}>{v}</span>)}
     </div>
     <div className="hero-chart-years" aria-hidden="true">{years.map(y => <span key={y} style={{left: `${((Date.parse(`${y}-01-01`) - t0) / span) * 100}%`}}>{y}</span>)}</div>
-    <figcaption>{scrub === null ? '拖动或悬停曲线，回看十年里每一天的位置；圆点是确认改判日。' : `${date(active.date)} · 当时已确认${BAND_JUDGMENTS[bandOn(j, active.date)].label}`}</figcaption>
+    <figcaption>{scrub === null ? `拖动或悬停曲线，回看${j.full_window ? '十年里' : '已有历史中'}${eachReading(j)}的位置；圆点是确认改判日。` : `${date(active.date)} · 当时已确认${BAND_JUDGMENTS[bandOn(j, active.date)].label}`}</figcaption>
   </figure>;
 }
 
@@ -181,8 +182,8 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
         </div>
         <p className="hero-plain">
           {point
-            ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时近十年的第 <b>{point.percentile}</b> 百分位。松开或移开回到今天。</>
-            : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周读数' : '日子'}比现在便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
+            ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时{j.full_window ? '近十年' : '已有历史'}的第 <b>{point.percentile}</b> 百分位。松开或移开回到今天。</>
+            : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周读数' : '交易日'}比现在便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
         </p>
         {age > STALE_DAYS + (j.rule.frequency === 'weekly' ? 7 : 0) && <p className="hero-stale">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}
         {j.index_code !== '000300' && <p className="hero-scope">基金比较和「我的情况」目前只对沪深300。</p>}
@@ -194,14 +195,14 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
       {([['新增资金', j.judgment.new_money], ['已有持仓', j.judgment.held]] as const).map(([who, part]) => <div key={who} className={`hero-action tone-${ACTION_TONE[part.action]}`}>
         <small>{who}</small>
         <strong><span className="hero-chip">{part.action}</span>{part.title}</strong>
-        <p>{part.text}</p>
+        <p>{who === '新增资金' && bufferNote(j) ? <><span className="hero-buffer-note">{bufferNote(j)}</span>{actionText(j, part.text, true)}</> : actionText(j, part.text, who === '新增资金')}</p>
       </div>)}
     </div>
 
     <div className="hero-ladder reveal" style={{'--i': 3} as React.CSSProperties}>
       <div className="hero-ladder-head">
         <h2>什么时候会改判</h2>
-        <p>连续 {j.rule.confirm_days} {j.rule.unit}落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随十年窗口移动。</p>
+        <p>连续 {j.rule.confirm_days} {j.rule.unit}落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随{j.full_window ? '十年' : '历史'}窗口移动。</p>
       </div>
       <ol>
         {BANDS.map(band => <li key={band} className={`tone-${band}${band === j.band ? ' is-current' : ''}`} aria-current={band === j.band ? 'true' : undefined}>
@@ -214,7 +215,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
       {j.pending && <p className="hero-pending">已有 {j.pending.days}/{j.pending.needed} {j.rule.unit}落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} {j.rule.unit}就会改判。</p>}
       <p className="hero-last">
         <span>上次改判 {date(last.date)}{lastFrom ? `，${lastFrom.label} → ${j.judgment.label}` : ''}（当日第 {last.percentile} 百分位）</span>
-        <Link to={`/changes?index=${j.index_code}#rule`}>十年里的 {j.changes.length - 1} 次改判 →</Link>
+        <Link to={`/changes?index=${j.index_code}#rule`}>{j.full_window ? '十年里' : `${date(j.window_start)}以来`}的 {j.changes.length - 1} 次改判 →</Link>
         <Link to={`/changes?index=${j.index_code}#rule-method`}>规则与口径</Link>
       </p>
     </div>

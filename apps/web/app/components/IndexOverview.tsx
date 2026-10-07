@@ -9,7 +9,7 @@ export function IndexOverview({indexes, selected}: {indexes: Judgment[]; selecte
   return <section className="index-overview reveal" style={{'--i': 4} as React.CSSProperties} aria-labelledby="index-overview-title">
     <div className="index-overview-head">
       <h2 id="index-overview-title">全部指数</h2>
-      <p>每个指数和自己近十年的估值比；点开看详情。</p>
+      <p>每个指数和自己的历史估值比（最多十年）；点开看详情。</p>
     </div>
     {GROUPS.map(group => {
       const items = indexes.filter(j => group.markets.includes(VALUATION_INDEXES[j.index_code].market));

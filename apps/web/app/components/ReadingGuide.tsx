@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {BAND_JUDGMENTS, type ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
 import type {Judgment} from './RuleJudgment.tsx';
 import {date} from '../lib/format.ts';
+import {eachReading, sourcePhrase} from '../lib/rule-wording.ts';
 
 const STORAGE_KEY = 'jingwei.reader.reading-guide.dismissed';
 const BANDS: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
@@ -19,7 +20,7 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [step, setStep] = useState(0);
   const historyWindow = j.full_window ? `近${j.rule.window_years}年里` : `${date(j.window_start)}以来`;
-  const cheaperDays = `${historyWindow}有 ${j.percentile}% 的日子，比今天便宜或一样贵。`;
+  const cheaperDays = `${historyWindow}有 ${j.percentile}% 的${j.rule.frequency === 'weekly' ? '周读数' : '交易日'}，比现在便宜或一样贵。`;
   const ranges = [`低于 ${j.rule.low}`, `${j.rule.low} 至不足 ${j.rule.high}`, `${j.rule.high} 至不足 ${j.rule.extreme}`, `${j.rule.extreme} 及以上`];
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
     <div className="home-reading-keywords" aria-label="读懂估值判断">
       <div>
         <PlainHint term="滚动市盈率">把指数价格与最近12个月的盈利相比，倍数越低，表示为同样的盈利付的钱越少。</PlainHint>
-        <PlainHint term="百分位">把当前估值与近{j.rule.window_years}年每天的估值排一排；数字越小，历史上比现在便宜的日子越少。</PlainHint>
+        <PlainHint term="百分位">把当前估值与{j.full_window ? `近${j.rule.window_years}年` : `${date(j.window_start)}以来`}{eachReading(j)}的估值排一排；数字越小，历史上比现在便宜的时候越少。</PlainHint>
       </div>
       <button type="button" onClick={openGuide}>如何阅读 <span aria-hidden="true">→</span></button>
     </div>
@@ -57,14 +58,14 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
       <p className="home-guide-context">以{j.index_name}为例 · 数据截至 <time dateTime={j.as_of}>{date(j.as_of)}</time></p>
       <div className="home-guide-content" aria-live="polite">
         {step === 0 && <>
-          <p>经纬每天查看中证指数公布的<strong>滚动市盈率</strong>，看指数价格相当于最近12个月盈利的多少倍。</p>
+          <p>经纬读取{sourcePhrase(j)}<strong>滚动市盈率</strong>，看指数价格相当于最近12个月盈利的多少倍。</p>
           <div className="home-guide-example"><small>本期滚动市盈率</small><strong>{j.pe_ttm}<span> 倍</span></strong></div>
-          <p>再与近{j.rule.window_years}年的估值比较，按公开规则给出新增资金和已有持仓的判断。</p>
+          <p>再与{j.full_window ? `近${j.rule.window_years}年` : `${date(j.window_start)}以来`}的估值比较，按公开规则给出新增资金和已有持仓的判断。</p>
         </>}
         {step === 1 && <>
           <div className="home-guide-example"><small>本期百分位</small><strong>{j.percentile}<span> / 100</span></strong></div>
           <p className="home-guide-plain">{cheaperDays}</p>
-          <p>数字越小，说明估值在过去的日子里越靠近便宜的一端。这里比的是估值，分位并不表示买入后的收益率。</p>
+          <p>数字越小，说明估值在过去越靠近便宜的一端。这里比的是估值，分位并不表示买入后的收益率。</p>
         </>}
         {step === 2 && <>
           <div className="home-guide-bands">

@@ -4,6 +4,7 @@ import type {IndexCode} from '../../../../packages/backend/valuation-indexes.ts'
 import type {RuleJudgmentResult, ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
 import {BAND_JUDGMENTS} from '../../../../packages/backend/valuation-rule.ts';
 import {date} from '../lib/format.ts';
+import {actionText, bufferNote, historySpan} from '../lib/rule-wording.ts';
 
 export type Judgment = NonNullable<RuleJudgmentResult> & {source_url: string; checked_at: string | null};
 export type JudgmentOverview = {indexes: Judgment[]};
@@ -29,7 +30,7 @@ const BAND_ORDER: ValuationBand[] = ['low', 'mid', 'high', 'extreme'];
 export function PercentileScale({j}: {j: Judgment}) {
   const {low, high, extreme} = j.rule;
   const edges = [0, low, high, extreme, 100];
-  return <div className="rule-scale" role="img" aria-label={`当前处于近十年第${j.percentile}百分位，${j.judgment.label}`}>
+  return <div className="rule-scale" role="img" aria-label={`当前处于${historySpan(j)}第${j.percentile}百分位，${j.judgment.label}`}>
     <div className="rule-scale-bar">
       {BAND_ORDER.map((band, i) => <span key={band} className={`rule-scale-band band-${band}${band === j.band ? ' is-current' : ''}`} style={{left: `${edges[i]}%`, width: `${edges[i + 1] - edges[i]}%`}}>
         <em>{BAND_JUDGMENTS[band].label}</em>
@@ -91,11 +92,12 @@ export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}
   </figure>;
 }
 
-function Action({who, part}: {who: string; part: Judgment['judgment']['new_money']}) {
+function Action({who, part, j}: {who: string; part: Judgment['judgment']['new_money']; j: Judgment}) {
+  const note = who === '新增资金' ? bufferNote(j) : null;
   return <div className="rule-action">
     <small>{who}</small>
     <strong><span className={`rule-chip chip-${part.action}`}>{part.action}</span>{part.title}</strong>
-    <p>{part.text}</p>
+    <p>{note && <span className="hero-buffer-note">{note}</span>}{actionText(j, part.text, who === '新增资金')}</p>
   </div>;
 }
 
@@ -122,13 +124,13 @@ export function RuleJudgment({j: initial, indexes = [initial], today = new Date(
     <section className="rule-judgment" aria-labelledby="rule-judgment-title">
     <div className="rule-head">
       <small>{j.index_name} · 本期判断 · 数据截至 {date(j.as_of)}</small>
-      <h1 id="rule-judgment-title">估值处在近十年{j.judgment.label}，{j.judgment.new_money.title}</h1>
+      <h1 id="rule-judgment-title">估值处在{historySpan(j)}{j.judgment.label}，{j.judgment.new_money.title}</h1>
       {age > STALE_DAYS && <p className="rule-pending">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 的数据给出；联网打开应用时会自动补查。</p>}
       <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的数据日估值不高于当日。</p>
     </div>
     <div className="rule-actions">
-      <Action who="新增资金" part={j.judgment.new_money}/>
-      <Action who="已有持仓" part={j.judgment.held}/>
+      <Action who="新增资金" part={j.judgment.new_money} j={j}/>
+      <Action who="已有持仓" part={j.judgment.held} j={j}/>
     </div>
     <PercentileScale j={j}/>
     <div className="rule-triggers">
@@ -144,7 +146,7 @@ export function RuleJudgment({j: initial, indexes = [initial], today = new Date(
     </div>
     <p className="rule-last">
       上次改判：{date(last.date)}{lastFrom ? `，由「${lastFrom.new_money.title}」改为「${j.judgment.new_money.title}」` : ''}（当日第{last.percentile}百分位）。
-      <Link to={`/changes?index=${j.index_code}#rule`}>十年里的 {j.changes.length - 1} 次改判 →</Link>
+      <Link to={`/changes?index=${j.index_code}#rule`}>{j.full_window ? '十年里' : `${date(j.window_start)}以来`}的 {j.changes.length - 1} 次改判 →</Link>
     </p>
     <p className="rule-note">判断只由公开规则和{j.rule.source === 'csi' ? '中证指数官方估值' : '蛋卷基金公开的估值数据'}决定，不读取你的资料；不预测涨跌，也不保证收益。<Link to={`/changes?index=${j.index_code}#rule-method`}>规则与口径</Link></p>
   </section></>;
