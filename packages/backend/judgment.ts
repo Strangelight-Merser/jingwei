@@ -4,6 +4,7 @@ import {seedHistory, refreshPeHistory, mergePeHistory, type ValuationHistory} fr
 import {evaluateValuationRule, BAND_JUDGMENTS, type RuleAction} from './valuation-rule.ts';
 import type {ValuationRuleEvidence, ResearchStance} from '../contracts/research.ts';
 import {INDEX_CODES, type IndexCode} from './valuation-indexes.ts';
+import {cachedValuationRule} from './judgment-cache.ts';
 
 const STANCE: Record<RuleAction, ResearchStance> = {'加': 'conditional_add', '持': 'maintain_plan', '观察': 'observe', '减': 'conditional_reduce'};
 
@@ -16,7 +17,7 @@ export function currentValuationHistory(state: State, index: IndexCode = '000300
 
 function judgmentFor(state: State, index: IndexCode) {
   const history = currentValuationHistory(state, index);
-  const result = evaluateValuationRule(history.points, {index});
+  const result = cachedValuationRule(history);
   return result && {...result, source_url: history.source_url, checked_at: history.checked_at};
 }
 
@@ -62,7 +63,7 @@ function triggers(r: NonNullable<ReturnType<typeof evaluateValuationRule>>) {
 /** The rule result for one index as citable evidence; the research chain uses CSI 300, the default. */
 export function valuationRuleEvidence(state: State, index: IndexCode = '000300'): ValuationRuleEvidence | null {
   const history = currentValuationHistory(state, index);
-  const r = evaluateValuationRule(history.points, {index});
+  const r = cachedValuationRule(history);
   if (!r) return null;
   const j = r.judgment;
   const fromLabel = r.last_change.from ? BAND_JUDGMENTS[r.last_change.from].label : null;
