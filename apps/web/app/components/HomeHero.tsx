@@ -186,6 +186,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
             : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周读数' : '交易日'}比现在便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
         </p>
         {age > STALE_DAYS + (j.rule.frequency === 'weekly' ? 7 : 0) && <p className="hero-stale">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}
+        {j.rule.source === 'danjuan' && <p className="hero-scope">估值来自第三方，口径可能与指数公司不同：在两家都有数据的 A 股指数上，按本规则得出的区间约有 64%–81% 的周一致。</p>}
         {j.index_code !== '000300' && <p className="hero-scope">基金比较和「我的情况」目前只对沪深300。</p>}
       </div>
       <ScrubChart j={j} scrub={scrub} onScrub={setScrub}/>
