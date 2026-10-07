@@ -83,7 +83,7 @@ export function createAskService({provider=composeWithDeepSeekPrompt,session=ses
   const estimate_micro_cny=estimateReservation(JSON.stringify(modelMessages(prompt)));
   const quote=hash(prompt+'\n'+estimate_micro_cny);
   const s=session(),m=model();
-  const message=!s.has_key?'需在维护模式配置密钥':m!=='ready'||!s.authorized?'需在维护模式授权本轮费用':!state.budget||state.budget.reserved_micro_cny+estimate_micro_cny>state.budget.limit_micro_cny?'本轮剩余额度不足':'';
+  const message=!s.has_key?'需在维护模式配置密钥':m!=='ready'||!s.authorized?'需在模型设置中授权费用':!state.budget||state.budget.reserved_micro_cny+estimate_micro_cny>state.budget.limit_micro_cny?'累计额度已用完':'';
   const preview:AskPreview={question,quote,estimate_micro_cny,model:PRICE_POLICY.model,ready:!message,message,fragments};
   return {rule,prompt,preview};
  }
@@ -102,7 +102,7 @@ export function createAskService({provider=composeWithDeepSeekPrompt,session=ses
      record.answer=answer.answer;record.cites=answer.cites;record.status='answered';
     } catch(error) {
      const reason=error instanceof Error?error.message:'';
-     message=reason==='budget_exhausted'?'本轮剩余额度不足':reason==='model_setup_required'?'需在维护模式配置密钥或授权费用':'这个问题暂时答不好';
+     message=reason==='budget_exhausted'?'累计额度已用完':reason==='model_setup_required'?'需在维护模式配置密钥或授权费用':'这个问题暂时答不好';
      record.status='rejected';
     }
    }

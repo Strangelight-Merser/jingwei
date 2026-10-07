@@ -89,7 +89,7 @@ test('未配置密钥或未授权：不调用provider、不预留费用、不生
   let calls=0;
   const service=createAskService({session:()=>({has_key,authorized:false,model:PRICE_POLICY.model}),model:()=>has_key?'disabled':'unconfigured',provider:async()=>{calls++;throw Error('must_not_call');}});
   const p=await service.preview(question),result=await service.answer(question,p.quote);
-  assert.equal(p.ready,false);assert.equal(p.message,has_key?'需在维护模式授权本轮费用':'需在维护模式配置密钥');
+  assert.equal(p.ready,false);assert.equal(p.message,has_key?'需在模型设置中授权费用':'需在维护模式配置密钥');
   assert.equal(calls,0);assert.equal(result.record.status,'unavailable');assert.equal(result.record.answer,p.message);assert.equal(result.record.reserved_micro_cny,0);
  }
 });
@@ -97,15 +97,15 @@ test('未配置密钥或未授权：不调用provider、不预留费用、不生
 test('费用超过研究共用的剩余预算时拒绝，估算后预算被占用也不会调用provider',async()=>{
  const fake=fixture(await goodOutput()),p=await fake.service.preview(question);
  await mutateState(async state=>{state.budget!.reserved_micro_cny=state.budget!.limit_micro_cny-p.estimate_micro_cny+1;});
- assert.equal((await fake.service.preview(question)).message,'本轮剩余额度不足');
- const result=await fake.service.answer(question,p.quote);assert.equal(fake.calls(),0);assert.equal(result.record.answer,'本轮剩余额度不足');assert.equal(result.record.reserved_micro_cny,0);
+ assert.equal((await fake.service.preview(question)).message,'累计额度已用完');
+ const result=await fake.service.answer(question,p.quote);assert.equal(fake.calls(),0);assert.equal(result.record.answer,'累计额度已用完');assert.equal(result.record.reserved_micro_cny,0);
 });
 
 test('问题变化使旧估算失效；费用网关失败时只保留规则原文',async()=>{
  const fake=fixture(await goodOutput()),p=await fake.service.preview(question);
  await assert.rejects(fake.service.answer('低估也会继续跌吗？',p.quote),/ask_estimate_changed/);assert.equal(fake.calls(),0);
  const service=createAskService({session,model,provider:async()=>{throw Error('budget_exhausted');}}),quote=await service.preview(question);
- const result=await service.answer(question,quote.quote);assert.equal(result.record.answer,'本轮剩余额度不足');assert.equal(result.record.reserved_micro_cny,0);
+ const result=await service.answer(question,quote.quote);assert.equal(result.record.answer,'累计额度已用完');assert.equal(result.record.reserved_micro_cny,0);
 });
 
 test('POST /ask路由：未配置状态、引文历史和拒绝额外个人字段',async()=>{

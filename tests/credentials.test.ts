@@ -26,11 +26,14 @@ test('仅用户明确选择且提供本机输入才保存，不能迁移当前�
  const status=await store.status();assert.deepEqual(status,{supported:true,available:true,stored:true,error:null});assert.ok(!JSON.stringify(status).includes('fixture'));
  await reserveCost(171322,'non-secret-ledger-fixture');
 });
-test('模拟应用重启恢复保存Key，但付费授权不恢复、累计预留不清零',async()=>{
+test('模拟应用重启：保存的Key与长期授权一起恢复，累计预留不清零；撤销后重启不再授权',async()=>{
  clearSession();assert.equal(sessionState().has_key,false);
- const restored=await restoreSavedCredential(false,store);assert.equal(restored.has_key,true);assert.equal(restored.restored,true);assert.equal(restored.authorized,false);assert.equal(operations.at(-1),'load');
+ const restored=await restoreSavedCredential(false,store);assert.equal(restored.has_key,true);assert.equal(restored.restored,true);assert.equal(restored.authorized,true);assert.equal(operations.at(-1),'load');
  const ledger=(await readState()).budget!;assert.equal(ledger.limit_micro_cny,10000000);assert.equal(ledger.reserved_micro_cny,171322);
- await assert.rejects(reserveCost(1,'blocked-after-restore'),/model_setup_required/);
+ await reserveCost(1,'allowed-after-restore');
+ await configureSession({authorize:false},store);clearSession();
+ assert.equal((await restoreSavedCredential(false,store)).authorized,false);
+ await assert.rejects(reserveCost(1,'blocked-after-revoke'),/model_setup_required/);
  const file=await readFile(join(dir,'content.json'),'utf8');assert.ok(!file.includes('non-secret-saved-fixture'));assert.ok(!file.includes('non-secret-session-fixture'));
 });
 test('移除保存密钥同时清除会话并关闭授权，空存储恢复不会报成功',async()=>{
@@ -51,4 +54,5 @@ test('撤销付费授权不会因钥匙串保存失败而保留旧授权',async(
  await assert.rejects(configureSession({key:'non-secret-replacement-fixture',authorize:false,save_to_keychain:true},denied),/keychain_access_required/);
  assert.equal(sessionState().authorized,false);
  await assert.rejects(reserveCost(1,'revoked-despite-save-failure'),/model_setup_required/);
+ assert.equal((await readState()).owner_preferences?.standing_authorization,false);
 });

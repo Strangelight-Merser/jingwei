@@ -9,12 +9,19 @@ export function sessionCredential(){if(!sessionKey||!authorized)throw new Error(
 export function clearSession(){sessionKey=null;authorized=false;}
 export async function restoreSavedCredential(interactive=false,store:CredentialStore=keychainStore){
  authorized=false;
- try{const key=await store.load(interactive);if(key)sessionKey=key;return {...sessionState(),restored:Boolean(key),error:null};}
+ try{
+  const key=await store.load(interactive);if(key)sessionKey=key;
+  // The owner's approval stays until revoked; the cumulative cap still stops spending.
+  const state=await readState(),b=state.budget;
+  if(key&&state.owner_preferences?.standing_authorization&&b&&b.reserved_micro_cny<b.limit_micro_cny)authorized=true;
+  return {...sessionState(),restored:Boolean(key),error:null};
+ }
  catch(e){return {...sessionState(),restored:false,error:e instanceof Error?e.message:'keychain_failed'};}
 }
-export async function removeSavedCredential(store:CredentialStore=keychainStore){clearSession();await store.remove();await mutateState(async state=>{state.owner_preferences={restore_saved_key_on_start:false};});return sessionState();}
+export async function removeSavedCredential(store:CredentialStore=keychainStore){clearSession();await store.remove();await mutateState(async state=>{state.owner_preferences={restore_saved_key_on_start:false,standing_authorization:false};});return sessionState();}
 export async function configureSession(input:{key?:string;limit_cny?:number;authorize:boolean;save_to_keychain?:boolean},store:CredentialStore=keychainStore){
- if(!input.authorize)authorized=false; // Revocation survives a failed or cancelled Keychain save.
+ const standing=(value:boolean)=>mutateState(async state=>{state.owner_preferences={restore_saved_key_on_start:false,...state.owner_preferences,standing_authorization:value};});
+ if(!input.authorize){authorized=false;await standing(false);} // Revocation survives a failed or cancelled Keychain save.
  if(input.key&&(!input.key.trim()||input.key.length>500))throw new Error('invalid_key');
  if(input.authorize&&(!Number.isFinite(input.limit_cny)||input.limit_cny!<=0||input.limit_cny!>1000))throw new Error('invalid_budget');
  if(input.save_to_keychain&&!input.key?.trim())throw new Error('keychain_key_required'); // Never migrate the in-memory key.
@@ -23,8 +30,9 @@ export async function configureSession(input:{key?:string;limit_cny?:number;auth
   if(state.budget)state.budget.limit_micro_cny=limit;
   else state.budget={id:randomUUID(),limit_micro_cny:limit,reserved_micro_cny:0,approved_at:new Date().toISOString(),reservations:[]};
  });}
- if(input.save_to_keychain){await store.save(input.key!.trim());await mutateState(async state=>{state.owner_preferences={restore_saved_key_on_start:true};});}
+ if(input.save_to_keychain){await store.save(input.key!.trim());await mutateState(async state=>{state.owner_preferences={...state.owner_preferences,restore_saved_key_on_start:true};});}
  if(input.key)sessionKey=input.key.trim();authorized=input.authorize;
+ if(input.authorize)await standing(true);
  return sessionState();
 }
 export async function setupWaitingReason(){if(!sessionKey)return 'key_required';if(!authorized)return 'budget_approval_required';const state=await readState();if(!state.budget)return 'budget_approval_required';if(state.budget.reserved_micro_cny>=state.budget.limit_micro_cny)return 'budget_exhausted';return null;}
