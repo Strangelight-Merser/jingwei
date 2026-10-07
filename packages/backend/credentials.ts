@@ -1,5 +1,5 @@
 import {spawn} from 'node:child_process';
-import {access} from 'node:fs/promises';
+import {access,readFile,writeFile,rename,rm} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import {resolve} from 'node:path';
 
@@ -45,4 +45,36 @@ export async function credentialSupport():Promise<CredentialStatus>{
  if(process.platform!=='darwin')return {supported:false,available:false,stored:null,error:'keychain_unavailable'};
  try{await access(helper,constants.X_OK);return {supported:true,available:true,stored:null,error:null};}
  catch{return {supported:true,available:false,stored:null,error:'keychain_helper_unavailable'};}
+}
+
+// Electron 40 exposes the synchronous safeStorage API; on Windows it uses DPAPI.
+// Inject it from the desktop entry, keeping the standalone API independent of Electron.
+type DesktopEncryption={isEncryptionAvailable:()=>boolean;encryptString:(key:string)=>Buffer;decryptString:(bytes:Buffer)=>string};
+export function createDesktopCredentialStore(file:string,encryption:DesktopEncryption,platform:NodeJS.Platform=process.platform):CredentialStore {
+ const supported=platform==='darwin'||platform==='win32';
+ const available=()=>supported&&encryption.isEncryptionAvailable();
+ const requireEncryption=()=>{if(!available())throw new Error('keychain_unavailable');};
+ return {
+  async status(){
+   if(!supported)return {supported:false,available:false,stored:null,error:'keychain_unavailable'};
+   // macOS capability checks must not open Keychain before the owner configures a key.
+   try{const ready=platform==='darwin'||available();return {supported:true,available:ready,stored:await access(file).then(()=>true,e=>{if(e.code==='ENOENT')return false;throw e;}),error:ready?null:'keychain_unavailable'};}
+   catch{return {supported:true,available:false,stored:null,error:'keychain_failed'};}
+  },
+  async save(key){
+   if(!key.trim()||key.length>500||/[\x00-\x1f\x7f]/.test(key))throw new Error('invalid_key');
+   requireEncryption();
+   const temporary=file+'.tmp';
+   try{await writeFile(temporary,encryption.encryptString(key.trim()),{mode:0o600});await rename(temporary,file);}
+   catch{await rm(temporary,{force:true}).catch(()=>{});throw new Error('keychain_failed');}
+  },
+  async load(){
+   let bytes:Buffer;
+   try{bytes=await readFile(file);}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw new Error('keychain_failed');}
+   try{requireEncryption();const key=encryption.decryptString(bytes);if(!key.trim()||key.length>500||/[\x00-\x1f\x7f]/.test(key))throw new Error();return key.trim();}
+   catch{throw new Error('keychain_access_required');}
+   finally{bytes.fill(0);}
+  },
+  async remove(){try{await rm(file,{force:true});}catch{throw new Error('keychain_failed');}}
+ };
 }

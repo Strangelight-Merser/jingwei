@@ -30,6 +30,7 @@ try {
     if ($decoder.PixelWidth -gt [Windows.Media.Ocr.OcrEngine]::MaxImageDimension -or $decoder.PixelHeight -gt [Windows.Media.Ocr.OcrEngine]::MaxImageDimension) { throw 'ocr_image_too_large' }
     $bitmap = Await ($decoder.GetSoftwareBitmapAsync([Windows.Graphics.Imaging.BitmapPixelFormat]::Bgra8, [Windows.Graphics.Imaging.BitmapAlphaMode]::Premultiplied)) ([Windows.Graphics.Imaging.SoftwareBitmap])
     $result = Await ($engine.RecognizeAsync($bitmap)) ([Windows.Media.Ocr.OcrResult])
+    # WinRT OCR has no confidence score; omit the optional field rather than invent one.
     $lines = @($result.Lines | ForEach-Object {
         $words = @($_.Words)
         if ($words.Count -gt 0) {
@@ -41,6 +42,7 @@ try {
               w=($right-$left)/$bitmap.PixelWidth; h=($bottom-$top)/$bitmap.PixelHeight}
         }
     })
+    $lines = @($lines | Sort-Object -Property y, x)
     ConvertTo-Json -InputObject $lines -Depth 4 -Compress
 } catch {
     $code = if ($_.Exception.Message -match '^ocr_[a-z_]+$') {$_.Exception.Message} else {'ocr_windows_unavailable'}

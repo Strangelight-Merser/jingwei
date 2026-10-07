@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, ipcMain, shell, dialog, safeStorage, net } from 'electron';
-import { mkdir, readFile, writeFile, rename, rm, access } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { readFileSync, writeFileSync, renameSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
@@ -15,7 +15,16 @@ import { collectResearchEvidence } from '../.desktop-build/runtime/packages/back
 import { validReaderSituation } from '../.desktop-build/runtime/packages/contracts/reader-situation.js';
 import { validHoldings } from '../.desktop-build/runtime/packages/backend/holdings-validation.js';
 import { recognizeImage } from '../.desktop-build/runtime/packages/backend/local-ocr.js';
+import { createDesktopCredentialStore } from '../.desktop-build/runtime/packages/backend/credentials.js';
 import { refreshValuationState, valuationRuleEvidence } from '../.desktop-build/runtime/packages/backend/judgment.js';
+
+export function savedWebPort(value){const port=Number(value);return Number.isInteger(port)&&port>1024&&port<65536?port:0;}
+export function ocrHelperPath(packaged,platform,resources,directory){
+ return packaged?path.join(resources,'native',platform==='darwin'?'jingwei-ocr':'ocr.ps1'):path.resolve(directory,'..',platform==='darwin'?'.local/bin/jingwei-ocr':'native/ocr.ps1');
+}
+export function ocrErrorMessage(code){
+ return ({ocr_language_unavailable:'Windows 尚未安装简体中文 OCR。请在设置 → 时间和语言 → 语言和区域中添加中文（简体，中国），安装语言选项中的光学字符识别后重试；也可以粘贴文字或手动添加。',ocr_windows_unavailable:'Windows 截图识别暂时不可用。请使用 Windows 10 或 11，重新打开软件后重试；也可以粘贴文字或手动添加。',ocr_image_too_large:'图片尺寸超过系统识别上限，请裁剪成几张后再导入。'})[code]??'截图未能识别，请换一张清晰的图片重试；也可以粘贴文字或手动添加。';
+}
 
 app.setName('经纬');
 process.env.JINGWEI_EDITOR_MODE='0';
@@ -54,13 +63,8 @@ async function start(){
   // This imports already verified public material, not a fresh network check or a new judgment.
  });
  const encryptedFile=path.join(userDir,'model-credential.encrypted');
- const capability=async()=>({supported:['darwin','win32'].includes(process.platform),available:['darwin','win32'].includes(process.platform),stored:await access(encryptedFile).then(()=>true,()=>false),error:['darwin','win32'].includes(process.platform)?null:'keychain_unavailable'});
- async function encryption(){if(!['darwin','win32'].includes(process.platform)||!(safeStorage.isAsyncEncryptionAvailable?await safeStorage.isAsyncEncryptionAvailable():safeStorage.isEncryptionAvailable()))throw new Error('keychain_unavailable');}
- const credentials={status:capability,
-  async save(key){if(!key.trim()||key.length>500||/[\x00-\x1f\x7f]/.test(key))throw new Error('invalid_key');try{await encryption();const bytes=(safeStorage.encryptStringAsync?await safeStorage.encryptStringAsync(key.trim()):safeStorage.encryptString(key.trim()));const tmp=encryptedFile+'.tmp';await writeFile(tmp,bytes,{mode:0o600});await rename(tmp,encryptedFile);}catch(e){if(e.message==='keychain_unavailable')throw e;throw new Error('keychain_failed');}},
-  async load(){const bytes=await readFile(encryptedFile).catch(e=>{if(e.code==='ENOENT')return null;throw e;});if(!bytes)return null;try{await encryption();const decoded=(safeStorage.decryptStringAsync?await safeStorage.decryptStringAsync(bytes):{result:safeStorage.decryptString(bytes),shouldReEncrypt:false});if(!decoded.result?.trim())throw new Error('keychain_failed');if(decoded.shouldReEncrypt)await this.save(decoded.result);return decoded.result;}catch{throw new Error('keychain_access_required');}},
-  async remove(){await rm(encryptedFile,{force:true});}
- };
+ const credentials=createDesktopCredentialStore(encryptedFile,safeStorage);
+ const capability=credentials.status;
  // Public free sources use the desktop's native network stack. Model transport is unchanged.
  const researchCollector=async()=>{const previous=(await readState()).research_state?.latest_snapshot;return collectResearchEvidence({priorSnapshots:previous?.funds??[],priorDocuments:previous?.documents??[],fetcher:(input,init)=>net.fetch(input,{...init,credentials:'omit'})});};
  api=await startApi({port:0,mode:'active',credentialStore:credentials,credentialCapability:capability,researchUpdates:true,researchCollector,valuationRefresh:()=>refreshValuationState((input,init)=>net.fetch(input,{...init,credentials:'omit'}))});
@@ -75,15 +79,15 @@ async function start(){
  // Reuse the last port so the page origin, and with it localStorage (reading guide, last visit), survives restarts.
  const portFile=path.join(userDir,'web-port');
  const listen=port=>new Promise((resolve,reject)=>{const fail=error=>{web.off('listening',ok);reject(error);};const ok=()=>{web.off('error',fail);resolve();};web.once('error',fail);web.once('listening',ok);web.listen(port,'127.0.0.1');});
- let lastPort=0;try{lastPort=Number(readFileSync(portFile,'utf8'))||0;}catch{}
- try{await listen(lastPort>1024&&lastPort<65536?lastPort:0);}catch{await listen(0);}
+ let lastPort=0;try{lastPort=savedWebPort(readFileSync(portFile,'utf8'));}catch{}
+ try{await listen(lastPort);}catch{await listen(0);}
  try{writeFileSync(portFile,String(web.address().port));}catch{}
  origin=`http://127.0.0.1:${web.address().port}`;
  const bookmarkFile=path.join(userDir,'bookmarks.json');
  const allowed=event=>event.sender===window?.webContents&&event.senderFrame?.url.startsWith(origin+'/');
  const situationFile=path.join(userDir,'reader-situation.json');
  const holdingsFile=path.join(userDir,'reader-holdings.json');
- ipcMain.handle('reading:recognize-image',async(event,bytes)=>{if(!allowed(event))throw new Error('ocr_local_request_required');const helperPath=app.isPackaged?path.join(process.resourcesPath,'native',process.platform==='darwin'?'jingwei-ocr':'ocr.ps1'):path.resolve(import.meta.dirname,'..',process.platform==='darwin'?'.local/bin/jingwei-ocr':'native/ocr.ps1');return recognizeImage(bytes,{tempDir:app.getPath('temp'),helperPath});});
+ ipcMain.handle('reading:recognize-image',async(event,bytes)=>{if(!allowed(event))throw new Error('ocr_local_request_required');const helperPath=ocrHelperPath(app.isPackaged,process.platform,process.resourcesPath,import.meta.dirname);try{return await recognizeImage(bytes,{tempDir:app.getPath('temp'),helperPath});}catch(error){if(process.platform!=='win32')throw error;throw new Error(ocrErrorMessage(error instanceof Error?error.message:''));}});
  ipcMain.on('reading:read-holdings',event=>{try{if(!allowed(event))throw new Error();let value;try{value=JSON.parse(readFileSync(holdingsFile,'utf8'));}catch(e){if(e.code==='ENOENT')value=null;else throw e;}if(value!==null&&!validHoldings(value))throw new Error();event.returnValue={ok:true,value};}catch{event.returnValue={ok:false};}});
  ipcMain.on('reading:write-holdings',(event,value)=>{try{if(!allowed(event)||value!==null&&!validHoldings(value))throw new Error();writeFileSync(holdingsFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(holdingsFile+'.tmp',holdingsFile);event.returnValue={ok:true};}catch{event.returnValue={ok:false};}});
  // Save the advisor sheet as an A4 PDF. The native print panel crashes Electron on macOS 15, so it is not used.
@@ -97,7 +101,7 @@ async function start(){
  window.webContents.setWindowOpenHandler(({url})=>{if(/^https?:\/\//.test(url))void shell.openExternal(url);return {action:'deny'};});
  window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith(origin+'/')){event.preventDefault();if(/^https?:\/\//.test(url))void shell.openExternal(url);}});
  const go=route=>window.loadURL(origin+route);
- const menu=[...(process.platform==='darwin'?[{label:'经纬',submenu:[{label:'关于经纬',click:()=>about()}, {type:'separator'}, {role:'hide'}, {role:'hideOthers'}, {role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'前往',submenu:[{label:'今日判断',accelerator:'CmdOrCtrl+1',click:()=>go('/')},{label:'我的持仓体检',accelerator:'CmdOrCtrl+2',click:()=>go('/holdings')},{label:'我的情况',click:()=>go('/situation')},{label:'研究',accelerator:'CmdOrCtrl+3',click:()=>go('/compare')},{label:'机构服务',accelerator:'CmdOrCtrl+4',click:()=>go('/bank')},{type:'separator'},{label:'后退',accelerator:'CmdOrCtrl+[',click:()=>{const h=window.webContents.navigationHistory;if(h.canGoBack())h.goBack();}},{label:'前进',accelerator:'CmdOrCtrl+]',click:()=>{const h=window.webContents.navigationHistory;if(h.canGoForward())h.goForward();}},{type:'separator'},{label:'设置',accelerator:'CmdOrCtrl+,',click:()=>go('/settings')},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]}, {label:'编辑',submenu:[{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]}, {label:'视图',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]}, {label:'帮助',submenu:[{label:'维护模式',type:'checkbox',checked:false,click:item=>{process.env.JINGWEI_EDITOR_MODE=item.checked?'1':'0';go(item.checked?'/maintenance':'/');}},{type:'separator'},{label:'关于经纬',click:()=>about()}]}];
+ const menu=[...(process.platform==='darwin'?[{label:'经纬',submenu:[{label:'关于经纬',click:()=>about()}, {type:'separator'}, {role:'hide'}, {role:'hideOthers'}, {role:'unhide'},{type:'separator'},{role:'quit'}]}]:[]),{label:'前往',submenu:[{label:'今日判断',accelerator:'CmdOrCtrl+1',click:()=>go('/')},{label:'我的持仓体检',accelerator:'CmdOrCtrl+2',click:()=>go('/holdings')},{label:'我的情况',click:()=>go('/situation')},{label:'研究',accelerator:'CmdOrCtrl+3',click:()=>go('/compare')},{label:'机构服务',accelerator:'CmdOrCtrl+4',click:()=>go('/bank')},{type:'separator'},{label:'后退',accelerator:process.platform==='win32'?'Alt+Left':'CmdOrCtrl+[',click:()=>{const h=window.webContents.navigationHistory;if(h.canGoBack())h.goBack();}},{label:'前进',accelerator:process.platform==='win32'?'Alt+Right':'CmdOrCtrl+]',click:()=>{const h=window.webContents.navigationHistory;if(h.canGoForward())h.goForward();}},{type:'separator'},{label:'设置',accelerator:'CmdOrCtrl+,',click:()=>go('/settings')},...(process.platform==='darwin'?[]:[{type:'separator'},{role:'quit'}])]}, {label:'编辑',submenu:[{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]}, {label:'视图',submenu:[{role:'reload'},{role:'resetZoom'},{role:'zoomIn'},{role:'zoomOut'},{role:'togglefullscreen'}]}, {label:'帮助',submenu:[{label:'维护模式',type:'checkbox',checked:false,click:item=>{process.env.JINGWEI_EDITOR_MODE=item.checked?'1':'0';go(item.checked?'/maintenance':'/');}},{type:'separator'},{label:'关于经纬',click:()=>about()}]}];
  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
  // Let the launch mark finish drawing before the first page replaces it.
  const shown=Date.now()-launchedAt;if(shown<1700)await new Promise(resolve=>setTimeout(resolve,1700-shown));
