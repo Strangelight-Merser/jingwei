@@ -44,6 +44,6 @@ export default function Advisor() {
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError(), unsupported = isRouteErrorResponse(error) && error.status === 404;
-  return <main id="main" className="advisor-page"><h1>客户说明暂时无法载入</h1><p className="advisor-empty">{unsupported ? '客户说明目前适用于沪深300。' : '估值判断暂时无法载入，请稍后重试。'}</p><div className="reader-actions">{unsupported ? <Link to="/advisor">打开沪深300说明 →</Link> : <a href="">重新载入</a>}<Link to="/">回到首页 →</Link></div></main>;
+  const error = useRouteError(), unsupported = isRouteErrorResponse(error) && error.status === 404 && error.data === '该指数尚未提供规则卡';
+  return <main id="main" className="advisor-page"><h1>客户说明暂时无法载入</h1><p className="advisor-empty">{unsupported ? '这个指数尚未提供客户说明，请选择已支持的指数。' : '未能取得当前估值判断，连接或资料服务可能暂时不可用。请稍后重新载入。'}</p><div className="reader-actions">{unsupported ? <Link to="/advisor">打开沪深300说明 →</Link> : <a href="">重新载入</a>}<Link to="/bank">返回机构服务 →</Link></div></main>;
 }

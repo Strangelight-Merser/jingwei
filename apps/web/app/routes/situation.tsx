@@ -1,3 +1,4 @@
+import {Link as ErrorLink,useRouteError as usePageError,isRouteErrorResponse as isPageError} from 'react-router';
 import{useEffect,useState}from'react';import{Link,useLoaderData}from'react-router';
 import{publication}from'../lib/api.server.ts';
 import{readingFor}from'../components/SituationCard.tsx';
@@ -7,7 +8,7 @@ import{PLAN_OPTIONS,HOLDING_OPTIONS,PERIOD_OPTIONS,EMPTY_SITUATION,type ReaderSi
 import{useReaderSituation,writeReaderSituation}from'../lib/reader-situation.ts';
 import '../situation.css';
 export function meta(){return[{title:'我的情况 · 经纬'}];}
-export async function loader(){return{judgment:await publication<Judgment>('judgment').catch(()=>null)};}
+export async function loader(){const judgment=await publication<Judgment|null>('judgment');if(!judgment)throw new Response('估值判断暂不可用',{status:503});return{judgment};}
 export default function Situation(){
  const{judgment}=useLoaderData<typeof loader>();
  const{ready,situation,unavailable}=useReaderSituation(),[draft,setDraft]=useState<ReaderSituation>(EMPTY_SITUATION),[message,setMessage]=useState('');
@@ -19,4 +20,11 @@ export default function Situation(){
  <fieldset><legend><span>4</span>准备投入多少钱？（可选）</legend><div className="situation-amounts">{([['monthly_amount','每月定投金额（元）','如 1000'],['idle_amount','手上准备投入的一笔闲钱（元）','如 50000']]as const).map(([key,label,placeholder])=><label key={key}>{label}<input type="number" inputMode="decimal" min="0" max={Number.MAX_SAFE_INTEGER} step="0.01" name={key} value={draft[key]??''} placeholder={placeholder} onChange={e=>{setDraft({...draft,[key]:e.target.value===''?undefined:Number(e.target.value)});setMessage('');}}/></label>)}</div></fieldset>
  <p className="reader-note">选择和金额仅存本机，金额只用于说明现有规则。</p>{unavailable&&<p role="status">本机记录暂不可用，可继续阅读首页判断。</p>}<div className="reader-actions"><button type="submit" disabled={!ready||unavailable}>保存我的情况</button><Link to="/">先看首页判断 →</Link>{situation&&<button type="button" className="secondary" onClick={reset}>重置</button>}</div>{message&&<p role="status">{message} <Link to="/">查看首页 →</Link></p>}</form>
  <aside className="situation-preview" aria-live="polite"><small>首页会这样对你说</small>{(()=>{const r=readingFor(draft,judgment);const money=situationMoney(draft,judgment);return <div className={judgment?`tone-${judgment.band}`:''}>{judgment&&<span className="situation-preview-band">沪深300 · {judgment.judgment.label}</span>}<h2 key={r.title}>{r.title}</h2>{money&&<p className="situation-preview-money">{money}</p>}<p>{r.body}</p>{r.rule&&<p className="situation-preview-rule">{r.rule}</p>}</div>;})()}<p className="situation-preview-note">随你的选择实时变化；保存后首页显示同样的说法。</p></aside></div></main>;
+}
+
+export function ErrorBoundary() {
+ const error=usePageError();
+ const missing=isPageError(error)&&error.status===404;
+ const invalid=isPageError(error)&&error.status===400;
+ return <main id="main" className="reader-page error-page"><h1>{missing?'我的情况暂未提供':invalid?'这个入口暂不可用':'我的情况暂时无法载入'}</h1><p className="reader-intro">{missing?'内容可能尚未收录，或当前入口未开放。请从下面的入口继续。':invalid?'请从页面提供的入口重新选择。':'未能取得这页需要的资料，连接可能中断，或资料服务暂时不可用。请稍后重新载入。'}</p><div className="reader-actions">{!missing&&!invalid&&<a href="">重新载入</a>}<ErrorLink to="/holdings">查看持仓体检 →</ErrorLink><ErrorLink to="/">回到今日判断 →</ErrorLink></div></main>;
 }

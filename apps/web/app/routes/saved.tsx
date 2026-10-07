@@ -1,3 +1,4 @@
+import {Link as ErrorLink,useRouteError as usePageError,isRouteErrorResponse as isPageError} from 'react-router';
 import { Link, useLoaderData, useRouteLoaderData } from 'react-router';
 import { useRef, useState } from 'react';
 import { publication } from '../lib/api.server.ts';
@@ -34,4 +35,11 @@ export default function Saved() {
     </div>)}
     {slugs !== null && !saved.length && <div className="saved-empty"><h2>暂无可阅读的收藏</h2><p>{slugs.length ? (desktop?'收藏的文章暂时未收录。收藏记录仍保留在本机。':'收藏的文章暂时未收录。收藏记录仍保留在这个浏览器里。') : '在文章页点“收藏文章”，以后可以从这里找到。'}</p><Link className="text-link" to="/articles">浏览文章</Link></div>}
   </main>;
+}
+
+export function ErrorBoundary() {
+ const error=usePageError();
+ const missing=isPageError(error)&&error.status===404;
+ const invalid=isPageError(error)&&error.status===400;
+ return <main id="main" className="reader-page error-page"><h1>{missing?'收藏暂未提供':invalid?'这个入口暂不可用':'收藏暂时无法载入'}</h1><p className="reader-intro">{missing?'内容可能尚未收录，或当前入口未开放。请从下面的入口继续。':invalid?'请从页面提供的入口重新选择。':'未能取得这页需要的资料，连接可能中断，或资料服务暂时不可用。请稍后重新载入。'}</p><div className="reader-actions">{!missing&&!invalid&&<a href="">重新载入</a>}<ErrorLink to="/articles">阅读文章 →</ErrorLink><ErrorLink to="/">回到今日判断 →</ErrorLink></div></main>;
 }

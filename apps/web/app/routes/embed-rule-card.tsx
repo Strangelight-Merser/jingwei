@@ -35,5 +35,5 @@ export default function EmbedRuleCard() {
 
 export function ErrorBoundary() {
   const error = useRouteError(), unsupported = isRouteErrorResponse(error) && error.status === 404 && error.data === '该指数尚未提供规则卡';
-  return <main id="main" className="embed-page"><article className="embed-rule-card"><h1>经纬规则卡</h1><p>{unsupported ? '该指数尚未提供规则卡。' : '估值判断暂时无法载入，请稍后重试。'}</p>{unsupported ? <Link className="embed-retry" to="/embed/rule-card">查看沪深300规则卡 →</Link> : <a className="embed-retry" href="">重新载入 →</a>}</article></main>;
+  return <main id="main" className="embed-page"><article className="embed-rule-card"><h1>经纬规则卡</h1><p>{unsupported ? '该指数尚未提供规则卡。' : '未能取得估值判断，连接或资料服务可能暂时不可用。请稍后重新载入。'}</p>{unsupported ? <Link className="embed-retry" to="/embed/rule-card">查看沪深300规则卡 →</Link> : <a className="embed-retry" href="">重新载入 →</a>}<p><Link className="embed-retry" to="/bank" target="_top">返回机构服务 →</Link></p></article></main>;
 }
