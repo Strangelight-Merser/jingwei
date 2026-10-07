@@ -248,3 +248,5 @@ AE 已测纳斯达克100、恒生科技、中证红利。对标普500、恒生�
 
 持仓体检页加“导出体检报告”：桌面版用已有的 `window.jingwei.savePdf`（与客户经理说明相同），网页版用打印。报告一页：日期、总额与去向、规则覆盖与按区间汇总、重复方向、逐只判断、备注、数据来源与日期、“规则结果不构成个别投资建议”。打印样式隐藏导航与按钮。金额只来自本机已保存的持仓，不写入仓库、不上传。
 可改：`apps/web/app/components/HoldingsCheckup.tsx`、`apps/web/app/holdings.css`、`apps/web/app/routes/holdings.tsx`（仅加按钮与打印相关）。用虚构持仓验证，截图或 PDF 放 `evidence/aw/`。
+
+**第四轮结果（Claude，2026-10-07）**：AQ、AS、AT、AV、AW 均已合并。AQ 遗留的首页重建丢焦点已在 9409f7b 修复（方向键连续切换三个指数焦点保持）。AV 的十二份重复 ErrorBoundary 合并为 components/PageError.tsx（文案与入口不变）。新包 10:09 构建，隔离实例 12 个页面正常（含 404 页与 HSI 规则卡）。AT 的修复尚未在运行中的 4411 复测：重启会丢失开发 API 内存中的密钥，留待用户确认。AS 列出仍需 Windows 真机确认：安装启动、Alt+←/→、中文 OCR 与缺语言包提示、DPAPI 保存与重启恢复、PDF 导出。
