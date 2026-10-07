@@ -247,3 +247,45 @@ test('GET 与 POST /ask 对新指数保持取证，跨指数复用报价拒绝�
   assert.equal((await readState()).budget!.reserved_micro_cny,0);
  }finally{await app.close();}
 });
+
+test('AT：中证1000与科创50低于70%时说明缓冲保留，不误称当前高于七成',async()=>{
+ const state=await readState();
+ for(const [index,name] of [['000852','中证1000'],['000688','科创50']] as const) {
+  const rule={...valuationRuleEvidence(state,index)!,band:'high' as const,band_label:'偏高区',percentile:68.6};
+  const fragments=askFragments(rule);
+  assert.match(fragments[0].text,/当前分位低于70%，仍保留已确认的偏高区/);
+  assert.match(fragments[0].text,/低于第65百分位并连续5个数据日确认/);
+  assert.doesNotMatch(fragments[0].text,/估值已高于(?:近十年|已有历史)七成时间/);
+  const answer=`${name}数据来自中证指数官网每日估值。当前分位低于70%，仍保留已确认的偏高区；回到中间区需低于第65百分位并连续5个数据日确认。新增资金暂缓新增，已有持仓继续持有。`;
+  assert.equal(validateAskOutput({answer,cites:[1,6],stance:rule.new_money.stance},rule,fragments).answer,answer);
+  assert.throws(()=>validateAskOutput({answer:`${name}当前估值已高于已有历史七成时间。`,cites:[1,4],stance:rule.new_money.stance},rule,fragments),/ask_buffer_mismatch/);
+  if(index==='000688') {
+   assert.match(fragments[0].text,/历史不足10年/);
+   assert.throws(()=>validateAskOutput({answer:`${name}当前处在近十年的偏高区。`,cites:[1,6],stance:rule.new_money.stance},rule,fragments),/ask_history_window_mismatch/);
+  }
+ }
+});
+
+test('AT：其余五个指数的来源、确认长度和路由取证',async()=>{
+ const state=await readState(),app=Fastify();await registerAskRoutes(app);
+ try {
+  for(const [index,name,source,count,unit] of [
+   ['SPX','标普500','蛋卷基金指数估值（第三方，每周）',2,'个周读数'],
+   ['HSI','恒生指数','蛋卷基金指数估值（第三方，每周）',2,'个周读数'],
+   ['399006','创业板指','蛋卷基金指数估值（第三方，每周）',2,'个周读数'],
+   ['000688','科创50','中证指数官网每日估值',5,'个数据日'],
+   ['000852','中证1000','中证指数官网每日估值',5,'个数据日'],
+  ] as const) {
+   const rule=valuationRuleEvidence(state,index)!,fragments=askFragments(rule);
+   const answer=`${name}数据来自${source}，当前处于${rule.band_label}，新增资金${rule.new_money.title}，已有持仓${rule.held.title}；改判需连续${count}${unit}。`;
+   const fake=fixture({answer,cites:[1,6],stance:rule.new_money.stance}),p=await fake.service.preview(question,index);
+   assert.equal((await fake.service.answer(question,p.quote,index)).record.status,'answered');
+   const wrong=`${name}改判需连续${count===2?5:2}${unit}。`;
+   assert.throws(()=>validateAskOutput({answer:wrong,cites:[1,6],stance:rule.new_money.stance},rule,fragments),/ask_confirmation_mismatch/);
+   const preview=(await app.inject({url:'/ask?'+new URLSearchParams({question,index})})).json();
+   assert.deepEqual(preview.fragments,fragments);
+   const response=await app.inject({method:'POST',url:'/ask',headers:{'x-jingwei-reader':'local'},payload:{question,index,quote:preview.quote}});
+   assert.equal(response.statusCode,200);assert.deepEqual(response.json().record.cites,fragments);
+  }
+ }finally{await app.close();}
+});
