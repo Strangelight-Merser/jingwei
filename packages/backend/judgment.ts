@@ -77,7 +77,7 @@ export function valuationRuleEvidence(state: State, index: IndexCode = '000300')
     held: {stance: STANCE[j.held.action], title: j.held.title, text: j.held.text},
     boundaries: {low: r.boundaries.low, high: r.boundaries.high, extreme: r.boundaries.extreme},
     last_change: {date: r.last_change.date, from_label: fromLabel},
-    confirm: {count: r.rule.confirm_days, unit: r.rule.unit}, source_label: r.rule.source_label,
+    confirm: {count: r.rule.confirm_days, unit: r.rule.unit}, source_label: r.rule.source_label, index_code: index, full_window: r.full_window,
     ref: {article_id: `valuation-rule-${r.rule.id}-${r.as_of}`, revision: 1, source: `${r.rule.source === 'csi' ? '中证指数' : '蛋卷基金'} · ${r.index_name}${r.rule.frequency === 'weekly' ? '每周' : '每日'}估值（${r.rule.name}）`, url: history.source_url, published_at: '', checked_at: history.checked_at ?? undefined, data_as_of: r.as_of, fragments: [text]},
   };
 }

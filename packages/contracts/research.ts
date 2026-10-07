@@ -25,6 +25,8 @@ export type ValuationRuleEvidence = {
  boundaries:{low:number;high:number;extreme:number};last_change:{date:string;from_label:string|null};ref:SourceRef;
  /** Readings needed to confirm a change and what one reading is (absent on records saved before more indices). */
  confirm?:{count:number;unit:string};source_label?:string;
+ /** Which index, and whether the percentile used a full ten-year window. */
+ index_code?:string;full_window?:boolean;
 };
 export type ResearchSnapshot = {valuation_rule?:ValuationRuleEvidence;direction_key:'csi300';captured_at:string;evidence_observed_at?:string;refs:SourceRef[];funds:FundSnapshot[];market:MarketSnapshot|null;errors:string[];evidence_hash:string;fund_series?:FundNavSeries[];documents?:FundResearchDocument[];other_directions?:OtherDirectionEvidence[]};
 export type ResearchScope = 'direction'|'comparison'|'new_money'|'held'|'sell';
