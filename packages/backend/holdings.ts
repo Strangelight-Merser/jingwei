@@ -15,6 +15,11 @@ const moneyValue = (text: string, scale = 1): number | null => {
   const amount = Number((Number(match[1].replaceAll(',', '')) * scale).toFixed(2));
   return Number.isFinite(amount) && amount <= Number.MAX_SAFE_INTEGER ? amount : null;
 };
+// Vision can read a thousands comma as a dot (6,789.01 → 6.789.01).
+// Correct only the unambiguous grouped form in OCR; pasted text stays strict.
+const ocrMoneyValue = (text: string, scale = 1): number | null => moneyValue(
+  text.replace(/(?<![\d.])\b(\d{1,3}(?:\.\d{3})+)\.(\d{2})(?![\d.])/g,
+    (_match, whole: string, cents: string) => `${whole.replaceAll('.', ',')}.${cents}`), scale);
 const ignored = (text: string) => /(?:status bar|名称.*金额|^基金(?:名称|代码)|日收益|持有收益|累计收益|收益明细|收益提醒|占比|百比|进阶理财|灵活取用|交易记录|全部持有|^全部|买一笔|反馈|投诉|本页面|法律文件|过往业绩|市场有风险|平台设计|^[：:]?基金$|^定投$)/i.test(text);
 let publicNames: Set<string> | null = null;
 const isPublicName = (text: string) => (publicNames ??= new Set(FUND_LIST_SEED.funds.map(fund => keyOf(fund.name)))).has(keyOf(text));
@@ -65,7 +70,7 @@ export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
       const inRow = (other: OcrLine) => other.y >= line.y - Math.min(line.h, other.h) * 0.5 && other.y < end;
       const inline = labels.filter(label => label.kind === 'amount' && label.value && inRow(label.line));
       if (inline.length) {
-        result.push({name, amount: inline.length === 1 ? moneyValue(inline[0].value, inline[0].scale) : null, ...(code ? {code} : {})});
+        result.push({name, amount: inline.length === 1 ? ocrMoneyValue(inline[0].value, inline[0].scale) : null, ...(code ? {code} : {})});
         continue;
       }
       const values: (number | null)[] = [];
@@ -86,9 +91,9 @@ export function parseOcrLines(images: OcrLine[][]): ParsedHolding[] {
             continue;
           }
           if (owner.label.kind !== 'amount' || owner.gap > Math.max(0.12, (owner.label.line.w + value.w) / 2)) continue;
-          values.push(moneyValue(value.text, owner.label.scale));
+          values.push(ocrMoneyValue(value.text, owner.label.scale));
         } else {
-          if (sameRow || Math.abs(value.x - line.x) <= Math.max(0.04, line.h * 2)) values.push(moneyValue(value.text));
+          if (sameRow || Math.abs(value.x - line.x) <= Math.max(0.04, line.h * 2)) values.push(ocrMoneyValue(value.text));
         }
       }
       result.push({name, amount: values.length === 1 ? values[0] : null, ...(code ? {code} : {})});
