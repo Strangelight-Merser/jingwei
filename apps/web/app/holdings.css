@@ -57,6 +57,11 @@
 .holdings-side{display:grid;gap:20px}
 .holdings-coverage{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}
 .holdings-coverage p{margin:0;font-size:.9375rem;line-height:1.7;color:#4a4a52}
+.holdings-bands{grid-column:1/-1;display:grid;gap:6px;margin:0;padding:12px 0 0;border-top:1px solid var(--line);list-style:none}
+.holdings-bands li{display:grid;grid-template-columns:auto 1fr auto 48px;align-items:center;gap:10px;font-size:var(--text-ui)}
+.holdings-bands li>span:nth-child(2){color:#4a4a52}
+.holdings-bands strong{font-variant-numeric:tabular-nums;font-weight:600}
+.holdings-bands small{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
 .holdings-ring{width:120px;height:120px}
 .holdings-ring-track{fill:none;stroke:#eeeef1;stroke-width:12}
 .holdings-ring-fill{fill:none;stroke:var(--tone-low-line);stroke-width:12;stroke-linecap:round;transition:stroke-dasharray .8s var(--ease-out,ease)}

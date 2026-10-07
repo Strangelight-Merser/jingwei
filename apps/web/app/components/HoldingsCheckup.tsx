@@ -27,6 +27,13 @@ export function HoldingsCheckup({holdings, checkup}: {holdings: Holdings; checku
   const covered = new Map(checkup.covered.map(item => [item.row_id, item]));
   const coveredShare = checkup.total === 0 ? 0 : 1 - checkup.uncovered_share;
   const rows = [...holdings.rows].sort((a, b) => b.amount - a.amount);
+  // What the rule says across the covered money: amounts per band, with that band's new-money action.
+  const amountOf = new Map(holdings.rows.map(row => [row.id, row.amount]));
+  const byBand = (['low', 'mid', 'high', 'extreme'] as const).map(band => {
+    const items = checkup.covered.filter(item => item.band === band);
+    const amount = items.reduce((sum, item) => sum + (amountOf.get(item.row_id) ?? 0), 0);
+    return {band, label: items[0]?.band_label ?? '', title: items[0]?.new_money_title ?? '', amount, share: checkup.total ? amount / checkup.total : 0};
+  }).filter(part => part.amount > 0);
   return <div className="holdings-report">
     <section className="holdings-panel holdings-allocation reveal" style={{'--i': 0} as React.CSSProperties} aria-labelledby="allocation-title">
       <h2 id="allocation-title">钱投向了哪里</h2>
@@ -47,6 +54,11 @@ export function HoldingsCheckup({holdings, checkup}: {holdings: Holdings; checku
         <p>{checkup.total === 0 ? '总额为 0 元，覆盖占比暂无法计算。' : checkup.covered.length === 0
           ? '这些持仓都不跟踪规则覆盖的指数，估值规则暂时给不出判断。下面仍可看清钱的去向与重复。'
           : `${number(coveredShare * 100)}% 的持仓有规则判断；其余 ${number(checkup.uncovered_share * 100)}% 暂不覆盖，不给判断。`}</p>
+        {byBand.length > 0 && <ul className="holdings-bands" aria-label="已覆盖持仓按规则区间">
+          {byBand.map(part => <li key={part.band} className={`tone-${part.band}`}>
+            <span className="holdings-band">{part.label}</span><span>{part.title}</span><strong>{number(part.amount)} 元</strong><small>{number(part.share * 100)}%</small>
+          </li>)}
+        </ul>}
       </section>
       {checkup.duplicates.length > 0 && <section className="holdings-panel holdings-duplicates reveal" style={{'--i': 2} as React.CSSProperties} aria-labelledby="duplicates-title">
         <h2 id="duplicates-title">留意重复的方向</h2>
