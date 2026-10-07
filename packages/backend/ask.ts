@@ -3,9 +3,8 @@ import type {FastifyInstance} from 'fastify';
 import {z} from 'zod';
 import {readState, mutateState} from './storage.ts';
 import {valuationRuleEvidence} from './judgment.ts';
-import {INDEX_CODES, VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {INDEX_CODES, VALUATION_INDEXES, isIndexCode, type IndexCode} from './valuation-indexes.ts';
 import {BAND_JUDGMENTS, VALUATION_RULE} from './valuation-rule.ts';
-import {seedHistory} from './valuation-history.ts';
 import {composeWithDeepSeekPrompt, modelMessages, modelState} from './model.ts';
 import {estimateReservation, sessionState, PRICE_POLICY} from './budget.ts';
 import type {ValuationRuleEvidence} from '../contracts/research.ts';
@@ -15,12 +14,9 @@ const questionSchema=z.string().trim().min(1).max(300);
 const outputSchema=z.object({answer:z.string().trim().min(1).max(280), cites:z.array(z.number().int().positive()).min(1), stance:z.string()}).strict();
 const hash=(text:string)=>createHash('sha256').update(text).digest('hex');
 
-function hasFullWindow(rule:ValuationRuleEvidence) {
- const start=new Date(`${rule.as_of}T00:00:00Z`);
- start.setUTCFullYear(start.getUTCFullYear()-VALUATION_RULE.window_years);
- const index=INDEX_CODES.find(code=>rule.rule_name.startsWith(`${VALUATION_INDEXES[code].name}估值分位规则`))!;
- return seedHistory(index).points[0].date<=start.toISOString().slice(0,10);
-}
+// Older saved records have no full_window; they come from the three indices with full ten-year windows.
+const hasFullWindow=(rule:ValuationRuleEvidence)=>rule.full_window??true;
+const indexNameOf=(rule:ValuationRuleEvidence)=>rule.index_code&&isIndexCode(rule.index_code)?VALUATION_INDEXES[rule.index_code].name:rule.rule_name.replace(/估值分位规则.*$/,'');
 
 export function askFragments(rule:ValuationRuleEvidence):AskFragment[] {
  const fullWindow=hasFullWindow(rule);
@@ -58,7 +54,7 @@ export function validateAskOutput(output:unknown,rule:ValuationRuleEvidence,frag
  const cited=[...new Set(parsed.cites)].map(id=>fragments.find(f=>f.id===id));
  if(cited.some(f=>!f))throw Error('ask_unknown_citation');
  const text=cited.map(f=>f!.text).join('\n');
- const indexName=rule.rule_name.replace(/估值分位规则.*$/,'');
+ const indexName=indexNameOf(rule);
  if(Object.values(VALUATION_INDEXES).some(({name})=>name!==indexName&&parsed.answer.includes(name)))throw Error('ask_index_mismatch');
  const source=rule.source_label??'中证指数官网每日估值';
  const sourceClaims=parsed.answer.replace(/(?:不是|并非|不采用|不使用)[^，。；！？]*/g,'');
