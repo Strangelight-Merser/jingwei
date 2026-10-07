@@ -153,3 +153,97 @@ test('问经纬按所选指数取证：中证500 的片段与立场来自中证5
  assert.match(fragments.at(-1)!.text,/缓冲/);
  assert.equal(valuationRuleEvidence(state)!.rule_id,valuationRuleEvidence(state,'000300')!.rule_id);
 });
+
+test('新指数片段携带各自来源与确认长度；恒生科技使用不足十年的已有历史',async()=>{
+ const state=await readState();
+ for(const [index,name,source,count,unit] of [
+  ['NDX','纳斯达克100','蛋卷基金指数估值（第三方，每周）',2,'个周读数'],
+  ['HSTECH','恒生科技','蛋卷基金指数估值（第三方，每周）',2,'个周读数'],
+  ['000922','中证红利','中证指数官网每日估值',5,'个数据日'],
+ ] as const) {
+  const rule=valuationRuleEvidence(state,index)!,fragments=askFragments(rule);
+  assert.ok(fragments[0].text.includes(name));
+  assert.ok(fragments[0].text.includes(source));
+  assert.ok(fragments[0].text.includes(`连续${count}${unit}`));
+  assert.ok(fragments[5].text.includes(`连续${count}${unit}`));
+  const output={answer:`${name}数据来自${source}，当前处于${rule.band_label}，新增资金${rule.new_money.title}；改判需连续${count}${unit}。`,cites:[1,6],stance:rule.new_money.stance};
+  assert.equal(validateAskOutput(output,rule,fragments).answer,output.answer);
+  const fake=fixture(output),preview=await fake.service.preview(question,index);
+  assert.deepEqual(preview.fragments,fragments);
+  assert.equal((await fake.service.answer(question,preview.quote,index)).record.status,'answered');
+ }
+ const hstech=askFragments(valuationRuleEvidence(state,'HSTECH')!);
+ assert.match(hstech[0].text,/历史不足10年，按2020-07-27以来的已有数据计算/);
+ assert.doesNotMatch(hstech.slice(0,5).map(f=>f.text).join('\n'),/近十年/);
+ assert.match(hstech[2].text,/已有历史的中间水平/);
+ assert.ok(JSON.parse(askPrompt(question,hstech)).rules.some((r:string)=>r.includes('第三方')&&r.includes('周读数')));
+ // A first reading after the window's calendar boundary is not a short history.
+ const daily={...valuationRuleEvidence(state,'000922')!,as_of:'2026-10-03',window_start:'2016-10-04'};
+ assert.doesNotMatch(askFragments(daily)[0].text,/历史不足10年/);
+});
+
+test('4411 实测误拒回归：后置“无法判断”允许风险问答，真正的预测仍拒绝',async()=>{
+ const state=await readState();
+ const outputs=[
+  ['NDX','规则不预测涨跌，所以低估后会不会继续跌，无法判断。当前估值处在近十年的中间水平，新增资金按原计划、不额外追加，已有定投照常进行，已有持仓继续持有。改判条件：连续2个周读数低于约27.27倍，改为偏低区，新增资金可分批新增；连续2个周读数在约35.24至36.9倍之间，改为偏高区，新增资金暂缓新增；连续2个周读数高于约36.9倍，改为高位区，新增资金暂停新增。'],
+  ['HSTECH','规则不预测涨跌，所以低估后是否继续跌无法判断。当前估值处于中间区，新增资金按原计划、不额外追加，已有持仓继续持有。改判条件：连续2个周读数低于约22.1倍，改为偏低区，新增资金可分批新增；连续2个周读数在约39.99至46.25倍之间，改为偏高区，新增资金暂缓新增；连续2个周读数高于约46.25倍，改为高位区，新增资金暂停新增。'],
+ ] as const;
+ for(const [index,answer] of outputs) {
+  const rule=valuationRuleEvidence(state,index)!,fragments=askFragments(rule);
+  const output={answer,cites:[1,6],stance:rule.new_money.stance};
+  assert.equal(validateAskOutput(output,rule,fragments).answer,answer);
+  const fake=fixture(output),p=await fake.service.preview('低估也会继续跌吗？',index);
+  assert.equal((await fake.service.answer(p.question,p.quote,index)).record.status,'answered');
+  for(const forecast of ['低估后会继续跌。','明天会上涨，但低估后是否继续跌无法判断。']) {
+   assert.throws(()=>validateAskOutput({...output,answer:forecast},rule,fragments),/ask_forecast_or_promise/);
+  }
+ }
+});
+
+test('新指数校验拒绝错指数、错来源与错确认长度；日数据可说交易日',async()=>{
+ const state=await readState();
+ for(const [index,answer,error] of [
+  ['NDX','恒生指数处于中间区。','ask_index_mismatch'],
+  ['HSTECH','纳斯达克100处于中间区。','ask_index_mismatch'],
+  ['HSTECH','当前估值来自中证指数官网。','ask_source_mismatch'],
+  ['NDX','当前估值来自蛋卷基金官方估值。','ask_source_mismatch'],
+  ['NDX','当前估值来自蛋卷基金。','ask_source_mismatch'],
+  ['000922','当前估值来自蛋卷基金（第三方）。','ask_source_mismatch'],
+  ['NDX','连续2个交易日才改判。','ask_confirmation_mismatch'],
+  ['HSTECH','连续5个周读数才改判。','ask_confirmation_mismatch'],
+  ['000922','连续2个数据日才改判。','ask_confirmation_mismatch'],
+ ] as const) {
+  const rule=valuationRuleEvidence(state,index)!;
+  assert.throws(()=>validateAskOutput({answer,cites:[1,6],stance:rule.new_money.stance},rule,askFragments(rule)),new RegExp(error));
+ }
+ const rule=valuationRuleEvidence(state,'000922')!,answer='中证红利数据来自中证指数官网每日估值，改判需连续5个交易日。';
+ assert.equal(validateAskOutput({answer,cites:[1,6],stance:rule.new_money.stance},rule,askFragments(rule)).answer,answer);
+ const weekly=valuationRuleEvidence(state,'NDX')!,thirdParty='纳斯达克100数据来自蛋卷基金（第三方），并非官方估值。';
+ assert.equal(validateAskOutput({answer:thirdParty,cites:[1,6],stance:weekly.new_money.stance},weekly,askFragments(weekly)).answer,thirdParty);
+});
+
+test('4411 实测误放回归：恒生科技不能说当前处在近十年的中间水平',async()=>{
+ const rule=valuationRuleEvidence(await readState(),'HSTECH')!,fragments=askFragments(rule);
+ const output={answer:'当前估值处在近十年的中间水平，已有持仓按原计划继续持有。',cites:[1,3],stance:rule.new_money.stance};
+ assert.throws(()=>validateAskOutput(output,rule,fragments),/ask_history_window_mismatch/);
+ const corrected={...output,answer:'恒生科技历史不足10年，当前估值处在已有历史的中间水平，已有持仓按原计划继续持有。'};
+ assert.equal(validateAskOutput(corrected,rule,fragments).answer,corrected.answer);
+});
+
+test('GET 与 POST /ask 对新指数保持取证，跨指数复用报价拒绝且不花费',async()=>{
+ const app=Fastify();await registerAskRoutes(app);
+ try {
+  for(const [index,name] of [['NDX','纳斯达克100'],['HSTECH','恒生科技'],['000922','中证红利']] as const) {
+   const p=(await app.inject({url:'/ask?'+new URLSearchParams({question,index})})).json();
+   assert.ok(p.fragments[0].text.includes(name));
+   const response=await app.inject({method:'POST',url:'/ask',headers:{'x-jingwei-reader':'local'},payload:{question,quote:p.quote,index}});
+   assert.equal(response.statusCode,200);
+   assert.equal(response.json().record.reserved_micro_cny,0);
+   assert.ok(response.json().record.cites[0].text.includes(name));
+  }
+  const p=(await app.inject({url:'/ask?'+new URLSearchParams({question,index:'NDX'})})).json();
+  const stale=await app.inject({method:'POST',url:'/ask',headers:{'x-jingwei-reader':'local'},payload:{question,quote:p.quote,index:'HSTECH'}});
+  assert.equal(stale.statusCode,409);assert.equal(stale.json().error,'ask_estimate_changed');
+  assert.equal((await readState()).budget!.reserved_micro_cny,0);
+ }finally{await app.close();}
+});
