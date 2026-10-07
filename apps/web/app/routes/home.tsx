@@ -33,7 +33,7 @@ export default function Home(){
  const reading=[...new Map([focus,...all,...background].map(v=>[v.article.slug,v])).values()];
  return <main id="main" className="home-page">
   {indexes.length>0&&<FirstRun indexes={indexes}/>}
-  {selected&&<HomeHero key={selected.index_code} j={selected} indexes={indexes} guide={<ReadingGuide judgment={selected}/>}/>}
+  {selected&&<HomeHero j={selected} indexes={indexes} guide={<ReadingGuide judgment={selected}/>}/>}
   {selected&&indexes.length>1&&<IndexOverview indexes={indexes} selected={selected.index_code}/>}
   {judgment&&<SinceLastVisit judgment={judgment}/>}
   <div className="home-companions">
