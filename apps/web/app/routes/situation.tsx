@@ -1,4 +1,4 @@
-import {Link as ErrorLink,useRouteError as usePageError,isRouteErrorResponse as isPageError} from 'react-router';
+import {PageError} from '../components/PageError.tsx';
 import{useEffect,useState}from'react';import{Link,useLoaderData}from'react-router';
 import{publication}from'../lib/api.server.ts';
 import{readingFor}from'../components/SituationCard.tsx';
@@ -23,8 +23,6 @@ export default function Situation(){
 }
 
 export function ErrorBoundary() {
- const error=usePageError();
- const missing=isPageError(error)&&error.status===404;
- const invalid=isPageError(error)&&error.status===400;
- return <main id="main" className="reader-page error-page"><h1>{missing?'我的情况暂未提供':invalid?'这个入口暂不可用':'我的情况暂时无法载入'}</h1><p className="reader-intro">{missing?'内容可能尚未收录，或当前入口未开放。请从下面的入口继续。':invalid?'请从页面提供的入口重新选择。':'未能取得这页需要的资料，连接可能中断，或资料服务暂时不可用。请稍后重新载入。'}</p><div className="reader-actions">{!missing&&!invalid&&<a href="">重新载入</a>}<ErrorLink to="/holdings">查看持仓体检 →</ErrorLink><ErrorLink to="/">回到今日判断 →</ErrorLink></div></main>;
+  return <PageError name="我的情况" links={[{to: '/holdings', label: '查看持仓体检 →'}, {to: '/', label: '回到今日判断 →'}]}/>;
 }
+
