@@ -114,7 +114,7 @@ export default function HoldingsPage() {
   }
 
   return <main id="main" className="holdings-page">
-    <header className="holdings-heading"><div><h1 ref={heading} tabIndex={-1}>我的持仓</h1><p>看清持仓方向、重复配置，以及当前规则能覆盖的部分。</p></div>
+    <header className="holdings-heading"><div><h1 ref={heading} tabIndex={-1}>持仓体检</h1><p>看清持仓方向、重复配置，以及当前规则能覆盖的部分。</p></div>
       {state.phase === 'checkup' && <div className="holdings-actions"><button type="button" className="holdings-secondary" onClick={() => {dispatch({type: 'reimport'}); setMode('images');}} disabled={busy}>重新导入</button><button type="button" className="holdings-text-button" onClick={clear} disabled={busy}>{clearing ? '清除中…' : '清除持仓'}</button></div>}
     </header>
     {state.error && <p className="holdings-error" role="alert">{state.error}</p>}

@@ -18,7 +18,7 @@ export default function EmbedRuleCard() {
       <header className="embed-heading"><strong>经纬规则卡</strong><span>数据日 {card.as_of}</span></header>
       <DataDateNotice asOf={card.as_of}/>
       <div className="embed-current"><div><h1>{card.index.name}</h1><span>{card.index.code}</span></div><strong className={`tone-${card.band}`}>{card.label}</strong></div>
-      <p className="embed-metric">滚动市盈率 <b>{number(card.pe_ttm)} 倍</b> · 近十年第 <b>{number(card.percentile)} 百分位</b></p>
+      <p className="embed-metric">滚动市盈率 <b>{number(card.pe_ttm)} 倍</b> · {card.window_label}第 <b>{number(card.percentile)} 百分位</b></p>
       <dl className="embed-actions"><div><dt>新增资金</dt><dd>{card.new_money.title}</dd></div><div><dt>已有持仓</dt><dd>{card.held.title}</dd></div></dl>
       <section className="embed-boundaries"><h2>什么时候改判</h2><dl>
         <div><dt>偏低区 · 分位 &lt; {b.low_percentile}</dt><dd>约 {number(b.low)} 倍以下</dd></div>
@@ -35,5 +35,5 @@ export default function EmbedRuleCard() {
 
 export function ErrorBoundary() {
   const error = useRouteError(), unsupported = isRouteErrorResponse(error) && error.status === 404 && error.data === '该指数尚未提供规则卡';
-  return <main id="main" className="embed-page"><article className="embed-rule-card"><h1>经纬规则卡</h1><p>{unsupported ? '该指数尚未提供规则卡，目前支持沪深300。' : '估值判断暂时无法载入，请稍后重试。'}</p>{unsupported ? <Link className="embed-retry" to="/embed/rule-card">查看沪深300规则卡 →</Link> : <a className="embed-retry" href="">重新载入 →</a>}</article></main>;
+  return <main id="main" className="embed-page"><article className="embed-rule-card"><h1>经纬规则卡</h1><p>{unsupported ? '该指数尚未提供规则卡。' : '估值判断暂时无法载入，请稍后重试。'}</p>{unsupported ? <Link className="embed-retry" to="/embed/rule-card">查看沪深300规则卡 →</Link> : <a className="embed-retry" href="">重新载入 →</a>}</article></main>;
 }

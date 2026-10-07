@@ -27,12 +27,14 @@ test('规则卡 JSON 经真实 publication API 读取，与公开判断的数字
     assert.equal(card.source.url, published.source_url);
     assert.ok(!('chart' in card) && !('changes' in card));
     assert.match(changeDescription(card.last_change), /历史回算|实际观察/);
-    for (const [code, name] of [['000905', '中证500'], ['000016', '上证50']]) {
+    for (const [code, name] of [['000905', '中证500'], ['000016', '上证50'], ['399006', '创业板指'], ['HSTECH', '恒生科技']]) {
       const other = await jsonLoader({request: new Request(`http://channel/embed/rule-card.json?index=${code}`)});
       assert.equal(other.status, 200);
-      assert.equal((await other.json()).index.name, name);
+      const body = await other.json();
+      assert.equal(body.index.name, name);
+      if (code === 'HSTECH') {assert.equal(body.window_label, '2020.07.27以来'); assert.match(body.source.name, /蛋卷基金（第三方）/);}
     }
-    for (const code of ['399006', '', 'constructor']) {
+    for (const code of ['999999', '', 'constructor']) {
       const unsupported = await jsonLoader({request: new Request(`http://channel/embed/rule-card.json?index=${code}`)});
       assert.equal(unsupported.status, 404);
       assert.match((await unsupported.json()).error, /尚未提供/);

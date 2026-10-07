@@ -17,6 +17,18 @@
 .brand-row nav a.active:after{transform:scaleX(1)}
 .brand-row nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 main{scroll-margin-top:72px}
+.brand-row nav .nav-settings{display:grid;place-items:center;width:38px;height:38px;padding:0;margin-left:6px}
+.nav-settings svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.brand-row nav .nav-settings:after{left:9px;right:9px}
+/* Second row of the header: a section's own pages, or the way back from a detail page. */
+.section-bar{display:flex;align-items:center;gap:4px;min-height:44px;margin-top:-2px;padding-bottom:6px;font-size:var(--text-ui)}
+.section-tabs a{padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap;transition:color .2s,background .2s}
+.section-tabs a:hover{color:var(--ink);background:#f2f2f4}
+.section-tabs a.active{color:var(--ink);font-weight:600;background:#efeff2}
+.section-tabs a:focus-visible,.section-back:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.section-back{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 8px;border-radius:999px;color:var(--muted);transition:color .2s,background .2s}
+.section-back span{font-size:1.25rem;line-height:1;margin-top:-2px}
+.section-back:hover{color:var(--ink);background:#f2f2f4}
 footer{width:min(1120px,calc(100% - 48px))}
 @media(max-width:760px){
   .masthead{padding:0 16px}
@@ -26,6 +38,8 @@ footer{width:min(1120px,calc(100% - 48px))}
   .brand-row nav::-webkit-scrollbar{display:none}
   .brand-row nav a{padding:7px 10px}
   .brand-row nav a:after{bottom:-8px}
+  .section-bar{margin:0 -16px;padding:0 10px 8px;overflow-x:auto;scrollbar-width:none}
+  .brand-row nav .nav-settings{margin-left:auto}
 }
 
 /* Form controls site-wide: rounded, quiet borders, ink focus ring. */
@@ -34,3 +48,4 @@ footer{width:min(1120px,calc(100% - 48px))}
 .search-form button{min-height:44px;padding:0 20px;border:1px solid var(--ink);border-radius:12px;background:var(--ink);color:#fff;font:inherit;font-size:var(--text-ui);font-weight:600;cursor:pointer}
 .search-form button:active{transform:scale(.98)}
 .listing article,.article-listing article{transition:background .2s}
+.reader-setting-links{display:flex;gap:20px;flex-wrap:wrap}

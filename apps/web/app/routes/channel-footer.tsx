@@ -1,6 +1,6 @@
-import {Link, Outlet} from 'react-router';
-import '../channel-footer.css';
+import {Outlet} from 'react-router';
 
-export default function ChannelFooter() {
-  return <><Outlet/><nav className="channel-footer" aria-label="机构与客户经理"><strong>机构与客户经理</strong><Link to="/embed/rule-card">可嵌入规则卡</Link><Link to="/advisor">客户经理一页说明</Link></nav></>;
+// Bank tools used to be linked from a strip under every page; they are now the 机构服务 section.
+export default function ChannelLayout() {
+  return <Outlet/>;
 }
