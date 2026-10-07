@@ -219,3 +219,32 @@
 ### 任务 AO：参赛文档与软件数字一致性核对
 
 逐份核对 `docs/经纬_参赛方案完整候选稿.md`、`docs/经纬_一页摘要.md`、`docs/经纬_答辩问答.md`、`docs/经纬_路演脚本.md`、`docs/经纬_技术与方法证据附录.md`、`docs/经纬_工行落地与价值测算.md`、`README.md` 里的每个数字、日期、指数名、页面名，与当前软件（4410 页面、`/publication/judgments` 等 API、docs/指数覆盖.md、docs/规则稳健性.md）对照。不一致的直接改文档；拿不准的列在回复里。不要改 docs/指数覆盖.md（AN 在改），不要改代码。回复列出改了哪些数字及依据。
+
+## 第四轮并行（2026-10-07）：任务 AQ、AS、AT、AV、AW
+
+并行规则、审查红线同前。每个任务只改下面列出的文件；需要改别的文件就在回复里说明，不要自己改。完成前 `npm run typecheck` 与 `npm test` 必须全过（若失败来自别的任务正在改的文件，说明是哪个文件）。
+
+### 任务 AS：Windows 版就绪检查
+
+从未在 Windows 真机运行过。逐项静态核查 Windows 分支并修复：`desktop/main.mjs`（路径、`web-port`、菜单快捷键 Ctrl、窗口、PDF 导出、后退前进）、`native/ocr.ps1`（Windows.Media.Ocr 调用、中文语言包缺失时的报错文案、输出格式与 macOS 一致）、`packages/backend/credentials.ts` 的 Windows 凭据存储分支、`electron-builder.yml` 的 win 配置与 `releases/1.0.0-rc.5/win-unpacked` 内容（ocr.ps1、图标、启动画面是否打进包）。能用 node 单测覆盖的分支（如 ocr.ps1 输出解析、路径拼接）补测试。
+可改：上述文件及对应 tests。回复列出：发现的问题、修复、仍需真机确认的项目。
+
+### 任务 AV：出错与离线状态
+
+另起端口（API 4421、网页 4420，`JINGWEI_API_URL` 指向 4421）模拟：API 未启动、API 返回 500、某指数数据缺失、断网（桌面离线提示）。逐页（首页、改判记录、持仓体检、我的情况、费用比较、文章、机构服务、客户经理说明、设置、规则卡嵌入页）看出错时用户看到什么：是否有“出了什么事、现在能做什么、怎么回去”。改进各路由的 ErrorBoundary 文案与返回入口，风格与现有页面一致（不要红色大警告、不要技术报错原文）。
+可改：`apps/web/app/routes/*.tsx` 中的 ErrorBoundary 函数与 loader 的错误处理、`apps/web/app/root.tsx` 的 ErrorBoundary、`apps/web/app/lib/api.server.ts`。不改页面正常状态的内容与样式。
+
+### 任务 AQ：键盘与读屏可用性
+
+用键盘（Tab / Shift+Tab / Enter / 方向键 / Esc）走一遍：顶部分区与齿轮、子标签、返回链接、首页指数选择器、可拖动曲线、全部指数一览、阅读引导与首次引导对话框、持仓导入确认表、机构服务的指数选择与复制。检查焦点可见、顺序合理、对话框能 Esc 关闭且焦点回到触发处、图形有文字替代、颜色对比（正文 ≥ 4.5:1）。修复发现的问题。
+可改：`apps/web/app/components/HomeHero.tsx`、`IndexOverview.tsx`、`ReadingGuide.tsx`、`FirstRun.tsx`、`RuleJudgment.tsx`、`ChangesView.tsx`，以及 `apps/web/app/hero.css`、`shell.css`、`changes.css`、`firstrun.css`。不改视觉设计（颜色只在对比不足时微调）。回复列出每处问题与修复。
+
+### 任务 AT：问经纬覆盖其余指数
+
+AE 已测纳斯达克100、恒生科技、中证红利。对标普500、恒生指数、创业板指、科创50、中证1000 各问四个建议问题（规则同 AE：用 4411、带 `x-jingwei-reader: local` 和 index、不重启 API、在 ¥10 累计上限内、不查看密钥；若未授权或无密钥就停下报告）。检查指数名、来源、确认长度、不足十年的说法、缓冲保留区间（中证1000、科创50 当前分位低于 70 仍是偏高区）是否解释正确；校验器误拒或误放就修。
+可改：`packages/backend/ask.ts`、`tests/ask.test.ts`、`apps/web/app/components/AskJingwei.tsx`。回复给出每个问答原文、是否通过、花费。
+
+### 任务 AW：导出持仓体检报告
+
+持仓体检页加“导出体检报告”：桌面版用已有的 `window.jingwei.savePdf`（与客户经理说明相同），网页版用打印。报告一页：日期、总额与去向、规则覆盖与按区间汇总、重复方向、逐只判断、备注、数据来源与日期、“规则结果不构成个别投资建议”。打印样式隐藏导航与按钮。金额只来自本机已保存的持仓，不写入仓库、不上传。
+可改：`apps/web/app/components/HoldingsCheckup.tsx`、`apps/web/app/holdings.css`、`apps/web/app/routes/holdings.tsx`（仅加按钮与打印相关）。用虚构持仓验证，截图或 PDF 放 `evidence/aw/`。
