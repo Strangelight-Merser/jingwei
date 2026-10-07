@@ -103,3 +103,25 @@ a.holdings-verdict:hover b{text-decoration:underline;text-underline-offset:3px}
 .holdings-page .holdings-drop{border-radius:20px;border-color:#d6d6dc;background:#fbfbfc;transition:border-color .2s,background .2s}
 .holdings-page .holdings-drop.is-dragging{border-color:var(--ink);background:#f4f4f6}
 .holdings-drop-art{mix-blend-mode:multiply}
+
+.holdings-export-actions{display:flex;align-items:center;gap:16px;justify-content:flex-end;margin-bottom:16px}
+.holdings-export-actions p{font-size:var(--text-ui);color:var(--muted)}
+.holdings-print-report{display:none}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  body:has(.holdings-page){background:#fff;color:#111}
+  body:has(.holdings-page) .masthead,body:has(.holdings-page) .channel-footer,body:has(.holdings-page) .skip,body:has(.holdings-page)>footer{display:none!important}
+  .holdings-page{max-width:none;width:100%;margin:0;padding:0}
+  .holdings-page>*:not(.holdings-print-report){display:none!important}
+  .holdings-print-report{display:block;width:186mm;font-size:var(--report-font);line-height:1.4;color:#111}
+  .holdings-print-report h1{font-size:18pt;margin:0 0 2mm}
+  .holdings-print-report h2{font-size:10pt;margin:0 0 1mm}
+  .holdings-print-report p{margin:0 0 1mm;overflow-wrap:anywhere}
+  .holdings-print-report section,.holdings-print-report footer{margin-top:3mm}
+  .holdings-print-report table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .holdings-print-report th,.holdings-print-report td{text-align:left;padding:1.5mm 2mm;border-bottom:1px solid #ddd;overflow-wrap:anywhere}
+  .holdings-print-report th:first-child{width:48%}.holdings-print-report th:nth-child(2){width:18%}
+  .holdings-print-report small{display:block;font-size:.85em;color:#444}
+  .holdings-print-report tr{break-inside:avoid}
+  .holdings-print-report footer{display:block;width:100%;max-width:none;margin:3mm 0 0;font-size:7pt;line-height:1.4;border-top:1px solid #bbb;padding:2mm 0 0;color:#111}.holdings-print-report footer h2{font-size:10pt;color:#111}.holdings-print-report footer p{color:#111;font-size:inherit;line-height:inherit}
+}

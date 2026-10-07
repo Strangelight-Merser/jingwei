@@ -1,12 +1,21 @@
+import {useLoaderData} from 'react-router';
 import {useEffect, useReducer, useRef, useState} from 'react';
 import {HoldingsCheckup, SavedHoldings} from '../components/HoldingsCheckup.tsx';
 import {blankDraft, checkHoldings, confirmRows, editName, EXPOSURE_LABELS, importReducer, initialImportState, parseHoldings, recognizeImages} from '../lib/holdings-client.ts';
 import {HOLDINGS_CHANGED, readHoldings, writeHoldings} from '../lib/holdings-storage.ts';
 import '../holdings.css';
+import {publication} from '../lib/api.server.ts';
+import type {JudgmentOverview} from '../components/RuleJudgment.tsx';
+
+export async function loader() {
+  const overview = await publication<JudgmentOverview>('judgments');
+  return {sources: overview.indexes.map(j => ({index: j.index_code, name: j.index_name, date: j.as_of, source: j.rule.source === 'csi' ? '中证指数 · 每日估值' : '蛋卷基金（第三方） · 每周估值', url: j.source_url}))};
+}
 
 export function meta() {return [{title: '持仓体检 · 经纬'}];}
 
 export default function HoldingsPage() {
+  const {sources} = useLoaderData<typeof loader>();
   const [state, dispatch] = useReducer(importReducer, initialImportState);
   const [desktopOcr, setDesktopOcr] = useState(false);
   const [mode, setMode] = useState<'images' | 'text'>('images');
@@ -155,6 +164,6 @@ export default function HoldingsPage() {
       <div className="holdings-confirm-actions"><button className="holdings-primary" type="submit" disabled={busy || !state.drafts.length}>{state.phase === 'saving' ? '核对并保存中…' : state.drafts.some(draft => draft.rematch) ? '匹配名称并核对' : '确认并保存'}</button><button className="holdings-text-button" type="button" disabled={busy} onClick={() => {dispatch({type: 'cancel'}); setFiles([]); setNotice('');}}>取消</button></div>
     </form>}
 
-    {state.phase === 'checkup' && state.saved && <>{state.checkup ? <HoldingsCheckup holdings={state.saved} checkup={state.checkup}/> : <section className="holdings-card"><h2>持仓已保存在本机</h2>{checking ? <p className="holdings-muted" role="status">正在体检…</p> : <><p className="holdings-muted">体检尚未完成，持仓清单已保留。</p><button className="holdings-secondary" type="button" onClick={retryCheckup}>重新体检</button></>}<SavedHoldings holdings={state.saved}/></section>}</>}
+    {state.phase === 'checkup' && state.saved && <>{state.checkup ? <HoldingsCheckup holdings={state.saved} checkup={state.checkup} sources={sources}/> : <section className="holdings-card"><h2>持仓已保存在本机</h2>{checking ? <p className="holdings-muted" role="status">正在体检…</p> : <><p className="holdings-muted">体检尚未完成，持仓清单已保留。</p><button className="holdings-secondary" type="button" onClick={retryCheckup}>重新体检</button></>}<SavedHoldings holdings={state.saved}/></section>}</>}
   </main>;
 }
