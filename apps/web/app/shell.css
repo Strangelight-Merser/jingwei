@@ -17,9 +17,12 @@
 .brand-row nav a.active:after{transform:scaleX(1)}
 .brand-row nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 main{scroll-margin-top:72px}
-.brand-row nav .nav-settings{display:grid;place-items:center;width:38px;height:38px;padding:0;margin-left:6px}
+.nav-icon{display:none}
+.brand-row .nav-settings{position:relative;display:grid;place-items:center;width:38px;height:38px;border-radius:9px;color:var(--muted);transition:color .2s,background .2s}
+.brand-row .nav-settings:hover{color:var(--ink);background:#f2f2f4}
+.brand-row .nav-settings.active{color:var(--ink)}
+.brand-row .nav-settings:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .nav-settings svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
-.brand-row nav .nav-settings:after{left:9px;right:9px}
 /* Second row of the header: a section's own pages, or the way back from a detail page. */
 .section-bar{display:flex;align-items:center;gap:4px;min-height:44px;margin-top:-2px;padding-bottom:6px;font-size:var(--text-ui)}
 .section-tabs a{padding:6px 12px;border-radius:999px;color:var(--muted);white-space:nowrap;transition:color .2s,background .2s}
@@ -31,15 +34,19 @@ main{scroll-margin-top:72px}
 .section-back:hover{color:var(--ink);background:#f2f2f4}
 footer{width:min(1120px,calc(100% - 48px))}
 @media(max-width:760px){
-  .masthead{padding:0 16px}
-  .brand-row{flex-direction:column;align-items:stretch;gap:0;min-height:0}
+  /* No blur on the phone header: a filter would make it the containing block of the fixed tab bar. */
+  .masthead{padding:0 16px;background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .brand-row{min-height:52px;gap:12px}
   .brand{min-height:52px}
-  .brand-row nav{margin:0 -16px;padding:0 10px 8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:flex-start}
-  .brand-row nav::-webkit-scrollbar{display:none}
-  .brand-row nav a{padding:7px 10px}
-  .brand-row nav a:after{bottom:-8px}
+  /* Sections move to a bottom tab bar; the gear stays in the header row. */
+  .brand-row nav{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid rgba(0,0,0,.08)}
+  .brand-row nav a{display:grid;justify-items:center;gap:3px;padding:6px 2px;border-radius:10px;font-size:11px}
+  .brand-row nav a:after{content:none}
+  .brand-row nav a.active{background:none;color:var(--accent)}
+  .nav-icon{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .brand-row .nav-settings{margin-left:auto}
+  body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   .section-bar{margin:0 -16px;padding:0 10px 8px;overflow-x:auto;scrollbar-width:none}
-  .brand-row nav .nav-settings{margin-left:auto}
 }
 
 /* Form controls site-wide: rounded, quiet borders, ink focus ring. */

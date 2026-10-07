@@ -4,7 +4,7 @@ import {blankDraft, checkHoldings, confirmRows, editName, EXPOSURE_LABELS, impor
 import {HOLDINGS_CHANGED, readHoldings, writeHoldings} from '../lib/holdings-storage.ts';
 import '../holdings.css';
 
-export function meta() {return [{title: '我的持仓 · 经纬'}];}
+export function meta() {return [{title: '持仓体检 · 经纬'}];}
 
 export default function HoldingsPage() {
   const [state, dispatch] = useReducer(importReducer, initialImportState);

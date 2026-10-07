@@ -31,17 +31,25 @@ export function Layout({children}:{children:React.ReactNode}) {
 export default function Root(){return <Outlet/>;}
 export function ErrorBoundary(){const error=useRouteError();const missing=isRouteErrorResponse(error)&&error.status===404;return <main id="main" className="error-page"><h1>{missing?'这篇内容暂未收录':'内容暂时无法载入'}</h1><p>{missing?'从首页或专题继续阅读。':'连接可能暂时中断。恢复连接后，可以重新载入这页。'}</p>{!missing&&<p><a className="text-link" href="">重新载入</a></p>}<Link className="text-link" to="/">回到首页</Link></main>;}
 
-/** Four sections by what the reader is doing; settings behind the gear. */
+// Line icons for the phone tab bar: a rising curve, a person, a book, a bank.
+const NAV_ICONS: Record<string, string> = {
+  today: 'M3 17l5-5 4 3 8-8M15 7h5v5',
+  mine: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20.5c1.2-3.6 4.1-5.5 7.5-5.5s6.3 1.9 7.5 5.5',
+  research: 'M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5-2.5-2-5.5-2-8-.5zM12 6v13.5',
+  bank: 'M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18',
+};
+
+/** Four sections by what the reader is doing; settings behind the gear. On a phone they become a bottom tab bar. */
 function MainNav() {
   const {pathname} = useLocation();
   const current = sectionOf(pathname);
   const inSettings = SETTINGS.paths.some(path => pathname === path || pathname.startsWith(`${path}/`));
-  return <nav aria-label="主导航">
-    {SECTIONS.map(section => <Link key={section.key} to={section.to} className={current?.key === section.key ? 'active' : undefined} aria-current={current?.key === section.key ? 'page' : undefined}>{section.label}</Link>)}
+  return <><nav aria-label="主导航">
+    {SECTIONS.map(section => <Link key={section.key} to={section.to} className={current?.key === section.key ? 'active' : undefined} aria-current={current?.key === section.key ? 'page' : undefined}><svg className="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={NAV_ICONS[section.key]}/></svg><span>{section.label}</span></Link>)}
+  </nav>
     <Link to={SETTINGS.to} className={`nav-settings${inSettings ? ' active' : ''}`} aria-label="设置" title="设置" aria-current={inSettings ? 'page' : undefined}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"/></svg>
-    </Link>
-  </nav>;
+    </Link></>;
 }
 
 /** Under the header: the section's own tabs, or a way back from a detail page. */
