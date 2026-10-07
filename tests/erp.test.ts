@@ -4,7 +4,7 @@ import {dailyErp, erpPercentiles, erpGroup, erpForHistory, seedBondYields} from 
 import {BOND_YIELD_SOURCE} from '../packages/backend/government-bond-yield-seed.ts';
 import {seedHistory, type ValuationPoint} from '../packages/backend/valuation-history.ts';
 import {seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
-import {INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
+import {RETURN_INDEX_CODES as INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
 import type {ValuationBand} from '../packages/backend/valuation-rule.ts';
 import type {TotalReturnPoint} from '../packages/backend/total-return-source.ts';
 

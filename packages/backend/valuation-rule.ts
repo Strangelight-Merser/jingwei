@@ -1,7 +1,7 @@
 // Public judgment rule: the stance follows where each index's rolling PE sits in its own
 // trailing history. The rule is fixed in advance, so anyone can recompute every change from the data.
 import type {ValuationPoint} from './valuation-history.ts';
-import {VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {VALUATION_INDEXES, frequencyOf, SOURCE_LABELS, sourceOf, type IndexCode} from './valuation-indexes.ts';
 
 export const VALUATION_RULE = {
   id: 'csi300-pe-ttm-10y-v2',
@@ -16,6 +16,8 @@ export const VALUATION_RULE = {
   extreme: 90,
   // A boundary must hold for this many consecutive trading days before the judgment changes.
   confirm_days: 5,
+  // Weekly histories (蛋卷) confirm over two consecutive weekly readings: about the same week of time.
+  confirm_weeks: 2,
   // v2: leaving the confirmed band takes crossing its edge by this many extra percentile points.
   // v1 had no buffer and reversed within weeks about one change in three; see stability in the result.
   buffer: 5,
@@ -136,7 +138,7 @@ export function bandWithBuffer(exact: number, current: ValuationBand | null, buf
 }
 
 /** Applies the buffer and the confirmation rule; only a band held for `confirm_days` days becomes the judgment. */
-export function ruleTimeline(series: PercentilePoint[], buffer: number = VALUATION_RULE.buffer) {
+export function ruleTimeline(series: PercentilePoint[], buffer: number = VALUATION_RULE.buffer, confirm: number = VALUATION_RULE.confirm_days) {
   const changes: RuleChange[] = [];
   let confirmed: ValuationBand | null = null;
   let pending: {band: ValuationBand; days: number} | null = null;
@@ -150,7 +152,7 @@ export function ruleTimeline(series: PercentilePoint[], buffer: number = VALUATI
     if (band === confirmed) { pending = null; continue; }
     const previous = pending as {band: ValuationBand; days: number} | null;
     pending = previous?.band === band ? {band, days: previous.days + 1} : {band, days: 1};
-    if (pending.days >= VALUATION_RULE.confirm_days) {
+    if (pending.days >= confirm) {
       changes.push({date: p.date, from: confirmed, to: band, pe_ttm: p.pe_ttm, percentile: p.percentile, full_window: p.full_window});
       confirmed = band;
       pending = null;
@@ -192,20 +194,24 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
   const series = percentileSeries(points);
   const latest = series.at(-1);
   if (!latest) return null;
-  const {changes, confirmed, pending} = ruleTimeline(series);
+  const index = options.index ?? '000300';
+  const weekly = frequencyOf(index) === 'weekly';
+  const confirm = weekly ? VALUATION_RULE.confirm_weeks : VALUATION_RULE.confirm_days;
+  const {changes, confirmed, pending} = ruleTimeline(series, VALUATION_RULE.buffer, confirm);
   const band = confirmed!;
   const boundaries = boundaryPe(points, latest.date, band);
-  const v1 = ruleTimeline(series, 0).changes;
-  // Downsample to weekly points for the reader's chart; the last point is always included.
-  const chart = series.filter((p, i) => i % 5 === 0 || i === series.length - 1).map(p => ({date: p.date, percentile: p.percentile, pe_ttm: p.pe_ttm}));
+  const v1 = ruleTimeline(series, 0, confirm).changes;
+  // Downsample daily data to weekly points for the reader's chart; the last point is always included.
+  const chart = series.filter((p, i) => weekly || i % 5 === 0 || i === series.length - 1).map(p => ({date: p.date, percentile: p.percentile, pe_ttm: p.pe_ttm}));
   const counts = {low: 0, mid: 0, high: 0, extreme: 0} as Record<ValuationBand, number>;
   for (const p of series) counts[bandOf(p.exact)]++;
-  const index = options.index ?? '000300';
   const identity = VALUATION_INDEXES[index];
   return {
     index_code: index,
     index_name: identity.name,
-    rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v2`, name: `${identity.name}估值分位规则 v2`},
+    rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v2`, name: `${identity.name}估值分位规则 v2`, confirm_days: confirm,
+      /** What one reading is: a trading day (CSI) or a week (蛋卷). */
+      unit: weekly ? '个周读数' : '个数据日', frequency: weekly ? 'weekly' as const : 'daily' as const, source: sourceOf(index), source_label: SOURCE_LABELS[sourceOf(index)]},
     as_of: latest.date,
     pe_ttm: latest.pe_ttm,
     percentile: latest.percentile,
@@ -214,7 +220,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
     raw_band: bandOf(latest.exact),
     band,
     judgment: BAND_JUDGMENTS[band],
-    pending: pending ? {...pending, needed: VALUATION_RULE.confirm_days, judgment: BAND_JUDGMENTS[pending.band]} : null,
+    pending: pending ? {...pending, needed: confirm, judgment: BAND_JUDGMENTS[pending.band]} : null,
     boundaries,
     changes: changes.map(c => ({...c, origin: c.date >= (options.live_from ?? VALUATION_RULE.live_from) ? 'live' as const : 'recomputed' as const})).reverse(),
     last_change: changes.at(-1)!,

@@ -1,6 +1,6 @@
 import type {FastifyInstance} from 'fastify';
 import {erpForHistory} from './erp.ts';
-import {isIndexCode, VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {hasReturns, isIndexCode, VALUATION_INDEXES, type ReturnIndexCode} from './valuation-indexes.ts';
 import {readState, storageConfiguration} from './storage.ts';
 import {currentValuationHistory} from './judgment.ts';
 import {currentTotalReturnHistory} from './total-return-history.ts';
@@ -11,7 +11,7 @@ import {OUTCOME_INDICES} from './total-return-source.ts';
  * ERP from the same current data the judgment uses: PE as refreshed for the index, the
  * dividend-inclusive closes and the ten-year yield, each bundled seed plus later official rows.
  */
-export async function currentErp(index: IndexCode) {
+export async function currentErp(index: ReturnIndexCode) {
   const [state, bonds, returns] = await Promise.all([readState(), currentBondYields(), currentTotalReturnHistory(index)]);
   const valuation = currentValuationHistory(state, index);
   const lens = erpForHistory(valuation.points, bonds.points, returns.points);
@@ -23,6 +23,8 @@ export function registerErp(app: FastifyInstance, {networkChecks = false}: {netw
   app.get<{Querystring: {index?: string}}>('/publication/erp', async (req, reply) => {
     const index = req.query.index ?? '000300';
     if (!isIndexCode(index)) return reply.code(400).send({error: 'unknown_index'});
+    // ERP compares with the Chinese ten-year yield and needs a total-return series: the A-share trio.
+    if (!hasReturns(index)) return reply.code(404).send({error: 'erp_unavailable'});
     return (await currentErp(index)) ?? reply.code(404).send({error: 'erp_unavailable'});
   });
   // The bond yield follows the same checks as the total-return series: an explicit check, or the

@@ -58,7 +58,6 @@ li.is-selected .changes-dot{box-shadow:0 0 0 3px var(--tone-bg),0 0 0 5px var(--
 }
 @media(max-width:760px){
   .changes-head{align-items:stretch}
-  .changes-head .hero-switch{width:100%}
   .changes-year{grid-template-columns:1fr;gap:8px}
   .changes-year h3{display:flex;align-items:baseline;gap:8px}
   .changes-year h3 small{display:inline}

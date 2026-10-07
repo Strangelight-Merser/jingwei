@@ -3,7 +3,7 @@ import type {TotalReturnPoint} from './total-return-source.ts';
 import {TOTAL_RETURN_SEED as CSI300_RETURN, TOTAL_RETURN_SOURCE as CSI300_SOURCE} from './000300-total-return-seed.ts';
 import {TOTAL_RETURN_SEED as CSI500_RETURN, TOTAL_RETURN_SOURCE as CSI500_SOURCE} from './000905-total-return-seed.ts';
 import {TOTAL_RETURN_SEED as SSE50_RETURN, TOTAL_RETURN_SOURCE as SSE50_SOURCE} from './000016-total-return-seed.ts';
-import {VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {VALUATION_INDEXES, type IndexCode, type ReturnIndexCode} from './valuation-indexes.ts';
 import {BAND_JUDGMENTS, VALUATION_RULE, type ValuationBand} from './valuation-rule.ts';
 import {calculateRuleOutcomes, confirmedBandDays, OUTCOME_BANDS} from './rule-outcomes.ts';
 import {BOND_YIELD_SEED, BOND_YIELD_SOURCE} from './government-bond-yield-seed.ts';
@@ -113,7 +113,7 @@ export type ErpLensData = NonNullable<ReturnType<typeof erpForHistory>>;
 const RETURN_SEEDS = {'000300': {data: CSI300_RETURN, source: CSI300_SOURCE}, '000905': {data: CSI500_RETURN, source: CSI500_SOURCE}, '000016': {data: SSE50_RETURN, source: SSE50_SOURCE}};
 
 /** Fixed official snapshot, shared by the API and the offline UI; its date is always displayed. */
-export function bundledErp(index: IndexCode) {
+export function bundledErp(index: ReturnIndexCode) {
   const valuation = seedHistory(index);
   const returns = RETURN_SEEDS[index];
   const closes = returns.data.split(',').map(item => {

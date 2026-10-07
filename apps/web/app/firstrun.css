@@ -13,16 +13,16 @@
 .first-run-points b{font-size:1rem}
 .first-run-points span{font-size:.9375rem;line-height:1.7;color:#55555d}
 
-.first-run-data{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none}
-.first-run-data li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:var(--surface);opacity:.35;transform:translateY(4px);transition:opacity .4s,transform .4s var(--ease-out)}
+.first-run-data{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0 0;padding:0;list-style:none}
+.first-run-data li{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface);opacity:.35;transform:translateY(4px);transition:opacity .4s,transform .4s var(--ease-out)}
 .first-run-data li.is-ready{opacity:1;transform:none}
 .first-run-data li>div{flex:1;min-width:0}
-.first-run-data strong{display:block;font-size:1rem}
+.first-run-data strong{display:block;font-size:.9375rem}
 .first-run-data small{font-size:var(--text-caption);color:var(--muted);font-variant-numeric:tabular-nums}
-.first-run-check{position:relative;width:22px;height:22px;border-radius:50%;border:2px solid #d4d4da;flex:none;transition:border-color .3s,background .3s}
+.first-run-check{position:relative;width:20px;height:20px;border-radius:50%;border:2px solid #d4d4da;flex:none;transition:border-color .3s,background .3s}
 .first-run-data li.is-ready .first-run-check{border-color:var(--tone-line);background:var(--tone-line)}
-.first-run-data li.is-ready .first-run-check:after{content:'';position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
-.first-run-band{padding:3px 10px;border-radius:999px;background:var(--tone-bg);color:var(--tone-ink);font-size:12px;font-weight:600;white-space:nowrap}
+.first-run-data li.is-ready .first-run-check:after{content:'';position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.first-run-band{padding:2px 8px;border-radius:999px;background:var(--tone-bg);color:var(--tone-ink);font-size:12px;font-weight:600;white-space:nowrap}
 .first-run-note{margin:16px 0 0;font-size:var(--text-caption);line-height:1.7;color:var(--muted)}
 
 .first-run-choices{display:grid;gap:12px;margin:22px 0 0}
@@ -50,5 +50,6 @@
 @keyframes first-run-page{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
 @media(max-width:760px){
   .first-run{padding:22px 20px 20px;border-radius:18px}
+  .first-run-data{grid-template-columns:1fr}
   .first-run h2{font-size:1.375rem}
 }

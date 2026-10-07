@@ -5,7 +5,7 @@
 // Run: node scripts/rule-sensitivity.ts  → prints a Markdown table; docs/规则稳健性.md holds the output.
 import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
-import type {IndexCode} from '../packages/backend/valuation-indexes.ts';
+import {RETURN_INDEX_CODES, type ReturnIndexCode as IndexCode} from '../packages/backend/valuation-indexes.ts';
 
 type Variant = {label: string; window: number; edges: [number, number, number]; confirm: number; buffer: number};
 const VARIANTS: Variant[] = [
@@ -75,7 +75,7 @@ function run(index: IndexCode, v: Variant) {
 }
 
 const fmt = (m: number | null, n: number) => m === null ? '—' : `${m.toFixed(1)}%（${n}）`;
-for (const index of ['000300', '000905', '000016'] as IndexCode[]) {
+for (const index of RETURN_INDEX_CODES) {
   console.log(`\n### ${seedHistory(index).points.length ? {'000300': '沪深300', '000905': '中证500', '000016': '上证50'}[index] : index}\n`);
   console.log(`| 参数 | 改判次数 | 45 天内反转 | ${BAND.map(b => `${b}区 3 年年化（月初样本数）`).join(' | ')} | 依次降低 |`);
   console.log(`|---|---|---|${BAND.map(() => '---').join('|')}|---|`);

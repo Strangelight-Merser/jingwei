@@ -56,7 +56,7 @@ function triggers(r: NonNullable<ReturnType<typeof evaluateValuationRule>>) {
   const {low, high, extreme} = r.boundaries;
   const range = {low: `低于约${low}倍`, mid: `在约${low}至${high}倍之间`, high: `在约${high}至${extreme}倍之间`, extreme: `高于约${extreme}倍`} as const;
   return (['low', 'mid', 'high', 'extreme'] as const).filter(b => b !== r.band)
-    .map(b => `连续${r.rule.confirm_days}个数据日${range[b]}，改为${BAND_JUDGMENTS[b].label}（新增资金“${BAND_JUDGMENTS[b].new_money.title}”）`).join('；');
+    .map(b => `连续${r.rule.confirm_days}${r.rule.unit}${range[b]}，改为${BAND_JUDGMENTS[b].label}（新增资金“${BAND_JUDGMENTS[b].new_money.title}”）`).join('；');
 }
 
 /** The rule result for one index as citable evidence; the research chain uses CSI 300, the default. */
@@ -66,7 +66,7 @@ export function valuationRuleEvidence(state: State, index: IndexCode = '000300')
   if (!r) return null;
   const j = r.judgment;
   const fromLabel = r.last_change.from ? BAND_JUDGMENTS[r.last_change.from].label : null;
-  const text = `数据截至${r.as_of}：${r.index_name}滚动市盈率${r.pe_ttm}倍；${r.window_start}以来，${r.percentile}%的数据日估值不高于当日，处于${j.label}。`
+  const text = `数据截至${r.as_of}：${r.index_name}滚动市盈率${r.pe_ttm}倍；${r.window_start}以来，${r.percentile}%的${r.rule.frequency === 'weekly' ? '周读数' : '数据日'}估值不高于当日，处于${j.label}。`
     + `按${r.rule.name}，新增资金“${j.new_money.title}”，已有持仓“${j.held.title}”。`
     + `从当前${j.label}出发、已含缓冲的改判条件：${triggers(r)}。`
     + `上次改判在${r.last_change.date}${fromLabel ? `，由${fromLabel}改为${j.label}` : ''}。`;
@@ -77,6 +77,7 @@ export function valuationRuleEvidence(state: State, index: IndexCode = '000300')
     held: {stance: STANCE[j.held.action], title: j.held.title, text: j.held.text},
     boundaries: {low: r.boundaries.low, high: r.boundaries.high, extreme: r.boundaries.extreme},
     last_change: {date: r.last_change.date, from_label: fromLabel},
-    ref: {article_id: `valuation-rule-${r.rule.id}-${r.as_of}`, revision: 1, source: `中证指数 · ${r.index_name}每日估值（${r.rule.name}）`, url: history.source_url, published_at: '', checked_at: history.checked_at ?? undefined, data_as_of: r.as_of, fragments: [text]},
+    confirm: {count: r.rule.confirm_days, unit: r.rule.unit}, source_label: r.rule.source_label,
+    ref: {article_id: `valuation-rule-${r.rule.id}-${r.as_of}`, revision: 1, source: `${r.rule.source === 'csi' ? '中证指数' : '蛋卷基金'} · ${r.index_name}${r.rule.frequency === 'weekly' ? '每周' : '每日'}估值（${r.rule.name}）`, url: history.source_url, published_at: '', checked_at: history.checked_at ?? undefined, data_as_of: r.as_of, fragments: [text]},
   };
 }

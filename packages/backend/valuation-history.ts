@@ -1,9 +1,12 @@
-// Rolling PE (TTM) histories from the official CSI index site.
-// The bundled seed keeps the judgment available offline; a refresh only appends newer official rows.
+// Rolling PE (TTM) histories: official CSI daily rows, or 蛋卷基金's weekly rows for indices CSI does not
+// publish. The bundled seed keeps the judgment available offline; a refresh only appends newer rows.
 import {CSI300_PE_SEED, CSI500_PE_SEED, SSE50_PE_SEED} from './csi300-pe-seed.ts';
-import {VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {EXTRA_PE_SEEDS} from './index-pe-seeds.ts';
+import {VALUATION_INDEXES, sourceOf, type IndexCode} from './valuation-indexes.ts';
 
 export const PE_HISTORY_URL = 'https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe';
+export const DANJUAN_PE_URL = 'https://danjuanfunds.com/djapi/index_eva/pe_history/';
+export const historyUrl = (index: IndexCode) => sourceOf(index) === 'csi' ? PE_HISTORY_URL : `${DANJUAN_PE_URL}${VALUATION_INDEXES[index].source_code}`;
 export const PE_HISTORY_PAGE = 'https://www.csindex.com.cn/#/indices/family/detail?indexCode=000300';
 
 export type ValuationPoint = {date: string; pe_ttm: number};
@@ -48,14 +51,48 @@ export function mergePeHistory(base: ValuationPoint[], update: ValuationPoint[])
   return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
-const SEEDS = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED};
+const SEEDS: Record<IndexCode, string> = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED,
+  ...Object.fromEntries(Object.entries(EXTRA_PE_SEEDS).map(([code, seed]) => [code, seed.data]))} as Record<IndexCode, string>;
+const seedCache = new Map<IndexCode, ValuationPoint[]>();
 
 export function seedHistory(index: IndexCode = '000300'): ValuationHistory {
-  const points = SEEDS[index].split(',').map(item => {
-    const [d, v] = item.split(':');
-    return {date: `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6)}`, pe_ttm: Number(v)};
+  let points = seedCache.get(index);
+  if (!points) {
+    points = SEEDS[index].split(',').map(item => {
+      const [d, v] = item.split(':');
+      return {date: `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6)}`, pe_ttm: Number(v)};
+    });
+    seedCache.set(index, points);
+  }
+  return {index_code: index, source_url: historyUrl(index), checked_at: null, points: [...points]};
+}
+
+/** Validates one 蛋卷 response: ascending timestamps, positive PE, dated by the mainland calendar day. */
+export function parseDanjuanHistory(raw: unknown, endDate: string): ValuationPoint[] {
+  const rows = (raw as {result_code?: unknown; data?: {index_eva_pe_growths?: unknown}})?.data?.index_eva_pe_growths;
+  if ((raw as {result_code?: unknown})?.result_code !== 0 || !Array.isArray(rows) || !rows.length) throw new Error('pe_history_unsuccessful');
+  const seen = new Set<string>();
+  return rows.map((row: Record<string, unknown>) => {
+    if (typeof row.ts !== 'number' || !Number.isFinite(row.ts)) throw new Error('pe_history_date_missing');
+    const date = new Date(row.ts + 8 * 3600_000).toISOString().slice(0, 10);
+    if (date > endDate) throw new Error('pe_history_future_date');
+    if (seen.has(date)) throw new Error('pe_history_duplicate_date');
+    seen.add(date);
+    if (typeof row.pe !== 'number' || !Number.isFinite(row.pe) || row.pe <= 0) throw new Error('pe_history_value_invalid');
+    return {date, pe_ttm: Math.round(row.pe * 100) / 100};
+  }).sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** 蛋卷's weekly rows; `span` is its own range parameter (all, 1y, 3y …). */
+export async function fetchDanjuanHistory(index: IndexCode, options: {span?: string; now?: Date; fetcher?: typeof fetch} = {}): Promise<ValuationPoint[]> {
+  const end = mainlandToday(options.now ?? new Date());
+  const response = await (options.fetcher ?? fetch)(`${historyUrl(index)}?day=${options.span ?? '1y'}`, {
+    signal: AbortSignal.timeout(20_000),
+    headers: {'User-Agent': 'Mozilla/5.0 JingweiResearch/0.1'},
   });
-  return {index_code: index, source_url: PE_HISTORY_URL, checked_at: null, points};
+  if (!response.ok) throw new Error(`pe_history_http_${response.status}`);
+  if (response.url && new URL(response.url).hostname !== 'danjuanfunds.com') throw new Error('pe_history_unexpected_redirect');
+  return parseDanjuanHistory(JSON.parse(await response.text()), end);
 }
 
 const compactDate = (iso: string) => iso.replaceAll('-', '');
@@ -77,6 +114,10 @@ export async function fetchPeHistory(start: string, options: {index?: IndexCode;
 
 /** Appends recent official rows to an existing history (re-reading 30 days to pick up revisions). */
 export async function refreshPeHistory(current: ValuationHistory, options: {now?: Date; fetcher?: typeof fetch} = {}): Promise<ValuationHistory> {
+  if (sourceOf(current.index_code) === 'danjuan') {
+    const update = await fetchDanjuanHistory(current.index_code, options);
+    return {...current, checked_at: (options.now ?? new Date()).toISOString(), points: mergePeHistory(current.points, update)};
+  }
   const last = current.points.at(-1)?.date ?? '2011-01-01';
   const from = new Date(`${last}T00:00:00Z`);
   from.setUTCDate(from.getUTCDate() - 30);

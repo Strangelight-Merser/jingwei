@@ -1,3 +1,4 @@
+import {INDEX_CODES, type IndexCode} from './valuation-indexes.ts';
 import {z} from 'zod';
 import type {Holdings, OcrLine} from '../contracts/holdings.ts';
 
@@ -15,7 +16,7 @@ export const holdingsSchema = z.object({
     candidates: z.array(fundMatch.extend({score: z.number().finite().min(0).max(100), reasons: z.array(z.string().min(1).max(500)).max(20)}).strict()).optional(),
     tracked_index: z.string().min(1).max(100).nullable(),
     exposure: z.enum(['a_broad', 'a_other_index', 'a_active', 'us_equity', 'hk_equity', 'overseas_other', 'bond', 'money', 'other']),
-    covered_index: z.enum(['000300', '000905', '000016']).nullable(),
+    covered_index: z.enum(INDEX_CODES as [IndexCode, ...IndexCode[]]).nullable(),
   }).strict()).max(2000),
 }).strict().refine(value => new Set(value.rows.map(row => row.id)).size === value.rows.length &&
   value.rows.reduce((total, row) => total + row.amount, 0) <= Number.MAX_SAFE_INTEGER);

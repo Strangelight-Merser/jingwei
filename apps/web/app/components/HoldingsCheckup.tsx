@@ -1,7 +1,8 @@
 import {Link} from 'react-router';
 import type {Checkup, Exposure, Holdings} from '../../../../packages/contracts/holdings.ts';
 import {number} from '../lib/format.ts';
-const INDEX_NAMES: Record<string, string> = {'000300': '沪深300', '000905': '中证500', '000016': '上证50'};
+import {VALUATION_INDEXES} from '../../../../packages/backend/valuation-indexes.ts';
+const INDEX_NAMES: Record<string, string> = Object.fromEntries(Object.entries(VALUATION_INDEXES).map(([code, index]) => [code, index.name]));
 const EXPOSURE_LABELS: Record<Exposure, string> = {a_broad: 'A股宽基', a_other_index: 'A股其他指数', a_active: 'A股主动', us_equity: '美股', hk_equity: '港股', overseas_other: '其他境外', bond: '债券', money: '货币', other: '其他'};
 
 export function SavedHoldings({holdings}: {holdings: Holdings}) {
@@ -44,7 +45,7 @@ export function HoldingsCheckup({holdings, checkup}: {holdings: Holdings; checku
         <h2 id="coverage-title" className="sr-only">规则覆盖</h2>
         <CoverageRing share={coveredShare}/>
         <p>{checkup.total === 0 ? '总额为 0 元，覆盖占比暂无法计算。' : checkup.covered.length === 0
-          ? '这些持仓都不跟踪沪深300、中证500或上证50，估值规则暂时给不出判断。下面仍可看清钱的去向与重复。'
+          ? '这些持仓都不跟踪规则覆盖的指数，估值规则暂时给不出判断。下面仍可看清钱的去向与重复。'
           : `${number(coveredShare * 100)}% 的持仓有规则判断；其余 ${number(checkup.uncovered_share * 100)}% 暂不覆盖，不给判断。`}</p>
       </section>
       {checkup.duplicates.length > 0 && <section className="holdings-panel holdings-duplicates reveal" style={{'--i': 2} as React.CSSProperties} aria-labelledby="duplicates-title">

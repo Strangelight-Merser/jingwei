@@ -4,7 +4,7 @@ import {startApi} from '../apps/api/src/main.ts';
 import {erpForHistory, seedBondYields} from '../packages/backend/erp.ts';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {seedTotalReturnHistory} from '../packages/backend/total-return-history.ts';
-import {INDEX_CODES, VALUATION_INDEXES} from '../packages/backend/valuation-indexes.ts';
+import {RETURN_INDEX_CODES as INDEX_CODES, VALUATION_INDEXES} from '../packages/backend/valuation-indexes.ts';
 
 test('ERP endpoint serves all indices and remains a read-only second perspective', async () => {
   const app = await startApi({port: 0, mode: 'read_only'});

@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {bandOf, evaluateValuationRule, percentileSeries} from '../packages/backend/valuation-rule.ts';
 import {seedHistory} from '../packages/backend/valuation-history.ts';
 import {INDEX_CODES} from '../packages/backend/valuation-indexes.ts';
-import {replayRule, replaySeed, type ReplayResult} from '../scripts/replay-rule.ts';
+import {replayConfirm, replayRule, replaySeed, type ReplayResult} from '../scripts/replay-rule.ts';
 
 const tolerance = 1e-9;
 function near(actual: number, expected: number, field: string) {
@@ -43,7 +43,7 @@ function matchesApi(replay: ReplayResult, actual: NonNullable<ReturnType<typeof 
 for (const index of INDEX_CODES) test(`${index} 独立规则复算：改判列表、当前分位、每日分位和区间逐项一致（容差 1e-9）`, () => {
   const points = seedHistory(index).points;
   assert.deepEqual(replaySeed(index), points, 'independent seed parser');
-  const replay = replayRule(replaySeed(index));
+  const replay = replayRule(replaySeed(index), replayConfirm(index));
   const actual = evaluateValuationRule(points, {index});
   assert.ok(actual);
   matchesApi(replay, actual);
@@ -78,7 +78,7 @@ for (const index of INDEX_CODES) test(`${index} 独立规则复算：改判列�
 for (const index of INDEX_CODES) test(`${index} 复算 CLI：三份导出完整、warm-up 留空、每日原始分档与确认区间分开`, async () => {
   const root = new URL('../', import.meta.url);
   const output = execFileSync(process.execPath, ['scripts/replay-rule.ts', '--index', index], {cwd: fileURLToPath(root), encoding: 'utf8'});
-  const replay = replayRule(replaySeed(index));
+  const replay = replayRule(replaySeed(index), replayConfirm(index));
   const destination = new URL(`exports/rule-replay/${index}/`, root);
   const json = JSON.parse(await readFile(new URL('changes.json', destination), 'utf8'));
   assert.deepEqual(json, replay.changes);
@@ -90,7 +90,7 @@ for (const index of INDEX_CODES) test(`${index} 复算 CLI：三份导出完整�
   assert.deepEqual(daily, replay.daily.map(row => [row.date, row.pe_ttm, row.percentile ?? '', row.exact ?? '', row.raw_band ?? '', row.band ?? '', row.window_start ?? '', row.full_window].join(',')));
   assert.match(output, new RegExp(`指数：${index}`));
   assert.match(output, new RegExp(`数据日数：${replay.daily.length}`));
-  assert.match(output, /数据起止：2011-06-28 至 2026-09-30/);
+  assert.match(output, new RegExp(`数据起止：${replay.daily[0].date} 至 2026-09-30`));
   assert.match(output, new RegExp(`改判次数：${replay.changes.length-1}（导出 ${replay.changes.length} 条记录，含首次初始化）`));
   if (index === '000300') assert.match(output, /中间区（mid），第 48\.8 百分位/);
 });
@@ -99,7 +99,7 @@ test('复算 CLI：默认仍为沪深300，不支持的指数报错且不生成�
   const root = fileURLToPath(new URL('../', import.meta.url));
   const output = execFileSync(process.execPath, ['scripts/replay-rule.ts'], {cwd:root,encoding:'utf8'});
   assert.match(output, /指数：000300 · 沪深300/);
-  assert.throws(() => execFileSync(process.execPath, ['scripts/replay-rule.ts','--index','399006'], {cwd:root,stdio:'pipe'}));
+  assert.throws(() => execFileSync(process.execPath, ['scripts/replay-rule.ts','--index','999999'], {cwd:root,stdio:'pipe'}));
 });
 
 test('当前 GET /publication/judgment 与离线种子复算一致（隔离存储，无取数）', async () => {
@@ -123,11 +123,11 @@ test('当前 GET /publication/judgment 与离线种子复算一致（隔离存�
       assert.equal(response.statusCode,200);
       const actual = response.json();
       assert.equal(actual.index_code,index);
-      matchesApi(replayRule(replaySeed(index)), actual);
+      matchesApi(replayRule(replaySeed(index), replayConfirm(index)), actual);
       assert.deepEqual(overview.json().indexes.find((j:{index_code:string}) => j.index_code === index),actual);
       if(index === '000300') assert.deepEqual(actual,defaultJudgment);
     }
-    for(const index of ['399006','000852','','000905&index=000016']) {
+    for(const index of ['999999','XYZ','','000905&index=000016']) {
       const response = await app.inject({method:'GET',url:`/publication/judgment?index=${index}`});
       assert.equal(response.statusCode,400);
       assert.equal(response.json().error,'unknown_index');

@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 import {bundledErp, type ErpPublication} from '../../../../packages/backend/erp.ts';
-import type {IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
+import type {ReturnIndexCode} from '../../../../packages/backend/valuation-indexes.ts';
 import type {OutcomeStats} from '../../../../packages/backend/rule-outcomes.ts';
 import './erp.css';
 
@@ -33,7 +33,7 @@ function ReturnCell({stats, title}: {stats: OutcomeStats; title: string}) {
 }
 
 /** Offline official snapshot: no client network dependency and no change to the judgment rule. */
-export function ErpLens({index}: {index: IndexCode}) {
+export function ErpLens({index}: {index: ReturnIndexCode}) {
   const data = useMemo(() => bundledErp(index), [index]);
   const now = data.current;
   const low = data.consistency.by_pe_band[0];

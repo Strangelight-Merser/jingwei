@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2021-10-08",
+    "pe_ttm": 56.73,
+    "from": null,
+    "to": "high",
+    "percentile": 71,
+    "full_window": false
+  },
+  {
+    "date": "2022-02-14",
+    "pe_ttm": 51.48,
+    "from": "high",
+    "to": "mid",
+    "percentile": 53.1,
+    "full_window": false
+  },
+  {
+    "date": "2022-11-07",
+    "pe_ttm": 40.51,
+    "from": "mid",
+    "to": "low",
+    "percentile": 20.3,
+    "full_window": false
+  },
+  {
+    "date": "2025-09-01",
+    "pe_ttm": 41.87,
+    "from": "low",
+    "to": "mid",
+    "percentile": 49.3,
+    "full_window": false
+  }
+]

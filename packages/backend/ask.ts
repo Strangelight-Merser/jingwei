@@ -18,7 +18,7 @@ export function askFragments(rule:ValuationRuleEvidence):AskFragment[] {
  return [
   {id:1,text:rule.ref.fragments.join('\n')+`当前新增资金动作的 stance=${rule.new_money.stance}。新增资金：${rule.new_money.text}已有持仓：${rule.held.text}`},
   ...Object.values(BAND_JUDGMENTS).map((band,i)=>({id:i+2,text:`${band.label}（${band.range}）：新增资金“${band.new_money.title}”，${band.new_money.text}已有持仓“${band.held.title}”，${band.held.text}`})),
-  {id:6,text:`规则口径：${rule.rule_name}。滚动市盈率与近${VALUATION_RULE.window_years}年数据比较，历史不足时至少需要${VALUATION_RULE.min_years}年；分位为窗口内估值不高于当日的数据日比例。分位低于${VALUATION_RULE.low}%为偏低区，${VALUATION_RULE.low}%至低于${VALUATION_RULE.high}%为中间区，${VALUATION_RULE.high}%至低于${VALUATION_RULE.extreme}%为偏高区，达到${VALUATION_RULE.extreme}%为高位区。连续${VALUATION_RULE.confirm_days}个数据日处在新区间才改判；离开已确认的区间还要比边界多越过${VALUATION_RULE.buffer}个百分点（缓冲），所以从中间区升到偏高区要到第${VALUATION_RULE.high+VALUATION_RULE.buffer}百分位，回落到中间区要低于第${VALUATION_RULE.high-VALUATION_RULE.buffer}百分位。边界随窗口更新，市盈率倍数仅为当前约数。规则只描述估值位置，不预测未来涨跌，也不保证收益；不覆盖个人情况、盈利变化和利率。官方数据来源：${rule.ref.url}`},
+  {id:6,text:`规则口径：${rule.rule_name}。滚动市盈率与近${VALUATION_RULE.window_years}年数据比较，历史不足时至少需要${VALUATION_RULE.min_years}年；分位为窗口内估值不高于当日的读数比例。分位低于${VALUATION_RULE.low}%为偏低区，${VALUATION_RULE.low}%至低于${VALUATION_RULE.high}%为中间区，${VALUATION_RULE.high}%至低于${VALUATION_RULE.extreme}%为偏高区，达到${VALUATION_RULE.extreme}%为高位区。连续${rule.confirm?.count??VALUATION_RULE.confirm_days}${rule.confirm?.unit??'个数据日'}处在新区间才改判；离开已确认的区间还要比边界多越过${VALUATION_RULE.buffer}个百分点（缓冲），所以从中间区升到偏高区要到第${VALUATION_RULE.high+VALUATION_RULE.buffer}百分位，回落到中间区要低于第${VALUATION_RULE.high-VALUATION_RULE.buffer}百分位。边界随窗口更新，市盈率倍数仅为当前约数。规则只描述估值位置，不预测未来涨跌，也不保证收益；不覆盖个人情况、盈利变化和利率。数据来源：${rule.source_label??'中证指数官网每日估值'} ${rule.ref.url}`},
  ];
 }
 
@@ -33,7 +33,7 @@ export function askPrompt(question:string, fragments:AskFragment[]):string {
 }
 
 const numbers=(text:string)=>text.normalize('NFKC').match(/[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?|[零〇一二两三四五六七八九十百千万亿]+(?:点[零〇一二三四五六七八九]+)?/g)??[];
-const quantities=(text:string)=>text.normalize('NFKC').match(/(?:[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?|[零〇一二两三四五六七八九十百千万亿]+)\s*(?:%|倍|元|成|年|个月|个数据日|个交易日|个百分点)/g)?.map(s=>s.replace(/\s/g,''))??[];
+const quantities=(text:string)=>text.normalize('NFKC').match(/(?:[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?|[零〇一二两三四五六七八九十百千万亿]+)\s*(?:%|倍|元|成|年|个月|个数据日|个周读数|个交易日|个百分点)/g)?.map(s=>s.replace(/\s/g,''))??[];
 
 /** Removes citation scaffolding the model sometimes writes ("按片段1，", "（片段2）", "stance=…") so readers never see it. */
 export function cleanAskAnswer(answer:string){

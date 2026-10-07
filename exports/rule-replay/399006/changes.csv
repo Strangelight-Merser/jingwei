@@ -1,0 +1,5 @@
+date,from,to,pe_ttm,percentile,full_window
+2021-10-08,,high,56.73,71,false
+2022-02-14,high,mid,51.48,53.1,false
+2022-11-07,mid,low,40.51,20.3,false
+2025-09-01,low,mid,41.87,49.3,false

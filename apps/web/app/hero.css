@@ -12,12 +12,17 @@
 .hero-meta .home-reading-keywords{display:flex;align-items:center;gap:14px;margin:0;padding:0;border:0}
 .hero-meta .home-reading-keywords>div{display:flex;gap:12px}
 
-/* Segmented control with a thumb that slides between indexes. */
-.hero-switch{position:relative;display:grid;grid-template-columns:repeat(var(--count),minmax(0,1fr));padding:4px;border-radius:12px;background:#f1f1f3;min-width:min(420px,100%)}
-.hero-switch-thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / var(--count));border-radius:9px;background:#fff;box-shadow:0 1px 2px rgba(20,20,30,.08),0 2px 8px rgba(20,20,30,.06);transform:translateX(calc(var(--position) * 100%));transition:transform .38s var(--ease-out)}
-.hero-switch button{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:0 14px;border:0;background:none;font:inherit;font-size:var(--text-ui);color:var(--muted);cursor:pointer;border-radius:9px;transition:color .2s}
-.hero-switch button[aria-selected="true"]{color:var(--ink);font-weight:600}
-.hero-switch button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Index picker: one track per market, the selected index raised like a segmented control. */
+.index-picker{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;min-width:0;max-width:100%}
+/* Grid and flex parents must not grow to the chips' width; the row scrolls on its own on phones. */
+.hero>*,.changes-view>*,.hero-top>.index-picker,.changes-head>.index-picker{min-width:0}
+.index-picker-group{display:flex;align-items:center;gap:10px;min-width:0;max-width:100%}
+.index-picker-label{font-size:12px;color:var(--muted);white-space:nowrap;letter-spacing:.02em}
+.index-picker-row{display:flex;flex-wrap:wrap;gap:2px;padding:4px;border-radius:12px;background:#f1f1f3}
+.index-picker-row button{display:flex;align-items:center;gap:7px;min-height:34px;padding:0 12px;border:0;border-radius:9px;background:none;font:inherit;font-size:var(--text-ui);color:var(--muted);cursor:pointer;white-space:nowrap;transition:background .25s var(--ease-out),color .2s,box-shadow .25s var(--ease-out)}
+.index-picker-row button:hover{color:var(--ink)}
+.index-picker-row button[aria-selected="true"]{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(20,20,30,.08),0 2px 8px rgba(20,20,30,.06)}
+.index-picker-row button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Copy on the left, chart on the right. */
 .hero-main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center}
@@ -100,8 +105,9 @@
 @media(max-width:760px){
   .hero{gap:22px}
   .hero-top{flex-direction:column;align-items:stretch;gap:12px}
-  .hero-switch{min-width:0}
-  .hero-switch button{padding:0 6px}
+  .index-picker-group{flex-direction:column;align-items:flex-start;gap:6px;width:100%}
+  .index-picker-row{position:relative;flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none;scroll-behavior:smooth}
+  .index-picker-row button{padding:0 10px}
   .hero-meta{justify-content:space-between}
   .hero-chart-area{height:190px}
   .hero-actions{grid-template-columns:1fr}

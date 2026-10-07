@@ -9,7 +9,7 @@ import type {ResearchState} from './research-service.ts';
 import type {ValuationHistory} from './valuation-history.ts';
 import type {AskRecord} from '../contracts/ask.ts';
 
-export type State = { data_version?:number; owner_preferences?:{restore_saved_key_on_start:boolean; /** Spending approval within the saved cap; comes back with a key restored from the keychain. */ standing_authorization?:boolean}; finance_versions:FinanceVersion[]; materials:Material[]; events:CandidateEvent[]; tasks:GenerationTask[]; collection_runs:CollectionRun[]; budget:BudgetLedger|null; fund_observations?:FundSnapshot[]; market_observations?:MarketSnapshot[];research_state?:ResearchState; valuation_history?:ValuationHistory; valuation_histories?:Partial<Record<'000905'|'000016',ValuationHistory>>; ask_records?:AskRecord[] };
+export type State = { data_version?:number; owner_preferences?:{restore_saved_key_on_start:boolean; /** Spending approval within the saved cap; comes back with a key restored from the keychain. */ standing_authorization?:boolean}; finance_versions:FinanceVersion[]; materials:Material[]; events:CandidateEvent[]; tasks:GenerationTask[]; collection_runs:CollectionRun[]; budget:BudgetLedger|null; fund_observations?:FundSnapshot[]; market_observations?:MarketSnapshot[];research_state?:ResearchState; valuation_history?:ValuationHistory; valuation_histories?:Partial<Record<string,ValuationHistory>>; ask_records?:AskRecord[] };
 export const PRODUCTION_DATA_DIR = resolve(import.meta.dirname, '../../.data');
 export type StorageOptions = { dataDir:string; readOnly?:boolean; testMode?:boolean };
 const backupLimit=5;

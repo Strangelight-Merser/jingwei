@@ -1,3 +1,4 @@
+import {EXTRA_PE_SEEDS} from '../packages/backend/index-pe-seeds.ts';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {CSI300_PE_SEED, CSI500_PE_SEED, SSE50_PE_SEED} from '../packages/backend/csi300-pe-seed.ts';
@@ -40,8 +41,12 @@ export type ReplayChange = ReplayPoint & {
   full_window: boolean;
 };
 
-const SEEDS = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED};
-type ReplayIndex = keyof typeof SEEDS;
+const SEEDS: Record<string, string> = {'000300': CSI300_PE_SEED, '000905': CSI500_PE_SEED, '000016': SSE50_PE_SEED,
+  ...Object.fromEntries(Object.entries(EXTRA_PE_SEEDS).map(([code, seed]) => [code, seed.data]))};
+type ReplayIndex = string;
+const NAMES: Record<string, string> = {'000300': '沪深300', '000905': '中证500', '000016': '上证50', '000852': '中证1000', '000922': '中证红利', '000688': '科创50', '399006': '创业板指', NDX: '纳斯达克100', SPX: '标普500', HSI: '恒生指数', HSTECH: '恒生科技'};
+/** Weekly histories (蛋卷) confirm over two readings; daily official ones over five. Written out here, not imported. */
+export const replayConfirm = (index: ReplayIndex) => ['399006', 'NDX', 'SPX', 'HSI', 'HSTECH'].includes(index) ? 2 : 5;
 
 export function replaySeed(index: ReplayIndex = '000300'): ReplayPoint[] {
   return SEEDS[index].split(',').map(row => {
@@ -76,7 +81,7 @@ function classifyFrom(percentile: number, confirmed: ReplayBand | null): ReplayB
   return 'extreme';
 }
 
-export function replayRule(points: ReplayPoint[] = replaySeed()) {
+export function replayRule(points: ReplayPoint[] = replaySeed(), confirm = 5) {
   const daily: ReplayDay[] = [];
   const changes: ReplayChange[] = [];
   let confirmed: ReplayBand | null = null;
@@ -100,9 +105,9 @@ export function replayRule(points: ReplayPoint[] = replaySeed()) {
     const candidate = classifyFrom(exact, confirmed);
     const fullWindow = cutoff >= points[0].date;
     recentBands.push(candidate);
-    if (recentBands.length > 5) recentBands.shift();
+    if (recentBands.length > confirm) recentBands.shift();
 
-    if (confirmed === null || (candidate !== confirmed && recentBands.length === 5 && recentBands.every(band => band === candidate))) {
+    if (confirmed === null || (candidate !== confirmed && recentBands.length === confirm && recentBands.every(band => band === candidate))) {
       changes.push({...point, from: confirmed, to: confirmed === null ? rawBand : candidate, percentile, full_window: fullWindow});
       confirmed = confirmed === null ? rawBand : candidate;
       recentBands.length = 0;
@@ -118,11 +123,11 @@ export type ReplayResult = ReturnType<typeof replayRule>;
 if (import.meta.main) {
   const args = process.argv.slice(2);
   if (args.length && (args.length !== 2 || args[0] !== '--index' || !Object.hasOwn(SEEDS, args[1]))) {
-    console.error('用法：npm run replay:rule -- --index 000300|000905|000016');
+    console.error(`用法：npm run replay:rule -- --index ${Object.keys(SEEDS).join('|')}`);
     process.exit(1);
   }
   const index = (args[1] ?? '000300') as ReplayIndex;
-  const replay = replayRule(replaySeed(index));
+  const replay = replayRule(replaySeed(index), replayConfirm(index));
   const destination = new URL(`../exports/rule-replay/${index}/`, import.meta.url);
   await mkdir(destination, {recursive: true});
   const changesCsv = [
@@ -138,7 +143,7 @@ if (import.meta.main) {
   await writeFile(new URL('daily.csv', destination), dailyCsv);
 
   const labels = {low: '偏低区', mid: '中间区', high: '偏高区', extreme: '高位区'};
-  console.log(`指数：${index} · ${{'000300':'沪深300','000905':'中证500','000016':'上证50'}[index]}`);
+  console.log(`指数：${index} · ${NAMES[index]}（每${replayConfirm(index) === 2 ? '周' : '个交易日'}一个读数，连续 ${replayConfirm(index)} 个确认）`);
   console.log(`数据日数：${replay.daily.length}`);
   console.log(`数据起止：${replay.daily[0].date} 至 ${replay.daily.at(-1)!.date}`);
   console.log(`可计算分位：${replay.current ? replay.daily.find(row => row.percentile !== null)!.date : '无'} 起，共 ${replay.daily.filter(row => row.percentile !== null).length} 个数据日`);

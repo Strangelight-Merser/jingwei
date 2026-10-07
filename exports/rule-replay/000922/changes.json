@@ -1,0 +1,146 @@
+[
+  {
+    "date": "2016-06-28",
+    "pe_ttm": 8.68,
+    "from": null,
+    "to": "mid",
+    "percentile": 36.6,
+    "full_window": false
+  },
+  {
+    "date": "2017-01-20",
+    "pe_ttm": 10.09,
+    "from": "mid",
+    "to": "high",
+    "percentile": 76.9,
+    "full_window": false
+  },
+  {
+    "date": "2017-05-09",
+    "pe_ttm": 9.68,
+    "from": "high",
+    "to": "mid",
+    "percentile": 63,
+    "full_window": false
+  },
+  {
+    "date": "2017-06-29",
+    "pe_ttm": 10.31,
+    "from": "mid",
+    "to": "high",
+    "percentile": 79.6,
+    "full_window": false
+  },
+  {
+    "date": "2017-12-15",
+    "pe_ttm": 9.69,
+    "from": "high",
+    "to": "mid",
+    "percentile": 57,
+    "full_window": false
+  },
+  {
+    "date": "2018-01-16",
+    "pe_ttm": 10.74,
+    "from": "mid",
+    "to": "high",
+    "percentile": 83.1,
+    "full_window": false
+  },
+  {
+    "date": "2018-03-29",
+    "pe_ttm": 9.86,
+    "from": "high",
+    "to": "mid",
+    "percentile": 59.7,
+    "full_window": false
+  },
+  {
+    "date": "2018-07-02",
+    "pe_ttm": 8.18,
+    "from": "mid",
+    "to": "low",
+    "percentile": 22.2,
+    "full_window": false
+  },
+  {
+    "date": "2019-04-09",
+    "pe_ttm": 8.95,
+    "from": "low",
+    "to": "mid",
+    "percentile": 40.8,
+    "full_window": false
+  },
+  {
+    "date": "2019-09-06",
+    "pe_ttm": 8.17,
+    "from": "mid",
+    "to": "low",
+    "percentile": 24.5,
+    "full_window": false
+  },
+  {
+    "date": "2020-10-16",
+    "pe_ttm": 8.4,
+    "from": "low",
+    "to": "mid",
+    "percentile": 37.2,
+    "full_window": false
+  },
+  {
+    "date": "2020-12-18",
+    "pe_ttm": 7.8,
+    "from": "mid",
+    "to": "low",
+    "percentile": 22,
+    "full_window": false
+  },
+  {
+    "date": "2021-02-24",
+    "pe_ttm": 8.27,
+    "from": "low",
+    "to": "mid",
+    "percentile": 35.9,
+    "full_window": false
+  },
+  {
+    "date": "2021-05-12",
+    "pe_ttm": 7.4,
+    "from": "mid",
+    "to": "low",
+    "percentile": 12.4,
+    "full_window": false
+  },
+  {
+    "date": "2024-05-10",
+    "pe_ttm": 7.43,
+    "from": "low",
+    "to": "mid",
+    "percentile": 38.4,
+    "full_window": true
+  },
+  {
+    "date": "2025-11-10",
+    "pe_ttm": 8.92,
+    "from": "mid",
+    "to": "high",
+    "percentile": 77.5,
+    "full_window": true
+  },
+  {
+    "date": "2026-01-27",
+    "pe_ttm": 8.26,
+    "from": "high",
+    "to": "mid",
+    "percentile": 64.4,
+    "full_window": true
+  },
+  {
+    "date": "2026-09-04",
+    "pe_ttm": 8.64,
+    "from": "mid",
+    "to": "high",
+    "percentile": 76.1,
+    "full_window": true
+  }
+]

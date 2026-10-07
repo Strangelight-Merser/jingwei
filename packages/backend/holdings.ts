@@ -1,7 +1,7 @@
 import {randomUUID} from 'node:crypto';
 import type {Checkup, Exposure, FundMatch, HoldingRow, Holdings, OcrLine, ParsedHolding, ParseRequest, ParseResponse} from '../contracts/holdings.ts';
 import {FUND_LIST_SEED} from './fund-list-seed.ts';
-import {INDEX_CODES, VALUATION_INDEXES, type IndexCode} from './valuation-indexes.ts';
+import {INDEX_CODES, VALUATION_INDEXES, isIndexCode, type IndexCode} from './valuation-indexes.ts';
 import type {RuleJudgmentResult} from './valuation-rule.ts';
 
 export function normalizeHoldingName(name: string): string {return name.normalize('NFKC').trim().replace(/\s+/g, '');}
@@ -196,25 +196,33 @@ export function classify(name: string, fund: FundMatch | null = null): Pick<Hold
   if (/债券|纯债|短债|中短债|信用债|国债/.test(text + type)) return make('bond');
   if (/FOF|REIT|商品|黄金|原油/.test(text + type)) return make('other');
   // Enhanced index funds benchmark one index but deviate from it: same direction, no rule judgment.
-  const benchmark = /沪深300/.test(text) ? '000300' : /中证500/.test(text) ? '000905' : /上证50/.test(text) ? '000016' : null;
+  const benchmark = /沪深300/.test(text) ? '000300' : /中证500/.test(text) ? '000905' : /上证50/.test(text) ? '000016' : /中证1000/.test(text) ? '000852' : /创业板/.test(text) ? '399006' : /科创50/.test(text) ? '000688' : null;
   if (/增强|多因子/.test(text) && benchmark && !/QDII/.test(type)) return make('a_other_index', benchmark);
-  if (/增强|多因子|优选|量化精选|策略/.test(text) && /300|500|50/.test(text)) return make(/QDII/.test(type) ? 'overseas_other' : 'a_active');
-  const tracked = /纳斯达克(?:100|一百)/.test(text) ? '纳斯达克100'
+  if (/增强|多因子|优选|量化精选|策略/.test(text) && /300|500|50|1000/.test(text)) return make(/QDII/.test(type) ? 'overseas_other' : 'a_active');
+  // A plain tracker of a covered index: the index name followed by a fund-type word, never a variant
+  // (创业板50, 红利低波, 恒生医疗 …). Codes are the rule's index codes.
+  const plain = '(?=指数|ETF|联接|交易型|LOF|\\(|[A-Z]?$)';
+  const tracked = /纳斯达克(?:100|一百)|纳指100/.test(text) ? 'NDX'
     : /纳斯达克科技/.test(text) ? '纳斯达克科技市值加权'
-    : /标普500/.test(text) ? '标普500'
-    : /恒生科技/.test(text) ? '恒生科技'
-    : /恒生(?!科技)|恒指/.test(text) ? '恒生指数'
-    : /沪深300(?=指数|ETF|联接|交易型|\(|[A-Z]?$)/.test(text) ? '000300'
-    : /中证500(?=指数|ETF|联接|交易型|\(|[A-Z]?$)/.test(text) ? '000905'
-    : /上证50(?=指数|ETF|联接|交易型|\(|[A-Z]?$)/.test(text) ? '000016'
-    : /中证1000/.test(text) ? '中证1000'
-    : /创业板/.test(text) ? '创业板'
-    : /科创50/.test(text) ? '科创50' : null;
+    : /标普500(?!等权|红利|价值|成长)/.test(text) ? 'SPX'
+    : new RegExp(`恒生科技${plain}`).test(text) ? 'HSTECH'
+    : /恒生指数|恒指/.test(text) || new RegExp(`恒生${plain}`).test(text) ? 'HSI'
+    : new RegExp(`沪深300${plain}`).test(text) ? '000300'
+    : new RegExp(`中证500${plain}`).test(text) ? '000905'
+    : new RegExp(`上证50${plain}`).test(text) ? '000016'
+    : new RegExp(`中证1000${plain}`).test(text) ? '000852'
+    : new RegExp(`中证红利${plain}`).test(text) ? '000922'
+    : new RegExp(`科创板?50${plain}`).test(text) ? '000688'
+    : new RegExp(`创业板(?:指数)?${plain}`).test(text) ? '399006'
+    : /恒生科技/.test(text) ? '恒生科技（其他口径）'
+    : /创业板/.test(text) ? '创业板（其他口径）'
+    : /科创/.test(text) ? '科创（其他口径）' : null;
   const indexLike = /指数|ETF|联接/.test(text + type);
-  if (/纳斯达克|标普|美国|美股|道琼斯/.test(text)) return make('us_equity', indexLike ? tracked : null);
-  if (/恒生|港股|香港/.test(text)) return make('hk_equity', indexLike ? tracked : null);
+  const covered = tracked && indexLike && isIndexCode(tracked) ? tracked : null;
+  if (/纳斯达克|标普|美国|美股|道琼斯|纳指/.test(text)) return make('us_equity', indexLike ? tracked : null, covered);
+  if (/恒生|港股|香港|恒指/.test(text)) return make('hk_equity', indexLike ? tracked : null, covered);
   if (/QDII|海外|全球|欧洲|德国|日本|越南|印度|新兴市场/.test(text + type)) return make('overseas_other', indexLike ? tracked : null);
-  if (tracked && INDEX_CODES.includes(tracked as IndexCode) && indexLike) return make('a_broad', tracked, tracked as IndexCode);
+  if (covered) return make(covered === '000922' ? 'a_other_index' : 'a_broad', covered, covered);
   if (indexLike) return make('a_other_index', tracked);
   if (/混合|股票/.test(text + type)) return make('a_active');
   return make('other');
@@ -270,6 +278,6 @@ export function buildCheckup(holdings: Holdings, judgments: HoldingJudgments): C
   if (rows.some(row => shareClass(row.fund?.name ?? row.input_name) === 'C')) notes.push('C类份额通常收取销售服务费，具体费率与赎回条件应查看基金文件。');
   if (rows.some(row => !row.fund && row.exposure !== 'money')) notes.push('部分名称未唯一匹配公开基金列表，请确认名称与份额。');
   if (rows.some(row => row.exposure === 'a_other_index' && /增强|多因子/.test(keyOf(row.fund?.name ?? row.input_name)))) notes.push('指数增强基金以指数为基准，但持仓与收益会偏离指数，规则判断不直接套用。');
-  if (uncoveredAmount > 0) notes.push('估值规则仅覆盖沪深300、中证500、上证50跟踪基金；其余持仓没有规则判断。');
+  if (uncoveredAmount > 0) notes.push('估值规则只覆盖跟踪所列指数的基金；主动、行业、债券等持仓没有规则判断。');
   return {total, by_exposure, duplicates, covered, uncovered_share: total ? uncoveredAmount / total : 0, notes};
 }

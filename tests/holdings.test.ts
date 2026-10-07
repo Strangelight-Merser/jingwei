@@ -180,24 +180,35 @@ test('OCR 名称内部空格不截断指数；粘连尾缀代码移除，标签�
   ]])), [{name: '晨岚沪深300ETF联接C', amount: 123456}]);
 });
 
-test('分类只覆盖三个原指数；增强、指数变体、境外、货币与债券不套规则', () => {
-  for (const [name, code] of [['易方达沪深300ETF联接C', '000300'], ['南方中证500ETF联接A', '000905'], ['华夏上证50ETF联接C', '000016']]) {
-    assert.equal(classify(name).covered_index, code);
-    assert.equal(classify(name).exposure, 'a_broad');
+test('分类：所列指数的普通跟踪基金有规则判断；增强、变体、主动、货币与债券不套规则', () => {
+  for (const [name, code, exposure] of [
+    ['易方达沪深300ETF联接C', '000300', 'a_broad'], ['南方中证500ETF联接A', '000905', 'a_broad'], ['华夏上证50ETF联接C', '000016', 'a_broad'],
+    ['南方中证1000ETF联接C', '000852', 'a_broad'], ['某某中证红利指数A', '000922', 'a_other_index'], ['易方达创业板ETF联接C', '399006', 'a_broad'],
+    ['华夏科创50ETF联接A', '000688', 'a_broad'], ['南方纳斯达克100指数(QDII)C', 'NDX', 'us_equity'], ['博时标普500ETF联接(QDII)A', 'SPX', 'us_equity'],
+    ['华夏恒生ETF联接A', 'HSI', 'hk_equity'], ['华泰柏瑞南方东英恒生科技指数ETF联接(QDII)C', 'HSTECH', 'hk_equity'],
+  ] as const) {
+    assert.equal(classify(name).covered_index, code, name);
+    assert.equal(classify(name).exposure, exposure, name);
   }
-  for (const name of ['沪深300指数增强C', '中证500信息技术ETF', '沪深300红利ETF', '上证50策略混合A', '中证1000指数C', '余额宝', '某某短债C', '恒生科技ETF联接C', '纳斯达克100指数C']) assert.equal(classify(name).covered_index, null);
+  for (const name of ['沪深300指数增强C', '中证500信息技术ETF', '沪深300红利ETF', '上证50策略混合A', '中证红利低波动ETF联接A', '创业板50ETF联接C', '恒生医疗ETF联接A', '纳斯达克科技市值加权ETF联接(QDII)A', '科创100ETF联接A', '余额宝', '某某短债C'])
+    assert.equal(classify(name).covered_index, null, name);
   assert.equal(classify('某某美元债券(QDII)C').exposure, 'bond');
   assert.equal(classify('某某海外混合(QDII)A').exposure, 'overseas_other');
   assert.equal(classify('某某混合A').tracked_index, null);
 });
 
-test('fixture 组合体检：两只纳斯达克100重复，覆盖占比0，无境外估值判断', () => {
+test('fixture 组合体检：两只纳斯达克100重复；纳指100与恒生科技跟踪基金有各自的规则判断', () => {
   const result = parseHoldings({images});
   const checkup = buildCheckup({saved_at: '2026-10-06T12:00:00Z', rows: result.rows}, judgments);
   assert.equal(checkup.total, 4067.77);
-  assert.deepEqual(checkup.duplicates, [{tracked_index: '纳斯达克100', row_ids: result.rows.slice(1, 3).map(row => row.id), amount: 757.12}]);
-  assert.deepEqual(checkup.covered, []);
-  assert.equal(checkup.uncovered_share, 1);
+  assert.deepEqual(checkup.duplicates, [{tracked_index: 'NDX', row_ids: result.rows.slice(1, 3).map(row => row.id), amount: 757.12}]);
+  // 纳斯达克科技市值加权 is a different index and stays uncovered.
+  assert.deepEqual(checkup.covered.map(row => [result.rows.find(r => r.id === row.row_id)!.input_name, row.index, row.band]), [
+    ...result.rows.slice(1, 3).map(r => [r.input_name, 'NDX', judgments.NDX!.band]),
+    [result.rows.find(r => /恒生科技/.test(r.input_name))!.input_name, 'HSTECH', judgments.HSTECH!.band],
+  ]);
+  const coveredAmount = checkup.covered.reduce((sum, row) => sum + result.rows.find(r => r.id === row.row_id)!.amount, 0);
+  assert.ok(Math.abs(checkup.uncovered_share - (1 - coveredAmount / checkup.total)) < 1e-12);
   assert.deepEqual(checkup.by_exposure.map(({exposure, amount}) => ({exposure, amount})), [
     {exposure: 'a_active', amount: 2420.36}, {exposure: 'us_equity', amount: 829.64}, {exposure: 'hk_equity', amount: 810.49}, {exposure: 'money', amount: 7.28},
   ]);
@@ -218,7 +229,7 @@ test('007339 组合逐行应用各自当前规则，不能用传入 covered_inde
   assert.equal(checkup.covered[0].new_money_title, '按原计划，不额外追加');
   assert.equal(checkup.covered[1].new_money_title, '暂缓新增');
   assert.equal(checkup.uncovered_share, 7.28 / 1390.41);
-  const fake = holdings('纳斯达克100指数C 490.99');
+  const fake = holdings('某某科技主题混合C 490.99');
   fake.rows[0].covered_index = '000300';
   fake.rows[0].exposure = 'a_broad';
   assert.deepEqual(buildCheckup(fake, judgments).covered, []);

@@ -1,6 +1,6 @@
 import {Link, useSearchParams} from 'react-router';
 import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
-import type {IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
+import {VALUATION_INDEXES, type IndexCode} from '../../../../packages/backend/valuation-indexes.ts';
 import {BAND_JUDGMENTS, type ValuationBand} from '../../../../packages/backend/valuation-rule.ts';
 import type {Judgment} from './RuleJudgment.tsx';
 import {date} from '../lib/format.ts';
@@ -41,13 +41,27 @@ function bandOn(j: Judgment, day: string): ValuationBand {
   return (j.changes.find(c => c.date <= day) ?? j.changes.at(-1)!).to;
 }
 
+const PICKER_GROUPS: {label: string; markets: string[]}[] = [{label: 'A股', markets: ['cn']}, {label: '美股 · 港股', markets: ['us', 'hk']}];
+
+/** Every covered index, grouped by market; the tone dot shows each one's current band at a glance. */
 export function IndexSwitch({indexes, selected, onSelect}: {indexes: Judgment[]; selected: IndexCode; onSelect: (index: IndexCode) => void}) {
-  const position = Math.max(0, indexes.findIndex(j => j.index_code === selected));
-  return <div className="hero-switch" role="tablist" aria-label="选择宽基指数" style={{'--count': indexes.length, '--position': position} as React.CSSProperties}>
-    <span className="hero-switch-thumb" aria-hidden="true"/>
-    {indexes.map(j => <button key={j.index_code} type="button" role="tab" aria-selected={selected === j.index_code} onClick={() => onSelect(j.index_code)}>
-      <i className={`tone-dot tone-${j.band}`} aria-hidden="true"/>{j.index_name}
-    </button>)}
+  const picker = useRef<HTMLDivElement>(null);
+  // On a phone each row scrolls sideways; keep the selected index in view without moving the page.
+  useEffect(() => {
+    const button = picker.current?.querySelector<HTMLElement>('[aria-selected="true"]'), row = button?.parentElement;
+    if (!button || !row || row.scrollWidth <= row.clientWidth) return;
+    row.scrollLeft = button.offsetLeft - (row.clientWidth - button.offsetWidth) / 2;
+  }, [selected]);
+  return <div ref={picker} className="index-picker" role="tablist" aria-label="选择指数">
+    {PICKER_GROUPS.map(group => {
+      const items = indexes.filter(j => group.markets.includes(VALUATION_INDEXES[j.index_code].market));
+      return items.length > 0 && <div key={group.label} className="index-picker-group">
+        <span className="index-picker-label">{group.label}</span>
+        <div className="index-picker-row">{items.map(j => <button key={j.index_code} type="button" role="tab" aria-selected={selected === j.index_code} onClick={() => onSelect(j.index_code)}>
+          <i className={`tone-dot tone-${j.band}`} aria-hidden="true"/>{j.index_name}
+        </button>)}</div>
+      </div>;
+    })}
   </div>;
 }
 
@@ -152,7 +166,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
     <div className="hero-top reveal" style={{'--i': 0} as React.CSSProperties}>
       <IndexSwitch indexes={indexes} selected={j.index_code} onSelect={index => {setSelected(index); setSearch((prev: URLSearchParams) => {const next = new URLSearchParams(prev); next.set('index', index); return next;}, {replace: true, preventScrollReset: true});}}/>
       <div className="hero-meta">
-        <span>数据截至 {date(j.as_of)}</span>
+        <span>数据截至 {date(j.as_of)} · {j.rule.source === 'csi' ? '中证指数官网' : '蛋卷基金（第三方）'}</span>
         {guide}
       </div>
     </div>
@@ -168,9 +182,9 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
         <p className="hero-plain">
           {point
             ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时近十年的第 <b>{point.percentile}</b> 百分位。松开或移开回到今天。</>
-            : <>{historyWindow}有 <b>{j.percentile}%</b> 的日子比今天便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
+            : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周读数' : '日子'}比现在便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
         </p>
-        {age > STALE_DAYS && <p className="hero-stale">官方估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}
+        {age > STALE_DAYS + (j.rule.frequency === 'weekly' ? 7 : 0) && <p className="hero-stale">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}
         {j.index_code !== '000300' && <p className="hero-scope">基金比较和「我的情况」目前只对沪深300。</p>}
       </div>
       <ScrubChart j={j} scrub={scrub} onScrub={setScrub}/>
@@ -187,7 +201,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
     <div className="hero-ladder reveal" style={{'--i': 3} as React.CSSProperties}>
       <div className="hero-ladder-head">
         <h2>什么时候会改判</h2>
-        <p>连续 {j.rule.confirm_days} 个数据日落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随十年窗口移动。</p>
+        <p>连续 {j.rule.confirm_days} {j.rule.unit}落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随十年窗口移动。</p>
       </div>
       <ol>
         {BANDS.map(band => <li key={band} className={`tone-${band}${band === j.band ? ' is-current' : ''}`} aria-current={band === j.band ? 'true' : undefined}>
@@ -197,7 +211,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
           {BAND_JUDGMENTS[band].held.title !== '继续持有' && <span>已有持仓 · {BAND_JUDGMENTS[band].held.title}</span>}
         </li>)}
       </ol>
-      {j.pending && <p className="hero-pending">已有 {j.pending.days}/{j.pending.needed} 个数据日落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} 个数据日就会改判。</p>}
+      {j.pending && <p className="hero-pending">已有 {j.pending.days}/{j.pending.needed} {j.rule.unit}落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} {j.rule.unit}就会改判。</p>}
       <p className="hero-last">
         <span>上次改判 {date(last.date)}{lastFrom ? `，${lastFrom.label} → ${j.judgment.label}` : ''}（当日第 {last.percentile} 百分位）</span>
         <Link to={`/changes?index=${j.index_code}#rule`}>十年里的 {j.changes.length - 1} 次改判 →</Link>
