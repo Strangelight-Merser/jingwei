@@ -83,10 +83,10 @@ export function parseDanjuanHistory(raw: unknown, endDate: string): ValuationPoi
   }).sort((a, b) => a.date.localeCompare(b.date));
 }
 
-/** 蛋卷's weekly rows; `span` is its own range parameter (all, 1y, 3y …). */
+/** 蛋卷's weekly rows; `span` is its own range parameter: 3y, 5y or all (1y and 10y return no data). */
 export async function fetchDanjuanHistory(index: IndexCode, options: {span?: string; now?: Date; fetcher?: typeof fetch} = {}): Promise<ValuationPoint[]> {
   const end = mainlandToday(options.now ?? new Date());
-  const response = await (options.fetcher ?? fetch)(`${historyUrl(index)}?day=${options.span ?? '1y'}`, {
+  const response = await (options.fetcher ?? fetch)(`${historyUrl(index)}?day=${options.span ?? '3y'}`, {
     signal: AbortSignal.timeout(20_000),
     headers: {'User-Agent': 'Mozilla/5.0 JingweiResearch/0.1'},
   });

@@ -128,3 +128,20 @@ test('蛋卷周估值：按北京时间取日期，拒绝失败响应、重复�
   assert.throws(() => parseDanjuanHistory(ok([{pe: 30, ts}]), '2026-09-29'), /future/);
   assert.throws(() => parseDanjuanHistory(ok([{pe: 0, ts}]), '2026-09-30'), /value/);
 });
+
+test('蛋卷指数联网增量：请求自身代码的近三年周数据（1y 不返回数据），合并后不重复', async () => {
+  const base = seedHistory('NDX');
+  const fetcher = (async (input) => {
+    const url = new URL(String(input));
+    assert.equal(url.hostname, 'danjuanfunds.com');
+    assert.equal(url.pathname, '/djapi/index_eva/pe_history/NDX');
+    assert.equal(url.searchParams.get('day'), '3y');
+    return new Response(JSON.stringify({result_code: 0, data: {index_eva_pe_growths: [
+      {pe: base.points.at(-1)!.pe_ttm, ts: Date.parse(`${base.points.at(-1)!.date}T00:00:00+08:00`)},
+      {pe: 31.2, ts: Date.parse('2026-10-09T00:00:00+08:00')},
+    ]}}));
+  }) as typeof fetch;
+  const next = await refreshPeHistory(base, {fetcher, now: new Date('2026-10-10T02:00:00Z')});
+  assert.equal(next.points.length, base.points.length + 1);
+  assert.deepEqual(next.points.at(-1), {date: '2026-10-09', pe_ttm: 31.2});
+});
