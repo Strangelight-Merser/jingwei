@@ -9,23 +9,23 @@ const previous:JudgmentVisit={as_of:'2026-09-30',rows:3788,band:'mid',pending:nu
 
 test('新增数据日而判断未变：按数据行数计数，不把假期当成数据日',()=>{
  assert.deepEqual(sinceLastVisit(previous,{...previous,as_of:'2026-10-12',rows:3791}),{
-  text:'自上次（2026.09.30）以来：新增 3 个数据日，判断未变。',changed:false,
+  text:'自上次（2026.09.30）以来：新增 3 个交易日的数据，判断未变。',changed:false,
  });
- assert.equal(sinceLastVisit(previous,previous)?.text,'自上次（2026.09.30）以来：新增 0 个数据日，判断未变。');
+ assert.equal(sinceLastVisit(previous,previous)?.text,'自上次（2026.09.30）以来：新增 0 个交易日的数据，判断未变。');
 });
 
 test('确认改判：告诉读者从哪个区间改为哪个区间',()=>{
  assert.deepEqual(sinceLastVisit(previous,{...previous,as_of:'2026-10-15',rows:3793,band:'high'}),{
-  text:'自上次（2026.09.30）以来：新增 5 个数据日，已由中间区改为偏高区。',changed:true,
+  text:'自上次（2026.09.30）以来：新增 5 个交易日的数据，已由中间区改为偏高区。',changed:true,
  });
 });
 
 test('确认进度变化：提示当前连续天数，回到原区间后移除旧进度',()=>{
  const pending={...previous,as_of:'2026-10-13',rows:3792,pending:{band:'high' as const,days:3,needed:5}};
  assert.deepEqual(sinceLastVisit({...previous,pending:{band:'high',days:1,needed:5}},pending),{
-  text:'自上次（2026.09.30）以来：新增 4 个数据日，判断未变；已有 3/5 日落在偏高区。',changed:false,
+  text:'自上次（2026.09.30）以来：新增 4 个交易日的数据，判断未变；已有 3/5 日落在偏高区。',changed:false,
  });
- assert.equal(sinceLastVisit(pending,{...previous,as_of:'2026-10-14',rows:3793})?.text,'自上次（2026.10.13）以来：新增 1 个数据日，判断未变。');
+ assert.equal(sinceLastVisit(pending,{...previous,as_of:'2026-10-14',rows:3793})?.text,'自上次（2026.10.13）以来：新增 1 个交易日的数据，判断未变。');
 });
 
 test('首次打开不显示，快照只保存接口的数据日、行数、区间与进度',()=>{

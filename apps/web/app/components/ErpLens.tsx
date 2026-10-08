@@ -29,7 +29,7 @@ function ErpChart({data}: {data: ErpPublication}) {
 }
 
 function ReturnCell({stats, title}: {stats: OutcomeStats; title: string}) {
-  return <div className="erp-return"><span>{title}</span><strong>{percent(stats.mean)}</strong><small>{count(stats.sample_days)} 个数据日</small></div>;
+  return <div className="erp-return"><span>{title}</span><strong>{percent(stats.mean)}</strong><small>{count(stats.sample_days)} 个交易日</small></div>;
 }
 
 /** Offline official snapshot: no client network dependency and no change to the judgment rule. */

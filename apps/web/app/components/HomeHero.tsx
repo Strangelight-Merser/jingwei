@@ -143,7 +143,7 @@ export function ScrubChart({j, scrub, onScrub, selectedChange, onPickChange, tal
       {[j.rule.low, j.rule.high, j.rule.extreme].map(v => <span key={v} className="hero-chart-tick" style={{top: `${100 - v}%`}}>{v}</span>)}
     </div>
     <div className="hero-chart-years" aria-hidden="true">{years.map(y => <span key={y} style={{left: `${((Date.parse(`${y}-01-01`) - t0) / span) * 100}%`}}>{y}</span>)}</div>
-    <figcaption>{scrub === null ? `拖动或悬停曲线，回看${j.full_window ? '十年里' : '已有历史中'}${eachReading(j)}的位置；圆点是确认改判日。` : `${date(active.date)} · 当时已确认${BAND_JUDGMENTS[bandOn(j, active.date)].label}`}</figcaption>
+    <figcaption>{scrub === null ? `拖动或悬停曲线，回看${j.full_window ? '十年里' : '已有历史中'}${eachReading(j)}的位置；圆点是判断改变的日子。` : `${date(active.date)} · 当时已确认${BAND_JUDGMENTS[bandOn(j, active.date)].label}`}</figcaption>
   </figure>;
 }
 
@@ -193,7 +193,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
         <p className="hero-plain">
           {point
             ? <>{date(point.date)}：滚动市盈率 <b>{point.pe_ttm}</b> 倍，处在当时{j.full_window ? '近十年' : '已有历史'}的第 <b>{point.percentile}</b> 百分位。松开或移开回到今天。</>
-            : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周读数' : '交易日'}比现在便宜或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
+            : <>{historyWindow}有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周' : '交易日'}，估值比现在低或一样。滚动市盈率 <b>{j.pe_ttm}</b> 倍。</>}
         </p>
         {age > STALE_DAYS + (j.rule.frequency === 'weekly' ? 7 : 0) && <p className="hero-stale">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 给出；联网打开时会自动补查。</p>}
         {j.rule.source === 'danjuan' && <p className="hero-scope">估值来自第三方，口径可能与指数公司不同：在两家都有数据的 A 股指数上，按本规则得出的区间约有 64%–81% 的周一致。</p>}
@@ -213,7 +213,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
     <div className="hero-ladder reveal" style={{'--i': 3} as React.CSSProperties}>
       <div className="hero-ladder-head">
         <h2>什么时候会改判</h2>
-        <p>连续 {j.rule.confirm_days} {j.rule.unit}落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。倍数随{j.full_window ? '十年' : '历史'}窗口移动。</p>
+        <p>连续 {j.rule.confirm_days} {j.rule.unit}落在另一区间才改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近来回改口。各区间对应的市盈率倍数会随时间小幅变化。</p>
       </div>
       <ol>
         {BANDS.map(band => <li key={band} className={`tone-${band}${band === j.band ? ' is-current' : ''}`} aria-current={band === j.band ? 'true' : undefined}>
@@ -227,7 +227,7 @@ export function HomeHero({j: initial, indexes = [initial], guide, today = new Da
       <p className="hero-last">
         <span>上次改判 {date(last.date)}{lastFrom ? `，${lastFrom.label} → ${j.judgment.label}` : ''}（当日第 {last.percentile} 百分位）</span>
         <Link to={`/changes?index=${j.index_code}#rule`}>{j.full_window ? '十年里' : `${date(j.window_start)}以来`}的 {j.changes.length - 1} 次改判 →</Link>
-        <Link to={`/changes?index=${j.index_code}#rule-method`}>规则与口径</Link>
+        <Link to={`/changes?index=${j.index_code}#rule-method`}>规则说明</Link>
       </p>
     </div>
   </section>;

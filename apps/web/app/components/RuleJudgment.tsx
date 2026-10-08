@@ -86,7 +86,7 @@ export function PercentileChart({j, height = 260, activeDate, onHover, onSelect}
   }
   return <figure className="rule-chart-figure">
     <div className="rule-chart-legend" aria-label="分位区间与新增资金判断">{BAND_ORDER.map((band, i) => <div key={band}><span className={`band-${band}`}>{BAND_JUDGMENTS[band].label} · {edges[i]}–{edges[i + 1]}</span><small>{BAND_JUDGMENTS[band].new_money.title}</small></div>)}</div>
-    <p className="rule-chart-hint">曲线是估值分位；圆点是确认改判日。点选或悬停圆点，与下方记录对照。</p>
+    <p className="rule-chart-hint">曲线是估值分位；圆点是判断改变的日子。点选或悬停圆点，与下方记录对照。</p>
     {chart(720, false)}{chart(360, true)}
     <figcaption className="rule-chart-detail" aria-live="polite">{active && <><strong>{date(active.date)} · {BAND_JUDGMENTS[active.from!].label} → {BAND_JUDGMENTS[active.to].label}</strong><span>新增资金：{BAND_JUDGMENTS[active.to].new_money.title}；当日 {active.pe_ttm} 倍，第 {active.percentile} 百分位</span></>}</figcaption>
   </figure>;
@@ -142,12 +142,12 @@ export function RuleJudgment({j: initial, indexes = [initial], today = new Date(
           return <li key={b}>市盈率连续{j.rule.confirm_days}{j.rule.unit}{bandRange(j, b)} → {next.label}：新增资金「{next.new_money.title}」{heldChanges && <>，已有持仓「{next.held.title}」</>}</li>;
         })}
       </ul>
-      {j.pending && <p className="rule-pending">已有 {j.pending.days}/{j.pending.needed} {j.rule.unit}落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} 个数据日就会改判。</p>}
+      {j.pending && <p className="rule-pending">已有 {j.pending.days}/{j.pending.needed} {j.rule.unit}落在{j.pending.judgment.label}，再持续 {j.pending.needed - j.pending.days} {j.rule.unit}就会改判。</p>}
     </div>
     <p className="rule-last">
       上次改判：{date(last.date)}{lastFrom ? `，由「${lastFrom.new_money.title}」改为「${j.judgment.new_money.title}」` : ''}（当日第{last.percentile}百分位）。
       <Link to={`/changes?index=${j.index_code}#rule`}>{j.full_window ? '十年里' : `${date(j.window_start)}以来`}的 {j.changes.length - 1} 次改判 →</Link>
     </p>
-    <p className="rule-note">判断只由公开规则和{j.rule.source === 'csi' ? '中证指数官方估值' : '蛋卷基金公开的估值数据'}决定，不读取你的资料；不预测涨跌，也不保证收益。<Link to={`/changes?index=${j.index_code}#rule-method`}>规则与口径</Link></p>
+    <p className="rule-note">判断只由公开规则和{j.rule.source === 'csi' ? '中证指数官方估值' : '蛋卷基金公开的估值数据'}决定，不读取你的资料；不预测涨跌，也不保证收益。<Link to={`/changes?index=${j.index_code}#rule-method`}>规则说明</Link></p>
   </section></>;
 }

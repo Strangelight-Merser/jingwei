@@ -26,7 +26,7 @@ test('规则卡 JSON 经真实 publication API 读取，与公开判断的数字
     assert.equal(card.last_change.origin, published.changes.find(c => c.date === published.last_change.date)!.origin);
     assert.equal(card.source.url, published.source_url);
     assert.ok(!('chart' in card) && !('changes' in card));
-    assert.match(changeDescription(card.last_change), /历史回算|实际观察/);
+    assert.match(changeDescription(card.last_change), /历史回测|实时判断/);
     for (const [code, name] of [['000905', '中证500'], ['000016', '上证50'], ['399006', '创业板指'], ['HSTECH', '恒生科技']]) {
       const other = await jsonLoader({request: new Request(`http://channel/embed/rule-card.json?index=${code}`)});
       assert.equal(other.status, 200);

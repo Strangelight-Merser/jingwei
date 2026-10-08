@@ -43,25 +43,25 @@ export const BAND_JUDGMENTS: Record<ValuationBand, BandJudgment> = {
   low: {
     band: 'low', label: '偏低区', range: `低于第${VALUATION_RULE.low}百分位`,
     new_money: {action: '加', title: '可分批新增', text: '估值处在近十年偏低的三成以内。准备长期配置的新增资金，可以分几次投入，不必等待更低点。'},
-    held: {action: '持', title: '继续持有', text: '估值偏低时不因短期下跌卖出；已有定投按原计划继续。'},
+    held: {action: '持', title: '继续持有', text: '估值偏低时不因短期下跌卖出；已有定投照常继续。'},
     start: '如果决定开始，可以分几次买入建立仓位。',
   },
   mid: {
     band: 'mid', label: '中间区', range: `第${VALUATION_RULE.low}至${VALUATION_RULE.high}百分位`,
-    new_money: {action: '持', title: '按原计划，不额外追加', text: '估值处在近十年的中间水平。已有定投照常进行，但没有理由一次性加大投入。'},
-    held: {action: '持', title: '继续持有', text: '估值没有到需要调整的位置，按原计划持有。'},
+    new_money: {action: '持', title: '照常定投，不加仓', text: '估值处在近十年的中间水平。已有定投照常进行；还没有定投的，可以用定投慢慢建仓，不一次性投入。'},
+    held: {action: '持', title: '继续持有', text: '估值没有到需要调整的位置，继续持有，不必卖出。'},
     start: '如果决定开始，适合用定投慢慢建立仓位，不一次性投入。',
   },
   high: {
     band: 'high', label: '偏高区', range: `第${VALUATION_RULE.high}至${VALUATION_RULE.extreme}百分位`,
     new_money: {action: '观察', title: '暂缓新增', text: '估值已高于近十年七成时间。新增资金先观察，不在此时一次性买入。'},
-    held: {action: '持', title: '继续持有', text: '估值偏高但未到极端位置，已有持仓按原计划持有，不追加。'},
+    held: {action: '持', title: '继续持有', text: '估值偏高但未到极端位置，已有持仓继续持有，不追加。'},
     start: '如果决定开始，先等待估值回落，或只用很小金额定投。',
   },
   extreme: {
     band: 'extreme', label: '高位区', range: `高于第${VALUATION_RULE.extreme}百分位`,
     new_money: {action: '观察', title: '暂停新增', text: '估值处在近十年最高的一成。新增资金暂停投入。'},
-    held: {action: '减', title: '可按计划再平衡', text: '若持仓已超过原定比例，可以把超出部分调回目标比例。'},
+    held: {action: '减', title: '占比过高可减仓', text: '如果这只基金在你的投资里占比明显变大，可以卖出超出的部分，让比例回到你原本能接受的水平；占比不高的继续持有。'},
     start: '现在不适合开始，等估值回到中间区再考虑。',
   },
 };
@@ -211,7 +211,7 @@ export function evaluateValuationRule(points: ValuationPoint[], options: {live_f
     index_name: identity.name,
     rule: {...VALUATION_RULE, id: `${identity.rule_prefix}-pe-ttm-10y-v2`, name: `${identity.name}估值分位规则 v2`, confirm_days: confirm,
       /** What one reading is: a trading day (CSI) or a week (蛋卷). */
-      unit: weekly ? '个周读数' : '个数据日', frequency: weekly ? 'weekly' as const : 'daily' as const, source: sourceOf(index), source_label: SOURCE_LABELS[sourceOf(index)]},
+      unit: weekly ? '周' : '个交易日', frequency: weekly ? 'weekly' as const : 'daily' as const, source: sourceOf(index), source_label: SOURCE_LABELS[sourceOf(index)]},
     as_of: latest.date,
     pe_ttm: latest.pe_ttm,
     percentile: latest.percentile,

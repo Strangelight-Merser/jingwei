@@ -25,7 +25,7 @@ export function bufferNote(j: Judgment): string | null {
   const up = order.indexOf(j.raw_band) > order.indexOf(j.band);
   // The edge that would actually move the judgment, in the direction the percentile went.
   const edge = j.band === 'low' ? low : j.band === 'mid' ? (up ? high : low) : j.band === 'high' ? (up ? extreme : high) : extreme;
-  return `现在第 ${j.percentile} 百分位，已落到${BAND_JUDGMENTS[j.raw_band].label}的范围；v2 缓冲要${up ? '升到' : '降到'}第 ${edge} 百分位${up ? '以上' : '以下'}并连续确认才改判，所以仍按${j.judgment.label}。`;
+  return `现在第 ${j.percentile} 百分位，已经进入${BAND_JUDGMENTS[j.raw_band].label}的范围；为避免在边界附近来回改口，规则设了 5 个百分点的缓冲，要${up ? '升到' : '降到'}第 ${edge} 百分位${up ? '以上' : '以下'}并连续确认才改判，所以现在仍按${j.judgment.label}。`;
 }
 
 /** The new-money text opens with where the percentile sits; drop that sentence when the buffer holds the band. */

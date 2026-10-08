@@ -35,7 +35,7 @@ export default function Topic(){
     <h3>这项判断怎样适用</h3>
     <p><strong>已有持仓：</strong><ReadingText text={view.held.text}/></p>
     <p><strong>新增资金 · 首次买入或追加：</strong><ReadingText text={view.unheld.text}/></p>
-    <p>既定长期计划内的投入，原条件仍成立时按原计划执行，不由本篇一概暂停。</p>
+    <p>已经在执行的长期定投，只要当初的条件仍成立就照常进行，不因本篇暂停。</p>
     {view.next_watch&&<p><ReadingText text={view.next_watch}/></p>}
     <details><summary>反方解释与改判条件</summary><p><ReadingText text={view.counterargument}/></p>
      <ul>{view.change_conditions.map(condition=><li key={condition}><ReadingText text={condition}/></li>)}</ul>

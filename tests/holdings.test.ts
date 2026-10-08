@@ -228,7 +228,7 @@ test('007339 组合逐行应用各自当前规则，不能用传入 covered_inde
     assert.equal(row.new_money_title, judgment.judgment.new_money.title);
     assert.equal(row.held_title, judgment.judgment.held.title);
   }
-  assert.equal(checkup.covered[0].new_money_title, '按原计划，不额外追加');
+  assert.equal(checkup.covered[0].new_money_title, '照常定投，不加仓');
   assert.equal(checkup.covered[1].new_money_title, '暂缓新增');
   assert.equal(checkup.uncovered_share, 7.28 / 1390.41);
   const fake = holdings('某某科技主题混合C 490.99');

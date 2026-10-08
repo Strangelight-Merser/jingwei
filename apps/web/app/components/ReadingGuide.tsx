@@ -21,7 +21,7 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
   const trigger = useRef<HTMLButtonElement>(null);
   const [step, setStep] = useState(0);
   const historyWindow = j.full_window ? `近${j.rule.window_years}年里` : `${date(j.window_start)}以来`;
-  const cheaperDays = `${historyWindow}有 ${j.percentile}% 的${j.rule.frequency === 'weekly' ? '周读数' : '交易日'}，比现在便宜或一样贵。`;
+  const cheaperDays = `${historyWindow}有 ${j.percentile}% 的${j.rule.frequency === 'weekly' ? '周' : '交易日'}，估值比现在低或一样。`;
   const ranges = [`低于 ${j.rule.low}`, `${j.rule.low} 至不足 ${j.rule.high}`, `${j.rule.high} 至不足 ${j.rule.extreme}`, `${j.rule.extreme} 及以上`];
 
   useEffect(() => {

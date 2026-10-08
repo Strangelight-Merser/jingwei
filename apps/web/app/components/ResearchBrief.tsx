@@ -30,7 +30,7 @@ export function ResearchUpdateNote({update}:{update?:ResearchUpdate|null}){
  if(!text)return null;
  return <p className="research-update" role="status">{text}{update.source_errors.length>0&&!['partial','failed'].includes(update.status)&&<> 部分来源本轮未完成，沿用各自原日期的资料。</>}{update.last_checked_at&&<> <span>核查于 {date(update.last_checked_at)}</span></>}{update.next_check_at&&<> 应用打开时继续核查，下次打开补查。</>}</p>;
 }
-const stanceLabel:Record<ResearchPosition['stance'],string>={conditional_add:'满足条件时可考虑新增',maintain_plan:'按原计划维护',conditional_reduce:'触发条件时考虑减少',observe:'继续观察',not_assessable:'当前资料无法评估'};
+const stanceLabel:Record<ResearchPosition['stance'],string>={conditional_add:'满足条件时可考虑新增',maintain_plan:'保持现有持仓与定投',conditional_reduce:'触发条件时考虑减少',observe:'继续观察',not_assessable:'当前资料无法评估'};
 const scopeLabel:Record<ResearchScope,string>={direction:'方向判断',comparison:'工具比较',new_money:'新增资金',held:'已有持仓',sell:'卖出或失效条件'};
 export function ArticleBrief({version}:{version:FinanceVersion}){
  return <section className="article-brief" aria-label="往期解读">

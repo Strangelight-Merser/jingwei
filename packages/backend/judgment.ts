@@ -67,7 +67,7 @@ export function valuationRuleEvidence(state: State, index: IndexCode = '000300')
   if (!r) return null;
   const j = r.judgment;
   const fromLabel = r.last_change.from ? BAND_JUDGMENTS[r.last_change.from].label : null;
-  const text = `数据截至${r.as_of}：${r.index_name}滚动市盈率${r.pe_ttm}倍；${r.window_start}以来，${r.percentile}%的${r.rule.frequency === 'weekly' ? '周读数' : '数据日'}估值不高于当日，处于${j.label}。`
+  const text = `数据截至${r.as_of}：${r.index_name}滚动市盈率${r.pe_ttm}倍；${r.window_start}以来，${r.percentile}%的${r.rule.frequency === 'weekly' ? '周' : '交易日'}估值不高于当日，处于${j.label}。`
     + `按${r.rule.name}，新增资金“${j.new_money.title}”，已有持仓“${j.held.title}”。`
     + `从当前${j.label}出发、已含缓冲的改判条件：${triggers(r)}。`
     + `上次改判在${r.last_change.date}${fromLabel ? `，由${fromLabel}改为${j.label}` : ''}。`;

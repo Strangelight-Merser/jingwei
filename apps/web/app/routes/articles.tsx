@@ -10,7 +10,7 @@ function normalized(text: string) { return text.normalize('NFKC').trim().toLocal
 function operationText(version: FinanceVersion): string[] {
   const view = version.article.operation_view;
   if (!view) return [];
-  const actionLabel = (action: typeof view.held.action) => action === '持' ? '按原计划维护' : action === '观察' ? '先观察' : action;
+  const actionLabel = (action: typeof view.held.action) => action === '持' ? '保持现有持仓与定投' : action === '观察' ? '先观察' : action;
   const text = [
     '原有持仓 临时新增 首次买入或追加 既定长期计划内的投入 原条件仍成立时按原计划执行 为什么这样判断 看哪些变化会改变判断 比较两只同方向基金 最强反方与改判条件 什么变化会改变判断',
     actionLabel(view.held.action), view.held.text, actionLabel(view.unheld.action), view.unheld.text,

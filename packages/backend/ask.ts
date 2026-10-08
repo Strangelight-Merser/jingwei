@@ -12,6 +12,7 @@ import type {AskFragment, AskPreview, AskRecord, AskResult} from '../contracts/a
 
 const questionSchema=z.string().trim().min(1).max(300);
 const outputSchema=z.object({answer:z.string().trim().min(1).max(280), cites:z.array(z.number().int().positive()).min(1), stance:z.string()}).strict();
+const readingKind=(unit:string)=>/周|星期/.test(unit)?'weekly':'daily';
 const hash=(text:string)=>createHash('sha256').update(text).digest('hex');
 
 // Older saved records have no full_window; they come from the three indices with full ten-year windows.
@@ -67,10 +68,10 @@ export function validateAskOutput(output:unknown,rule:ValuationRuleEvidence,frag
   ? /中证(?:指数)?(?:官网|官方)|(?:官方|一手)(?:数据|估值|来源)/.test(sourceClaims)||(/蛋卷基金/.test(sourceClaims)&&!parsed.answer.includes('第三方'))
   : /蛋卷基金/.test(sourceClaims))throw Error('ask_source_mismatch');
  if(rule.band==='high'&&rule.percentile<VALUATION_RULE.high&&/(?:当前|现在|估值已)[^。；！？]{0,24}(?:高于|超过)(?:近十年|已有历史)?(?:的)?(?:七成|70%)/.test(parsed.answer))throw Error('ask_buffer_mismatch');
- const confirm=rule.confirm??{count:VALUATION_RULE.confirm_days,unit:'个数据日'};
- for(const match of parsed.answer.matchAll(/连续(\d+)(个周读数|个数据日|个交易日)/g)) {
-  const unit=match[2]==='个交易日'?'个数据日':match[2];
-  if(Number(match[1])!==confirm.count||unit!==confirm.unit)throw Error('ask_confirmation_mismatch');
+ const confirm=rule.confirm??{count:VALUATION_RULE.confirm_days,unit:'个交易日'};
+ for(const match of parsed.answer.matchAll(/连续(\d+)(个周读数|个数据日|个交易日|个星期|周)/g)) {
+  // Compare by kind: trading days (交易日, older 数据日) or weeks (周, older 周读数).
+  if(Number(match[1])!==confirm.count||readingKind(match[2])!==readingKind(confirm.unit))throw Error('ask_confirmation_mismatch');
  }
  if(!hasFullWindow(rule)&&/近(?:十|10)年(?:的)?(?:中间(?:水平|区间)|偏低|偏高|最高)|(?:完整|拥有|具备)(?:近)?(?:十|10)年(?:数据|历史)/.test(parsed.answer))throw Error('ask_history_window_mismatch');
  const allowedNumbers=new Set(numbers(text)),allowedQuantities=new Set(quantities(text));

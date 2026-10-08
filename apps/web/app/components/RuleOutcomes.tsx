@@ -18,7 +18,7 @@ export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: 
     <p className="outcomes-kicker">{outcomes.index_name} · 含分红的全收益指数 · 数据截至 {outcomes.returns_as_of}</p>
     <h2 id={`rule-outcomes-title-${index}`}>历史上，判断之后发生了什么</h2>
     <p className="outcomes-conclusion">{outcomes.conclusion}</p>
-    <div className="outcomes-head" aria-hidden="true"><span>当天已确认区间</span><span>之后 3 年年化均值</span><span>3 年为正比例</span><span>之后 1 年均值</span></div>
+    <div className="outcomes-head" aria-hidden="true"><span>当天所处区间</span><span>之后 3 年年化均值</span><span>3 年为正比例</span><span>之后 1 年均值</span></div>
     <div className="outcomes-rows">
       {outcomes.bands.map(row => <div key={row.band} className={`outcomes-row tone-${row.band}${outcomes.current_band === row.band ? ' is-current' : ''}`}>
         <div className="outcomes-band"><strong>{row.label}</strong>{outcomes.current_band === row.band && <small>当前区间</small>}</div>
@@ -32,6 +32,6 @@ export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: 
       {([['one_year', '之后 1 年'], ['three_year', '之后 3 年']] as const).map(([key, label]) => <table key={key}><caption>{label} · 年化收益</caption><thead><tr><th scope="col">区间</th><th scope="col">均值</th><th scope="col">中位数</th><th scope="col">为正比例</th><th scope="col">样本天数</th></tr></thead><tbody>{outcomes.bands.map(row => <tr key={row.band}><th scope="row">{row.label}</th><FullStats stats={row[key]}/></tr>)}</tbody></table>)}
       <a href={`https://www.csindex.com.cn/#/indices/family/detail?indexCode=${outcomes.total_return_code}`} target="_blank" rel="noreferrer">中证指数官方全收益数据 ↗</a>
     </details>
-    <p className="outcomes-note">约一个完整周期，样本持有期重叠；规则不预测涨跌，历史不保证未来。</p>
+    <p className="outcomes-note">数据大约覆盖一个完整的涨跌周期；相邻日子的持有期互相重叠，样本并不独立。规则不预测涨跌，历史不保证未来。</p>
   </section>;
 }

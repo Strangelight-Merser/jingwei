@@ -103,7 +103,7 @@ test('三个联网核查独立保存：一组失败保留旧数据，成功组�
   }
 });
 
-test('新增指数：种子连续、无重复，周数据按 2 个周读数确认、日数据按 5 个交易日确认', () => {
+test('新增指数：种子连续、无重复，周数据按 2 周确认、日数据按 5 个交易日确认', () => {
   for (const index of INDEX_CODES.filter(code => !(RETURN_INDEX_CODES as readonly string[]).includes(code))) {
     const history = seedHistory(index);
     const result = evaluateValuationRule(history.points, {index})!;
@@ -115,7 +115,7 @@ test('新增指数：种子连续、无重复，周数据按 2 个周读数确�
     for (let i = 1; i < history.points.length; i++) if (history.points[i].date !== '2012-03-08') assert.ok(Date.parse(history.points[i].date) - Date.parse(history.points[i - 1].date) <= 21 * 86_400_000, `${index} ${history.points[i].date}`);
     assert.equal(result.rule.confirm_days, frequencyOf(index) === 'weekly' ? 2 : 5, index);
     assert.equal(result.rule.source, sourceOf(index));
-    assert.equal(result.rule.unit, frequencyOf(index) === 'weekly' ? '个周读数' : '个数据日');
+    assert.equal(result.rule.unit, frequencyOf(index) === 'weekly' ? '周' : '个交易日');
   }
   assert.equal(seedHistory('000852').points[0].date, '2014-09-25');
   assert.equal(seedHistory('000688').points[0].date, '2020-07-06');

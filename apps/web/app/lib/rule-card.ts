@@ -52,5 +52,5 @@ export function ruleCardData(j: PublicRuleJudgment, indexCode: string) {
 export type RuleCardData = ReturnType<typeof ruleCardData>;
 
 export function changeDescription(c: RuleCardData['last_change']) {
-  return `${c.date} · ${c.from ? `${c.from} → ` : ''}${c.to}（${c.origin === 'live' ? '实际观察' : '历史回算'}）`;
+  return `${c.date} · ${c.from ? `${c.from} → ` : ''}${c.to}（${c.origin === 'live' ? '实时判断' : '历史回测'}）`;
 }

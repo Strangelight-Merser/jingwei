@@ -15,7 +15,7 @@ export default function EmbedRuleCard() {
   const b = card.boundaries;
   return <main id="main" className="embed-page">
     <article className="embed-rule-card" aria-label="经纬规则卡">
-      <header className="embed-heading"><strong>经纬规则卡</strong><span>数据日 {card.as_of}</span></header>
+      <header className="embed-heading"><strong>经纬规则卡</strong><span>数据截至 {card.as_of}</span></header>
       <DataDateNotice asOf={card.as_of}/>
       <div className="embed-current"><div><h1>{card.index.name}</h1><span>{card.index.code}</span></div><strong className={`tone-${card.band}`}>{card.label}</strong></div>
       <p className="embed-metric">滚动市盈率 <b>{number(card.pe_ttm)} 倍</b> · {card.window_label}第 <b>{number(card.percentile)} 百分位</b></p>

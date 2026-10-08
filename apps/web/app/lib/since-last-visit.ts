@@ -22,7 +22,7 @@ export function sinceLastVisit(previous:JudgmentVisit|null,current:JudgmentVisit
  const changed=previous.band!==current.band;
  const action=changed?`已由${BAND_JUDGMENTS[previous.band].label}改为${BAND_JUDGMENTS[current.band].label}`:'判断未变';
  const progress=current.pending?`；已有 ${current.pending.days}/${current.pending.needed} 日落在${BAND_JUDGMENTS[current.pending.band].label}`:'';
- return {text:`自上次（${previous.as_of.replaceAll('-','.')}）以来：新增 ${Math.max(0,current.rows-previous.rows)} 个数据日，${action}${progress}。`,changed};
+ return {text:`自上次（${previous.as_of.replaceAll('-','.')}）以来：新增 ${Math.max(0,current.rows-previous.rows)} 个交易日的数据，${action}${progress}。`,changed};
 }
 
 export function notifyJudgmentChange(j:VisitJudgment,text:string){
