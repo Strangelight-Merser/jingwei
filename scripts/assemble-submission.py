@@ -59,6 +59,7 @@ copy(SRC / '03_经纬_技术与方法附录.pdf', OUT / '03_经纬_技术与方�
 copy(SRC / '04_经纬_路演.pptx', OUT / '04_经纬_路演.pptx')
 copy(SRC / '04_经纬_路演.pdf', OUT / '04_经纬_路演.pdf')
 copy(SRC / '05_经纬_演示视频.mp4', OUT / '05_经纬_演示视频.mp4')
+copy(SRC / '05_经纬_演示视频_30秒.mp4', OUT / '05_经纬_演示视频_30秒.mp4')
 
 software = OUT / '06_安装包'
 for name in ['Jingwei-1.0.0-rc.5-mac-arm64.dmg', 'Jingwei-1.0.0-rc.5-windows-x64-setup.exe']:

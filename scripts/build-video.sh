@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# BG: run after BA has delivered all 17 screenshots and their README.
+# BG: earlier slideshow version, superseded by scripts/record-demo.ts + build-demo-video.py (real screen recording). Do not use for the submission.
 # Usage: scripts/build-video.sh [--check]
 set -euo pipefail
 cd "$(dirname "$0")/.."
