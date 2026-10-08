@@ -33,14 +33,14 @@ def personal_cover():
     path = OUT / 'personal.json'
     personal = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
     fields = {}
-    for key in ('姓名', '学校', '学号', '指导教师', '联系方式'):
+    for key in ('姓名', '学校', '学号', '联系方式'):
         value = personal.get(key, '【待填】')
         if not isinstance(value, str):
             raise ValueError(f'个人信息字段必须为字符串：{key}')
         fields[key] = f'{key}：{value or "【待填】"}'
     return '\n'.join(('财富管理服务（兼顾青年群体服务）',
                       '  '.join(fields[k] for k in ('姓名', '学校', '学号')),
-                      '  '.join(fields[k] for k in ('指导教师', '联系方式')),
+                      fields['联系方式'],
                       '2026-10-08'))
 
 
@@ -137,7 +137,7 @@ def main():
         raise ValueError('稳健性结果已变化，请先更新路演内容')
     # title, concise copy, visual, speaker notes, source caption
     slides = [
-      ('经纬让每次基金判断都有可解释的依据。', TITLE + '\n财富管理服务（兼顾青年群体服务）\n姓名、学校、学号、指导教师、联系方式：【待填】\n2026-10-08', None,
+      ('经纬让每次基金判断都有可解释的依据。', TITLE + '\n财富管理服务（兼顾青年群体服务）\n姓名、学校、学号、联系方式：【待填】\n2026-10-08', None,
        '新钱怎么安排，手里的基金怎么看，什么变化会让判断改变？经纬把公开规则、历史结果和AI解读接在一起，给客户和客户经理同一份清楚的依据。', ''),
       ('客户需要知道怎么安排资金，也需要知道何时改变判断。', '新钱怎么安排？\n已有基金怎么看？\n什么变化会让判断改变？', None,
        '客户面对的困难是判断依据难以连起来。基金名称不同，可能跟踪同一指数。市场变化后，原来的说法为什么改变，也需要解释。', ''),

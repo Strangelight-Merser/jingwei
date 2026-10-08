@@ -128,6 +128,11 @@ def build_be(output):
     """
     brief_body = '<div class="sheet"><header><h1>'+html.escape(lines[0][2:])+'</h1><p>'+html.escape(lines[2])+'</p><p>'+html.escape(lines[4])+'</p></header><div class="columns"><main>'+left+'</main><aside><div class="metric"><strong>11 个指数 · 5 个回放</strong>公开规则判别 · 大模型解释</div><img src="'+screen.as_uri()+'"><p class="caption">今日判断｜沪深300</p><img src="'+figure.as_uri()+'"><p class="caption">数据、规则、服务与渠道</p></aside></div><footer>'+html.escape(sections['数据与来源'])+'</footer></div>'
     appendix = (ROOT/'docs/经纬_技术与方法证据附录.md').read_text()
+    personal_file = ROOT/'exports/submission/personal.json'
+    if personal_file.is_file():
+        info = json.loads(personal_file.read_text(encoding='utf-8'))
+        filled = '　'.join(f'{k}：{info.get(k) or "【待填】"}' for k in ('姓名', '学校', '学号', '联系方式'))
+        appendix = appendix.replace('姓名、学校、学号、联系方式：【待填】', filled)
     cover, body = appendix.split('<!-- cover-end -->')
     appendix_body = '<div class="cover">'+markdown.markdown(cover)+'</div>'+markdown.markdown(body, extensions=['tables']).replace('<ul>', '<ul class="references">')
     for stem, content, extra in [('02_经纬_一页摘要',brief_body,brief_css),('03_经纬_技术与方法附录',appendix_body,'')]:
@@ -153,7 +158,7 @@ def main():
     personal_path = output / 'personal.json'
     if personal_path.is_file():
         personal = json.loads(personal_path.read_text(encoding='utf-8'))
-        for key in ('姓名', '学校', '学号', '指导教师', '联系方式'):
+        for key in ('姓名', '学校', '学号', '联系方式'):
             value = personal.get(key, '【待填】')
             if not isinstance(value, str):
                 raise ValueError(f'个人信息字段必须为字符串：{key}')

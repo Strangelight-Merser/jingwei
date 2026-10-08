@@ -77,7 +77,7 @@ if form.exists():
     personal_path = SRC / 'personal.json'
     if personal_path.is_file():
         personal = json.loads(personal_path.read_text(encoding='utf-8'))
-        keys = ('姓名', '学校', '学院', '专业', '年级', '学号', '指导教师', '联系方式')
+        keys = ('姓名', '学校', '学院', '专业', '年级', '学号', '联系方式')
         fields = []
         for key in keys:
             value = personal.get(key, '【待填】')
