@@ -8,6 +8,7 @@ Run: python3 scripts/assemble-submission.py
 """
 from pathlib import Path
 import shutil
+import json
 import subprocess
 import markdown
 
@@ -71,7 +72,20 @@ subprocess.run(['git', 'archive', '--format=zip', f'--prefix=jingwei/', '-o', st
 
 form = ROOT / 'docs' / '提交表单填写.md'
 if form.exists():
-    shutil.copy2(form, OUT / '提交表单填写.md')
+    content = form.read_text(encoding='utf-8')
+    personal_path = SRC / 'personal.json'
+    if personal_path.is_file():
+        personal = json.loads(personal_path.read_text(encoding='utf-8'))
+        keys = ('姓名', '学校', '学院', '专业', '年级', '学号', '指导教师', '联系方式')
+        fields = []
+        for key in keys:
+            value = personal.get(key, '【待填】')
+            if not isinstance(value, str):
+                raise ValueError(f'个人信息字段必须为字符串：{key}')
+            fields.append(f'- **{key}**：{value or "【待填】"}')
+        content = content.replace('- **' + ' / '.join(keys) + '**：【待填】', '\n'.join(fields))
+        content = content.replace('个人信息一律由本人填写。', '个人信息待填项请本人补全。')
+    (OUT / '提交表单填写.md').write_text(content, encoding='utf-8')
 else:
     missing.append(str(form.relative_to(ROOT)))
 

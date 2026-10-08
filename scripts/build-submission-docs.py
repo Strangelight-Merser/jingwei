@@ -10,6 +10,7 @@ Writes the numbered 01–03 submission documents and the BC QA directory.
 """
 from __future__ import annotations
 import argparse
+import json
 import os
 from pypdf import PdfReader
 import re
@@ -148,7 +149,16 @@ def main():
     args = ap.parse_args()
     source = ROOT / 'docs/经纬_参赛计划书.md'
     output = ROOT / 'exports/submission'; output.mkdir(parents=True, exist_ok=True)
-    lines = source.read_text().splitlines()
+    content = source.read_text()
+    personal_path = output / 'personal.json'
+    if personal_path.is_file():
+        personal = json.loads(personal_path.read_text(encoding='utf-8'))
+        for key in ('姓名', '学校', '学号', '指导教师', '联系方式'):
+            value = personal.get(key, '【待填】')
+            if not isinstance(value, str):
+                raise ValueError(f'个人信息字段必须为字符串：{key}')
+            content = content.replace(f'{key}：【待填】', f'{key}：{value or "【待填】"}')
+    lines = content.splitlines()
     missing = []
     assets = {}
     for line in lines:

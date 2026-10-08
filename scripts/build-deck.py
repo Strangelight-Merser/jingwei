@@ -29,6 +29,22 @@ INK, RED, PAPER, MUTED = '25252B', '963749', 'F4F4F6', '6B6B74'
 TITLE = '经纬·规则e判——基于公开估值规则与大模型解读的指数基金决策服务方案'
 
 
+def personal_cover():
+    path = OUT / 'personal.json'
+    personal = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+    fields = {}
+    for key in ('姓名', '学校', '学号', '指导教师', '联系方式'):
+        value = personal.get(key, '【待填】')
+        if not isinstance(value, str):
+            raise ValueError(f'个人信息字段必须为字符串：{key}')
+        fields[key] = f'{key}：{value or "【待填】"}'
+    return '\n'.join(('财富管理服务（兼顾青年群体服务）',
+                      '  '.join(fields[k] for k in ('姓名', '学校', '学号')),
+                      '  '.join(fields[k] for k in ('指导教师', '联系方式')),
+                      '2026-10-08'))
+
+
+
 def text(slide, value, x, y, w, h, size=24, color=INK, bold=False, font='PingFang SC'):
     box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     frame = box.text_frame
@@ -178,7 +194,9 @@ def main():
             subtitle='基于公开估值规则与大模型解读的\n指数基金决策服务方案' if i==0 else title
             text(slide,subtitle,.6,2.65,5.7,1.4,20,'C9C9D0')
             if i==0: text(slide,title,.6,4.55,5.5,.9,18,'C9C9D0')
-            text(slide,'财富管理服务（兼顾青年群体服务）\n姓名、学校、学号、指导教师、联系方式：【待填】\n2026-10-08',.6,6.05,6.4,.9,11,'C9C9D0')
+            metadata = text(slide,personal_cover(),.6,5.8,6.4,1.15,11,'C9C9D0')
+            for paragraph in metadata.text_frame.paragraphs:
+                paragraph.space_after = Pt(0)
             picture(slide,home,7.25,1.4,7,4.8,.29,.065,crop_left=.11,crop_right=.11)
         else:
             text(slide,title,.6,.6,12.13,1,28,bold=True)
