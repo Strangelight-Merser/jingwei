@@ -11,6 +11,7 @@ import shutil
 import json
 import subprocess
 import markdown
+from pypdf import PdfReader, PdfWriter
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / 'exports' / 'submission'
@@ -58,6 +59,21 @@ copy(SRC / '02_经纬_一页摘要.pdf', OUT / '02_经纬_一页摘要.pdf')
 copy(SRC / '03_经纬_技术与方法附录.pdf', OUT / '03_经纬_技术与方法附录.pdf')
 copy(SRC / '04_经纬_路演.pptx', OUT / '04_经纬_路演.pptx')
 copy(SRC / '04_经纬_路演.pdf', OUT / '04_经纬_路演.pdf')
+copy(SRC / '02_经纬_一页摘要.docx', OUT / '02_经纬_一页摘要.docx')
+copy(SRC / '03_经纬_技术与方法附录.docx', OUT / '03_经纬_技术与方法附录.docx')
+
+# One PDF for upload forms that accept a single attachment (≤20 MB): summary, plan, appendix, deck, with bookmarks.
+parts = [('作品摘要', '02_经纬_一页摘要.pdf'), ('参赛作品计划书', '01_经纬_参赛计划书.pdf'),
+         ('技术与方法附录', '03_经纬_技术与方法附录.pdf'), ('路演幻灯片', '04_经纬_路演.pdf')]
+if all((SRC / name).exists() for _, name in parts):
+    writer = PdfWriter()
+    for title, name in parts:
+        start = len(writer.pages)
+        writer.append(PdfReader(SRC / name))
+        writer.add_outline_item(title, start)
+    writer.add_metadata({'/Title': '经纬·规则e判——基于公开估值规则与大模型解读的指数基金决策服务方案'})
+    with open(OUT / '经纬·规则e判_参赛作品（合并版）.pdf', 'wb') as fh:
+        writer.write(fh)
 copy(SRC / '05_经纬_演示视频.mp4', OUT / '05_经纬_演示视频.mp4')
 copy(SRC / '05_经纬_演示视频_30秒.mp4', OUT / '05_经纬_演示视频_30秒.mp4')
 
