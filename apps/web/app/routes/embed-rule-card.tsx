@@ -24,7 +24,7 @@ export default function EmbedRuleCard() {
         <div><dt>偏低区 · 分位 &lt; {b.low_percentile}</dt><dd>约 {number(b.low)} 倍以下</dd></div>
         <div><dt>偏高区 · 分位 ≥ {b.high_percentile}</dt><dd>约 {number(b.high)} 倍起</dd></div>
         <div><dt>高位区 · 分位 ≥ {b.extreme_percentile}</dt><dd>约 {number(b.extreme)} 倍起</dd></div>
-      </dl><p>连续 {b.confirm_days} {b.unit}处在同一新区间才改判（已含 {b.buffer} 个百分点缓冲）。市盈率边界随滚动窗口变化，以实际分位为准。</p>
+      </dl><p>连续 {b.confirm_days} {b.unit}处在同一新区间才改判（已含 {b.buffer} 个百分点缓冲）。区间对应的市盈率倍数会随时间小幅变化，以当天的分位为准。</p>
         {card.pending && <p className="embed-pending">{card.pending.label}正在确认：{card.pending.days}/{card.pending.needed} {b.unit}，当前判断尚未改变。</p>}
       </section>
       <section className="embed-last"><h2>上次改判</h2><p>{changeDescription(card.last_change)}</p></section>

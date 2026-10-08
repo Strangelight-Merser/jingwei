@@ -27,8 +27,8 @@ export function RuleOutcomes({index, outcomes}: {index: OutcomeIndex; outcomes: 
         <div className="outcomes-short"><span className="outcomes-mobile-label">1 年均值</span><span>{percent(row.one_year.mean)}</span><small>{number(row.one_year.sample_days)} 天</small></div>
       </div>)}
     </div>
-    <details className="outcomes-details"><summary>查看 1 年 / 3 年完整统计与计算口径</summary>
-      <p>{outcomes.method}仅纳入有完整未来窗口的日期，统计的是指数收益。</p>
+    <details className="outcomes-details"><summary>查看 1 年 / 3 年完整统计与计算方法</summary>
+      <p>{outcomes.method}只统计之后已满 1 年或 3 年的日期，算的是指数本身的收益（含分红），不扣基金费用。</p>
       {([['one_year', '之后 1 年'], ['three_year', '之后 3 年']] as const).map(([key, label]) => <table key={key}><caption>{label} · 年化收益</caption><thead><tr><th scope="col">区间</th><th scope="col">均值</th><th scope="col">中位数</th><th scope="col">为正比例</th><th scope="col">样本天数</th></tr></thead><tbody>{outcomes.bands.map(row => <tr key={row.band}><th scope="row">{row.label}</th><FullStats stats={row[key]}/></tr>)}</tbody></table>)}
       <a href={`https://www.csindex.com.cn/#/indices/family/detail?indexCode=${outcomes.total_return_code}`} target="_blank" rel="noreferrer">中证指数官方全收益数据 ↗</a>
     </details>

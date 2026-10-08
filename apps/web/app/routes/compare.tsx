@@ -62,7 +62,7 @@ export default function Compare(){
   </section>
   <p className="reader-note">仅按固定费率估算，实际以购买渠道为准。</p>
   <details className="research-sources cost-method">
-   <summary>计算口径与官方来源</summary>
+   <summary>计算方法与官方来源</summary>
    <h2>怎么算</h2>
    <p>假设这笔钱的持仓价值和赎回金额不变，销售服务费按金额 × 年费率 × 天数 ÷ 365 估算。分项先四舍五入到分，再合计和相减；实际每日计提按当年天数计算。</p>
    <p>天数请以购买渠道确认的持有自然日为准，申请买入与卖出的日期间隔可能不同。两只C类持有不足7日的赎回费均为1.50%，达到7日时，原资料概要列示为0。</p>

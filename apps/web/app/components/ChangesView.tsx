@@ -90,7 +90,7 @@ export function ChangesView({j, indexes, outcomes, onSelectIndex, notices}: {j: 
         <dt>分位</dt><dd>近 {j.rule.window_years} 年中，估值不高于当日的{j.rule.frequency === 'weekly' ? '周' : '交易日'}所占比例。数据不足十年时用全部已有数据，且至少 {j.rule.min_years} 年。</dd>
         <dt>分档</dt><dd>{(['low', 'mid', 'high', 'extreme'] as const).map(b => `${BAND_JUDGMENTS[b].label}（${BAND_JUDGMENTS[b].range}）：新增资金${BAND_JUDGMENTS[b].new_money.title}，已有持仓${BAND_JUDGMENTS[b].held.title}`).join('；')}。</dd>
         <dt>确认改判</dt><dd>新分档须连续 {j.rule.confirm_days} {j.rule.unit}成立才改判{j.rule.frequency === 'weekly' ? '（周数据的两个读数约等于日数据的五个交易日）' : ''}。</dd>
-        <dt>缓冲（v2）</dt><dd>离开已确认的区间，要比边界再多越过 {j.rule.buffer} 个百分点；例如从中间区升到偏高区要到第 {j.rule.high + j.rule.buffer} 百分位，从偏高区回到中间区要低于第 {j.rule.high - j.rule.buffer} 百分位。</dd>
+        <dt>缓冲</dt><dd>离开已确认的区间，要比边界再多越过 {j.rule.buffer} 个百分点；例如从中间区升到偏高区要到第 {j.rule.high + j.rule.buffer} 百分位，从偏高区回到中间区要低于第 {j.rule.high - j.rule.buffer} 百分位。</dd>
         <dt>各档天数</dt><dd>偏低区 {j.share_of_days.low}%、中间区 {j.share_of_days.mid}%、偏高区 {j.share_of_days.high}%、高位区 {j.share_of_days.extreme}% 的{j.rule.frequency === 'weekly' ? '周' : '交易日'}。</dd>
       </dl>
     </details>

@@ -54,7 +54,7 @@ export default function Bank() {
           <li><strong>自行渲染</strong><p>同一份数据也有 JSON：<code>/embed/rule-card.json?index={code}</code>，字段与卡片一致，银行可按自己的设计展示。</p></li>
           <li><strong>客户经理</strong><p>面对面沟通时，用一页说明把规则对应到客户的情况，并导出 PDF。</p><Link className="text-link" to="/advisor">打开客户经理说明 →</Link></li>
         </ol>
-        <p className="bank-note">规则卡只给公开规则的结果，不构成个别投资建议；上线前由银行合规审核口径。</p>
+        <p className="bank-note">规则卡只给公开规则的结果，不构成个别投资建议；上线前由银行合规部门审核表述。</p>
       </section>
     </div>
   </main>;
