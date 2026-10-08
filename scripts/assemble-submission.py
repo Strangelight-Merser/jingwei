@@ -21,10 +21,12 @@ OUT = SRC / '经纬_参赛提交包'
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 REPO_URL = 'https://github.com/Strangelight-Merser/jingwei'
 RELEASE_URL = f'{REPO_URL}/releases/tag/v1.0.0-rc.5'
-DOWNLOADS = [('05_经纬_演示视频.mp4', '演示视频（约 2 分钟）'), ('05_经纬_演示视频_30秒.mp4', '演示视频短版（30 秒）'),
-             ('06_安装包/Jingwei-1.0.0-rc.5-mac-arm64.dmg', 'Mac 安装包（Apple Silicon）'),
-             ('06_安装包/Jingwei-1.0.0-rc.5-windows-x64-setup.exe', 'Windows 安装包（64 位）'),
-             ('06_安装包/安装与使用说明.pdf', '安装步骤与常见问题')]
+# (file in the package, name on the release page, note). GitHub drops non-ASCII characters from asset names.
+DOWNLOADS = [('05_经纬_演示视频.mp4', 'jingwei-demo.mp4', '演示视频（约 2 分钟）'),
+             ('05_经纬_演示视频_30秒.mp4', 'jingwei-demo-30s.mp4', '演示视频短版（30 秒）'),
+             ('06_安装包/Jingwei-1.0.0-rc.5-mac-arm64.dmg', 'Jingwei-1.0.0-rc.5-mac-arm64.dmg', 'Mac 安装包（Apple Silicon）'),
+             ('06_安装包/Jingwei-1.0.0-rc.5-windows-x64-setup.exe', 'Jingwei-1.0.0-rc.5-windows-x64-setup.exe', 'Windows 安装包（64 位）'),
+             ('06_安装包/安装与使用说明.pdf', 'jingwei-install-guide.pdf', '安装步骤与常见问题')]
 CSS = """
 @page{size:A4;margin:18mm 18mm 20mm}
 body{font-family:'PingFang SC','Songti SC',sans-serif;font-size:10.5pt;line-height:1.75;color:#25252b}
@@ -75,8 +77,8 @@ copy(SRC / '03_经纬_技术与方法附录.docx', OUT / '03_经纬_技术与方
 def download_page(target: Path):
     """One A4 page in the documents' style: where to get the video, installers and source."""
     qr = qrcode.make(RELEASE_URL, image_factory=qrcode.image.svg.SvgPathImage, box_size=10, border=1).to_string(encoding='unicode')
-    rows = ''.join(f'<tr><td>{Path(name).name}</td><td class="n">{(OUT / name).stat().st_size / 1_048_576:.1f} MB</td><td>{note}</td></tr>'
-                   for name, note in DOWNLOADS if (OUT / name).exists())
+    rows = ''.join(f'<tr><td>{shown}</td><td class="n">{(OUT / name).stat().st_size / 1_048_576:.1f} MB</td><td>{note}</td></tr>'
+                   for name, shown, note in DOWNLOADS if (OUT / name).exists())
     page = f"""<!doctype html><meta charset="utf-8"><style>
 @page{{size:A4;margin:25.4mm 31.7mm}}
 body{{font-family:'Times New Roman','Songti SC',serif;font-size:10.5pt;line-height:20pt;color:#000}}
