@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build task BD's editable deck. Run again after BA/BB assets arrive.
+"""Build task BH's editable deck. Run again after BA/BB assets arrive.
 
 Bundled Python: ~/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
 Pass --require-assets for the submission build; missing assets then stop the build.
@@ -17,11 +17,15 @@ from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
 from PIL import Image
+from pptx.enum.shapes import MSO_SHAPE, MSO_CONNECTOR
+from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_TICK_LABEL_POSITION
+from pptx.chart.data import CategoryChartData
+from pptx.oxml.xmlchemy import OxmlElement
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'exports/submission'
 RUNTIME = Path.home() / '.cache/codex-runtimes/codex-primary-runtime/dependencies'
-INK, RED, PAPER, MUTED = '25252B', '963749', 'FAF8F5', '64646C'
+INK, RED, PAPER, MUTED = '25252B', '963749', 'F4F4F6', '6B6B74'
 TITLE = '经纬·规则e判——基于公开估值规则与大模型解读的指数基金决策服务方案'
 
 
@@ -38,6 +42,7 @@ def text(slide, value, x, y, w, h, size=24, color=INK, bold=False, font='PingFan
         p.font.size = Pt(size)
         p.font.bold = bold
         p.font.color.rgb = RGBColor.from_string(color)
+        p.line_spacing = 1.3
         p.space_after = Pt(14)
     return box
 
@@ -53,13 +58,48 @@ def asset(kind, number, keyword):
     return matches[0] if matches else None
 
 
-def picture(slide, path, x, y, w, h, crop_top=0, crop_bottom=0):
+def picture(slide, path, x, y, w, h, crop_top=0, crop_bottom=0, rounded=True, crop_left=0, crop_right=0):
     with Image.open(path) as im:
-        ratio = im.width / (im.height * (1-crop_top-crop_bottom))
-    width, height = (w, w / ratio) if ratio >= w / h else (h * ratio, h)
-    shape = slide.shapes.add_picture(str(path), Inches(x + (w-width)/2), Inches(y + (h-height)/2),
-                             width=Inches(width), height=Inches(height))
-    shape.crop_top, shape.crop_bottom = crop_top, crop_bottom
+        ratio = im.width*(1-crop_left-crop_right) / (im.height * (1-crop_top-crop_bottom))
+    width, height = (w,w/ratio) if ratio >= w/h else (h*ratio,h)
+    shape=slide.shapes.add_picture(str(path),Inches(x+(w-width)/2),Inches(y+(h-height)/2),width=Inches(width),height=Inches(height))
+    shape.crop_top,shape.crop_bottom=crop_top,crop_bottom
+    shape.crop_left,shape.crop_right=crop_left,crop_right
+    if rounded:
+        geom=shape._element.spPr.find('{http://schemas.openxmlformats.org/drawingml/2006/main}prstGeom')
+        geom.set('prst','roundRect')
+        guide=OxmlElement('a:gd'); guide.set('name','adj'); guide.set('fmla',f'val {int((12/72)/min(width,height)*100000)}')
+        geom[0].append(guide)
+        effects=OxmlElement('a:effectLst'); shadow=OxmlElement('a:outerShdw')
+        for key,value in {'blurRad':'152400','dist':'50800','dir':'5400000','algn':'ctr','rotWithShape':'0'}.items(): shadow.set(key,value)
+        color=OxmlElement('a:srgbClr'); color.set('val',INK)
+        alpha=OxmlElement('a:alpha'); alpha.set('val','16000')
+        color.append(alpha); shadow.append(color); effects.append(shadow); shape._element.spPr.append(effects)
+    return shape
+
+
+def card(slide,x,heading,fact,detail):
+    sh=slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE,Inches(x),Inches(2),Inches(3.85),Inches(4.35))
+    sh.fill.solid(); sh.fill.fore_color.rgb=RGBColor.from_string(PAPER); sh.line.fill.background(); sh.adjustments[0]=.035
+    sh._element.spPr.append(OxmlElement('a:effectLst'))
+    text(slide,heading,x+.3,2.35,3.25,.6,23,bold=True)
+    text(slide,fact,x+.3,3.45,3.25,1.25,28,RED,True)
+    text(slide,detail,x+.3,5.05,3.25,1.05,18)
+
+
+def icon(slide,x,kind):
+    def line(a,b,c,d):
+        sh=slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT,Inches(a),Inches(b),Inches(c),Inches(d))
+        sh.line.color.rgb=RGBColor.from_string(RED); sh.line.width=Pt(2)
+    if kind==0:
+        sh=slide.shapes.add_shape(MSO_SHAPE.OVAL,Inches(x),Inches(3.3),Inches(.8),Inches(.8))
+        sh.fill.background(); sh.line.color.rgb=RGBColor.from_string(RED); sh.line.width=Pt(2)
+        line(x+.4,3.5,x+.4,3.9); line(x+.2,3.7,x+.6,3.7)
+    elif kind==1:
+        for k in range(3): line(x+k*.3,4.1,x+k*.3,3.7-k*.2)
+        line(x-.1,4.2,x+.8,4.2)
+    else:
+        line(x,4.1,x+.3,3.8); line(x+.3,3.8,x+.55,3.95); line(x+.55,3.95,x+.85,3.4); line(x+.55,3.3,x+.55,4.2)
 
 
 def main():
@@ -110,32 +150,85 @@ def main():
     ]
     slides.insert(5, ('沪深300历史上低估值区间的三年年化均值更高。',
         '\n'.join(f"{row['label']}  {row['three_year']['mean']:.1f}%" for row in outcomes['bands']), None,
-        '按每天已确认的区间分组，沪深300四档之后的三年年化均值为9.6%、6.3%、3.7%、负5.1%。这是含分红指数收益，未扣基金费用。逐日起点的持有期重叠，一年期没有同样排序，不能把这张表读成收益承诺。下一页用月初取样的参数检验和ERP补充观察。',
-        f"软件收益回放；截至{outcomes['returns_as_of']}；含分红、未扣基金费用，逐日起点有重叠"))
+        '按月初已确认的区间分组，沪深300四档之后的三年年化均值为9.6%、6.3%、3.7%、负5.1%。这是含分红指数收益，未扣基金费用。月初样本的持有期重叠，一年期没有同样排序，不能把这张表读成收益承诺。下一页用月初取样的参数检验和ERP补充观察。',
+        f"软件收益回放；截至{outcomes['returns_as_of']}；含分红、未扣基金费用，月初样本有重叠"))
     resolved = [asset(*s[2]) if s[2] else None for s in slides]
     missing = [f'{i+1}: {s[2]}' for i,s in enumerate(slides) if s[2] and resolved[i] is None]
     if args.require_assets and missing:
         raise SystemExit('BA/BB素材尚未齐全：\n'+'\n'.join(missing))
-    prs = Presentation()
-    prs.slide_width, prs.slide_height = Inches(13.333333), Inches(7.5)
-    for i, (title, copy, visual, notes, source) in enumerate(slides):
-        slide = prs.slides.add_slide(prs.slide_layouts[6])
-        slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = RGBColor.from_string(PAPER)
-        text(slide, title, .65,.42,12.0,1.0,30,bold=True)
-        if visual:
-            text(slide, copy,.65,1.65,3.3,4.65,22)
-            if resolved[i]:
-                picture(slide,resolved[i],4.25,1.55,8.43,5.1,
-                        .35 if visual == ('screens',6,'收益') else 0,
-                        .38 if visual == ('screens',6,'收益') else (.50 if visual == ('screens',8,'体检结果') else 0))
-            else:
-                text(slide,'素材待接入\n'+visual[2],4.65,3.0,7.5,1.5,28,MUTED)
+    copies={
+      2:'公开数据有来源\n估值规则可复算\n解释跟随所选指数',
+      3:f"沪深300 PE {j['pe_ttm']:.2f} 倍\n第 {j['percentile']:.1f} 百分位\n新钱与持仓分别判断",
+      4:'四区间：30 / 70 / 90\n离开区间缓冲 5 点\n日 5 次、周 2 次确认',
+      6:f"历史回算 {j['stability']['changes']} 次改判\n区间排序成立 49/50 次\n完整排序成立 17/18 次",
+      7:'官方日估值覆盖 6 指数\n第三方周估值覆盖 5 指数\n收益与 ERP 覆盖 5 指数',
+      8:'导入后核对基金与金额\n识别同向重复配置\n导出一页体检报告',
+      9:'规则决定判断\n模型解释原因\n校验失败展示规则原文',
+      10:'基金频道共用规则卡\n客户经理生成一页说明\n试点测理解与解释耗时',
+      12:'桌面与网页流程已形成\n判断、持仓、解释与报告\n后续试点及 Windows 验收'}
+    home=asset('screens',1,'首页沪深300'); mobile=asset('screens',16,'手机首页'); holdings=asset('screens',8,'体检结果')
+    if not all((home,mobile,holdings)): raise SystemExit('BH需要01、08、16截图')
+    prs=Presentation(); prs.slide_width,prs.slide_height=Inches(13.333333),Inches(7.5)
+    for i,(title,copy,visual,notes,source) in enumerate(slides):
+        slide=prs.slides.add_slide(prs.slide_layouts[6]); slide.background.fill.solid()
+        dark=i in (0,13)
+        slide.background.fill.fore_color.rgb=RGBColor.from_string('1F1F24' if dark else 'FFFFFF')
+        if dark:
+            text(slide,'经纬·规则e判',.6,1.35,6.5,.9,44,'FFFFFF',True)
+            subtitle='基于公开估值规则与大模型解读的\n指数基金决策服务方案' if i==0 else title
+            text(slide,subtitle,.6,2.65,5.7,1.4,20,'C9C9D0')
+            if i==0: text(slide,title,.6,4.55,5.5,.9,18,'C9C9D0')
+            text(slide,'财富管理服务（兼顾青年群体服务）\n姓名、学校、学号、指导教师、联系方式：【待填】\n2026-10-08',.6,6.05,6.4,.9,11,'C9C9D0')
+            picture(slide,home,7.25,1.4,7,4.8,.29,.065,crop_left=.11,crop_right=.11)
         else:
-            text(slide,copy,.8,2.0,11.7,4.25,28 if i != 0 else 25,RED if i in (0,len(slides)-1) else INK)
-        text(slide,source,.65,6.95,11.6,.35,11,MUTED)
-        text(slide,f'{i+1:02d}',12.2,6.95,.5,.35,12,MUTED)
-        slide.notes_slide.notes_text_frame.text = notes
+            text(slide,title,.6,.6,12.13,1,28,bold=True)
+            if i==1:
+                for k,(heading,detail) in enumerate([('新钱怎么投','临时追加需要明确依据'),('已有基金怎么看','名字不同也可能投向相同'),('什么时候会改判','市场变化需要可回看的理由')]):
+                    x=.6+k*4.14; card(slide,x,heading,'',detail); icon(slide,x+.35,k)
+            elif i==5:
+                data=CategoryChartData(number_format='0.0'); data.categories=['偏低','中间','偏高','高位']; values=[9.6,6.3,3.7,-5.1]
+                actual=[round(row['three_year']['mean'],1) for row in outcomes['bands']]
+                if actual!=values: raise ValueError(f'收益数据已变化：{actual}')
+                data.add_series('三年年化均值',values)
+                chart=slide.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED,Inches(.75),Inches(1.95),Inches(8.25),Inches(4.6),data).chart
+                chart.has_legend=False; chart.has_title=False; chart.chart_style=2
+                chart.series[0].invert_if_negative=False
+                plot=chart.plots[0]; plot.gap_width=75; plot.has_data_labels=True
+                labels=plot.data_labels; labels.position=XL_LABEL_POSITION.OUTSIDE_END; labels.number_format='0.0\\%;-0.0\\%'; labels.font.size=Pt(20); labels.font.name='PingFang SC'
+                # Explicit point-level sign handling preserves negative columns in LibreOffice.
+                for point,color in zip(chart.series[0].points,['3F9A6E','6B7C99','C98A3A','C9536C']):
+                    invert=OxmlElement('c:invertIfNegative'); invert.set('val','0'); point._ser.get_or_add_dPt_for_point(point._idx).insert(1,invert)
+                    point.format.fill.solid(); point.format.fill.fore_color.rgb=RGBColor.from_string(color); point.format.line.fill.background()
+                chart.value_axis.minimum_scale=-8; chart.value_axis.maximum_scale=12; chart.value_axis.major_unit=4
+                chart.category_axis.tick_label_position=XL_TICK_LABEL_POSITION.LOW
+                chart.value_axis.tick_labels.number_format='0"%"'; chart.value_axis.tick_labels.font.size=Pt(12)
+                chart.category_axis.tick_labels.font.size=Pt(18); chart.category_axis.tick_labels.font.name='PingFang SC'
+                text(slide,'沪深300，v2 规则\n三年年化均值\n月初样本，含分红\n未扣基金费用\n\n样本持有期重叠\n不代表未来',9.45,2.35,3.2,3.9,18,MUTED)
+            elif i==11:
+                card(slide,.6,'合规审核','上线前审校','接续风险测评、适当性匹配与留痕')
+                card(slide,4.74,'第三方数据','64%–81%','五个A股指数同日周读数的 v2 判断一致率')
+                card(slide,8.88,'模型解释','规则原文保留','解释受规则校验约束，未通过则展示规则原文')
+                text(slide,'科创50仅20.31%，64周样本；境外指数尚无官方PE对照，不跨来源替换。',.9,6.52,11.5,.4,12,MUTED)
+            elif i==12:
+                text(slide,copies[i],.6,2.05,4.2,3.6,18)
+                picture(slide,mobile,5.05,1.8,2.18,4.85)
+                picture(slide,holdings,7.55,1.8,5.18,4.85,0,.51)
+                text(slide,'手机首页',5.05,6.65,2.18,.3,12,MUTED)
+                text(slide,'持仓体检 · 虚构持仓示例',7.55,6.65,5.18,.3,12,MUTED)
+            else:
+                text(slide,copies[i],.6,2.1,4.1,3.8,18)
+                if resolved[i]:
+                    top,bottom=0,0
+                    if visual[0]=='screens':
+                        if i==3: top,bottom=.29,.065
+                        elif i==6: top,bottom=.33,.32
+                        elif i==8: bottom=.51
+                        elif i==10: bottom=.43
+                    picture(slide,resolved[i],4.9,1.8,7.83,4.9,top,bottom,rounded=visual[0]=='screens',crop_left=.1 if visual[0]=='screens' and i not in (6,8) else 0,crop_right=.1 if visual[0]=='screens' and i not in (6,8) else 0)
+                else: text(slide,'素材待接入',4.9,3,7.8,1,24,MUTED)
+            text(slide,source,.6,7.03,11.6,.25,9,MUTED)
+        text(slide,f'{i+1:02d}',12.23,7.03,.5,.25,9,'C9C9D0' if dark else MUTED)
+        slide.notes_slide.notes_text_frame.text=notes
     OUT.mkdir(parents=True,exist_ok=True)
     target = OUT / '04_经纬_路演.pptx'
     prs.save(target)
