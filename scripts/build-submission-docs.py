@@ -220,7 +220,16 @@ def main():
             from docx.enum.text import WD_BREAK
             bp.add_run().add_break(WD_BREAK.PAGE); body_pages += 1; continue
         if line.startswith('# '):
-            p = doc.add_paragraph(line[2:], 'Title'); p.alignment = 1
+            title = line[2:]
+            # On the cover the brand and the descriptive title get their own lines, so the title never breaks mid-phrase.
+            if cover and '——' in title:
+                brand, subtitle = title.split('——', 1)
+                p = doc.add_paragraph(brand, 'Title'); p.alignment = 1
+                p.paragraph_format.space_before = Pt(95); p.paragraph_format.space_after = Pt(12)
+                p = doc.add_paragraph('', 'Title'); p.alignment = 1
+                run = p.add_run(subtitle); run.font.size = Pt(16); run.bold = False
+                p.paragraph_format.space_after = Pt(55); continue
+            p = doc.add_paragraph(title, 'Title'); p.alignment = 1
             p.paragraph_format.space_before = Pt(95); p.paragraph_format.space_after = Pt(55); continue
         if cover:
             p = doc.add_paragraph(line); p.alignment = 1; p.paragraph_format.first_line_indent = Cm(0)
