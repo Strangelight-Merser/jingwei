@@ -150,8 +150,8 @@ def main():
     ]
     slides.insert(5, ('沪深300历史上低估值区间的三年年化均值更高。',
         '\n'.join(f"{row['label']}  {row['three_year']['mean']:.1f}%" for row in outcomes['bands']), None,
-        '按月初已确认的区间分组，沪深300四档之后的三年年化均值为9.6%、6.3%、3.7%、负5.1%。这是含分红指数收益，未扣基金费用。月初样本的持有期重叠，一年期没有同样排序，不能把这张表读成收益承诺。下一页用月初取样的参数检验和ERP补充观察。',
-        f"软件收益回放；截至{outcomes['returns_as_of']}；含分红、未扣基金费用，月初样本有重叠"))
+        '按逐日已确认的区间分组，沪深300四档之后的三年年化均值为9.6%、6.3%、3.7%、负5.1%。这是含分红指数收益，未扣基金费用。逐日样本的持有期重叠，一年期没有同样排序，不能把这张表读成收益承诺。下一页用月初取样的参数检验和ERP补充观察。',
+        f"软件收益回放；截至{outcomes['returns_as_of']}；含分红、未扣基金费用，逐日样本有重叠"))
     resolved = [asset(*s[2]) if s[2] else None for s in slides]
     missing = [f'{i+1}: {s[2]}' for i,s in enumerate(slides) if s[2] and resolved[i] is None]
     if args.require_assets and missing:
@@ -203,7 +203,7 @@ def main():
                 chart.category_axis.tick_label_position=XL_TICK_LABEL_POSITION.LOW
                 chart.value_axis.tick_labels.number_format='0"%"'; chart.value_axis.tick_labels.font.size=Pt(12)
                 chart.category_axis.tick_labels.font.size=Pt(18); chart.category_axis.tick_labels.font.name='PingFang SC'
-                text(slide,'沪深300，v2 规则\n三年年化均值\n月初样本，含分红\n未扣基金费用\n\n样本持有期重叠\n不代表未来',9.45,2.35,3.2,3.9,18,MUTED)
+                text(slide,'沪深300，v2 规则\n三年年化均值\n逐日样本，含分红\n未扣基金费用\n\n样本持有期重叠\n不代表未来',9.45,2.35,3.2,3.9,18,MUTED)
             elif i==11:
                 card(slide,.6,'合规审核','上线前审校','接续风险测评、适当性匹配与留痕')
                 card(slide,4.74,'第三方数据','64%–81%','五个A股指数同日周读数的 v2 判断一致率')
