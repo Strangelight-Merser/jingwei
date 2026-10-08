@@ -310,3 +310,14 @@ BD 版结构可用，但视觉不够：封面与结尾是白底几行字；第 2
 2. **技术与方法附录**：`docs/经纬_技术与方法证据附录.md` 同样导出 `exports/submission/03_经纬_技术与方法附录.pdf`，封面风格与计划书一致；检查其中“当前”数字与软件一致（11 指数、5 个收益回放指数、297 项测试、规则 v2）。
 3. 改完源稿后重跑 `python3 scripts/build-submission-docs.py`（计划书源稿有一处修正）与 `python3 scripts/assemble-submission.py`，确认输出“尚缺”为空。
 可改：`docs/经纬_一页摘要.md`、`docs/经纬_技术与方法证据附录.md`、`scripts/build-submission-docs.py`（只做增量，不改计划书的版式结果）。提交只含这些文件。回复列出提交包目录与各文件页数、大小。
+
+### 任务 BF：提交包终审（逐页通读，发现即修源稿并重建）
+
+对象：`exports/submission/经纬_参赛提交包/` 全部文件。用 PyMuPDF（`import pymupdf`）把每份 PDF 每页渲染成 PNG 逐页看，同时抽取文本检查。逐项核对：
+1. **错字、病句、断句**：中英文与数字之间的粘连（如“沪深30013.15”）、孤字换行、标点混用、重复句。
+2. **数字一致**：与 4411 API（/publication/judgments、/publication/rule-outcomes?index=000300）和 docs/指数覆盖.md、docs/规则稳健性.md 对照；同一事实在计划书、摘要、附录、幻灯片、提交表单中的说法必须一致（逐日样本 9.6/6.3/3.7/−5.1%；月初样本表另注口径；来源一致率 64%–81%、科创50 20%；11 个指数、5 个回放指数；297 项测试；规则 v2）。
+3. **名称一致**：作品名、方向、页面名（今日判断 / 我的·持仓体检 / 我的情况 / 研究 / 机构服务）、“经纬·规则e判”写法统一。
+4. **不应出现**：真实个人信息、编造的姓名学校、“XX”“TODO”、旧导航名作为入口、旧版本号（rc.4 及以前作为当前版本）、哈希值与自检清单。
+5. **视频**：每 5 秒抽一帧检查字幕是否与画面相符、有无截断。
+6. **安装包**：确认 06 中两个文件与 releases/1.0.0-rc.5 中一致（文件大小与修改时间）。
+发现的问题直接改对应源稿（docs/*.md、scripts/build-deck.py 的文字），重跑 `python3 scripts/build-submission-docs.py`、`python3 scripts/build-deck.py`、`python3 scripts/assemble-submission.py`。提交只含改动的源文件。回复列出：每个问题、位置、改法；最后一次组装后的文件清单。
