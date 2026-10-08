@@ -13,7 +13,8 @@ await mkdir(out, {recursive: true});
 const context = await browser.newContext({viewport: {width: 1440, height: 900}, deviceScaleFactor: 2, locale: 'zh-CN'});
 const page = await context.newPage();
 const entries: string[] = [];
-const base = 'http://localhost:4410';
+// The capture server should run without JINGWEI_EDITOR_MODE, so the maintenance strip is not shown.
+const base = process.env.JINGWEI_CAPTURE_BASE ?? 'http://localhost:4410';
 async function ready() {await page.waitForLoadState('networkidle'); await page.evaluate(() => document.fonts.ready); await page.waitForTimeout(1000);}
 async function go(path: string) {await page.goto(base + path); await ready();}
 async function tag() {await page.evaluate(() => {if(document.getElementById('synthetic-label'))return; const label=document.createElement('div');label.id='synthetic-label';label.textContent='虚构持仓示例';label.style.cssText='position:fixed;top:12px;right:18px;z-index:99999;background:#963749;color:white;padding:7px 12px;border-radius:5px;font:14px "PingFang SC",sans-serif;print-color-adjust:exact';document.body.append(label);});}
