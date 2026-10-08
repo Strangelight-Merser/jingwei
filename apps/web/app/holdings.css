@@ -86,8 +86,9 @@ a.holdings-verdict:hover b{text-decoration:underline;text-underline-offset:3px}
 .holdings-page .holdings-notes{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--line);list-style:none;font-size:var(--text-caption);color:var(--muted);display:grid;gap:4px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:900px){
-  .holdings-page .holdings-report{grid-template-columns:1fr}
-  .holdings-list>ul>li{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}
+  .holdings-page .holdings-report{grid-template-columns:minmax(0,1fr)}
+  /* Same specificity as the desktop row rule, or this override never applies. */
+  .holdings-list>ul:not(.holdings-notes)>li{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}
   .holdings-exposure{grid-row:2}
   .holdings-verdict{grid-column:1/-1}
 }
