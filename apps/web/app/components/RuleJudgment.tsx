@@ -126,7 +126,7 @@ export function RuleJudgment({j: initial, indexes = [initial], today = new Date(
       <small>{j.index_name} · 本期判断 · 数据截至 {date(j.as_of)}</small>
       <h1 id="rule-judgment-title">估值处在{historySpan(j)}{j.judgment.label}，{j.judgment.new_money.title}</h1>
       {age > STALE_DAYS && <p className="rule-pending">估值已有 {age} 天没有新数据，判断仍按 {date(j.as_of)} 的数据给出；联网打开应用时会自动补查。</p>}
-      <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的数据日估值不高于当日。</p>
+      <p className="rule-fact">滚动市盈率 <b>{j.pe_ttm}</b> 倍。{date(j.window_start)} 以来，有 <b>{j.percentile}%</b> 的{j.rule.frequency === 'weekly' ? '周' : '交易日'}估值不高于当日。</p>
     </div>
     <div className="rule-actions">
       <Action who="新增资金" part={j.judgment.new_money} j={j}/>
