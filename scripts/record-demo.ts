@@ -164,7 +164,7 @@ await page.mouse.up(); await move(box.x + box.width * .5, box.y + box.height + 6
 await caption('11 个指数', 'A股用中证指数官网日估值；境外与创业板用蛋卷基金周估值，并标明第三方');
 await click(page.locator('.index-picker button', {hasText: '纳斯达克100'})); await wait(2200);
 await click(page.locator('.index-picker button', {hasText: '恒生科技'})); await wait(2200);
-await caption('缓冲与连续确认', '分位回落到 70 以下仍保持偏高区：越过缓冲并连续确认才改判，避免反复改口');
+await caption('不来回改口', '中证1000 已回到 70 分位以下，但仍按偏高区：规则留了 5 个百分点的缓冲，要连续确认才改判');
 await click(page.locator('.index-picker button', {hasText: '中证1000'})); await wait(900);
 const note = page.locator('.hero-buffer-note').first();
 if (await note.count()) {const c = await centre(note); await move(c.x - 120, c.y, 900);}
@@ -179,11 +179,11 @@ await wait(1000);
 await click(page.locator('.index-overview li a', {hasText: '沪深300'})); await wait(1600);
 
 // ——— 5. Change history and what followed
-await caption('改判记录', '十年里的每一次改判都按同一规则回测，可以用独立脚本逐条复算');
+await caption('改判记录', '十年里每一次判断的改变，都能用同一条规则重新算出来，任何人都可以核对');
 await click(page.locator('.hero-last a', {hasText: '次改判'})); await page.waitForLoadState('networkidle'); await wait(2200);
-await caption('历史回放', '沪深300 处于偏低区后持有三年年化 9.6%，高位区 −5.1%（含分红，样本重叠，不代表未来）');
+await caption('历史上发生了什么', '沪深300 在偏低区买入、持有三年，年化 9.6%；在高位区买入是 −5.1%（含分红，过去不代表未来）');
 await scrollToEl('.rule-outcomes', 80, 1600); await wait(3600);
-await caption('第二视角', '股债对照（ERP）只作参照，行动仍按公开的估值规则');
+await caption('换个角度', '再看股票相对国债划不划算，只作参照；做法仍按估值规则');
 await scrollToEl('#erp-lens', 80, 1500); await wait(2800);
 await caption('改判一览', '每次改判的日期、前后区间与当时的估值，按年整理');
 await scrollToEl('.changes-log', 80, 1500); await wait(2400);
@@ -203,7 +203,7 @@ await click(page.getByRole('button', {name: '识别文字'})); await wait(1800);
 await caption('核对识别结果', '名称自动匹配公开基金列表，可修改、删除或补充');
 await wait(1600);
 await click(page.getByRole('button', {name: '确认并保存'})); await page.waitForSelector('.holdings-report'); await wait(1500);
-await caption('钱投向了哪里', '看清资金去向、规则覆盖与按区间汇总；主动和货币基金不套规则');
+await caption('钱投向了哪里', '看清钱都放在哪、哪些有规则判断；主动型和货币基金不在规则范围内');
 await wait(2600);
 await scrollToEl('.holdings-list', 90, 1600);
 await caption('逐只看', '每只指数基金对应所跟踪指数的判断，可导出一页体检报告');
@@ -215,7 +215,7 @@ await badge(null);
 // ——— 7. Ask Jingwei (one real answer; the wait for the model is cut from the video)
 await go('/?index=000300'); await wait(500);
 await scrollToEl('.ask-jingwei', 90, 1400);
-await caption('问经纬', '规则负责判断，大模型负责解释；回答须与规则立场一致并通过数字、来源校验');
+await caption('问经纬', '规则负责判断，AI 负责解释；回答必须和规则说法一致，数字和来源都经过核对');
 await wait(1200);
 await click(page.locator('.ask-suggestions button', {hasText: '什么情况下会改判'})); await wait(700);
 const submit = page.locator('.ask-actions button[type=submit]');
@@ -230,7 +230,7 @@ await hideCaption(); await wait(4200); // let the whole answer be read
 
 // ——— 8. Bank channel
 await go('/bank'); await wait(1200);
-await caption('机构服务', '同一条规则做成规则卡，可嵌入工银手机银行页面，也提供 JSON 与客户经理一页说明');
+await caption('机构服务', '同一条规则做成规则卡，可放进工银手机银行页面，也能给客户经理生成一页说明');
 await wait(2600);
 const select = page.locator('.bank-preview select');
 await move((await centre(select)).x, (await centre(select)).y, 700);
