@@ -321,3 +321,13 @@ BD 版结构可用，但视觉不够：封面与结尾是白底几行字；第 2
 5. **视频**：每 5 秒抽一帧检查字幕是否与画面相符、有无截断。
 6. **安装包**：确认 06 中两个文件与 releases/1.0.0-rc.5 中一致（文件大小与修改时间）。
 发现的问题直接改对应源稿（docs/*.md、scripts/build-deck.py 的文字），重跑 `python3 scripts/build-submission-docs.py`、`python3 scripts/build-deck.py`、`python3 scripts/assemble-submission.py`。提交只含改动的源文件。回复列出：每个问题、位置、改法；最后一次组装后的文件清单。
+
+### 任务 BI：填写参赛个人信息（用户已同意由你填写）
+
+用户说你知道参赛个人信息（姓名、学校、学院/专业/年级如有、学号、指导教师、联系方式），请据你所知填写；**拿不准的项不要猜，保留【待填】并在回复里列出**。
+**个人信息不得进入 git**（源码包会随作品提交）：
+1. 新建 `exports/submission/personal.json`（exports/ 已被忽略），键名用中文字段，例如 {"姓名": "...", "学校": "...", "学号": "...", "指导教师": "...", "联系方式": "..."}。
+2. 改 `scripts/build-submission-docs.py`、`scripts/build-deck.py`：若该文件存在，生成时把对应的“字段：【待填】”替换为实际值（计划书封面、路演封面）；源稿 docs/*.md 中保持【待填】不变。另生成 `exports/submission/经纬_参赛提交包/提交表单填写.md` 时同样替换（可在 `scripts/assemble-submission.py` 中做），仓库里的 docs/提交表单填写.md 保持【待填】。
+3. 重跑 `python3 scripts/build-submission-docs.py`、`python3 scripts/build-deck.py`、`python3 scripts/assemble-submission.py`；渲染计划书封面与路演封面检查填写正确、排版不乱。
+4. 确认：`git grep` 搜不到这些个人信息；`07_源码/*.zip` 解压后也搜不到。
+提交只含三个脚本的改动，不含 personal.json。回复列出填了哪些字段（可只说字段名与是否已填，不必复述内容）、哪些仍为【待填】。
