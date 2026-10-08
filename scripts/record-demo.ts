@@ -179,7 +179,7 @@ await wait(1000);
 await click(page.locator('.index-overview li a', {hasText: '沪深300'})); await wait(1600);
 
 // ——— 5. Change history and what followed
-await caption('改判记录', '十年里的每一次改判都按同一规则回算，可以用独立脚本逐条复算');
+await caption('改判记录', '十年里的每一次改判都按同一规则回测，可以用独立脚本逐条复算');
 await click(page.locator('.hero-last a', {hasText: '次改判'})); await page.waitForLoadState('networkidle'); await wait(2200);
 await caption('历史回放', '沪深300 处于偏低区后持有三年年化 9.6%，高位区 −5.1%（含分红，样本重叠，不代表未来）');
 await scrollToEl('.rule-outcomes', 80, 1600); await wait(3600);
