@@ -11,12 +11,20 @@ import shutil
 import json
 import subprocess
 import markdown
+import qrcode
+import qrcode.image.svg
 from pypdf import PdfReader, PdfWriter
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / 'exports' / 'submission'
 OUT = SRC / '经纬_参赛提交包'
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+REPO_URL = 'https://github.com/Strangelight-Merser/jingwei'
+RELEASE_URL = f'{REPO_URL}/releases/tag/v1.0.0-rc.5'
+DOWNLOADS = [('05_经纬_演示视频.mp4', '演示视频（约 2 分钟）'), ('05_经纬_演示视频_30秒.mp4', '演示视频短版（30 秒）'),
+             ('06_安装包/Jingwei-1.0.0-rc.5-mac-arm64.dmg', 'Mac 安装包（Apple Silicon）'),
+             ('06_安装包/Jingwei-1.0.0-rc.5-windows-x64-setup.exe', 'Windows 安装包（64 位）'),
+             ('06_安装包/安装与使用说明.pdf', '安装步骤与常见问题')]
 CSS = """
 @page{size:A4;margin:18mm 18mm 20mm}
 body{font-family:'PingFang SC','Songti SC',sans-serif;font-size:10.5pt;line-height:1.75;color:#25252b}
@@ -62,18 +70,37 @@ copy(SRC / '04_经纬_路演.pdf', OUT / '04_经纬_路演.pdf')
 copy(SRC / '02_经纬_一页摘要.docx', OUT / '02_经纬_一页摘要.docx')
 copy(SRC / '03_经纬_技术与方法附录.docx', OUT / '03_经纬_技术与方法附录.docx')
 
-# One PDF for upload forms that accept a single attachment (≤20 MB): summary, plan, appendix, deck, with bookmarks.
-parts = [('作品摘要', '02_经纬_一页摘要.pdf'), ('参赛作品计划书', '01_经纬_参赛计划书.pdf'),
-         ('技术与方法附录', '03_经纬_技术与方法附录.pdf'), ('路演幻灯片', '04_经纬_路演.pdf')]
-if all((SRC / name).exists() for _, name in parts):
-    writer = PdfWriter()
-    for title, name in parts:
-        start = len(writer.pages)
-        writer.append(PdfReader(SRC / name))
-        writer.add_outline_item(title, start)
-    writer.add_metadata({'/Title': '经纬·规则e判——基于公开估值规则与大模型解读的指数基金决策服务方案'})
-    with open(OUT / '经纬·规则e判_参赛作品（合并版）.pdf', 'wb') as fh:
-        writer.write(fh)
+
+
+def download_page(target: Path):
+    """One A4 page in the documents' style: where to get the video, installers and source."""
+    qr = qrcode.make(RELEASE_URL, image_factory=qrcode.image.svg.SvgPathImage, box_size=10, border=1).to_string(encoding='unicode')
+    rows = ''.join(f'<tr><td>{Path(name).name}</td><td class="n">{(OUT / name).stat().st_size / 1_048_576:.1f} MB</td><td>{note}</td></tr>'
+                   for name, note in DOWNLOADS if (OUT / name).exists())
+    page = f"""<!doctype html><meta charset="utf-8"><style>
+@page{{size:A4;margin:25.4mm 31.7mm}}
+body{{font-family:'Times New Roman','Songti SC',serif;font-size:10.5pt;line-height:20pt;color:#000}}
+h1{{font-family:'Times New Roman','Heiti SC',sans-serif;font-size:16pt;font-weight:normal;text-align:center;margin:0 0 18pt}}
+p{{text-indent:2em;margin:0;text-align:justify}}
+.qr{{text-align:center;margin:18pt 0 6pt}} .qr svg{{width:45mm;height:45mm}}
+.url{{text-align:center;text-indent:0;font-size:10.5pt;margin-bottom:18pt}}
+.cap{{font-family:'Times New Roman','Heiti SC',sans-serif;font-size:9pt;text-align:center;text-indent:0;margin-top:6pt}}
+table{{width:100%;border-collapse:collapse;font-size:9pt;line-height:14pt;border-top:1.5pt solid #000;border-bottom:1.5pt solid #000}}
+th{{font-weight:normal;border-bottom:.75pt solid #000;padding:3pt 4pt;text-align:left}} td{{padding:3pt 4pt}} .n{{white-space:nowrap}}
+.note{{font-size:9pt;line-height:14pt;text-indent:0;margin-top:4pt}}
+</style><h1>演示与下载</h1>
+<p>演示视频、桌面安装包和全部源码发布在 GitHub。扫描下方二维码或打开链接，即可在发布页下载以下文件；源码仓库为 {REPO_URL}。</p>
+<div class="qr">{qr}</div><p class="url">{RELEASE_URL}</p>
+<p class="cap">表 下载文件</p>
+<table><tr><th>文件</th><th>大小</th><th>说明</th></tr>{rows}</table>
+<p class="note">注：GitHub 在部分网络环境下访问较慢，可先观看 30 秒短版视频。安装包无需另装运行环境，安装步骤见《安装与使用说明》。</p>"""
+    html = target.with_suffix('.html')
+    html.write_text(page, encoding='utf-8')
+    subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--no-pdf-header-footer',
+                    f'--print-to-pdf={target}', html.as_uri()], check=True, capture_output=True)
+    html.unlink()
+
+
 copy(SRC / '05_经纬_演示视频.mp4', OUT / '05_经纬_演示视频.mp4')
 copy(SRC / '05_经纬_演示视频_30秒.mp4', OUT / '05_经纬_演示视频_30秒.mp4')
 
@@ -87,6 +114,21 @@ source_dir = OUT / '07_源码'
 source_dir.mkdir()
 subprocess.run(['git', 'archive', '--format=zip', f'--prefix=jingwei/', '-o', str(source_dir / f'经纬_源码_{commit}.zip'), 'HEAD'], cwd=ROOT, check=True)
 
+# One PDF for upload forms that accept a single attachment (≤20 MB): summary, plan, appendix, deck, with bookmarks.
+parts = [('作品摘要', '02_经纬_一页摘要.pdf'), ('参赛作品计划书', '01_经纬_参赛计划书.pdf'),
+         ('技术与方法附录', '03_经纬_技术与方法附录.pdf'), ('路演幻灯片', '04_经纬_路演.pdf')]
+if all((SRC / name).exists() for _, name in parts):
+    writer = PdfWriter()
+    page = SRC / 'download-page.pdf'
+    download_page(page)
+    parts.insert(1, ('演示与下载', page))
+    for title, name in parts:
+        start = len(writer.pages)
+        writer.append(PdfReader(SRC / name))
+        writer.add_outline_item(title, start)
+    writer.add_metadata({'/Title': '经纬·规则e判——基于公开估值规则与大模型解读的指数基金决策服务方案'})
+    with open(OUT / '经纬·规则e判_参赛作品（合并版）.pdf', 'wb') as fh:
+        writer.write(fh)
 form = ROOT / 'docs' / '提交表单填写.md'
 if form.exists():
     content = form.read_text(encoding='utf-8')
