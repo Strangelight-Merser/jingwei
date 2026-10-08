@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build task BC only. Run with the Codex bundled Python (python-docx, Pillow).
+"""Build the BC plan and BE brief/appendix. Run with the Codex bundled Python (python-docx, Pillow).
 
 python scripts/build-submission-docs.py --allow-placeholders  # layout draft
 python scripts/build-submission-docs.py                      # submission gate
 python scripts/build-submission-docs.py --render             # also render QA PNGs
 
 No asset files are created or changed. Missing/ambiguous images fail final builds.
-Only 01_经纬_参赛计划书 outputs and its dedicated QA directory are written.
+Writes the numbered 01–03 submission documents and the BC QA directory.
 """
 from __future__ import annotations
 import argparse
@@ -85,6 +85,59 @@ def table(doc, lines):
             if ri == 0:
                 fill = OxmlElement('w:shd'); fill.set(qn('w:fill'), 'F1E9EB'); cell._tc.get_or_add_tcPr().append(fill)
     doc.add_paragraph().paragraph_format.space_after = Pt(0)
+
+
+def build_be(output):
+    """Render BE sources with a fixed one-page brief and a matching A4 appendix."""
+    import html
+    import markdown
+    chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    css = """
+    @page{size:A4;margin:22.5mm 25mm 21mm}
+    body{color:#25252b;font-family:'Songti SC';font-size:11pt;line-height:1.55}
+    h1,h2,h3{font-family:'PingFang SC';break-after:avoid}
+    h2{font-size:16pt;margin:8mm 0 3mm} h3{font-size:12pt}
+    p{margin:0 0 3mm} a{color:#963749;text-decoration:none}
+    table{border-collapse:collapse;width:100%;font-size:9pt;break-inside:avoid}
+    td,th{border:1px solid #dcdce1;padding:2mm} th{background:#f1e9eb}
+    li{margin:2mm 0;break-inside:avoid} .references{font-size:9pt;line-height:1.4} .cover{height:250mm;box-sizing:border-box;break-after:page;text-align:center;padding-top:33mm}
+    .cover h1{font-size:22pt;line-height:1.6;margin:0 0 30mm}
+    .cover p{margin:0 0 7mm}
+    """
+    brief = (ROOT/'docs/经纬_一页摘要.md').read_text()
+    lines = brief.splitlines()
+    sections = dict((part.split('\n',1)[0], part.split('\n',1)[1].strip()) for part in brief.split('\n## ')[1:])
+    left = ''.join('<section><h2>'+html.escape(k)+'</h2>'+markdown.markdown(sections[k])+'</section>' for k in ['痛点','方案','证据','工行落地','风险边界'])
+    assets = output/'assets'
+    screen = assets/'screens/01_首页沪深300.png'
+    figure = assets/'figures/01_总体架构.png'
+    for asset in [screen, figure]:
+        if not asset.is_file(): raise FileNotFoundError(asset)
+    brief_css = """
+    @page{size:A4;margin:0} body{margin:0;font-family:'PingFang SC';font-size:9.3pt;line-height:1.65}
+    .sheet{width:210mm;height:297mm;box-sizing:border-box;padding:16mm 16mm 13mm;display:flex;flex-direction:column}
+    header{border-bottom:1mm solid #963749;padding-bottom:5mm;margin-bottom:5mm}
+    header h1{font-size:26pt;margin:0 0 2mm} header p{margin:1mm 0;font-size:10pt}
+    .columns{display:grid;grid-template-columns:103mm 69mm;gap:6mm;flex:1}
+    section h2{font-size:11.5pt;color:#963749;margin:0 0 1mm} section p{margin:0 0 2mm}
+    section{margin-bottom:3mm} aside img{width:100%;height:auto;display:block;border:1px solid #dcdce1}
+    aside .caption{font-size:9pt;color:#6b6b74;margin:2mm 0 5mm}
+    footer{font-size:7.3pt;white-space:nowrap;border-top:1px solid #dcdce1;padding-top:3mm}
+    .metric{background:#e7ebf2;padding:5mm;margin-bottom:5mm}.metric strong{font-size:15pt;display:block;white-space:nowrap}
+    """
+    brief_body = '<div class="sheet"><header><h1>'+html.escape(lines[0][2:])+'</h1><p>'+html.escape(lines[2])+'</p><p>'+html.escape(lines[4])+'</p></header><div class="columns"><main>'+left+'</main><aside><div class="metric"><strong>11 个指数 · 5 个回放</strong>公开规则判别 · 大模型解释</div><img src="'+screen.as_uri()+'"><p class="caption">今日判断｜沪深300</p><img src="'+figure.as_uri()+'"><p class="caption">数据、规则、服务与渠道</p></aside></div><footer>'+html.escape(sections['数据与来源'])+'</footer></div>'
+    appendix = (ROOT/'docs/经纬_技术与方法证据附录.md').read_text()
+    cover, body = appendix.split('<!-- cover-end -->')
+    appendix_body = '<div class="cover">'+markdown.markdown(cover)+'</div>'+markdown.markdown(body, extensions=['tables']).replace('<ul>', '<ul class="references">')
+    for stem, content, extra in [('02_经纬_一页摘要',brief_body,brief_css),('03_经纬_技术与方法附录',appendix_body,'')]:
+        pdf = output/(stem+'.pdf')
+        with tempfile.TemporaryDirectory(prefix='jingwei-be-') as tmp:
+            page = Path(tmp)/'document.html'
+            page.write_text('<!doctype html><meta charset="utf-8"><style>'+css+extra+'</style>'+content)
+            subprocess.run([chrome,'--headless=new','--disable-gpu','--no-pdf-header-footer','--allow-file-access-from-files', '--user-data-dir='+str(Path(tmp)/'chrome'), '--print-to-pdf='+str(pdf),page.as_uri()],check=True,capture_output=True,timeout=120)
+        count = len(PdfReader(str(pdf)).pages)
+        if stem.startswith('02') and count != 1: raise RuntimeError(f'一页摘要应为1页，实际{count}页')
+        print(f'Built {pdf} ({count} pages)')
 
 
 def main():
@@ -243,6 +296,7 @@ def main():
             subprocess.run([sys.executable, str(renderer), str(docx), '--output_dir', str(output/'qa-bc'), '--emit_pdf'], check=True, env=env)
     print(f'Built {docx}\nBuilt {pdf}\nPlanned content sections: {body_pages}')
     if missing: print('占位草稿，尚不可提交：\n' + '\n'.join(missing))
+    build_be(output)
 
 
 if __name__ == '__main__': main()
