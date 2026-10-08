@@ -15,7 +15,7 @@ export function readingFor(s:ReaderSituation,j:Judgment|null):{title:string;body
  const nm=j.judgment.new_money,hd=j.judgment.held;
  if(held){
   const both=s.holding==='both'?'两只跟踪同一指数，同时持有不会分散风险。':'';
-  return{title:`你的持仓：${hd.title}`,body:`${hd.text}${both}`,rule:`如果还有新钱：${nm.title}。${nm.text}`};
+  return{title:`你的持仓：${hd.title}`,body:`${hd.text}${both}`,rule:`如有新增资金：${nm.title}。${nm.text}`};
  }
  if(s.long_plan==='yes')return{title:`你的新增资金：${nm.title}`,body:nm.text,rule:'按规则行事的前提是：这笔钱一年以上不用，且你已定好投入沪深300的比例。'};
  return{title:j.judgment.start,body:`规则对已有计划者的判断是「${nm.title}」。${nm.text}`,rule:'你还没有长期计划。先确定这笔钱多久不用、最多能承受多大下跌（2008年沪深300一年内跌幅超过六成），再按规则决定是否开始。'};

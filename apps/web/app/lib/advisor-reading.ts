@@ -32,7 +32,7 @@ export function advisorReading(s: ReaderSituation, j: PublicRuleJudgment) {
   if (held) return result(`你的持仓：${hd.title}`, [
     hd.text,
     ...(s.holding === 'both' ? ['两只基金跟踪同一指数，同时持有不会分散指数风险。'] : []),
-    `如果还有新钱：${nm.title}。${nm.text}`,
+    `如有新增资金：${nm.title}。${nm.text}`,
   ], money);
   return result(`你的新增资金：${nm.title}`, [
     ...(s.holding === 'unknown' ? ['持仓暂未填写，以下只说明新增资金，不推断你的现有持仓。'] : []),

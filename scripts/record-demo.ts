@@ -143,12 +143,12 @@ async function card(title: string, subtitle: string, line: string, ms: number) {
 }
 
 // ——— 1. Opening card
-await card('经纬 · 规则e判', '基于公开估值规则与大模型解读的指数基金决策服务方案', '新钱怎么投 · 手里的怎么拿 · 什么时候会改判', 4200);
+await card('经纬 · 规则e判', '基于公开估值规则与大模型解读的指数基金决策服务方案', '新增资金怎么投 · 已有持仓怎么办 · 何时改判', 4200);
 
 // ——— 2. Today's judgment
 await page.goto(`${base}/?index=000300#demo-fadein`, {waitUntil: 'networkidle'}); await wait(1100);
 await move(560, 330, 500);
-await caption('今日判断', '新钱怎么投、手里的怎么拿，公开规则直接给出做法');
+await caption('今日判断', '新增资金与已有持仓，公开规则分别给出做法');
 await wait(2600);
 const chart = page.locator('.hero-chart').first();
 const box = await chart.boundingBox();
@@ -171,7 +171,7 @@ if (await note.count()) {const c = await centre(note); await move(c.x - 120, c.y
 await wait(3200);
 
 // ——— 4. All indices
-await caption('全部指数', '一屏看清每个指数在自己历史中的位置，以及新钱的做法');
+await caption('全部指数', '一屏看清每个指数在自己历史中的位置，以及新增资金的做法');
 await scrollToEl('.index-overview', 70, 1500); await wait(800);
 const rows = page.locator('.index-overview li a');
 for (const i of [0, 4, 7, 10]) {const c = await centre(rows.nth(i)); await move(c.x - 160, c.y, 550); await wait(350);}

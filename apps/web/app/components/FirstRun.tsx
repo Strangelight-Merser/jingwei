@@ -52,7 +52,7 @@ export function FirstRun({indexes}: {indexes: Judgment[]}) {
 
     {step === 0 && <section key="welcome" className="first-run-page">
       <p className="first-run-kicker">欢迎使用经纬</p>
-      <h2 id="first-run-title" tabIndex={-1}>新钱怎么投、手里的怎么拿，<br/>按公开规则给你答案。</h2>
+      <h2 id="first-run-title" tabIndex={-1}>新增资金是否投入、已有持仓如何处理，<br/>按公开规则给出答案。</h2>
       <ol className="first-run-points">
         <li><b>每天一个判断</b><span>A股宽基、红利、科创，加上纳指、标普、恒生，按估值在近十年里的位置，给出新增资金和已有持仓的做法。</span></li>
         <li><b>改口有据可查</b><span>什么价位会改判、十年里改过几次，都能回看，也能自己复算。</span></li>

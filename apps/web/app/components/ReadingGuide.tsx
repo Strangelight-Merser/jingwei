@@ -74,7 +74,7 @@ export function ReadingGuide({judgment: j}: {judgment: Judgment}) {
           <div className="home-guide-bands">
             {BANDS.map((band, i) => <div key={band} className={j.band === band ? 'is-current' : ''}>
               <div><strong>{BAND_JUDGMENTS[band].label}</strong><small>分位 {ranges[i]}</small></div>
-              <p>新钱：{BAND_JUDGMENTS[band].new_money.title}<br/>持仓：{BAND_JUDGMENTS[band].held.title}</p>
+              <p>新增资金：{BAND_JUDGMENTS[band].new_money.title}<br/>持仓：{BAND_JUDGMENTS[band].held.title}</p>
             </div>)}
           </div>
           <p className="home-guide-confirm">当前已确认：<strong>{j.judgment.label}</strong>。新分位连续{j.rule.confirm_days}{j.rule.unit}落入另一区间才会改判；离开当前区间还要多越过 {j.rule.buffer} 个百分点，避免在边界附近反复改口。</p>
